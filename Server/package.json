@@ -1,0 +1,32 @@
+{
+  "name": "hyperledger_fabric_poc",
+  "version": "1.0.0",
+  "description": "Hyperledger Fabric POC",
+  "main": "",
+  "scripts": {
+    "start": "forever start app.js",
+    "stop": "forever stop app.js",
+    "list": "forever list"
+  },
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "express-fileupload": "^0.3.0",
+    "express-formidable": "^1.0.0",
+    "fabric-ca-client": "^1.0.2",
+    "fabric-client": "^1.0.2",
+    "grpc": "^1.6.0",
+    "node-uuid": "^1.4.8",
+    "save-file": "^1.2.0"
+  },
+  "author": "Capgemini",
+  "license": "Apache-2.0",
+  "keywords": [
+    "Hyperledger",
+    "Fabric",
+    "Blockchain",
+    "POC",
+    "Application"
+  ],
+  "devDependencies": {}
+}

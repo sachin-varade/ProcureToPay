@@ -1,0 +1,49 @@
+:host {
+	flex-grow: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+div.input {
+	position: relative;
+}
+
+div.input label {
+	position: absolute;
+	top: 0;
+	background: white;
+	padding: 5px 2px;
+}
+
+div.input input {
+	padding: 10px 20px;
+	font-size: 25px;
+	outline: 0;
+}
+
+div.input {
+	margin-top: 20px;
+}
+
+div.button {
+	background-color:#0255BB;
+	color: white;
+}
+
+#loginMainTable{
+	width: 500px;
+	align-items: left;
+	padding: 5px;
+}
+
+#logintable td {
+	padding: 5px;
+}
+
+#logintable input {
+	height: 25px;
+}
+.error-message{
+	color:red;
+}

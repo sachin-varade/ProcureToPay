@@ -1,0 +1,42 @@
+.menu-nav{
+    background: #275070;
+    color: #b8cfe0;
+}
+
+.menu-nav ul li a{
+    color: #b8cfe0;
+}
+
+.menu-nav ul li a:hover, .menu-nav ul li a:focus{
+    background: #3b6a8e;
+    color: #b8cfe0;
+}
+
+.title-main{
+    color: #3e78a4;
+}
+
+.btn-normal{
+    color:#fff;
+    background-color: #275070;
+    border-color: #275070;
+}
+
+.btn-normal:hover{
+    background-color: #3b6a8e;
+    color:#fff;
+}
+
+.btn-border{
+    color:#275070;
+    background-color: #fff;
+    border-color: #275070;
+}
+.btn-border:hover{
+    color:#fff;
+    background-color: #275070;
+    border-color: #275070;
+}
+
+
+

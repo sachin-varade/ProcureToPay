@@ -1,0 +1,48 @@
+<div class="login-wrapper clearfix">
+        <div class="bg-wrap">
+        </div>
+        <!--<img class="logo" src="assets/images/ikea-logo.png">-->
+        <div class="form-wrap">
+            
+            <form (submit)="loginUser($event)">
+                <table id="loginMainTable">
+                    <tr>
+                    
+                    <td>
+                        <table id="logintable">
+                            <tr>
+                                <td>
+                                    <h4>Login</h4>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Username</label>
+                                    <input type="text">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Password</label>
+                                    <input type="password">
+                                </td>
+                                </tr>
+                                <tr class="error-message">
+                                    <td>
+                                        {{errorMessage}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="submit" class="circle-btn btn-go" value="">
+                                    </td>
+                                </tr>
+                            </table>
+                    </td>
+                    </tr>
+    
+                </table>
+            </form>
+        </div>
+        
+    </div>

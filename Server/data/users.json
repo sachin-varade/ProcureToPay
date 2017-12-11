@@ -1,0 +1,120 @@
+{
+    "users": {
+        "farmers": [
+            {
+                "id": "WAAB0119",
+                "name": "farmer1",
+                "displayName": "Princess Royal Feedlot",
+                "role": "farmer",
+                "password": "123456",
+                "uniqueId": "F001",
+                "GUID-GTIN": "GUID-F001",
+                "certificates": ["GFSI", "BRC", "KRAV", "IFOAM"]
+            },
+            {
+                "id": "WKFL0028",
+                "name": "farmer2",
+                "displayName": " Bundarra Farm Feedlot",
+                "role": "farmer",
+                "password": "123456",
+                "uniqueId": "F002",
+                "GUID-GTIN": "GUID-F002",
+                "certificates": ["BRC", "KRAV", "IFOAM"]
+            }
+        ],
+
+        "abattoirs": [
+            {
+                "id": 1,
+                "name": "abattoir1",
+                "displayName": "abattoir1",
+                "role": "role1",
+                "password": "123456",
+                "uniqueId": "A001",
+                "GUID-GTIN": "GUID-A001",
+                "certificates": ["GFSI", "BRC", "KRAV", "IFOAM"]
+            },
+            {
+                "id": 2,
+                "name": "abattoir2",
+                "displayName": "abattoir2",
+                "role": "role1",
+                "password": "123456",
+                "uniqueId": "A002",
+                "GUID-GTIN": "GUID-A002",
+                "certificates": ["BRC", "KRAV", "IFOAM"]
+            }
+        ],
+
+        "logistics": [
+            {
+                "id": 1,
+                "name": "logistic1",
+                "displayName": "Logistics Serv. Provider 1",
+                "role": "role2",
+                "password": "123456",
+                "uniqueId": "L001",
+                "GUID-GTIN": "GUID-L001",
+                "type": "A2P"
+            },
+            {
+                "id": 2,
+                "name": "logistic2",
+                "displayName": "Logistics Serv. Provider 2",
+                "role": "role2",
+                "password": "123456",
+                "uniqueId": "L002",
+                "GUID-GTIN": "GUID-L002",
+                "type": "P2I"
+            }
+        ],
+
+        "processors": [
+            {
+                "id": 1,
+                "name": "processor1",
+                "displayName": "Meatball Manufacturer 1",
+                "role": "role3",
+                "password": "123456",
+                "uniqueId": "P001",
+                "GUID-GTIN": "GUID-P001",
+                "unit": "processor unit 1",
+                "type": "A2P"   
+            },
+            {
+                "id": 2,
+                "name": "processor2",
+                "displayName": "Meatball Manufacturer 2",
+                "role": "role3",
+                "password": "123456",
+                "uniqueId": "P002",
+                "GUID-GTIN": "GUID-P002",
+                "unit": "processor unit 2",
+                "type": "A2P"        
+            }
+        ],
+
+        "ikeas": [
+            {
+                "id": 1,
+                "name": "ikea1",
+                "displayName": "ikea1",
+                "role": "role4",
+                "password": "123456",
+                "uniqueId": "I001",
+                "GUID-GTIN": "GUID-I001",
+                "type": "P2I"               
+            },
+            {
+                "id": 2,
+                "name": "ikea2",
+                "displayName": "ikea2",
+                "role": "role4",
+                "password": "123456",
+                "uniqueId": "I002",
+                "GUID-GTIN": "GUID-I002",
+                "type": "P2I"            
+            }
+        ]
+    }
+}

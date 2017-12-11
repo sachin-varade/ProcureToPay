@@ -1,0 +1,42 @@
+.menu-nav{
+    background: #923c25;
+    color: #fff;
+}
+
+.menu-nav ul li a{
+    color: #f4dfd9;
+}
+
+.menu-nav ul li a:hover, .menu-nav ul li a:focus{
+    background: #a9543d;
+    color: #fff;
+}
+
+.title-main{
+    color: #a9553f;
+}
+
+.btn-normal{
+    color:#fff;
+    background-color: #923c25;
+    border-color: #923c25;
+}
+
+.btn-normal:hover{
+    background-color: #a9543d;
+    color:#fff;
+}
+
+.btn-border{
+    color:#923c25;
+    background-color: #fff;
+    border-color: #923c25;
+}
+.btn-border:hover{
+    color:#fff;
+    background-color: #923c25;
+    border-color: #923c25;
+}
+
+
+

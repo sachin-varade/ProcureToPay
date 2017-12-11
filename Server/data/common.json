@@ -1,0 +1,9 @@
+{
+"logisticsLocations": [
+                        {"id": 1, "name": "Location1"},
+                        {"id": 2, "name": "Location2"},
+                        {"id": 3, "name": "Location3"},
+                        {"id": 4, "name": "Location4"},
+                        {"id": 5, "name": "Location5"}
+                    ]
+} 
