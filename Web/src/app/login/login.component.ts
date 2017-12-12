@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {UserService} from '../user.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-login-form',
@@ -10,11 +10,24 @@ import {UserService} from '../user.service';
 export class LoginComponent implements OnInit {
   errorMessage: string = "";
   currentUser: any;
+  navigateLoginPath: any;
+  previousLoggedInUserRole: any;
   constructor(private router:Router, private user:UserService) { 
     this.currentUser = this.user.getUserLoggedIn();
+    
+    this.navigateLoginPath = this.router.url;
+    console.log(this.currentUser);
+
+    // if (this.currentUser) {
+    //   this.previousLoggedInUserRole = this.currentUser.role;
+    // } else {
+    //   this.previousLoggedInUserRole = "syngentaFinance";
+    // }
+    console.log("current url: " + this.router.url + " previousLoggedInUserRole: " + this.previousLoggedInUserRole);
+    
     if(this.user.isUserLoggedIn() === "true"){
       this.router.navigate([this.getDefaultRoute()]);
-    }
+    }    
   }
 
   ngOnInit() {

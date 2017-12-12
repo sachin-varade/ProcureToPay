@@ -6,7 +6,7 @@ module.exports = function () {
     var blockService = {};
 
     blockService.queryInfo = function(role){
-        if(role.toUpperCase() === 'ROLE1'){
+        if(role.toUpperCase() === 'SYNGENTAPROCURMENT'){
             return abattoirService.queryInfo()
             .then((results) => {
                 return results;
@@ -14,7 +14,7 @@ module.exports = function () {
                 throw err;
             });
         }
-        else if(role.toUpperCase() === 'ROLE3'){
+        else if(role.toUpperCase() === 'vendor'){
             return processorService.queryInfo()
             .then((results) => {
                 return results;
@@ -34,7 +34,7 @@ module.exports = function () {
     }
 
     blockService.queryBlock = function(role, blockNumber){
-        if(role.toUpperCase() === 'ROLE1'){
+        if(role.toUpperCase() === 'SYNGENTAPROCURMENT'){
             return abattoirService.queryBlock(blockNumber)
             .then((results) => {
                 return results;
@@ -42,7 +42,7 @@ module.exports = function () {
                 throw err;
             });
         }
-        else if(role.toUpperCase() === 'ROLE3'){
+        else if(role.toUpperCase() === 'vendor'){
             return processorService.queryBlock(blockNumber)
             .then((results) => {
                 return results;
@@ -50,7 +50,7 @@ module.exports = function () {
                 throw err;
             });
         }
-        else if(role.toUpperCase() === 'ROLE4'){
+        else if(role.toUpperCase() === 'logistic'){
             return ikeaService.queryBlock(blockNumber)
             .then((results) => {
                 return results;
@@ -61,7 +61,7 @@ module.exports = function () {
     }
 
     blockService.queryBlockByHash = function(role, blockHash){
-        if(role.toUpperCase() === 'ROLE1'){
+        if(role.toUpperCase() === 'SYNGENTAPROCURMENT'){
             return abattoirService.queryBlockByHash(blockHash)
             .then((results) => {
                 return results;

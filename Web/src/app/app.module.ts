@@ -35,6 +35,22 @@ const appRoutes:Routes = [
     component: LoginComponent
   },
   {
+    path: 'syngentaProcurmentLogin',
+    component: LoginComponent
+  },
+  {
+    path: 'syngentaFinanceLogin',
+    component: LoginComponent
+  },
+  {
+    path: 'vendorLogin',
+    component: LoginComponent
+  },
+  {
+    path: 'logisticLogin',
+    component: LoginComponent
+  },
+  {
     path: 'dashboard',
     canActivate: [AuthguardGuard],
     component: DashboardComponent

@@ -26,9 +26,9 @@
         "abattoirs": [
             {
                 "id": 1,
-                "name": "abattoir1",
-                "displayName": "abattoir1",
-                "role": "role1",
+                "name": "proc1",
+                "displayName": "Procurement1",
+                "role": "syngentaProcurment",
                 "password": "123456",
                 "uniqueId": "A001",
                 "GUID-GTIN": "GUID-A001",
@@ -36,9 +36,9 @@
             },
             {
                 "id": 2,
-                "name": "abattoir2",
-                "displayName": "abattoir2",
-                "role": "role1",
+                "name": "proc2",
+                "displayName": "Procurement2",
+                "role": "syngentaProcurment",
                 "password": "123456",
                 "uniqueId": "A002",
                 "GUID-GTIN": "GUID-A002",
@@ -49,9 +49,9 @@
         "logistics": [
             {
                 "id": 1,
-                "name": "logistic1",
-                "displayName": "Logistics Serv. Provider 1",
-                "role": "role2",
+                "name": "finance1",
+                "displayName": "Finance1",
+                "role": "syngentaFinance",
                 "password": "123456",
                 "uniqueId": "L001",
                 "GUID-GTIN": "GUID-L001",
@@ -59,9 +59,9 @@
             },
             {
                 "id": 2,
-                "name": "logistic2",
-                "displayName": "Logistics Serv. Provider 2",
-                "role": "role2",
+                "name": "finance2",
+                "displayName": "Finance 2",
+                "role": "syngentaFinance",
                 "password": "123456",
                 "uniqueId": "L002",
                 "GUID-GTIN": "GUID-L002",
@@ -72,9 +72,9 @@
         "processors": [
             {
                 "id": 1,
-                "name": "processor1",
-                "displayName": "Meatball Manufacturer 1",
-                "role": "role3",
+                "name": "vendor1",
+                "displayName": "Vendor 1",
+                "role": "vendor",
                 "password": "123456",
                 "uniqueId": "P001",
                 "GUID-GTIN": "GUID-P001",
@@ -83,9 +83,9 @@
             },
             {
                 "id": 2,
-                "name": "processor2",
-                "displayName": "Meatball Manufacturer 2",
-                "role": "role3",
+                "name": "vendor2",
+                "displayName": "Vendor 2",
+                "role": "vendor",
                 "password": "123456",
                 "uniqueId": "P002",
                 "GUID-GTIN": "GUID-P002",
@@ -97,9 +97,9 @@
         "ikeas": [
             {
                 "id": 1,
-                "name": "ikea1",
-                "displayName": "ikea1",
-                "role": "role4",
+                "name": "logistic1",
+                "displayName": "Logistic Provider 1",
+                "role": "logistic",
                 "password": "123456",
                 "uniqueId": "I001",
                 "GUID-GTIN": "GUID-I001",
@@ -107,9 +107,9 @@
             },
             {
                 "id": 2,
-                "name": "ikea2",
-                "displayName": "ikea2",
-                "role": "role4",
+                "name": "logistic2",
+                "displayName": "Logistic Provider 2",
+                "role": "logistic",
                 "password": "123456",
                 "uniqueId": "I002",
                 "GUID-GTIN": "GUID-I002",

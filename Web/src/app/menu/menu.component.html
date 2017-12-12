@@ -1,11 +1,11 @@
 <nav *ngIf="router.url!='/'" class="navbar navbar-dark bg-inverse menu-nav">
   <div class="container">     
-      <ul *ngIf="currentUser.role == 'role1'" class="nav navbar-nav" routerLinkActive="active">
-          <link rel="stylesheet" href="assets/themes/theme-role1.css"/>
+      <ul *ngIf="currentUser.role == 'syngentaProcurment'" class="nav navbar-nav" routerLinkActive="active">
+          <link rel="stylesheet" href="assets/themes/theme-syngentaProcurment.css"/>
           <li class="nav-item"><a class="nav-link" routerLink="dashboard">Menu1</a></li>
       </ul>
-      <ul *ngIf="currentUser.role == 'role2'" class="nav navbar-nav" routerLinkActive="active">
-          <link rel="stylesheet" href="assets/themes/theme-role1.css"/>
+      <ul *ngIf="currentUser.role == 'syngentaFinance'" class="nav navbar-nav" routerLinkActive="active">
+          <link rel="stylesheet" href="assets/themes/theme-syngentaFinance.css"/>
           <li class="nav-item"><a class="nav-link" routerLink="dashboard">Menu 2</a></li>
       </ul>
   </div>

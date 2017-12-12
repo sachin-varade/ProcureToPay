@@ -1,48 +1,79 @@
-<div class="login-wrapper clearfix">
-        <div class="bg-wrap">
+<!--  ********************* Syngenta Buyer Login Page ******************** -->
+<div *ngIf="this.navigateLoginPath == '/syngentaProcurmentLogin' || this.navigateLoginPath == '/'" class="login-wrapper cgt-buyer clearfix">
+    <div class="login-box clearfix">
+        <div class="bg-area">
         </div>
-        <!--<img class="logo" src="assets/images/ikea-logo.png">-->
-        <div class="form-wrap">
-            
+        <form (submit)="loginUser($event)">
+            <div class="form-area">
+                <img class="sgt-logo" src="assets/images/syngenta-logo.png">
+                <h3>Sign In</h3>
+                <input class="input-style-large username" type="text" placeholder="Username">
+                <input class="input-style-large password" type="text" placeholder="Password">
+                <button class="btn-block">Login</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--  ********************* Vendor Login Page ******************** -->
+<div *ngIf="this.navigateLoginPath == '/vendorLogin'" class="login-wrapper cgt-vendor clearfix">
+    <div class="login-box clearfix">
+        <div class="vendor-logo-holder">
+            <span><img src="assets/images/vendor-logo.png"></span>
+        </div>
+        <div class="bg-area">
+            <div class="welcome-text">
+                <h1>Welcome!</h1>
+                <h2>Happy <br>to see you <br>again..!</h2>
+            </div>
+            <div class="footer-bar">
+                <p>© 2012-2018 Company Name. All Right Reserved.</p>
+            </div>
+        </div>
+        <form (submit)="loginUser($event)">
+            <div class="form-area">
+                <div class="login-box-inner">
+                    <h3>Sign in</h3>
+                    <input class="input-style-large username" type="text" placeholder="Username">
+                    <input class="input-style-large password" type="text" placeholder="Password">
+                    <input type="submit" class="btn-inline" value="Login">
+                </div>
+            </div>
+        </form>
+    </div>
+        
+</div>
+
+<!--  ********************* Syngenta Finance Login Page ******************** -->
+<div *ngIf="this.navigateLoginPath == '/syngentaFinanceLogin'" class="login-wrapper cgt-finance clearfix">
+        <div class="login-box clearfix">
+            <div class="logo-area">
+                <img src="assets/images/syngenta-logo-white.png">
+            </div>
             <form (submit)="loginUser($event)">
-                <table id="loginMainTable">
-                    <tr>
-                    
-                    <td>
-                        <table id="logintable">
-                            <tr>
-                                <td>
-                                    <h4>Login</h4>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label>Username</label>
-                                    <input type="text">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <label>Password</label>
-                                    <input type="password">
-                                </td>
-                                </tr>
-                                <tr class="error-message">
-                                    <td>
-                                        {{errorMessage}}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="submit" class="circle-btn btn-go" value="">
-                                    </td>
-                                </tr>
-                            </table>
-                    </td>
-                    </tr>
-    
-                </table>
+                <div class="form-area">
+                    <input class="input-style-large username" type="text" placeholder="Username">
+                    <input class="input-style-large password" type="text" placeholder="Password">
+                    <button class="btn-inline">Login</button>
+                </div>
             </form>
         </div>
-        
+</div>
+
+<!--  ********************* Logistic provider Login Page ******************** -->
+
+<div *ngIf="this.navigateLoginPath == '/logisticLogin'" class="login-wrapper cgt-logistic clearfix">
+    <div class="dot-overlay"></div>
+    <div class="logo-area">
+        <img src="assets/images/logistic-logo.png">
     </div>
+    <div class="login-box clearfix">
+        <form (submit)="loginUser($event)">
+            <div class="form-area">
+                <input class="input-style-large username" type="text" placeholder="Username">
+                <input class="input-style-large password" type="text" placeholder="Password">
+                <button class="btn-inline">Login</button>
+            </div>
+        </form>
+    </div>
+</div>

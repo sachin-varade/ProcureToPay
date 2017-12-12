@@ -23,9 +23,21 @@ export class HeaderComponent implements OnInit {
   }
 
   logout(){    
+    var role = "";
+    role = this.currentUser.role;
+
     this.user.logout();
     this.userLoggedId = this.user.isUserLoggedIn() === "true" ? true : false;
-    this.router.navigate(['']);
+
+    if (role == "syngentaProcurment") {
+      this.router.navigate(['/syngentaProcurmentLogin']);
+    } else if (role == "syngentaFinance") {
+      this.router.navigate(['/syngentaFinanceLogin']);
+    } else if (role == "vendor") {
+      this.router.navigate(['/vendorLogin']);
+    } else if (role == "logistic") {
+      this.router.navigate(['/logisticLogin']);
+    }
   }
 
   getUser(){
