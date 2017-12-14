@@ -10,6 +10,8 @@ var users = config.network.users;
 console.log("##########################################################");
 console.log("############Now We Enroll Admins for each org#############");
 console.log("##########################################################");
+var totalNumberOfAdmins = 5;
+var totalNumberOfUsers = 5;
 enrollAllAdmin(0);
 function enrollAllAdmin(id){
     enrollAdmin.enrollAdmin(admins[id].ca, 
@@ -17,7 +19,7 @@ function enrollAllAdmin(id){
         admins[id].enrollmentSecret,
         admins[id].mspid)
         .then((user) => {
-            if(id<3){
+            if(id< totalNumberOfAdmins - 1){
                 enrollAllAdmin(id+1);
             }
             else{
@@ -33,7 +35,6 @@ function enrollAllAdmin(id){
         });
 }
 
-
 function registerAllUsers(id){
     registerUser.registerUser(users[id].ca, 
         users[id].admin, 
@@ -41,7 +42,7 @@ function registerAllUsers(id){
         users[id].affiliation,
         users[id].mspid)
         .then((user) => {
-            if(id<4){
+            if(id<totalNumberOfUsers-1){
                 registerAllUsers(id+1);
             }
             else{

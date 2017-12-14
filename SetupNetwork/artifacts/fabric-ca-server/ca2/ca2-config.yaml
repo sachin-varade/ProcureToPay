@@ -1,0 +1,55 @@
+#############################################################################
+#  The registry section controls how the fabric-ca-server does two things:
+#  1) authenticates enrollment requests which contain a username and password
+#     (also known as an enrollment ID and secret).
+#  2) once authenticated, retrieves the identity's attribute names and
+#     values which the fabric-ca-server optionally puts into TCerts
+#     which it issues for transacting on the Hyperledger Fabric blockchain.
+#     These attributes are useful for making access control decisions in
+#     chaincode.
+#  There are two main configuration options:
+#  1) The fabric-ca-server is the registry
+#  2) An LDAP server is the registry, in which case the fabric-ca-server
+#     calls the LDAP server to perform these tasks.
+#############################################################################
+registry:
+  # Maximum number of times a password/secret can be reused for enrollment
+  # (default: -1, which means there is no limit)
+  maxEnrollments: -1
+
+  # Contains identity information which is used when LDAP is disabled
+  identities:
+     - name: vendoradmin
+       pass: adminpw
+       type: client
+       affiliation: "vendorOrg.vendorDept"
+       attrs:
+          hf.Registrar.Roles: "client,user,peer,validator,auditor,ca"
+          hf.Registrar.DelegateRoles: "client,user,validator,auditor"
+          hf.Revoker: true
+          hf.IntermediateCA: true
+          userType: "vendoradmin"
+db:
+  type: sqlite3
+  #datasource: /var/hyperledger/fabric-ca-server/state2.db
+  datasource: fabric-ca-server.db
+  tls:
+      enabled: false
+      certfiles:
+        - db-server-cert.pem
+      client:
+        certfile: db-client-cert.pem
+        keyfile: db-client-key.pem
+        
+#############################################################################
+#  Affiliation section
+#############################################################################
+affiliations:
+   syngentaOrg:
+      - buyerDept
+      - financeDept
+      - logisticDept
+   vendorOrg:
+      - vendorDept
+   bankOrg:
+      - bankDept

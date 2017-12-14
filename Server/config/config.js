@@ -1,136 +1,134 @@
 var network = 
 {
-    abattoir: {
-                name: "abattoir",
+    buyer: {
+                name: "buyer",
                 channels: {
-                    abattoirchannel: {
-                                        name: "abattoirchannel",
-                                        chaincodeId: "abattoirCC"
+                    procurementchannel: {
+                        name: "procurementchannel",
+                        chaincodeId: "procurementCC"
                     }
                 },
                 anchorPeer: "grpc://localhost:7051",
                 eventHubPeer: "grpc://localhost:7053"                
               },
-    logisticA2P: {
-                name: "logisticA2P",
+    finance: {
+                name: "finance",
                 channels: {
-                    abattoirchannel: {
-                        name: "abattoirchannel",
-                        chaincodeId: "abattoirCC"
-                    }
-                },
-                anchorPeer: "grpc://localhost:8051",
-                eventHubPeer: "grpc://localhost:8053"                
-              },
-    logisticP2I: {
-                name: "logisticP2I",
-                channels: {                    
-                    processorchannel: {
-                        name: "processorchannel",
-                        chaincodeId: "processorCC"
-                    }
-                },
-                anchorPeer: "grpc://localhost:8051",
-                eventHubPeer: "grpc://localhost:8053"                
-              },
-    processor: {
-                name: "processor",
-                channels: {
-                    abattoirchannel: {
-                        name: "abattoirchannel",
-                        chaincodeId: "abattoirCC"
+                    procurementchannel: {
+                        name: "procurementchannel",
+                        chaincodeId: "procurementCC"
                     },
-                    processorchannel: {
-                        name: "processorchannel",
-                        chaincodeId: "processorCC"
+                    financechannel: {
+                        name: "financechannel",
+                        chaincodeId: "financeCC"
+                    }
+                },
+                anchorPeer: "grpc://localhost:7051",
+                eventHubPeer: "grpc://localhost:7053"                
+              },
+    logistic: {
+                name: "logistic",
+                channels: {
+                    procurementchannel: {
+                        name: "procurementchannel",
+                        chaincodeId: "procurementCC"
+                    }
+                },
+                anchorPeer: "grpc://localhost:7051",
+                eventHubPeer: "grpc://localhost:7053"                
+              },
+    vendor: {
+                name: "vendor",
+                channels: {
+                    procurementchannel: {
+                        name: "procurementchannel",
+                        chaincodeId: "procurementCC"
+                    }
+                },
+                anchorPeer: "grpc://localhost:8051",
+                eventHubPeer: "grpc://localhost:8053"                
+              },
+    bank: {
+                name: "bank",
+                channels: {
+                    financechannel: {
+                        name: "financechannel",
+                        chaincodeId: "financeCC"
                     }
                 },
                 anchorPeer: "grpc://localhost:9051",
                 eventHubPeer: "grpc://localhost:9053"                
-              },
-    ikea:     {
-                name: "ikea",
-                channels: {
-                    abattoirchannel: {
-                        name: "abattoirchannel",
-                        chaincodeId: "abattoirCC"
-                    },
-                    processorchannel: {
-                        name: "processorchannel",
-                        chaincodeId: "processorCC"
-                    },
-                    ikeachannel: {
-                        name: "ikeachannel",
-                        chaincodeId: "ikeaCC"
-                    }
-                },
-                anchorPeer: "grpc://localhost:10051",
-                eventHubPeer: "grpc://localhost:10053"                
               },
     orderer:{
         orderer: "grpc://localhost:7050"
     },
     admins: [
         {
-            ca: {url: "http://localhost:7054", name: "ca.org1.example.com"}, 
-            enrollmentID: "abattoiradmin", 
+            ca: {url: "http://localhost:7054", name: "ca.syngentaOrg.syngenta.com"}, 
+            enrollmentID: "buyeradmin", 
             enrollmentSecret: "adminpw", 
-            mspid: "Org1MSP"
+            mspid: "SyngentaOrgMSP"
         },
         {
-            ca: {url: "http://localhost:8054", name: "ca.org2.example.com"}, 
+            ca: {url: "http://localhost:7054", name: "ca.syngentaOrg.syngenta.com"}, 
+            enrollmentID: "financeadmin", 
+            enrollmentSecret: "adminpw", 
+            mspid: "SyngentaOrgMSP"
+        },
+        {
+            ca: {url: "http://localhost:7054", name: "ca.syngentaOrg.syngenta.com"}, 
             enrollmentID: "logisticadmin", 
             enrollmentSecret: "adminpw", 
-            mspid: "Org2MSP"
+            mspid: "SyngentaOrgMSP"
         },
         {
-            ca: {url: "http://localhost:9054", name: "ca.org3.example.com"}, 
-            enrollmentID: "processoradmin", 
+            ca: {url: "http://localhost:8054", name: "ca.vendorOrg.syngenta.com"}, 
+            enrollmentID: "vendoradmin", 
             enrollmentSecret: "adminpw", 
-            mspid: "Org3MSP"
-        },
+            mspid: "VendorOrgMSP"
+        },        
         {
-            ca: {url: "http://localhost:10054", name: "ca.org4.example.com"}, 
-            enrollmentID: "ikeaadmin", 
+            ca: {url: "http://localhost:9054", name: "ca.bankOrg.syngenta.com"}, 
+            enrollmentID: "bankadmin", 
             enrollmentSecret: "adminpw", 
-            mspid: "Org4MSP"
+            mspid: "BankOrgMSP"
         }
      ],
      users: [
         {
-            ca: {url: "http://localhost:7054", name: "ca.org1.example.com"}, 
-            admin: "abattoiradmin", 
-            enrollmentID: "abattoir1", 
-            affiliation: "org1.department1",
-            mspid: "Org1MSP"
+            ca: {url: "http://localhost:7054", name: "ca.syngentaOrg.syngenta.com"}, 
+            admin: "buyeradmin", 
+            enrollmentID: "buyer1", 
+            affiliation: "syngentaorg.buyerDept",
+            mspid: "SyngentaOrgMSP"
         },
         {
-            ca: {url: "http://localhost:8054", name: "ca.org2.example.com"}, 
+            ca: {url: "http://localhost:7054", name: "ca.syngentaOrg.syngenta.com"}, 
+            admin: "financeadmin", 
+            enrollmentID: "finance1", 
+            affiliation: "syngentaorg.financeDept",
+            mspid: "SyngentaOrgMSP"
+        },
+        {
+            ca: {url: "http://localhost:7054", name: "ca.syngentaOrg.syngenta.com"}, 
             admin: "logisticadmin", 
-            enrollmentID: "logisticA2P1", 
-            affiliation: "org2.department1",
-            mspid: "Org2MSP"
+            enrollmentID: "logistic1", 
+            affiliation: "syngentaorg.logisticDept",
+            mspid: "SyngentaOrgMSP"
         },
         {
-            ca: {url: "http://localhost:8054", name: "ca.org2.example.com"}, 
-            admin: "logisticadmin", 
-            enrollmentID: "logisticP2I1", 
-            affiliation: "org2.department1",
-            mspid: "Org2MSP"
+            ca: {url: "http://localhost:8054", name: "ca.vendorOrg.syngenta.com"}, 
+            admin: "vendoradmin", 
+            enrollmentID: "vendor1", 
+            affiliation: "vendororg.vendorDept",
+            mspid: "VendorOrgMSP"
         },
         {
-            ca: {url: "http://localhost:9054", name: "ca.org3.example.com"}, 
-            admin: "processoradmin", 
-            enrollmentID: "processor1", 
-            affiliation: "org3.department1",
-            mspid: "Org3MSP"
-        },
-        {
-            ca: {url: "http://localhost:10054", name: "ca.org4.example.com"}, 
-            admin: "ikeaadmin", 
-            enrollmentID: "ikea1", 
-            affiliation: "org4.department1",
-            mspid: "Org4MSP"
+            ca: {url: "http://localhost:9054", name: "ca.bankOrg.syngenta.com"}, 
+            admin: "bankadmin", 
+            enrollmentID: "bank1", 
+            affiliation: "bankorg.bankDept",
+            mspid: "BankOrgMSP"
         }
     ]
 };
