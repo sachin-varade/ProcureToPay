@@ -1,13 +1,13 @@
 'use strict';
 
-var abattoirService, logisticService, processorService, ikeaService, userService;
+var procurementService, financeService, logisticService, vendorService, bankService, userService;
 
-module.exports = function () {
+module.exports = function (procurementService, financeService, logisticService, vendorService, bankService, userService) {
     var blockService = {};
 
     blockService.queryInfo = function(role){
         if(role.toUpperCase() === 'PROCUREMENT'){
-            return abattoirService.queryInfo()
+            return procurementService.queryInfo()
             .then((results) => {
                 return results;
             }).catch((err) => {
@@ -35,7 +35,7 @@ module.exports = function () {
 
     blockService.queryBlock = function(role, blockNumber){
         if(role.toUpperCase() === 'PROCUREMENT'){
-            return abattoirService.queryBlock(blockNumber)
+            return procurementService.queryBlock(blockNumber)
             .then((results) => {
                 return results;
             }).catch((err) => {
@@ -62,7 +62,7 @@ module.exports = function () {
 
     blockService.queryBlockByHash = function(role, blockHash){
         if(role.toUpperCase() === 'PROCUREMENT'){
-            return abattoirService.queryBlockByHash(blockHash)
+            return procurementService.queryBlockByHash(blockHash)
             .then((results) => {
                 return results;
             }).catch((err) => {

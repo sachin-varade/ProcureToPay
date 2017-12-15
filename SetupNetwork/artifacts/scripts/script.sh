@@ -269,8 +269,8 @@ instantiateChaincode 2 "financeCC" "1.0" '{"Args":["init","a","100","b","200"]}'
 
 #Query on chaincode on Peer0/syngentaOrg
 # echo "Querying chaincode"
-# CHANNEL_NAME="abattoirchannel"
-# chaincodeQuery 0 100 "abattoirCC" '{"Args":["getAllParts","a"]}'
+CHANNEL_NAME="procurementchannel"
+chaincodeQuery 0 100 "procurementCC" '{"Args":["getAllAbattoirReceived","details",""]}'
 # chaincodeQuery 1 100 "abattoirCC" '{"Args":["getAllParts","a"]}'
 # CHANNEL_NAME="processorchannel"
 # chaincodeQuery 1 100 "processorCC" '{"Args":["getAllVehicles","a"]}'

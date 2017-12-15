@@ -27,6 +27,7 @@ import { AlertService } from './services/alert.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { InterceptorService } from "./services/interceptor.service";
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
+import { PoCreationComponent } from './procurement/po-creation/po-creation.component';
 
 const appRoutes:Routes = [
   {
@@ -63,12 +64,17 @@ const appRoutes:Routes = [
     path: 'block/recent',
     canActivate: [AuthguardGuard],
     component: BlockComponent
-  }
+  },
+  {
+    path: 'procurement/create-po',
+    canActivate: [AuthguardGuard],
+    component: PoCreationComponent
+  }  
 ]
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, LoginComponent, FooterComponent, 
-    DashboardComponent, DialogComponent, BlockComponent, AlertComponent],
+    DashboardComponent, DialogComponent, BlockComponent, AlertComponent, PoCreationComponent],
   imports: [  
   RouterModule.forRoot(appRoutes),
   FormsModule,

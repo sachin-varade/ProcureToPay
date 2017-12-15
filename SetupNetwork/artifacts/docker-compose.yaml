@@ -12,7 +12,7 @@ services:
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
       - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.syngentaOrg.syngenta.com-cert.pem
-      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/dbdc2b708df564dd63ea697e77c61162521d6a9f12bebe68d17c339ba64adc47_sk
+      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/ed43de96fab8b12b6854e76e3098a54487b40a53a5acc9995db726791f7e6bd2_sk
       #- FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-tlsca-server-config/tlsca.syngentaOrg.syngenta.com-cert.pem
       #- FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-tlsca-server-config/94758aa1f9c2abdc36feca8f40f77f00a3e1c95d6a6e457cf70d815e6d75c6fb_sk
       - FABRIC_CA_SERVER_CA_NAME=ca.syngentaOrg.syngenta.com
@@ -34,7 +34,7 @@ services:
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
       - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.vendorOrg.syngenta.com-cert.pem
-      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/b02c79af34a51e334dd17cc1202f3a5887a53eba760dbf22b5444ac39213c7f1_sk
+      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/87497d0fe5633efe9c8c4fce67bdc068ec8629e75897dc617c6e0e91db68fd14_sk
       - FABRIC_CA_SERVER_CA_NAME=ca.vendorOrg.syngenta.com
       # - FABRIC_CA_SERVER_TLS_ENABLED=true
       # - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-tlsca-server-config/tlsca.vendorOrg.syngenta.com-cert.pem
@@ -54,7 +54,7 @@ services:
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
       - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.bankOrg.syngenta.com-cert.pem
-      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/11145d692ddbc2453ff0c58cc618ec44428e41c6a2d3760a75f81afd571ef33d_sk
+      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/8afdfcfeadcf0f8c9211679185796ab6af728cf954484966660a0a10c36605fa_sk
       - FABRIC_CA_SERVER_CA_NAME=ca.bankOrg.syngenta.com
       # - FABRIC_CA_SERVER_TLS_ENABLED=true
       # - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-tlsca-server-config/tlsca.bankOrg.syngenta.com-cert.pem
