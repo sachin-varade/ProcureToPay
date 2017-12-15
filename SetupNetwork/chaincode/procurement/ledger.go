@@ -22,7 +22,7 @@ package main
 import (
 	"fmt"
 	"encoding/json"
-	"github.com/hyperledger/fabric/core/chaincode/shim"	
+	"github.com/hyperledger/fabric/core/chaincode/shim"
 	pb "github.com/hyperledger/fabric/protos/peer"
 )
 // ============================================================================================================================
@@ -39,112 +39,53 @@ func main() {
 type SimpleChaincode struct {
 }
 
-//ReceiptBatchId is unique
-type AbattoirMaterialReceived struct {
-	AbattoirId			string	`json:"abattoirId"`
-	PurchaseOrderReferenceNumber	string	`json:"purchaseOrderReferenceNumber"`
-	ReceiptBatchId	string	`json:"receiptBatchId"`	
-	LivestockBatchId 	string	`json:"livestockBatchId"`		
-	ReceiptOn				string	`json:"receiptOn"`
-	FarmerId			string	`json:"farmerId"`	
-	GUIDNumber			string	`json:"guidNumber"`
-	MaterialName		string	`json:"materialName"`
-	MaterialGrade		string	`json:"materialGrade"`
-	UsedByDate			string	`json:"usedByDate"`
-	Quantity			string	`json:"quantity"`
-	QuantityUnit			string	`json:"quantityUnit"`	
-	Certificates		[]FarmersCertificate	`json:"certificates"`
-	UpdatedOn			string	`json:"updatedOn"`
-	UpdatedBy			string	`json:"updatedBy"`
+//PurchaseOrderNumber is unique
+type PurchaseOrder struct {
+	PurchaseOrderNumber			string		`json:"purchaseOrderNumber"`
+	PurchaseOrderDate			string		`json:"purchaseOrderDate"`
+	ShoppingOrderNumber			string		`json:"shoppingOrderNumber"`
+	ShoppingOrderDate			string		`json:"ShoppingOrderDate"`
+	OrderBy						string		`json:"orderBy"`
+	BuyerCompany				string		`json:"buyerCompany"`
+	BuyerDepartment				string		`json:"buyerDepartment"`
+	BuyerContactPerson			string		`json:"buyerContactPerson"`
+	BuyerContactPersonAddress	string		`json:"buyerContactPersonAddress"`
+	BuyerContactPersonPhone		string		`json:"buyerContactPersonPhone"`
+	BuyerContactPersonEmail		string		`json:"buyerContactPersonEmail"`
+	DeliverToPersonName			string		`json:"deliverToPersonName"`
+	DeliverToPersonAddress		string		`json:"DeliverToPersonAddress"`
+	InvoiceAddress				string		`json:"InvoiceAddress"`
+	TotalOrderAmount			string		`json:"totalOrderAmount"`
+	AccountingType				string		`json:"accountingType"`
+	CostCenter					string		`json:"costCenter"`
+	GLAccount					string		`json:"glAccount"`
+	TermsOfPayment				string		`json:"TermsOfPayment"`
+	InternalNotes				string		`json:"internalNotes"`
+	ExternalNotes				string		`json:"externalNotes"`
+	OrderedMaterial				[]OrderMaterial	`json:"orderedMaterial"`
 }
 
-type FarmersCertificate struct {
-	Id			string	`json:"id"`	
-	Name			string	`json:"name"`
-	FileName			string	`json:"fileName"`
-	Hash			string	`json:"hash"`
+type OrderMaterial struct {
+	OrderMaterialId				string		`json:"orderMaterialId"`
+	BuyerMaterialGroup			string		`json:"buyerMaterialGroup"`
+	ProductName					string		`json:"productName"`
+	ProductDescription			string		`json:"productDescription"`
+	Quantity					string		`json:"quantity"`
+	QuantityUnit				string		`json:"quantityUnit"`
+	PricePerUnit				string		`json:"pricePerUnit"`	
+	Currency					string		`json:"currency"`
 }
 
-type AbattoirDispatch struct {
-	AbattoirId				string	`json:"abattoirId"`
-	ConsignmentNumber		string	`json:"consignmentNumber"`
-	PurchaseOrderReferenceNumber		string	`json:"purchaseOrderReferenceNumber"`
-	ReceiptBatchId				string	`json:"receiptBatchId"`
-	DispatchDate				string	`json:"dispatchDate"`
-	LogisticId				string	`json:"logisticId"`
-	SalesOrder				string	`json:"salesOrder"`
-		
-	GUIDNumber				string	`json:"guidNumber"`
-	MaterialName			string	`json:"materialName"`
-	MaterialGrade			string	`json:"materialGrade"`
-	FatCoverClass			string	`json:"fatCoverClass"`
-	
-	TemperatureStorageMin	string	`json:"temperatureStorageMin"`
-	TemperatureStorageMax	string	`json:"temperatureStorageMax"`
-	ProductionDate			string	`json:"productionDate"`
-	UsedByDate				string	`json:"usedByDate"`
-	Quantity				string	`json:"quantity"`	
-	QuantityUnit				string	`json:"quantityUnit"`
-	UpdatedOn			string	`json:"updatedOn"`
-	UpdatedBy			string	`json:"updatedBy"`	
+
+type AllPurchaseOrderNumbers struct{
+	PurchaseOrderNumbers []string `json:"purchaseOrderNumbers"`
 }
 
-type LogisticTransaction struct {	
-	LogisticId				string	`json:"logisticId"`
-	LogisticType					string	`json:"logisticType"`
-	ConsignmentNumber				string	`json:"consignmentNumber"`		
-	RouteId							string	`json:"routeId"`
-	AbattoirConsignmentNumber			string	`json:"abattoirConsignmentNumber"`	
-	VehicleId						string	`json:"vehicleId"`
-	VehicleTypeId						string	`json:"vehicleTypeId"`
-	DispatchDateTime					string	`json:"dispatchDateTime"`
-	ExpectedDeliveryDateTime		string	`json:"expectedDeliveryDateTime"`
-	ActualDeliveryDateTime			string	`json:"actualDeliveryDateTime"`
-	TemperatureStorageMin			string	`json:"temperatureStorageMin"`
-	TemperatureStorageMax			string	`json:"temperatureStorageMax"`
-	Quantity						string	`json:"quantity"`	
-	QuantityUnit						string	`json:"quantityUnit"`	
-	CurrentStatus						string	`json:"currentStatus"`	
-	HandlingInstruction				string	`json:"handlingInstruction"`
-	ShipmentStatus					[]ShipmentStatusTransaction	`json:"shipmentStatus"`
-	IotTemperatureHistory			[]IotHistory `json:"iotTemperatureHistory"`
-	UpdatedOn			string	`json:"updatedOn"`
-	UpdatedBy			string	`json:"updatedBy"`
+type AllPurchaseOrderDetails struct{
+	PurchaseOrders []PurchaseOrder `json:"purchaseOrders"`
 }
 
-type ShipmentStatusTransaction struct {
-	ShipmentStatus 			string 	`json:"shipmentStatus"`
-	ShipmentDate 			string  `json:"shipmentDate"`
-}
 
-type IotHistory struct {
-	Temperature	string `json:"temperature"`
-	Location	string `json:"location"`
-	UpdatedOn			string	`json:"updatedOn"`
-}
-
-type AllAbattoirReceivedIds struct{
-	ReceiptBatchIds []string `json:"receiptBatchIds"`
-}
-type AllAbattoirReceivedDetails struct{
-	AbattoirMaterialReceived []AbattoirMaterialReceived `json:"abattoirMaterialReceived"`
-}
-
-type AllAbattoirDispatchIds struct{
-	ConsignmentNumbers []string `json:"consignmentNumbers"`
-}
-
-type AllAbattoirDispatchDetails struct{
-	AbattoirMaterialDispatch []AbattoirDispatch `json:"abattoirMaterialDispatch"`
-}
-
-type AllLogisticTransactionIds struct{
-	ConsignmentNumbers []string `json:"ConsignmentNumbers"`
-}
-
-type AllLogisticTransactionDetails struct{
-	LogisticTransactions []LogisticTransaction `json:"logisticTransactions"`
-}
 
 // ============================================================================================================================
 // Init - initialize the chaincode 
@@ -158,11 +99,11 @@ type AllLogisticTransactionDetails struct{
 func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response {
 	fmt.Println("App Is Starting Up")
 	_, args := stub.GetFunctionAndParameters()
-	var err error	
+	var err error
 	
 	fmt.Println("Init() args count:", len(args))
 	fmt.Println("Init() args found:", args)
-	
+
 	// expecting 1 arg for instantiate or upgrade
 	if len(args) == 1 {
 		fmt.Println("Init() arg[0] length", len(args[0]))
@@ -175,23 +116,9 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response {
 		}
 	}
 	
-	var allAbattoirReceivedIds AllAbattoirReceivedIds
-	jsonAsBytesPurchaseOrderReferenceNumbers, _ := json.Marshal(allAbattoirReceivedIds)
-	err = stub.PutState("allAbattoirReceivedIds", jsonAsBytesPurchaseOrderReferenceNumbers)
-	if err != nil {		
-		return shim.Error(err.Error())
-	}
-	
-	var allAbattoirDispatchIds AllAbattoirDispatchIds
-	jsonAsBytesAllAbattoirDispatchIds, _ := json.Marshal(allAbattoirDispatchIds)
-	err = stub.PutState("allAbattoirDispatchIds", jsonAsBytesAllAbattoirDispatchIds)
-	if err != nil {		
-		return shim.Error(err.Error())
-	}
-	
-	var allLogisticTransactionIds AllLogisticTransactionIds
-	jsonAsBytesAllLogisticTransactionIds, _ := json.Marshal(allLogisticTransactionIds)
-	err = stub.PutState("allLogisticTransactionIds", jsonAsBytesAllLogisticTransactionIds)
+	var allPurchaseOrderNumbers AllPurchaseOrderNumbers
+	jsonAsBytesAllPurchaseOrderNumbers, _ := json.Marshal(allPurchaseOrderNumbers)
+	err = stub.PutState("allPurchaseOrderNumbers", jsonAsBytesAllPurchaseOrderNumbers)
 	if err != nil {		
 		return shim.Error(err.Error())
 	}
@@ -211,24 +138,10 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 	// Handle different functions
 	if function == "init" {                    //initialize the chaincode state, used as reset
 		return t.Init(stub)
-	} else if function == "getAllAbattoirReceived" {
-		return getAllAbattoirReceived(stub, args[0], args[1])	
-	} else if function == "saveAbattoirReceived" {
-		return saveAbattoirReceived(stub, args)
-	} else if function == "getAllAbattoirDispatch" {
-		return getAllAbattoirDispatch(stub, args[0], args[1])
-	} else if function == "saveAbattoirDispatch" {
-		return saveAbattoirDispatch(stub, args)
-	} else if function == "getAllLogisticTransactions" {
-		return getAllLogisticTransactions(stub, args[0], args[1])
-	} else if function == "saveLogisticTransaction" {
-		return saveLogisticTransaction(stub, args)
-	} else if function == "updateLogisticTransactionStatus" {
-		return updateLogisticTransactionStatus(stub, args)
-	} else if function == "pushIotDetailsToLogisticTransaction" {
-		return pushIotDetailsToLogisticTransaction(stub, args)
-	} else if function == "getUniqueId" {
-		return getUniqueId(stub, args[0], args[1])
+	} else if function == "getAllPurchaseOrders" {
+		return getAllPurchaseOrders(stub, args[0], args[1])
+	} else if function == "savePurchaseOrder" {
+		return savePurchaseOrder(stub, args)
 	}
 	
 	// error out
