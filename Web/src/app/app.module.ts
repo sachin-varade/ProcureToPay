@@ -69,7 +69,7 @@ const appRoutes:Routes = [
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, LoginComponent, FooterComponent, 
-    DashboardComponent, DialogComponent, MenuComponent, BlockComponent, AlertComponent],
+    DashboardComponent, DialogComponent, BlockComponent, AlertComponent],
   imports: [  
   RouterModule.forRoot(appRoutes),
   FormsModule,
