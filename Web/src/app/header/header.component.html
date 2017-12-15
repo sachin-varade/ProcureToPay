@@ -21,7 +21,7 @@
       <div class="container">  
           
           <ul *ngIf="getUser().role == 'procurement'" class="nav navbar-nav" routerLinkActive="active">
-              <li class="nav-item"><a class="nav-link" routerLink="dashboard">Menu 1</a></li>
+              <li class="nav-item"><a class="nav-link" routerLink="procurement/create-po">Create Purchase Order</a></li>
               <li class="nav-item"><a class="nav-link" routerLink="block/recent">Blocks</a></li>
           </ul>
           <ul *ngIf="getUser().role == 'syngentaFinance'" class="nav navbar-nav" routerLinkActive="active">

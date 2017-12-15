@@ -1,0 +1,8 @@
+# certificates
+/artifacts/fabric-ca-server/ca1/msp
+/artifacts/fabric-ca-server/ca1/fabric-ca-server.db
+/artifacts/fabric-ca-server/ca2/msp
+/artifacts/fabric-ca-server/ca2/fabric-ca-server.db
+/artifacts/fabric-ca-server/ca3/msp
+/artifacts/fabric-ca-server/ca3/fabric-ca-server.db
+
