@@ -72,6 +72,7 @@ const appRoutes:Routes = [
   }  
 ]
 
+
 @NgModule({
   declarations: [AppComponent, HeaderComponent, LoginComponent, FooterComponent, 
     DashboardComponent, DialogComponent, BlockComponent, AlertComponent, PoCreationComponent],
