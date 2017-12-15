@@ -1,0 +1,517 @@
+
+    
+    /* You can add global styles to this file, and also import other style files */
+    
+    body{
+        background: #f5f5f5;
+    }
+    
+    
+    ul, li{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    .title-main{
+        font-family: 'sans-serif', 'roboto','helvetica';
+        font-weight: 100;
+        font-size: 28px;
+        padding-bottom: 7px;
+        margin-bottom: 30px;
+        border-bottom: solid 1px #ccc;
+    }
+    
+    .form-control{
+        background: #fff;
+        border-radius: 0;
+        box-shadow: none;
+    }
+    
+    .form-control:focus{
+        box-shadow: none;
+    }
+    
+    .form-control optgroup{
+        border: none !important;
+        outline: none !important;
+    }
+    
+    option{
+        border: none;
+        outline: none;
+        padding: 10px !important;
+        line-height: 19px !important;
+    }
+    .align-center{
+        text-align: center;
+    }
+    
+    .checkbox-style{
+        display: inline-block;
+        padding: 9px 12px;
+        border-radius: 4px;
+        border: solid 1px #ccc;
+        background: #fff;
+        line-height: 16px;
+        font-size: 14px;
+        font-weight: normal;
+        margin-right: 5px;
+        position: relative;
+        min-width: 70px;
+        text-align: center;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    
+    .checkbox-style.selected{
+        border-color: #6d7be0;
+    }
+    
+    .checkbox-style input[type=checkbox]{
+        width: 16px;
+        height: 16px;
+        margin-top: -3px;
+        opacity: 0;
+    }
+    
+    .checkmark {
+        position: absolute;
+        top: 8px;
+        left: 7px;
+        height: 18px;
+        width: 18px;
+        background-color: #eee;
+        border: solid 1px #ccc;
+    }
+    
+    .checkbox-style:hover input ~ .checkmark {
+        background-color: #ccc;
+    }
+    
+    .checkbox-style input:checked ~ .checkmark {
+        background-color: #2196F3;
+        border-color: #2196F3;
+        
+    }
+    
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+    
+    .checkbox-style input:checked ~ .checkmark:after {
+        display: block;
+    }
+    
+    .checkbox-style .checkmark:after {
+        left: 6px;
+        top: 3px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+    }
+    
+    
+    
+    
+    .btn{
+        margin: 0 5px;
+        padding: 7px 16px;
+    }
+    
+    .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control{
+        background-color: #dedede;
+    }
+    
+   
+    
+    .float-left{
+        float: left;
+    }
+    
+    .float-right{
+        float: right;
+    }
+    
+    
+    
+    .login-wrapper{
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        background: #000;
+    }
+    
+    .login-wrapper.cgt-buyer{
+        background: url('assets/images/syngenta-buyer-login-bg.jpg') no-repeat center;
+        -webkit-background-size:cover;
+        -moz-background-size:cover;
+        background-size:cover;
+        padding: 5% 10%;
+    }
+
+    .login-wrapper.cgt-buyer .login-box{
+        height: 100%;
+        background: #fff;
+        box-shadow: 0px 0px 41px rgba(0, 0, 0, .5);
+    }
+
+    .login-wrapper.cgt-buyer .login-box .bg-area{
+        height: 100%;
+        width: 50%;
+        background: url('assets/images/buyer-login-box-bg.jpg') no-repeat center;
+        -webkit-background-size:cover;
+        -moz-background-size:cover;
+        background-size:cover;
+        float: left;
+    }
+
+    .login-wrapper.cgt-buyer .login-box .form-area{
+        height: 100%;
+        width: 50%;
+        padding: 30px 50px;
+        text-align: center;
+        float: left;
+    }
+
+    .login-wrapper.cgt-buyer .login-box .form-area .sgt-logo{
+        width: 160px;
+        margin-bottom: 50px;
+    }
+
+    .login-wrapper.cgt-buyer .login-box .form-area h3{
+        margin-bottom: 30px;
+        font-weight: bold;
+        color: #009933;
+        font-size: 21px;
+        text-transform: uppercase;
+    }
+
+    .input-style-large{
+        padding: 5px;
+        height: 45px;
+        border: solid 1px #ccc;
+        background: transparent;
+    }
+
+    .login-wrapper.cgt-buyer .login-box .form-area input{
+        border-radius: 21px;
+        width: 100%;
+        margin-bottom: 21px;
+        background-size: 18px;
+    }
+
+    .login-wrapper .login-box .form-area input{
+        padding-left: 50px;
+        background: no-repeat;
+        background-position: 14px center;
+        outline: none;
+        font-size: 16px;
+        color: #888;
+    }
+
+    .login-wrapper .login-box .form-area input.username{
+        background-image: url('assets/images/username-icon.png');
+    }
+
+    .login-wrapper .login-box .form-area input.password{
+        background-image: url('assets/images/password-icon.png');
+    }
+
+    .login-wrapper.cgt-buyer .login-box .form-area .btn-block{
+        height: 45px;
+        line-height: 45px;
+        text-align: center;
+        background: #009933;
+        color: #fff;
+        border-radius: 21px;
+        width: 100%;
+        cursor: pointer;
+        border: none;
+        outline: none;
+        font-size: 19px;
+        text-transform: uppercase;
+    }
+    
+
+    .login-wrapper.cgt-finance{
+        background: url('assets/images/syngenta-finance-bg.jpg') no-repeat center;
+        -webkit-background-size:cover;
+        -moz-background-size:cover;
+        background-size:cover;
+    }
+
+    .login-wrapper.cgt-finance .login-box{
+        height: 140px;
+        top: 50%;
+        width: 100%;
+        display: table;
+        background: transparent;
+        position: absolute;
+        margin-top: -70px;
+    }
+
+    .login-wrapper.cgt-finance .login-box .logo-area{
+        height: 100%;
+        width: 15%;
+        background: rgba(75, 113, 6, .86);
+        text-align: center;
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .login-wrapper.cgt-finance .login-box .logo-area img{
+        width: 75%;
+    }
+
+    .login-wrapper.cgt-finance .login-box .form-area{
+        height: 100%;
+        width: 85%;
+        background: rgba(255, 255, 255, .9);
+        display: table-cell;
+        vertical-align: middle;
+        padding: 0 50px;
+    }
+
+    .login-wrapper.cgt-finance .login-box .form-area input{
+        width: 40%;
+        margin-right: 10px;
+        border-color: #bbb;
+    }
+
+    .login-wrapper.cgt-finance .login-box .form-area .btn-inline{
+        width: 14%;
+        height: 45px;
+        line-height: 45px;
+        text-align: center;
+        background: #009933;
+        color: #fff;
+        cursor: pointer;
+        border: none;
+        outline: none;
+        font-size: 19px;
+        text-transform: uppercase;
+    }
+
+    .login-wrapper.cgt-vendor .login-box{
+        height: 100%;
+        background: #fff;
+    }
+
+    .login-wrapper.cgt-vendor .login-box .bg-area{
+        height: 100%;
+        width: 50%;
+        background: url('assets/images/syngenta-vendor-bg.jpg') no-repeat center;
+        -webkit-background-size:cover;
+        -moz-background-size:cover;
+        background-size:cover;
+        float: left;
+        position: relative;
+    }
+
+    .login-wrapper.cgt-vendor .login-box .form-area{
+        height: 100%;
+        width: 50%;
+        padding: 30px 50px;
+        text-align: center;
+        float: left;
+        position: relative;
+    }
+
+    .login-wrapper.cgt-vendor .login-box .form-area .login-box-inner{
+        position: absolute;
+        top: 50%;
+        margin-top: -160px;
+        padding: 0 50px 0 100px;
+    }
+
+    .login-wrapper.cgt-vendor .login-box .form-area h3{
+        margin-bottom: 70px;
+        font-weight: bold;
+        color: #009933;
+        font-size: 21px;
+        text-transform: uppercase;
+    }
+
+    .login-wrapper.cgt-vendor .login-box .form-area input, .login-wrapper.cgt-logistic .login-box .form-area input{
+        margin-bottom: 25px;
+        border: none;
+        border-bottom: solid 1px #ccc;
+        width: 100%;
+        background-position: 5px center;
+        padding-left: 39px;
+    }
+
+    .login-wrapper.cgt-vendor .login-box .form-area .btn-inline, .login-wrapper.cgt-logistic .login-box .form-area .btn-inline{
+        float: right;
+        padding: 0 50px;
+        height: 41px;
+        line-height: 41px;
+        text-align: center;
+        background: #38d36a;
+        color: #fff;
+        cursor: pointer;
+        border: none;
+        outline: none;
+        font-size: 18px;
+        border-radius: 21px;
+        text-transform: uppercase;
+        box-shadow: 0px 0px 12px rgba(0, 0, 0, .3);
+    }
+
+    .login-wrapper.cgt-logistic .login-box .form-area .btn-inline{
+        background: #0b96ab !important;
+        float: none !important;
+        text-align: center;
+    }
+
+    .login-wrapper.cgt-vendor .login-box .vendor-logo-holder{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        box-shadow: 0px 0px 12px rgba(0, 0, 0, .4);
+        margin-top: -90px;
+        margin-left: -90px;
+        display: table;
+        vertical-align: middle;
+        text-align: center;
+        background: #fff;
+        z-index: 1;
+    }
+
+    .login-wrapper.cgt-vendor .login-box .vendor-logo-holder span{
+        display: table-cell;
+        width: 100%;
+        height: 100%;
+        vertical-align: middle;
+    }
+
+    .login-wrapper.cgt-vendor .login-box .vendor-logo-holder img{
+        max-width: 70%;
+        max-height: 70%;
+    }
+
+    .login-wrapper.cgt-vendor .login-box .welcome-text{
+        position: absolute;
+        top: 3%;
+        left: 5%;
+        width: 95%;
+        color: #fff;
+        text-transform: uppercase;
+    }
+
+    .login-wrapper.cgt-vendor .login-box .welcome-text h1{
+        font-size: 72px;
+        font-family: "Helvetica Neue","Helvetica","Roboto",Arial,sans-serif;
+        font-weight: 700;
+        line-height: 1;
+        font-stretch: condensed;
+    }
+    .login-wrapper.cgt-vendor .login-box .welcome-text h2{
+        font-size: 45px;
+        font-family: "Helvetica Neue","Helvetica","Roboto",Arial,sans-serif;
+        font-weight: 700;
+        line-height: 1;
+        font-stretch: condensed;
+        width: 50%;
+        margin-top: 36px;
+    }
+
+    .login-wrapper.cgt-vendor .login-box .bg-area .footer-bar{
+        height: 70px;
+        line-height: 70px;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        background: rgba(0, 0, 0, .5);
+    }
+    .login-wrapper.cgt-vendor .login-box .bg-area .footer-bar p{
+        padding-left: 20px;
+        color: #555;
+        font-size: 13px;
+    }
+
+    .login-wrapper.cgt-logistic{
+        background: url('assets/images/logistic-login-bg.png') repeat-x center bottom #fff;
+        background-size: auto 210px;
+    }
+
+    .login-wrapper.cgt-logistic .logo-area{
+        width: 90px;
+        margin: 50px auto;
+    }
+
+    .login-wrapper.cgt-logistic .logo-area img{
+        width: 100%;
+    }
+
+    .login-wrapper.cgt-logistic .login-box{
+        position: absolute;
+        top: 45%;
+        width: 36%;
+        left: 32%;
+        margin-top: -100px;
+        text-align: center;
+    }
+
+    .login-wrapper.cgt-logistic .dot-overlay{
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background: url(assets/images/bg-dot.png);
+    }
+    
+    
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    input:-webkit-autofill:active {
+        transition: background-color 5000s ease-in-out 0s;
+        -webkit-text-fill-color: #555 !important;
+    }
+    
+   
+    
+    ul, li{
+        margin: 0;
+        padding: 0;
+    }
+
+    ::-webkit-input-placeholder { /* Chrome */
+    color: #c3c3c3;
+    }
+    :-ms-input-placeholder { /* IE 10+ */
+    color: #c3c3c3;
+    }
+    ::-moz-placeholder { /* Firefox 19+ */
+    color: #c3c3c3;
+    opacity: 1;
+    }
+    
+       
+    @media screen and (min-width: 1600px){
+        .container {
+            width: 1570px;
+        }
+
+        .login-wrapper.cgt-logistic{
+            background-size: auto 275px;
+        }
+
+        .login-wrapper.cgt-logistic .logo-area{
+            width: 100px;
+            margin: 120px auto;
+        }
+    }
+    

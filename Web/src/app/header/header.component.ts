@@ -23,9 +23,26 @@ export class HeaderComponent implements OnInit {
   }
 
   logout(){    
+    var role = "";
+    role = this.currentUser.role;
+
     this.user.logout();
     this.userLoggedId = this.user.isUserLoggedIn() === "true" ? true : false;
-    this.router.navigate(['']);
+
+    if (role == "procurement") {
+      this.router.navigate(['/syngentaProcurementLogin']);
+    } else if (role == "finance") {
+      this.router.navigate(['/syngentaFinanceLogin']);
+    } else if (role == "vendor") {
+      this.router.navigate(['/vendorLogin']);
+    } else if (role == "logistic") {
+      this.router.navigate(['/logisticLogin']);
+    } else if (role == "bank") {
+      this.router.navigate(['/syngentaFinanceLogin']);
+    }
+    else{
+      this.router.navigate(['']);
+    }
   }
 
   getUser(){

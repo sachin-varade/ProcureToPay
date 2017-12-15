@@ -19,16 +19,16 @@ registry:
 
   # Contains identity information which is used when LDAP is disabled
   identities:
-     - name: buyeradmin
+     - name: procurementadmin
        pass: adminpw
        type: client
-       affiliation: "syngentaOrg.buyerDept"
+       affiliation: "syngentaOrg.procurementDept"
        attrs:
           hf.Registrar.Roles: "client,user,peer,validator,auditor,ca"
           hf.Registrar.DelegateRoles: "client,user,validator,auditor"
           hf.Revoker: true
           hf.IntermediateCA: true
-          userType: "buyeradmin"
+          userType: "procurementadmin"
      - name: financeadmin
        pass: adminpw
        type: client
@@ -67,7 +67,7 @@ db:
 #############################################################################
 affiliations:
    syngentaOrg:
-      - buyerDept
+      - procurementDept
       - financeDept
       - logisticDept
    vendorOrg:

@@ -20,7 +20,7 @@ import {HttpModule} from '@angular/http';
 import { NotifyService } from './notify.service';
 import { BlockService } from './block.service';
 import { DialogComponent } from './dialog/dialog/dialog.component';
-import { MenuComponent } from './menu/menu.component';
+
 import { BlockComponent } from './block/block.component';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { AlertComponent } from './alert/alert.component';
@@ -32,6 +32,22 @@ import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 const appRoutes:Routes = [
   {
     path: '',
+    component: LoginComponent
+  },
+  {
+    path: 'syngentaProcurementLogin',
+    component: LoginComponent
+  },
+  {
+    path: 'syngentaFinanceLogin',
+    component: LoginComponent
+  },
+  {
+    path: 'vendorLogin',
+    component: LoginComponent
+  },
+  {
+    path: 'logisticLogin',
     component: LoginComponent
   },
   {

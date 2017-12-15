@@ -1,19 +1,19 @@
 {
     "users": {
-        "buyers": [
+        "procurements": [
             {
                 "id": 1,
-                "name": "buyer1",
-                "displayName": "buyer 1",
-                "role": "buyer",
+                "name": "procurement1",
+                "displayName": "procurement 1",
+                "role": "procurement",
                 "password": "123456",
                 "uniqueId": "A001"                
             },
             {
-                "id": 1,
-                "name": "buyer2",
-                "displayName": "buyer 2",
-                "role": "buyer",
+                "id": 2,
+                "name": "procurement2",
+                "displayName": "procurement 2",
+                "role": "procurement",
                 "password": "123456",
                 "uniqueId": "A001"                
             }
@@ -28,7 +28,7 @@
                 "uniqueId": "A001"                
             },
             {
-                "id": 1,
+                "id": 2,
                 "name": "finance2",
                 "displayName": "finance 2",
                 "role": "finance",
@@ -46,7 +46,7 @@
                 "uniqueId": "A001"                
             },
             {
-                "id": 1,
+                "id": 2,
                 "name": "logistic2",
                 "displayName": "logistic 2",
                 "role": "logistic",
@@ -58,15 +58,15 @@
             {
                 "id": 1,
                 "name": "vendor1",
-                "displayName": "vendor 1",
+                "displayName": "Vendor 1",
                 "role": "vendor",
                 "password": "123456",
                 "uniqueId": "A001"                
             },
             {
-                "id": 1,
+                "id": 2,
                 "name": "vendor2",
-                "displayName": "vendor 2",
+                "displayName": "Vendor 2",
                 "role": "vendor",
                 "password": "123456",
                 "uniqueId": "A001"                
@@ -82,7 +82,7 @@
                 "uniqueId": "A001"                
             },
             {
-                "id": 1,
+                "id": 2,
                 "name": "bank2",
                 "displayName": "bank 2",
                 "role": "bank",

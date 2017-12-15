@@ -46,7 +46,7 @@ db:
 #############################################################################
 affiliations:
    syngentaOrg:
-      - buyerDept
+      - procurementDept
       - financeDept
       - logisticDept
    vendorOrg:

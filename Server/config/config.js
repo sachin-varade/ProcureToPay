@@ -1,7 +1,7 @@
 var network = 
 {
-    buyer: {
-                name: "buyer",
+    procurement: {
+                name: "procurement",
                 channels: {
                     procurementchannel: {
                         name: "procurementchannel",
@@ -65,7 +65,7 @@ var network =
     admins: [
         {
             ca: {url: "http://localhost:7054", name: "ca.syngentaOrg.syngenta.com"}, 
-            enrollmentID: "buyeradmin", 
+            enrollmentID: "procurementadmin", 
             enrollmentSecret: "adminpw", 
             mspid: "SyngentaOrgMSP"
         },
@@ -97,9 +97,9 @@ var network =
      users: [
         {
             ca: {url: "http://localhost:7054", name: "ca.syngentaOrg.syngenta.com"}, 
-            admin: "buyeradmin", 
-            enrollmentID: "buyer1", 
-            affiliation: "syngentaorg.buyerDept",
+            admin: "procurementadmin", 
+            enrollmentID: "procurement1", 
+            affiliation: "syngentaorg.procurementDept",
             mspid: "SyngentaOrgMSP"
         },
         {

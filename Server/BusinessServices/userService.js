@@ -6,14 +6,14 @@ module.exports = function () {
     var userData = require('../data/users.json');
 
     userService.login = function(user){
-        var buyers = userData.users.buyers.filter(function(obj){ return obj.name == user.userName});
-        var finances = userData.users.finances.filter(function(obj){ return obj.name == user.userName});
-        var logistics = userData.users.logistics.filter(function(obj){ return obj.name == user.userName});
-        var vendors = userData.users.vendors.filter(function(obj){ return obj.name == user.userName});
-        var banks = userData.users.banks.filter(function(obj){ return obj.name == user.userName});
+        var procurements = userData.users.procurements.filter(function(obj){ return obj.name.toLowerCase() == user.userName.toLowerCase()});
+        var finances = userData.users.finances.filter(function(obj){ return obj.name.toLowerCase() == user.userName.toLowerCase()});
+        var logistics = userData.users.logistics.filter(function(obj){ return obj.name.toLowerCase() == user.userName.toLowerCase()});
+        var vendors = userData.users.vendors.filter(function(obj){ return obj.name.toLowerCase() == user.userName.toLowerCase()});
+        var banks = userData.users.banks.filter(function(obj){ return obj.name.toLowerCase() == user.userName.toLowerCase()});
         var _user;
-        if (buyers.length > 0 && buyers[0].password == user.password){
-            _user= JSON.parse(JSON.stringify(buyers[0]));
+        if (procurements.length > 0 && procurements[0].password == user.password){
+            _user= JSON.parse(JSON.stringify(procurements[0]));
         }
         else if (finances.length > 0 && finances[0].password == user.password){
             _user= JSON.parse(JSON.stringify(finances[0]));
@@ -37,12 +37,12 @@ module.exports = function () {
     }
 
     userService.getUserData = function(user){        
-        var buyers = JSON.parse(JSON.stringify(userData.users.buyers));
+        var procurements = JSON.parse(JSON.stringify(userData.users.procurements));
         var finances = JSON.parse(JSON.stringify(userData.users.finances));
         var logistics = JSON.parse(JSON.stringify(userData.users.logistics));
         var vendors = JSON.parse(JSON.stringify(userData.users.vendors));
         var banks = JSON.parse(JSON.stringify(userData.users.banks));
-        buyers.forEach(element => {            
+        procurements.forEach(element => {            
             element.password="******";
         });
         finances.forEach(element => {            
@@ -58,7 +58,7 @@ module.exports = function () {
             element.password = "******";
         });
         return  {
-                    users: {buyers: buyers, finances: finances, logistics: logistics, vendors: vendors, banks: banks}
+                    users: {procurements: procurements, finances: finances, logistics: logistics, vendors: vendors, banks: banks}
                 };
     }
 

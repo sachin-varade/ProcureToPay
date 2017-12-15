@@ -10,64 +10,64 @@ var store_path = path.join(__dirname, '../hfcInterface/hfc-key-store');
 console.log('Store path:'+store_path);
 var config = require('../config/config.js');
 
-var buyerConfig = config.network.buyer;
+var procurementConfig = config.network.procurement;
 var financeConfig = config.network.finance;
 var logisticConfig = config.network.logistic;
 var vendorConfig = config.network.vendor;
 var bankConfig = config.network.bank;
 
-var buyerChannelPC = fabric_client.newChannel(buyerConfig.channels.procurementchannel.name);
-var financeChannelPC = fabric_client.newChannel(buyerConfig.channels.procurementchannel.name);
-var financeChannelFC = fabric_client.newChannel(buyerConfig.channels.financechannel.name);
-var logisticChannelPC = fabric_client.newChannel(buyerConfig.channels.procurementchannel.name);
-var vendorChannelPC = fabric_client.newChannel(buyerConfig.channels.procurementchannel.name);
-var bankChannelFC = fabric_client.newChannel(buyerConfig.channels.financechannel.name);
+var procurementChannelPC = fabric_client.newChannel(procurementConfig.channels.procurementchannel.name);
+var financeChannelPC = fabric_client._channels.procurementchannel; //fabric_client.newChannel(financeConfig.channels.procurementchannel.name);
+var financeChannelFC = fabric_client.newChannel(financeConfig.channels.financechannel.name);
+var logisticChannelPC = fabric_client._channels.procurementchannel; //fabric_client.newChannel(logisticConfig.channels.procurementchannel.name);
+var vendorChannelPC = fabric_client._channels.procurementchannel; //fabric_client.newChannel(vendorConfig.channels.procurementchannel.name);
+var bankChannelFC = fabric_client._channels.financechannel; //fabric_client.newChannel(bankConfig.channels.financechannel.name);
 
-var buyerPeer = fabric_client.newPeer(buyerConfig.anchorPeer);
+var procurementPeer = fabric_client.newPeer(procurementConfig.anchorPeer);
 var financePeer = fabric_client.newPeer(financeConfig.anchorPeer);
 var logisticPeer = fabric_client.newPeer(logisticConfig.anchorPeer);
 var vendorPeer = fabric_client.newPeer(vendorConfig.anchorPeer);
 var bankPeer = fabric_client.newPeer(bankConfig.anchorPeer);
 
 var peers = {
-    buyerPeer: buyerPeer,
+    procurementPeer: procurementPeer,
     financePeer: financePeer,
     logisticPeer: logisticPeer,
 	vendorPeer: vendorPeer,
 	bankPeer: bankPeer
 }
 
-var buyerEventHubPeer = fabric_client.newPeer(buyerConfig.eventHubPeer);
+var procurementEventHubPeer = fabric_client.newPeer(procurementConfig.eventHubPeer);
 var financeEventHubPeer = fabric_client.newPeer(financeConfig.eventHubPeer);
 var logisticEventHubPeer = fabric_client.newPeer(logisticConfig.eventHubPeer);
 var vendorEventHubPeer = fabric_client.newPeer(vendorConfig.eventHubPeer);
 var bankEventHubPeer = fabric_client.newPeer(bankConfig.eventHubPeer);
 
 var eventHubPeers={
-    buyerEventHubPeer: buyerEventHubPeer,
+    procurementEventHubPeer: procurementEventHubPeer,
     financeEventHubPeer: financeEventHubPeer,
     logisticEventHubPeer: logisticEventHubPeer,
 	vendorEventHubPeer: vendorEventHubPeer,
 	bankEventHubPeer: bankEventHubPeer
 }
 
-buyerChannelPC.addPeer(buyerPeer);
-financeChannelPC.addPeer(financePeer);
+procurementChannelPC.addPeer(procurementPeer);
+//financeChannelPC.addPeer(financePeer);
 financeChannelFC.addPeer(financePeer);
-logisticChannelPC.addPeer(logisticPeer);
+//logisticChannelPC.addPeer(logisticPeer);
 vendorChannelPC.addPeer(vendorPeer);
 bankChannelFC.addPeer(bankPeer);
 
 var orderer = fabric_client.newOrderer(config.network.orderer.orderer);
-buyerChannelPC.addOrderer(orderer);
-financeChannelPC.addOrderer(orderer);
+procurementChannelPC.addOrderer(orderer);
+//financeChannelPC.addOrderer(orderer);
 financeChannelFC.addOrderer(orderer);
-logisticChannelPC.addOrderer(orderer);
-vendorChannelPC.addOrderer(orderer);
-bankChannelFC.addOrderer(orderer);
+//logisticChannelPC.addOrderer(orderer);
+//vendorChannelPC.addOrderer(orderer);
+//bankChannelFC.addOrderer(orderer);
 
 var channels = {
-	buyerChannelPC: buyerChannelPC,
+	procurementChannelPC: procurementChannelPC,
 	financeChannelPC: financeChannelPC,
 	financeChannelFC: financeChannelFC,
 	logisticChannelPC: logisticChannelPC,
@@ -90,7 +90,7 @@ Fabric_Client.newDefaultKeyValueStore({ path: store_path
 });
 
 var usersForTransaction = {
-	buyerUser: config.network.users.filter(function(x){return x.enrollmentID == "buyer1"})[0],
+	procurementUser: config.network.users.filter(function(x){return x.enrollmentID == "procurement1"})[0],
 	financeUser: config.network.users.filter(function(x){return x.enrollmentID == "finance1"})[0],
 	logisticUser: config.network.users.filter(function(x){return x.enrollmentID == "logistic1"})[0],
 	vendorUser: config.network.users.filter(function(x){return x.enrollmentID == "vendor1"})[0],
