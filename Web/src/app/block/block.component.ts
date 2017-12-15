@@ -2,8 +2,8 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormsModule, NgControl } from '@angular/forms';
 import { NgModel, NgForm } from '@angular/forms';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
-import { UserService } from '../user.service';
-import { BlockService } from '../block.service';
+import { UserService } from '../services/user.service';
+import { BlockService } from '../services/block.service';
 
 @Component({
   selector: 'app-block',

@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import {UserService} from '../user.service';
+import {UserService} from '../services/user.service';
 import { DOCUMENT } from '@angular/platform-browser';
 
 @Component({

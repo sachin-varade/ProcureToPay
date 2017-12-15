@@ -9,7 +9,7 @@ import { FooterComponent } from './footer/footer.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthguardGuard } from './authguard.guard';
-import { UserService } from './user.service';
+import { UserService } from './services/user.service';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -17,16 +17,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {HttpModule} from '@angular/http';
 
-import { NotifyService } from './notify.service';
-import { BlockService } from './block.service';
+import { BlockService } from './services/block.service';
 import { DialogComponent } from './dialog/dialog/dialog.component';
 
 import { BlockComponent } from './block/block.component';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { AlertComponent } from './alert/alert.component';
-import { AlertService } from './alert.service';
+import { AlertService } from './services/alert.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
-import { InterceptorService } from "./interceptor.service";
+import { InterceptorService } from "./services/interceptor.service";
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
 const appRoutes:Routes = [
@@ -83,7 +82,7 @@ const appRoutes:Routes = [
   HttpClientModule,
   Ng4LoadingSpinnerModule
   ],
-  providers: [UserService, AuthguardGuard, FormsModule, BlockService, AlertService, NotifyService,
+  providers: [UserService, AuthguardGuard, FormsModule, BlockService, AlertService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,
