@@ -28,6 +28,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { InterceptorService } from "./services/interceptor.service";
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import { PoCreationComponent } from './procurement/po-creation/po-creation.component';
+import { ProcurementService } from './services/procurement.service';
+import { PoFulfilmentComponent } from './vendor/po-fulfilment/po-fulfilment.component';
+import { PoTrackerComponent } from './procurement/po-tracker/po-tracker.component';
 
 const appRoutes:Routes = [
   {
@@ -69,13 +72,23 @@ const appRoutes:Routes = [
     path: 'procurement/create-po',
     canActivate: [AuthguardGuard],
     component: PoCreationComponent
-  }  
+  },
+  {
+    path: 'procurement/track-po',
+    canActivate: [AuthguardGuard],
+    component: PoTrackerComponent
+  },
+  {
+    path: 'vendor/po-fulfillment',
+    canActivate: [AuthguardGuard],
+    component: PoFulfilmentComponent
+  }   
 ]
 
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, LoginComponent, FooterComponent, 
-    DashboardComponent, DialogComponent, BlockComponent, AlertComponent, PoCreationComponent],
+    DashboardComponent, DialogComponent, BlockComponent, AlertComponent, PoCreationComponent, PoFulfilmentComponent, PoTrackerComponent],
   imports: [  
   RouterModule.forRoot(appRoutes),
   FormsModule,
@@ -90,6 +103,7 @@ const appRoutes:Routes = [
   Ng4LoadingSpinnerModule
   ],
   providers: [UserService, AuthguardGuard, FormsModule, BlockService, AlertService,
+    ProcurementService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,

@@ -64,7 +64,7 @@ func getAllPurchaseOrders(stub  shim.ChaincodeStubInterface, option string, valu
 		rabAsBytes, _ := json.Marshal(allDetails)
 		return shim.Success(rabAsBytes)	
 	}
-	
+	fmt.Println("loop all");
 	for i := range res.PurchaseOrderNumbers{
 
 		sbAsBytes, err := stub.GetState(res.PurchaseOrderNumbers[i])
@@ -78,13 +78,16 @@ func getAllPurchaseOrders(stub  shim.ChaincodeStubInterface, option string, valu
 			allIds.PurchaseOrderNumbers = append(allIds.PurchaseOrderNumbers, sb.PurchaseOrderNumber);	
 		} else if strings.ToLower(option) == "details" {
 			allDetails.PurchaseOrders = append(allDetails.PurchaseOrders, sb);	
+		} else if strings.ToLower(option) == "created" && strings.ToLower(sb.Status) == "created" {
+			allDetails.PurchaseOrders = append(allDetails.PurchaseOrders, sb);	
+		} else if strings.ToLower(option) == "approved" && strings.ToLower(sb.Status) == "approved" {
+			allDetails.PurchaseOrders = append(allDetails.PurchaseOrders, sb);	
 		}
 	}
-
 	if strings.ToLower(option) == "ids" {
 		rabAsBytes, _ := json.Marshal(allIds)		
 		return shim.Success(rabAsBytes)	
-	} else if strings.ToLower(option) == "details" {
+	} else if strings.ToLower(option) == "details" || strings.ToLower(option) == "created" || strings.ToLower(option) == "approved" {
 		rabAsBytes, _ := json.Marshal(allDetails)
 		return shim.Success(rabAsBytes)	
 	}

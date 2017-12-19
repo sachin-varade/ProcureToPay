@@ -44,7 +44,7 @@ type PurchaseOrder struct {
 	PurchaseOrderNumber			string		`json:"purchaseOrderNumber"`
 	PurchaseOrderDate			string		`json:"purchaseOrderDate"`
 	ShoppingOrderNumber			string		`json:"shoppingOrderNumber"`
-	ShoppingOrderDate			string		`json:"ShoppingOrderDate"`
+	ShoppingOrderDate			string		`json:"shoppingOrderDate"`
 	OrderBy						string		`json:"orderBy"`
 	BuyerCompany				string		`json:"buyerCompany"`
 	BuyerDepartment				string		`json:"buyerDepartment"`
@@ -52,17 +52,24 @@ type PurchaseOrder struct {
 	BuyerContactPersonAddress	string		`json:"buyerContactPersonAddress"`
 	BuyerContactPersonPhone		string		`json:"buyerContactPersonPhone"`
 	BuyerContactPersonEmail		string		`json:"buyerContactPersonEmail"`
+	SupplierName				string		`json:"supplierName"`
+	SupplierUniqueNo				string		`json:"supplierUniqueNo"`
+	SupplierContactPerson				string		`json:"supplierContactPerson"`
+	SupplierContactPersonAddress				string		`json:"supplierContactPersonAddress"`
+	SupplierContactPersonAddressPhone				string		`json:"supplierContactPersonPhone"`
+	SupplierContactPersonAddressEmail				string		`json:"supplierContactPersonEmail"`
 	DeliverToPersonName			string		`json:"deliverToPersonName"`
-	DeliverToPersonAddress		string		`json:"DeliverToPersonAddress"`
-	InvoiceAddress				string		`json:"InvoiceAddress"`
+	DeliverToPersonAddress		string		`json:"deliverToPersonAddress"`
+	InvoiceAddress				string		`json:"invoiceAddress"`
 	TotalOrderAmount			string		`json:"totalOrderAmount"`
 	AccountingType				string		`json:"accountingType"`
 	CostCenter					string		`json:"costCenter"`
 	GLAccount					string		`json:"glAccount"`
-	TermsOfPayment				string		`json:"TermsOfPayment"`
+	TermsOfPayment				string		`json:"termsOfPayment"`
 	InternalNotes				string		`json:"internalNotes"`
 	ExternalNotes				string		`json:"externalNotes"`
 	OrderedMaterial				[]OrderMaterial	`json:"orderedMaterial"`
+	Status				string	`json:"status"`
 }
 
 type OrderMaterial struct {
@@ -74,6 +81,7 @@ type OrderMaterial struct {
 	QuantityUnit				string		`json:"quantityUnit"`
 	PricePerUnit				string		`json:"pricePerUnit"`	
 	Currency					string		`json:"currency"`
+	NetAmount				string		`json:"netAmount"`	
 }
 
 
@@ -142,6 +150,8 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 		return getAllPurchaseOrders(stub, args[0], args[1])
 	} else if function == "savePurchaseOrder" {
 		return savePurchaseOrder(stub, args)
+	} else if function == "updatePurchaseOrder" {
+		return updatePurchaseOrder(stub, args)
 	}
 	
 	// error out

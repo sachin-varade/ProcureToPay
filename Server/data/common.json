@@ -5,5 +5,28 @@
                         {"id": 3, "name": "Location3"},
                         {"id": 4, "name": "Location4"},
                         {"id": 5, "name": "Location5"}
-                    ]
-} 
+                    ],
+"purchaserContact": [
+    {"id": 1, "name": "John Doe"}
+],
+"materialGroup": [
+    {"id": 1, "name": "Material Group 1"},
+    {"id": 2, "name": "Material Group 2"}
+],
+"materialUnits": [
+    {"id": 1, "name": "Unit"},
+    {"id": 2, "name": "KG"}
+],
+"currancy": [
+    {"id": 1, "name": "USD"},
+    {"id": 2, "name": "EUR"}
+],
+"glAccount": [
+    {"id": 1, "name": "GL Account 1"},
+    {"id": 2, "name": "GL Account 2"}
+],
+"costCenter": [
+    {"id": 1, "name": "Cost Center 1"},
+    {"id": 2, "name": "Cost Center 2"}
+]
+}

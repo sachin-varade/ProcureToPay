@@ -15,6 +15,7 @@
         </div>
       </div>
     </div>    
+    <link id="theme1" rel="stylesheet" href="../../assets/themes/theme-ikea.css"/> 
     <link id="theme" rel="stylesheet" href=""/> 
     <nav class="navbar navbar-dark bg-inverse menu-nav" *ngIf="user.loggedInUser">
       
@@ -22,10 +23,15 @@
           
           <ul *ngIf="getUser().role == 'procurement'" class="nav navbar-nav" routerLinkActive="active">
               <li class="nav-item"><a class="nav-link" routerLink="procurement/create-po">Create Purchase Order</a></li>
+              <li class="nav-item"><a class="nav-link" routerLink="procurement/track-po">PO Tracker</a></li>
               <li class="nav-item"><a class="nav-link" routerLink="block/recent">Blocks</a></li>
           </ul>
-          <ul *ngIf="getUser().role == 'syngentaFinance'" class="nav navbar-nav" routerLinkActive="active">
+          <ul *ngIf="getUser().role == 'finance'" class="nav navbar-nav" routerLinkActive="active">
               <li class="nav-item"><a class="nav-link" routerLink="dashboard">Menu 2</a></li>
+              <li class="nav-item"><a class="nav-link" routerLink="block/recent">Blocks</a></li>
+          </ul>
+          <ul *ngIf="getUser().role == 'vendor'" class="nav navbar-nav" routerLinkActive="active">
+              <li class="nav-item"><a class="nav-link" routerLink="vendor/po-fulfillment">Purchase Order Fulfillment</a></li>
               <li class="nav-item"><a class="nav-link" routerLink="block/recent">Blocks</a></li>
           </ul>
       </div>

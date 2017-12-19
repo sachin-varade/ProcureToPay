@@ -1,0 +1,112 @@
+[
+    {
+        "purchaseOrderNumber": "8700624687",
+        "purchaseOrderDate": "23/03/2016",
+        "shoppingOrderNumber": "ON001",
+        "shoppingOrderDate": "01-01-2018",
+        "orderBy": "Mahale Shashank",
+        "buyerCompany": "Mahale Shashank",
+        "buyerDepartment": "DEPT1",
+        "buyerContactPerson": "SBS IN Service Desk (IN0)",
+        "buyerContactPersonAddress": "Amar Paradigm, S. No. 110/11/3, Baner Road Pune 411045",
+        "buyerContactPersonPhone": "+91 20 30699262",
+        "buyerContactPersonEmail": "sbs_in.servicedesk@syngenta.com",
+        
+        "supplierName": "JYOTI ENTERPRISES",
+        "supplierUniqueNo": "0004039853",
+        "supplierContactPerson": "JYOTI",
+        "supplierContactPersonAddress": "403005 ILHAS-GOA India",
+        "supplierContactPersonPhone": "9899898898",
+        "supplierContactPersonEmail": "jyotienterprisesgoa@yahoo.in",
+        "deliverToPersonName": "Ilhas",
+        "deliverToPersonAddress": "Mahale Shashank / 510.Ground. GOA",
+        
+        "invoiceAddress": "Amar Paradigm, S. No. 110/11/3, Baner Road Pune 411045",
+        "totalOrderAmount": "5730",
+        "accountingType": "ACC",
+        "costCenter": "COST CENTER",
+        "glAccount": "GL ACCOUNT",
+        "termsOfPayment": "test",
+        "internalNotes": "notes",
+        "externalNotes": "test notes",
+        "orderedMaterial": [
+            {
+                "orderMaterialId": 1,
+                "buyerMaterialGroup": "GROUP",
+                "productName": "Earthing Plate 600X600X6 mm C.I.",
+                "productDescription": "Earthing Plate 600X600X6 mm C.I.",
+                "quantity": 1,
+                "quantityUnit": "Piece",
+                "pricePerUnit": "1600",
+                "currency": "INR",
+                "netAmount": 1600
+            },
+            {
+                "orderMaterialId": 1,
+                "buyerMaterialGroup": "GROUP",
+                "productName": "600x600 MM METAL CHAMBER WITH COVER.",
+                "productDescription": "600x600 MM METAL CHAMBER WITH COVER.",
+                "quantity": 1,
+                "quantityUnit": "Piece",
+                "pricePerUnit": "2150",
+                "currency": "INR",
+                "netAmount": 2150
+            }           
+        ]
+    },
+    {
+        "purchaseOrderNumber": "8700624688",
+        "purchaseOrderDate": "23/03/2016",
+        "shoppingOrderNumber": "ON001",
+        "shoppingOrderDate": "01-01-2018",
+        "orderBy": "Mahale Shashank",
+        "buyerCompany": "Mahale Shashank",
+        "buyerDepartment": "DEPT1",
+        "buyerContactPerson": "SBS IN Service Desk (IN0)",
+        "buyerContactPersonAddress": "Amar Paradigm, S. No. 110/11/3, Baner Road Pune 411045",
+        "buyerContactPersonPhone": "+91 20 30699262",
+        "buyerContactPersonEmail": "sbs_in.servicedesk@syngenta.com",
+        
+        "supplierName": "JYOTI ENTERPRISES",
+        "supplierUniqueNo": "0004039853",
+        "supplierContactPerson": "JYOTI",
+        "supplierContactPersonAddress": "403005 ILHAS-GOA India",
+        "supplierContactPersonPhone": "9899898898",
+        "supplierContactPersonEmail": "jyotienterprisesgoa@yahoo.in",
+        "deliverToPersonName": "Ilhas",
+        "deliverToPersonAddress": "Mahale Shashank / 510.Ground. GOA",
+        
+        "invoiceAddress": "Amar Paradigm, S. No. 110/11/3, Baner Road Pune 411045",
+        "totalOrderAmount": "5730",
+        "accountingType": "ACC",
+        "costCenter": "COST CENTER",
+        "glAccount": "GL ACCOUNT",
+        "termsOfPayment": "test",
+        "internalNotes": "notes",
+        "externalNotes": "test notes",
+        "orderedMaterial": [
+            {
+                "orderMaterialId": 1,
+                "buyerMaterialGroup": "GROUP",
+                "productName": "Earthing Plate 600X600X6 mm C.I.",
+                "productDescription": "Earthing Plate 600X600X6 mm C.I.",
+                "quantity": 1,
+                "quantityUnit": "Piece",
+                "pricePerUnit": "1600",
+                "currency": "INR",
+                "netAmount": 1600
+            },
+            {
+                "orderMaterialId": 1,
+                "buyerMaterialGroup": "GROUP",
+                "productName": "600x600 MM METAL CHAMBER WITH COVER.",
+                "productDescription": "600x600 MM METAL CHAMBER WITH COVER.",
+                "quantity": 1,
+                "quantityUnit": "Piece",
+                "pricePerUnit": "2150",
+                "currency": "INR",
+                "netAmount": 2150
+            }           
+        ]
+    }
+]

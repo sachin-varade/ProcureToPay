@@ -25,15 +25,121 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
     eventHubPeers = eventHubPeers;
     orderer = orderer;
 
-    procurementService.getUniqueId = function(option, value){
-        console.log("getUniqueId");
+    procurementService.getAllPurchaseOrders = function(option, value){
+        console.log("getAllPurchaseOrders");
         return fabric_client.getUserContext(users.procurementUser.enrollmentID, true)
         .then((user_from_store) => {
             helper.checkUserEnrolled(user_from_store);
             return queryChainCode.queryChainCode(channels.procurementChannelPC, 
-                procurementConfig.channels.procurementChannelPC.chaincodeId, 
-                "getUniqueId", 
+                procurementConfig.channels.procurementchannel.chaincodeId, 
+                "getAllPurchaseOrders", 
                 [option, value]);
+        }).then((results) => {
+            return results;
+        }).catch((err) => {
+            throw err;
+        });
+    }
+    
+    procurementService.savePurchaseOrder = function(purchaseOrder){
+        console.log("savePurchaseOrder");
+        var orderedMaterial = "";        
+        if(purchaseOrder.orderedMaterial){
+            purchaseOrder.orderedMaterial.forEach(element => {
+            if(orderedMaterial != "")
+                orderedMaterial += ",";
+            orderedMaterial += element.orderMaterialId.toString() +"^"+ element.buyerMaterialGroup +"^"+ element.productName +"^"+ element.productDescription +"^"+ element.quantity.toString() +"^"+ element.quantityUnit +"^"+ element.pricePerUnit.toString() +"^"+ element.currency +"^"+ element.netAmount.toString();
+            });
+        }
+        return fabric_client.getUserContext(users.procurementUser.enrollmentID, true)
+        .then((user_from_store) => {
+            helper.checkUserEnrolled(user_from_store);            
+            return invokeChainCode.invokeChainCode(fabric_client, 
+                channels.procurementChannelPC, 
+                eventHubPeers.procurementEventHubPeer._url, 
+                //"grpc://localhost:7053",
+                procurementConfig.channels.procurementchannel.chaincodeId, 
+                "savePurchaseOrder",  
+                [
+                    purchaseOrder.purchaseOrderNumber,
+                    purchaseOrder.purchaseOrderDate,
+                    purchaseOrder.shoppingOrderNumber,
+                    purchaseOrder.shoppingOrderDate,
+                    purchaseOrder.orderBy,
+                    purchaseOrder.buyerCompany,
+                    purchaseOrder.buyerDepartment,
+                    purchaseOrder.buyerContactPerson,
+                    purchaseOrder.buyerContactPersonAddress,
+                    purchaseOrder.buyerContactPersonPhone,
+                    purchaseOrder.buyerContactPersonEmail,
+                    purchaseOrder.supplierName,
+                    purchaseOrder.supplierUniqueNo,
+                    purchaseOrder.supplierContactPerson,
+                    purchaseOrder.supplierContactPersonAddress,
+                    purchaseOrder.supplierContactPersonPhone,
+                    purchaseOrder.supplierContactPersonEmail,
+                    purchaseOrder.deliverToPersonName,
+                    purchaseOrder.deliverToPersonAddress,
+                    purchaseOrder.invoiceAddress,
+                    purchaseOrder.totalOrderAmount,
+                    purchaseOrder.accountingType,
+                    purchaseOrder.costCenter,
+                    purchaseOrder.glAccount,
+                    purchaseOrder.termsOfPayment,
+                    purchaseOrder.internalNotes,
+                    purchaseOrder.externalNotes,
+                    orderedMaterial                    
+                ]                
+            );                
+        }).then((results) => {
+            return results;
+        }).catch((err) => {
+            throw err;
+        });
+    }
+
+    procurementService.updatePurchaseOrder = function(purchaseOrder){
+        console.log("updatePurchaseOrder");        
+        return fabric_client.getUserContext(users.procurementUser.enrollmentID, true)
+        .then((user_from_store) => {
+            helper.checkUserEnrolled(user_from_store);            
+            return invokeChainCode.invokeChainCode(fabric_client, 
+                channels.procurementChannelPC, 
+                eventHubPeers.procurementEventHubPeer._url, 
+                //"grpc://localhost:7053",
+                procurementConfig.channels.procurementchannel.chaincodeId, 
+                "updatePurchaseOrder",  
+                [
+                    purchaseOrder.purchaseOrderNumber,
+                    purchaseOrder.purchaseOrderDate,
+                    purchaseOrder.shoppingOrderNumber,
+                    purchaseOrder.shoppingOrderDate,
+                    purchaseOrder.orderBy,
+                    purchaseOrder.buyerCompany,
+                    purchaseOrder.buyerDepartment,
+                    purchaseOrder.buyerContactPerson,
+                    purchaseOrder.buyerContactPersonAddress,
+                    purchaseOrder.buyerContactPersonPhone,
+                    purchaseOrder.buyerContactPersonEmail,
+                    purchaseOrder.supplierName,
+                    purchaseOrder.supplierUniqueNo,
+                    purchaseOrder.supplierContactPerson,
+                    purchaseOrder.supplierContactPersonAddress,
+                    purchaseOrder.supplierContactPersonPhone,
+                    purchaseOrder.supplierContactPersonEmail,
+                    purchaseOrder.deliverToPersonName,
+                    purchaseOrder.deliverToPersonAddress,
+                    purchaseOrder.invoiceAddress,
+                    purchaseOrder.totalOrderAmount,
+                    purchaseOrder.accountingType,
+                    purchaseOrder.costCenter,
+                    purchaseOrder.glAccount,
+                    purchaseOrder.termsOfPayment,
+                    purchaseOrder.internalNotes,
+                    purchaseOrder.externalNotes,
+                    ""                    
+                ]                
+            );                
         }).then((results) => {
             return results;
         }).catch((err) => {

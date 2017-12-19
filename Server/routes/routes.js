@@ -45,7 +45,27 @@ router.get("/getCommonData", function(req, res) {
 	res.send(commonData);
 });
 
+// ------------------------ PROCUREMENT routes --------------------
+router.post("/savePurchaseOrder", function(req, res) {    
+	var promise = procurementService.savePurchaseOrder(req.body);
+	promise.then(function(resp,err){
+		res.send(resp);
+	});	
+});
 
+router.post("/updatePurchaseOrder", function(req, res) {    
+	var promise = procurementService.updatePurchaseOrder(req.body);
+	promise.then(function(resp,err){
+		res.send(resp);
+	});	
+});
+
+router.get("/getAllPurchaseOrders/:option/:value?", function(req, res) {    
+    var promise = procurementService.getAllPurchaseOrders(req.params.option, req.params.value?req.params.value: "");
+	promise.then(function(resp,err){
+		res.send(resp);
+	});	
+});
 
 
 // ------------------------ BLOCK routes --------------------

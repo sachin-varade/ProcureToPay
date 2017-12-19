@@ -12,7 +12,7 @@ var queryChainCode = function(channel, chaincodeId, functionName, args) {
 	return channel.queryByChaincode(request)
 	.then((query_responses) => {
 	console.log("Query has completed, checking results");	
-	if (query_responses && query_responses.length == 1) {
+	if (query_responses && query_responses.length > 0) {
 		if (query_responses[0] instanceof Error) {
 			return "Error: error from query = ", query_responses[0];
 		} else {
