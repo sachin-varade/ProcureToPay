@@ -111,33 +111,18 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
                 "updatePurchaseOrder",  
                 [
                     purchaseOrder.purchaseOrderNumber,
-                    purchaseOrder.purchaseOrderDate,
-                    purchaseOrder.shoppingOrderNumber,
-                    purchaseOrder.shoppingOrderDate,
-                    purchaseOrder.orderBy,
-                    purchaseOrder.buyerCompany,
-                    purchaseOrder.buyerDepartment,
                     purchaseOrder.buyerContactPerson,
-                    purchaseOrder.buyerContactPersonAddress,
-                    purchaseOrder.buyerContactPersonPhone,
-                    purchaseOrder.buyerContactPersonEmail,
                     purchaseOrder.supplierName,
-                    purchaseOrder.supplierUniqueNo,
                     purchaseOrder.supplierContactPerson,
-                    purchaseOrder.supplierContactPersonAddress,
-                    purchaseOrder.supplierContactPersonPhone,
-                    purchaseOrder.supplierContactPersonEmail,
                     purchaseOrder.deliverToPersonName,
                     purchaseOrder.deliverToPersonAddress,
                     purchaseOrder.invoiceAddress,
-                    purchaseOrder.totalOrderAmount,
-                    purchaseOrder.accountingType,
                     purchaseOrder.costCenter,
                     purchaseOrder.glAccount,
                     purchaseOrder.termsOfPayment,
                     purchaseOrder.internalNotes,
                     purchaseOrder.externalNotes,
-                    ""                    
+                    purchaseOrder.status
                 ]                
             );                
         }).then((results) => {

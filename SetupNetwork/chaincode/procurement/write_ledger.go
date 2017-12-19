@@ -128,13 +128,13 @@ func updatePurchaseOrder(stub  shim.ChaincodeStubInterface, args []string) pb.Re
 	var err error
 	fmt.Println("Running updatePurchaseOrder..")
 
-	if len(args) != 28 {
-		fmt.Println("Incorrect number of arguments. Expecting 28 - ..")
-		return shim.Error("Incorrect number of arguments. Expecting 28")
+	if len(args) != 13 {
+		fmt.Println("Incorrect number of arguments. Expecting 13 - ..")
+		return shim.Error("Incorrect number of arguments. Expecting 13")
 	}
 
 	fmt.Println("Arguments :"+args[0]+","+args[1]+","+args[2]+","+args[3]+","+args[4]+","+args[5]+","+args[6]+","+args[7]+","+args[8]+","+args[9]+","+args[10]+","+args[11]+","+args[12]);
-	fmt.Println("Arguments :"+args[13]+","+args[14]+","+args[15]+","+args[16]+","+args[17]+","+args[18]+","+args[19]+","+args[20]+","+args[21]);
+	
 	var bt PurchaseOrder
 	sbAsBytes, err := stub.GetState(args[0])
 	if err != nil {
@@ -142,35 +142,18 @@ func updatePurchaseOrder(stub  shim.ChaincodeStubInterface, args []string) pb.Re
 	}
 	json.Unmarshal(sbAsBytes, &bt)
 	
-	bt.PurchaseOrderDate				= args[1]
-	bt.ShoppingOrderNumber				= args[2]	
-	bt.ShoppingOrderDate				= args[3]		
-	bt.OrderBy 							= args[4]
-	bt.BuyerCompany						= args[5]
-	bt.BuyerDepartment					= args[6]
-	bt.BuyerContactPerson				= args[7]
-	bt.BuyerContactPersonAddress		= args[8]
-	bt.BuyerContactPersonPhone			= args[9]
-	bt.BuyerContactPersonEmail			= args[10]
-	
-	bt.SupplierName						= args[11]
-	bt.SupplierUniqueNo					= args[12]
-	bt.SupplierContactPerson			= args[13]
-	bt.SupplierContactPersonAddress		= args[14]
-	bt.SupplierContactPersonAddressPhone= args[15]
-	bt.SupplierContactPersonAddressEmail= args[16]
-
-	bt.DeliverToPersonName				= args[17]	
-	bt.DeliverToPersonAddress			= args[18]	
-	bt.InvoiceAddress					= args[19]	
-	bt.TotalOrderAmount					= args[20]
-	bt.AccountingType					= args[21]
-	bt.CostCenter						= args[22]
-	bt.GLAccount						= args[23]
-	bt.TermsOfPayment					= args[24]
-	bt.InternalNotes					= args[25]
-	bt.ExternalNotes					= args[26]
-	bt.Status = "Approved"
+	bt.BuyerContactPerson				= args[1]
+	bt.SupplierName						= args[2]
+	bt.SupplierContactPerson			= args[3]
+	bt.DeliverToPersonName				= args[4]	
+	bt.DeliverToPersonAddress			= args[5]	
+	bt.InvoiceAddress					= args[6]	
+	bt.CostCenter						= args[7]
+	bt.GLAccount						= args[8]
+	bt.TermsOfPayment					= args[9]
+	bt.InternalNotes					= args[10]
+	bt.ExternalNotes					= args[11]
+	bt.Status = args[12]
 	//Commit Inward entry to ledger
 	fmt.Println("updatePurchaseOrder - Commit Purchase Order To Ledger");
 	btAsBytes, _ := json.Marshal(bt)

@@ -45,6 +45,7 @@ export class PoCreationComponent implements OnInit {
   }
 
   updatePO(){
+    this.purchaseOrder.status = "Approved";
     this.procurementService.updatePurchaseOrder(this.purchaseOrder)
     .then((results: any) => {
       this.alertService.success("Purchase Order approved.");
