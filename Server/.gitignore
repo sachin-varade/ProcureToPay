@@ -1,4 +1,4 @@
-node_modules
+/node_modules
 
 # certificates
 /hfcInterface/hfc-key-store
