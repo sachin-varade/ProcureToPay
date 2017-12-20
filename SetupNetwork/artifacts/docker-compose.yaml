@@ -8,7 +8,7 @@ version: '2'
 services:
 
   ca.syngentaOrg.syngenta.com:
-    image: hyperledger/fabric-ca
+    image: hyperledger/fabric-ca:x86_64-1.0.3
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
       - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.syngentaOrg.syngenta.com-cert.pem
@@ -30,7 +30,7 @@ services:
     container_name: ca.syngentaOrg.syngenta.com
 
   ca.vendorOrg.syngenta.com:
-    image: hyperledger/fabric-ca
+    image: hyperledger/fabric-ca:x86_64-1.0.3
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
       - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.vendorOrg.syngenta.com-cert.pem
@@ -50,7 +50,7 @@ services:
     container_name: ca.vendorOrg.syngenta.com
   
   ca.bankOrg.syngenta.com:
-    image: hyperledger/fabric-ca
+    image: hyperledger/fabric-ca:x86_64-1.0.3
     environment:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
       - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.bankOrg.syngenta.com-cert.pem
@@ -71,7 +71,7 @@ services:
   
   orderer.syngenta.com:
     container_name: orderer.syngenta.com
-    image: hyperledger/fabric-orderer
+    image: hyperledger/fabric-orderer:x86_64-1.0.3
     environment:
       - ORDERER_GENERAL_LOGLEVEL=debug
       - ORDERER_GENERAL_LISTENADDRESS=0.0.0.0
@@ -146,7 +146,7 @@ services:
 
   cli:
     container_name: cli
-    image: hyperledger/fabric-tools
+    image: hyperledger/fabric-tools:x86_64-1.0.3
     tty: true
     environment:
       - GOPATH=/opt/gopath
