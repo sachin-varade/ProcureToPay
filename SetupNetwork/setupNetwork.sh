@@ -67,6 +67,14 @@ function startAPI() {
 	echo $PWD
 	cd ../
 	cd Server
+  
+  if [ -d node_modules ]; then
+		echo "============== node modules installed already ============="
+	else
+		echo "============== Installing node modules ============="
+		npm install
+  fi
+
 	npm start	
 }
 
@@ -80,6 +88,14 @@ function startWEB() {
 	  taskkill /PID $pid /F
 	done
 	sleep 5
+
+  if [ -d node_modules ]; then
+		echo "============== node modules installed already ============="
+	else
+		echo "============== Installing node modules ============="
+		npm install
+  fi
+
 	npm start
 
 	# port=".4200*"
