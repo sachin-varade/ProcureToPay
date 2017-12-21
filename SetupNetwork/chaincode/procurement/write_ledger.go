@@ -220,3 +220,82 @@ func saveLogisticTransaction(stub  shim.ChaincodeStubInterface, args []string) p
 
 	return shim.Success(nil)
 }
+
+func saveVendorSalesOrder(stub  shim.ChaincodeStubInterface, args []string) pb.Response {	
+	var err error
+	fmt.Println("Running saveVendorSalesOrder..")
+
+	if len(args) != 28 {
+		fmt.Println("Incorrect number of arguments. Expecting 28 - ..")
+		return shim.Error("Incorrect number of arguments. Expecting 28")
+	}
+
+	fmt.Println("Arguments :"+args[0]+","+args[1]+","+args[2]+","+args[3]+","+args[4]+","+args[5]+","+args[6]+","+args[7]+","+args[8]+","+args[9]+","+args[10]+","+args[11]+","+args[12]);
+
+	allBAsBytes, err := stub.GetState("allVendorSalesOrderNumbers")
+	if err != nil {
+		return shim.Error("Failed to get all Vendor Sales Order Numbers")
+	}
+	var allb AllVendorSalesOrderNumbers
+	err = json.Unmarshal(allBAsBytes, &allb)
+	if err != nil {
+		return shim.Error("Failed to Unmarshal all Sales Order Numbers")
+	}
+	if checkDuplicateId(allb.SalesOrderNumbers, args[0]) == 0{
+		return shim.Error("Duplicate Sales Order Number - "+ args[0])
+	}
+
+
+	var bt VendorSalesOrder
+	bt.SalesOrderNumber					= args[0]
+	bt.PurchaseOrderRefNumber			= args[1]
+	bt.PurchaseOrderRefDate				= args[2]	
+	bt.PurchaserCompany					= args[3]		
+	bt.PurchaserCompanyDept 			= args[4]
+	bt.PurchaserContactPersonName		= args[5]
+	bt.PurchaserContactPersonAddress	= args[6]
+	bt.PurchaserContactPersonPhone		= args[7]
+	bt.PurchaserContactPersonEmail		= args[8]
+	bt.DeliverToPersonName				= args[9]
+	bt.DeliveryAddress					= args[10]
+	
+	bt.InvoicePartyId					= args[11]
+	bt.InvoicePartyAddress				= args[12]
+
+	var material VendorMaterial
+	
+	if args[13] != "" {
+		p := strings.Split(args[13], ",")
+		for i := range p {
+			c := strings.Split(p[i], "^")
+			material.MaterialId 		= 		c[0]
+			material.ProductName 		= 		c[1]
+			material.ProductDescription = 		c[2]
+			material.Quantity 			= 		c[3]
+			material.QuantityUnit 		= 		c[4]
+			material.PricePerUnit 		= 		c[5]
+			material.Currency 			= 		c[6]
+			material.NetAmount 			= 		c[7]
+			bt.MaterialList = append(bt.MaterialList, material)
+		}
+	}
+	
+	//Commit Sales Order entry to ledger
+	fmt.Println("saveVendorSalesOrder - Commit Sales Order To Ledger");
+	btAsBytes, _ := json.Marshal(bt)
+	err = stub.PutState(bt.SalesOrderNumber, btAsBytes)
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+
+	//Update All Abattoirs Array	
+	allb.SalesOrderNumbers = append(allb.SalesOrderNumbers, bt.SalesOrderNumber)
+
+	allBuAsBytes, _ := json.Marshal(allb)
+	err = stub.PutState("allVendorSalesOrderNumbers", allBuAsBytes)
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+
+	return shim.Success(nil)
+}

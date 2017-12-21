@@ -93,6 +93,46 @@ type AllPurchaseOrderDetails struct{
 	PurchaseOrders []PurchaseOrder `json:"purchaseOrders"`
 }
 
+type VendorSalesOrder struct {
+	SalesOrderNumber					string		`json:"salesOrderNumber"`
+	PurchaseOrderRefNumber				string		`json:"purchaseOrderRefNumber"`
+	PurchaseOrderRefDate				string		`json:"purchaseOrderRefDate"`
+	PurchaserCompany					string		`json:"purchaserCompany"`
+	PurchaserCompanyDept				string		`json:"purchaserCompanyDept"`
+	PurchaserContactPersonName			string		`json:"purchaserContactPersonName"`
+	PurchaserContactPersonAddress		string		`json:"purchaserContactPersonAddress"`
+	PurchaserContactPersonPhone			string		`json:"purchaserContactPersonPhone"`
+	PurchaserContactPersonEmail			string		`json:"purchaserContactPersonEmail"`
+	DeliverToPersonName					string		`json:"deliverToPersonName"`
+	DeliveryAddress						string		`json:"deliveryAddress"`
+	InvoicePartyId						string		`json:"invoicePartyId"`
+	InvoicePartyAddress					string		`json:"invoicePartyAddress"`
+	MaterialList						[]VendorMaterial		`json:"materialList"`
+}
+
+
+type VendorMaterial struct {
+	MaterialId					string		`json:"materialId"`
+	ProductName					string		`json:"productName"`
+	ProductDescription			string		`json:"productDescription"`
+	Quantity					string		`json:"quantity"`	
+	QuantityUnit				string		`json:"quantityUnit"`
+	PricePerUnit				string		`json:"pricePerUnit"`	
+	Currency					string		`json:"currency"`
+	NetAmount					string		`json:"netAmount"`
+	DispatchedQuantity			string		`json:"dispatchedQuantity"`
+	
+}
+
+
+type AllVendorSalesOrderNumbers struct{
+	SalesOrderNumbers 		[]string		`json:"salesOrderNumbers"`
+}
+
+type AllVendorSalesOrderDetails struct{
+	VendorSalesOrders 		[]VendorSalesOrder		`json:"vendorSalesOrders"`
+}
+
 type LogisticTransaction struct {
 	ConsignmentNumber				string		`json:"consignmentNumber"`
 	GoodsIssueRefNumber			string		`json:"goodsIssueRefNumber"`
@@ -151,6 +191,14 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response {
 		return shim.Error(err.Error())
 	}
 
+	// // Vendor SalesOrder 
+	var allVendorSalesOrderNumbers AllVendorSalesOrderNumbers
+	jsonAsBytesallVendorSalesOrderNumbers, _ := json.Marshal(allVendorSalesOrderNumbers)
+	err = stub.PutState("allVendorSalesOrderNumbers", jsonAsBytesallVendorSalesOrderNumbers)
+	if err != nil {		
+		return shim.Error(err.Error())
+	}
+
 	var allLogisticTransactionIds AllLogisticTransactionIds
 	jsonAsBytesAllLogisticTransactionIds, _ := json.Marshal(allLogisticTransactionIds)
 	err = stub.PutState("allLogisticTransactionIds", jsonAsBytesAllLogisticTransactionIds)
@@ -185,7 +233,11 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 		return saveLogisticTransaction(stub, args)
 	} else if function == "getAllLogisticTransactions" {
 		return getAllLogisticTransactions(stub, args[0], args[1])
-	} 
+	}  else if function == "getAllVendorSalesOrders" {
+		return getAllVendorSalesOrders(stub, args[0], args[1])
+	} else if function == "saveVendorSalesOrder" {
+		return saveVendorSalesOrder(stub, args)
+	}
 	
 	// error out
 	fmt.Println("Received unknown invoke function name - " + function)
