@@ -67,6 +67,13 @@ router.get("/getAllPurchaseOrders/:option/:value?", function(req, res) {
 	});	
 });
 
+router.post("/createVendorSalesOrder", function(req, res) {    
+	var promise = vendorService.createVendorSalesOrder(req.body);
+	promise.then(function(resp,err){
+		res.send(resp);
+	});	
+})
+
 // ------------------------ LOGISTIC routes --------------------
 router.post("/saveLogisticTransaction", function(req, res) {    
 	var promise = logisticService.saveLogisticTransaction(req.body);

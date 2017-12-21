@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import * as ProcurementModels from '../models/procurement';
+import * as VendorModels from '../models/vendor';
 import * as Constants from '../constants';
 import { AlertService } from './alert.service';
 import { Observable } from "rxjs/Observable";
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
+
 
 @Injectable()
 export class ProcurementService {
@@ -42,6 +44,16 @@ export class ProcurementService {
       return results;
     }).catch((err) => {
       this.alertService.error("Error occured...");
+    });
+  }
+
+  createVendorSalesOrder(salesOrder: VendorModels.VendorSalesOrder): Promise<any> {
+    this.url = `${this.BASE_URL}/createVendorSalesOrder`;
+    return this.http.post(this.url, salesOrder).toPromise()
+    .then((results: any) => {
+      return results;
+    }).catch((err) => {
+      this.alertService.error(err);
     });
   }
 }

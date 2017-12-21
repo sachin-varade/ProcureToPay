@@ -1,10 +1,18 @@
 <div class="page-container cgt-buyer">
     <div class="container">
-        <h2 class="page-title">PO Fulfilment ***</h2>
+        <h2 class="page-title">PO Fulfilment</h2>
         <div class="content-area">
             <div class="plain-block mrg-btm-30">
                 <h5 class="sub-title-sm">Order Details</h5>
                 <div class="border-box-wrapper">
+                    <div class="border-box-table">
+                        <div class="border-box-row">
+                            <div class="border-box col-1">
+                                <label class="label-field">Sales Order Number</label>
+                                <input type="text" [(ngModel)]="salesOrder.salesOrderNumber" name="salesOrderNumber" required class="input-style">
+                            </div>
+                        </div>
+                    </div>
                     <div class="border-box-table">
                         <div class="border-box-row">
                             <div class="border-box col-3">
@@ -20,8 +28,8 @@
                                 <span class="value-field">{{purchaseOrder.purchaseOrderDate}}</span>
                             </div>
                             <div class="border-box col-3 end-box">
-                                <label class="label-field">Purchaser Company</label>
-                                <span class="value-field">{{purchaseOrder.buyerCompany}}</span>
+                                <label class="label-field">Purchaser Company / Department</label>
+                                <span class="value-field">{{purchaseOrder.buyerCompany}} / {{purchaseOrder.buyerDepartment}}</span>
                             </div>
                         </div>
                     </div>
@@ -32,8 +40,8 @@
                                 <span class="value-field">{{purchaseOrder.buyerContactPerson}}</span>
                             </div>
                             <div class="border-box">
-                                <label class="label-field">Purchaser Contact Address</label>
-                                <span class="value-field">{{purchaseOrder.buyerContactPersonAddress}}</span>
+                                <label class="label-field">Purchaser Contact Address / Phone </label>
+                                <span class="value-field">{{purchaseOrder.buyerContactPersonAddress}} <br/> Phone: {{purchaseOrder.buyerContactPersonPhone}}</span>
                             </div>
                             <div class="border-box end-box">
                                 <label class="label-field">Purchaser Email</label>
@@ -41,11 +49,11 @@
                             </div>
                         </div>
                     </div>
-
+  
                     <div class="border-box-table">
                         <div class="border-box-row">
                             <div class="border-box">
-                                <label class="label-field">delivery To</label>
+                                <label class="label-field">Delivery To</label>
                                 <span class="value-field">{{purchaseOrder.deliverToPersonName}}</span>
                             </div>
                             <div class="border-box">
@@ -60,22 +68,21 @@
                     </div>
                 </div>
             </div>
-
+  
             <div class="plain-block mrg-btm-30">
-                <h5 class="sub-title-sm">Meterial Details</h5>
+                <h5 class="sub-title-sm">Material Details</h5>
                 <div class="border-box-wrapper">
                     <table class="table table-striped full-width">
                         <tr>
-                            <th>Meterial Group</th>
+                            <th>Material Group</th>
                             <th>Product Name</th>
-                            <th>description</th>
+                            <th>Description</th>
+                            <th>Seller Product Code</th>
                             <th>Quantity</th>
                             <th>Units</th>
                             <th>Unit price</th>
                             <th>Currency</th>
                             <th>Net Amount</th>
-                            <th>Dispatched Qty</th>
-                            <th>Batch No</th>
                         </tr>
                         <tr *ngFor="let item of purchaseOrder.orderedMaterial; let i = index" [attr.data-index]="i">
                             <td>
@@ -86,6 +93,9 @@
                             </td>
                             <td>
                                 <span>{{item.productDescription}}</span>
+                            </td>
+                            <td>
+                              <span>Seller Product Code</span>
                             </td>
                             <td>
                                 <span>{{item.quantity}}</span> 
@@ -102,19 +112,16 @@
                             <td>
                                 <strong>{{item.netAmount}}</strong>
                             </td>
-                            <td><input type="text" class="input-style-small"></td>
-                            <td><input type="text" class="input-style-small"></td>
-
                         </tr>
                     </table>
                 </div>
             </div>
-
+  
             <div class="btn-area">
                 <button class="btn-border">Cancel</button>
-                <button class="btn-normal">Submit</button>
+                <button class="btn-normal" (click)="createSO()">Approve & Generate SO</button>
             </div>
-
+  
         </div>
     </div>
-</div>
+  </div>
