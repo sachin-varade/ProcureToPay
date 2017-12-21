@@ -15,7 +15,7 @@
     "express-formidable": "^1.0.0",
     "fabric-ca-client": "^1.0.2",
     "fabric-client": "^1.0.2",
-    "grpc": "^1.6.0",
+    "grpc": "^1.8.0",
     "node-uuid": "^1.4.8",
     "save-file": "^1.2.0"
   },

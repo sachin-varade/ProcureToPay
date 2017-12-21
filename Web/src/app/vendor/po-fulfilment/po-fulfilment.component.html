@@ -1,6 +1,6 @@
 <div class="page-container cgt-buyer">
     <div class="container">
-        <h2 class="page-title">PO Fulfilment</h2>
+        <h2 class="page-title">PO Fulfilment ***</h2>
         <div class="content-area">
             <div class="plain-block mrg-btm-30">
                 <h5 class="sub-title-sm">Order Details</h5>
@@ -10,19 +10,18 @@
                             <div class="border-box col-3">
                                 <label class="label-field">PO Number</label>
                                 <span class="value-field">
-                                    <select class="input-style">
-                                        <option selected>672348234723847</option>
-                                        <option>75686954325355</option>
+                                    <select class="input-style" [(ngModel)]="purchaseOrder.purchaseOrderNumber" (change)="setPO()" name="purchaseOrder" id="purchaseOrder" required>
+                                        <option *ngFor="let item of purchaseOrderList" [value]="item.purchaseOrderNumber">{{item.purchaseOrderNumber}}</option>
                                     </select>
-                                </span>
+                                </span>        
                             </div>
                             <div class="border-box col-3">
                                 <label class="label-field">PO Date</label>
-                                <span class="value-field">December 21, 2017</span>
+                                <span class="value-field">{{purchaseOrder.purchaseOrderDate}}</span>
                             </div>
                             <div class="border-box col-3 end-box">
                                 <label class="label-field">Purchaser Company</label>
-                                <span class="value-field">Company Name</span>
+                                <span class="value-field">{{purchaseOrder.buyerCompany}}</span>
                             </div>
                         </div>
                     </div>
@@ -30,15 +29,15 @@
                         <div class="border-box-row">
                             <div class="border-box">
                                 <label class="label-field">Purchaser Contact Person</label>
-                                <span class="value-field">Contact person name</span>
+                                <span class="value-field">{{purchaseOrder.buyerContactPerson}}</span>
                             </div>
                             <div class="border-box">
                                 <label class="label-field">Purchaser Contact Address</label>
-                                <span class="value-field">Address line 1, street name, Location Name, City, State</span>
+                                <span class="value-field">{{purchaseOrder.buyerContactPersonAddress}}</span>
                             </div>
                             <div class="border-box end-box">
                                 <label class="label-field">Purchaser Email</label>
-                                <span class="value-field">purchasername@company.com</span>
+                                <span class="value-field">{{purchaseOrder.buyerContactPersonEmail}}</span>
                             </div>
                         </div>
                     </div>
@@ -47,15 +46,15 @@
                         <div class="border-box-row">
                             <div class="border-box">
                                 <label class="label-field">delivery To</label>
-                                <span class="value-field">person name</span>
+                                <span class="value-field">{{purchaseOrder.deliverToPersonName}}</span>
                             </div>
                             <div class="border-box">
                                 <label class="label-field">Delivery Address</label>
-                                <span class="value-field">Address line 1, street name, Location Name, City, State</span>
+                                <span class="value-field">{{purchaseOrder.deliverToPersonAddress}}</span>
                             </div>
                             <div class="border-box end-box">
                                 <label class="label-field">Invoice Address</label>
-                                <span class="value-field">Address line 1, street name, Location Name, City, State</span>
+                                <span class="value-field">{{purchaseOrder.invoiceAddress}}</span>
                             </div>
                         </div>
                     </div>
@@ -77,6 +76,35 @@
                             <th>Net Amount</th>
                             <th>Dispatched Qty</th>
                             <th>Batch No</th>
+                        </tr>
+                        <tr *ngFor="let item of purchaseOrder.orderedMaterial; let i = index" [attr.data-index]="i">
+                            <td>
+                                <span>{{item.buyerMaterialGroup}}</span>
+                            </td>
+                            <td>
+                                <span>{{item.productName}}</span>
+                            </td>
+                            <td>
+                                <span>{{item.productDescription}}</span>
+                            </td>
+                            <td>
+                                <span>{{item.quantity}}</span> 
+                            </td>
+                            <td>
+                                <span>{{item.quantityUnit}}</span> 
+                            </td>
+                            <td>
+                                <span>{{item.pricePerUnit}}</span> 
+                            </td>
+                            <td>
+                                <span>{{item.currency}}</span> 
+                            </td>
+                            <td>
+                                <strong>{{item.netAmount}}</strong>
+                            </td>
+                            <td><input type="text" class="input-style-small"></td>
+                            <td><input type="text" class="input-style-small"></td>
+
                         </tr>
                         <tr>
                             <td>

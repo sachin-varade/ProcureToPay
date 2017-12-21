@@ -59,9 +59,9 @@ createChannel() {
 	setGlobals $1
 
   if [ -z "$CORE_PEER_TLS_ENABLED" -o "$CORE_PEER_TLS_ENABLED" = "false" ]; then
-		peer channel create -o orderer.syngenta.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/${CHANNEL_NAME}.tx >&log.txt
+		peer channel create -o orderer.syngenta.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/$2.tx >&log.txt
 	else
-		peer channel create -o orderer.syngenta.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/${CHANNEL_NAME}.tx --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA >&log.txt
+		peer channel create -o orderer.syngenta.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/$2.tx --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA >&log.txt
 	fi
 	res=$?
 	cat log.txt
@@ -238,10 +238,10 @@ chaincodeInvoke () {
 ## Create channel
 echo "Creating channel... procurementchannel"
 CHANNEL_NAME="procurementchannel"
-createChannel 0
+createChannel 0 "procurementChannel"
 echo "Creating channel... financechannel"
 CHANNEL_NAME="financechannel"
-createChannel 2
+createChannel 2 "financeChannel"
 
 ## Join all the peers to the channel
 echo "Having all peers join the channel..."

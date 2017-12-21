@@ -1,3 +1,4 @@
+/node_modules
 # certificates
 /artifacts/fabric-ca-server/ca1/msp
 /artifacts/fabric-ca-server/ca1/fabric-ca-server.db
