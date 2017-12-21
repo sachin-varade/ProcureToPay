@@ -165,4 +165,58 @@ func updatePurchaseOrder(stub  shim.ChaincodeStubInterface, args []string) pb.Re
 	return shim.Success(nil)
 }
 
+//Create LogisticTransaction block
+func saveLogisticTransaction(stub  shim.ChaincodeStubInterface, args []string) pb.Response {	
+	var err error
+	fmt.Println("Running saveLogisticTransaction..")
 
+	if len(args) != 12 {
+		fmt.Println("Incorrect number of arguments. Expecting 12")
+		return shim.Error("Incorrect number of arguments. Expecting 12")
+	}
+
+	fmt.Println("Arguments :"+args[0]+","+args[1]+","+args[2]+","+args[3]+","+args[4]+","+args[5]+","+args[6]+","+args[7]);
+	allBAsBytes, err := stub.GetState("allLogisticTransactionIds")
+	if err != nil {
+		return shim.Error("Failed to get all AllLogisticTransactionIds")
+	}
+	var allb AllLogisticTransactionIds
+	err = json.Unmarshal(allBAsBytes, &allb)
+	if err != nil {
+		return shim.Error("Failed to Unmarshal all AllLogisticTransactionIds")
+	}
+	if checkDuplicateId(allb.ConsignmentNumbers, args[0]) == 0{
+		return shim.Error("Duplicate ConsignmentNumber - "+ args[0])
+	}
+	
+	var bt LogisticTransaction
+	bt.ConsignmentNumber				= args[0]
+	bt.GoodsIssueRefNumber				= args[1]
+	bt.PurchaseOrderRefNumber				= args[2]
+	bt.SupplierNumber							= args[3]
+	bt.ShipToParty			= args[4]
+	bt.PickedupDatetime						= args[5]
+	bt.ExpectedDeliveryDatetime						= args[6]
+	bt.ActualDeliveryDatetime			= args[9]	
+	bt.HazardousMaterial			= args[10]
+	bt.PackagingInstruction			= args[11]
+
+	//Commit Inward entry to ledger
+	fmt.Println("saveLogisticTransaction - Commit LogisticTransaction To Ledger");
+	btAsBytes, _ := json.Marshal(bt)
+	err = stub.PutState(bt.ConsignmentNumber, btAsBytes)
+	if err != nil {		
+		return shim.Error(err.Error())
+	}
+
+	//Update All AbattoirDispatch Array	
+	allb.ConsignmentNumbers = append(allb.ConsignmentNumbers, bt.ConsignmentNumber)
+
+	allBuAsBytes, _ := json.Marshal(allb)
+	err = stub.PutState("allLogisticTransactionIds", allBuAsBytes)
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+
+	return shim.Success(nil)
+}

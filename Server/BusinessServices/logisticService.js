@@ -25,13 +25,61 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
     eventHubPeers = eventHubPeers;
     orderer = orderer;
 
+    logisticService.getAllLogisticTransactions = function(option, value){
+        console.log("getAllLogisticTransactions");
+        return fabric_client.getUserContext(users.logisticUser.enrollmentID, true)
+        .then((user_from_store) => {
+            helper.checkUserEnrolled(user_from_store);
+            return queryChainCode.queryChainCode(channels.logisticChannelPC, 
+                logisticConfig.channels.procurementchannel.chaincodeId, 
+                "getAllLogisticTransactions", 
+                [option, value]);
+        }).then((results) => {
+            return results;
+        }).catch((err) => {
+            throw err;
+        });
+    }
+
+    logisticService.saveLogisticTransaction = function(logisticTransaction){
+        console.log("saveLogisticTransaction");
+        
+        return fabric_client.getUserContext(users.logisticUser.enrollmentID, true)
+        .then((user_from_store) => {
+            helper.checkUserEnrolled(user_from_store);            
+            return invokeChainCode.invokeChainCode(fabric_client, 
+                channels.logisticChannelPC, 
+                eventHubPeers.logisticEventHubPeer._url, 
+                //"grpc://localhost:7053",
+                logisticConfig.channels.procurementchannel.chaincodeId, 
+                "saveLogisticTransaction",  
+                [
+                    logisticTransaction.ConsignmentNumber,
+                    logisticTransaction.GoodsIssueRefNumber,
+                    logisticTransaction.PurchaseOrderRefNumber,
+                    logisticTransaction.SupplierNumber,
+                    logisticTransaction.ShipToParty,
+                    logisticTransaction.PickedupDatetime,
+                    logisticTransaction.ExpectedDeliveryDatetime,
+                    logisticTransaction.ActualDeliveryDatetime,
+                    logisticTransaction.HazardousMaterial,
+                    logisticTransaction.PackagingInstruction       
+                ]                
+            );                
+        }).then((results) => {
+            return results;
+        }).catch((err) => {
+            throw err;
+        });
+    }
+
     logisticService.getUniqueId = function(option, value){
         console.log("getUniqueId");
         return fabric_client.getUserContext(users.logisticUser.enrollmentID, true)
         .then((user_from_store) => {
             helper.checkUserEnrolled(user_from_store);
             return queryChainCode.queryChainCode(channels.logisticChannelPC, 
-                logisticConfig.channels.logisticChannelPC.chaincodeId, 
+                logisticConfig.channels.procurementchannel.chaincodeId, 
                 "getUniqueId", 
                 [option, value]);
         }).then((results) => {
@@ -82,8 +130,6 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
             throw err;
         });
     }
-
-   
 
 	return logisticService;
 };

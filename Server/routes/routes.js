@@ -67,6 +67,30 @@ router.get("/getAllPurchaseOrders/:option/:value?", function(req, res) {
 	});	
 });
 
+// ------------------------ LOGISTIC routes --------------------
+router.post("/saveLogisticTransaction", function(req, res) {    
+	var promise = logisticService.saveLogisticTransaction(req.body);
+	promise.then(function(resp,err){
+		res.send(resp);
+	});	
+});
+
+router.get("/getAllLogisticTransactions/:option/:value?", function(req, res) {    
+    var promise = logisticService.getAllLogisticTransactions(req.params.option, req.params.value?req.params.value: "");
+	promise.then(function(resp,err){
+		res.send(resp);
+	});	
+});
+
+
+// ------------------------ UNIQUE IDs routes --------------------
+router.get("/procurement/getUniqueId/:option/:value?", function(req, res) {    
+    var promise = logisticService.getUniqueId(req.params.option, req.params.value?req.params.value: "");
+	promise.then(function(resp,err){
+		res.send({"uniqueId": resp});
+	});	
+});
+
 
 // ------------------------ BLOCK routes --------------------
 router.get("/queryInfo/:role", function(req, res) {    

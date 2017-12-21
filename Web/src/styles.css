@@ -492,6 +492,16 @@
        
     }
 
+    .cgt-logistic .page-title{
+        font-size: 24px;
+        color: #00A0BE;
+        margin: 25px 0;
+        border-bottom: solid 2px #ccc;
+        padding: 0 0 7px 0;
+       
+    }
+
+
 
     .content-area{
 
@@ -576,6 +586,29 @@
         width: 69%;
     }
 
+    .block-field .label-field{
+        display: block;
+        width: 100%;
+        padding: 0;
+        color: #000;
+        font-weight: bold;
+    }
+
+    .block-field .value-field{
+        display: block;
+        width: 100%;
+        padding: 0;
+        color: #777;
+    }
+
+    .block-field .value-field.highlight{
+        display: block;
+        font-size: 23px;
+        padding-bottom: 5px;
+        border-bottom: solid 1px #ddd;
+    }
+
+
     .value-text input, .value-text textarea, .value-text select{
         font-size: 14px;
     }
@@ -587,10 +620,14 @@
         padding-bottom: 5px;
     }
 
-    .cgt-finance .sub-title-sm{
+    .cgt-finance .sub-title-sm, .cgt-logistic .sub-title-sm{
         font-size: 19px;
         font-weight: lighter;
         padding-left: 10px;
+    }
+
+    .cgt-logistic .sub-title-sm{
+        padding-left: 0;
     }
 
     .two-col{
@@ -673,12 +710,32 @@
         color: #fff;
     }
 
+    .cgt-logistic .btn-normal{
+        background: #00A0BE;
+    }
+
+    .cgt-logistic .btn-normal:hover{
+        background: #048fa9;
+    }
+
+    .cgt-logistic .btn-border{
+        border: solid 1px #00A0BE;
+        color: #00A0BE;
+    }
+
+    .cgt-logistic .btn-border:hover{
+        border: solid 1px #00A0BE;
+        background: #00A0BE;
+        color: #fff;
+    }
+
     .border-box-wrapper{
         max-width: 100%;
         border-top: solid 5px #aadde7;
     }
 
-    .cgt-finance .border-box-wrapper{
+
+    .cgt-finance .border-box-wrapper, .cgt-logistic .border-box-wrapper{
         border-top: none;
     }
 
@@ -718,6 +775,20 @@
         background: #f6fafc;
     }
 
+    .cgt-logistic .border-box{
+        border: none;
+        background:#f8f8f8;
+         border-bottom: solid 1px #ddd;
+    }
+
+    .cgt-logistic .border-box.end-box{
+        border-right: none;
+    }
+
+    .cgt-logistic .border-box .input-style{
+        width: 80%;
+    }
+
     .cgt-finance .border-box{
         border: none;
         padding: 0;
@@ -727,6 +798,7 @@
         background: #fff;
         box-shadow: 0px 0px 9px rgba(0, 0, 0, .1);
     }
+    
 
     .border-box.end-box{
         border-right: solid 1px #aadde7;
@@ -770,31 +842,37 @@
     }
 
     .tracker{
-        width: auto;
         margin: 0 auto;
-        display: inline-block;
     }
 
     .tracker-wrapper{
         text-align: center;
-        padding: 10px;
-        background: #f0f0f0;
-        border-radius: 12px;
+        display: table;
+    }
+
+    .tracker-wrapper .po-details{
+        display: table-cell;
+        vertical-align: top;
+        width: 25%;
+        padding: 20px;
+        background: #f8f8f8;
+        text-align: left;
+    }
+
+    .tracker-wrapper .po-tracker{
+        display: table-cell;
+        vertical-align: top;
+        width: 75%;
     }
 
     .tracker-wrapper ul{
-        border-bottom: solid 1px #ddd;
         margin: 0 auto;
         padding: 0;
-        display: inline-block;
     }
 
     .tracker-wrapper ul li{
-        border-top: solid 1px #ddd;
         margin: 0;
         list-style: none;
-        background: #fcfcfc;
-        padding: 21px 0;
         position: relative;
     }
 
@@ -874,27 +952,119 @@
     }
 
     .tracker-btn{
-        padding: 10px;
-        background: #f0f0f0;
-        border-radius: 12px;
-        margin-bottom: 10px;
+        margin-bottom: 20px;
     }
 
     .tracker-btn form{
-        padding: 20px;
+        padding: 10px;
         display: block;
-        background: #fcfcfc;
+        background: #f8f8f8;
     }
 
     .tracker-btn .input-style{
         height: 40px;
-        width: 70%;
+        width: 50%;
         font-size: 16px;
     }
 
     .tracker-btn .input-style option{
         font-size: 16px;
     }
+
+    .v-list{
+        padding: 10px 0;
+    }
+
+    .timeline-wrapper{
+        position: relative;
+    }
+
+    .timeline-wrapper ul li{
+        display: table;
+        position: relative;
+        width: 100%;
+        min-height: 100px;
+    }
+
+    .timeline-wrapper ul li .left-block, .timeline-wrapper ul li .right-block{
+        display: table-cell;
+        vertical-align: middle;
+        width: 50%;
+    }
+
+    .timeline-wrapper ul li .left-block{
+        padding-right: 35px;
+        text-align: right;
+    }
+
+    .timeline-wrapper ul li .right-block{
+        padding-left: 35px;
+        text-align: left;
+    }
+
+    .timeline-wrapper ul li::after{
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 50%;
+        width: 2px;
+        height: 100%;
+        background: #bbb;
+        z-index: 1;
+    }
+
+    .timeline-wrapper ul li.finished::after{
+        background: #eb8200;
+    }
+
+    .timeline-wrapper ul li .marker{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 40px;
+        height: 40px;
+        margin-left: -21px;
+        margin-top: -20px;
+        line-height: 40px;
+        border: solid 2px #bbb;
+        border-radius: 50%;
+        text-align: center;
+        background: url('assets/images/pending-icon.png') no-repeat center #fff;
+        z-index: 2;
+    }
+
+    .timeline-wrapper ul li.finished .marker{
+        border: solid 2px #eb8200;
+        border-radius: 50%;
+        text-align: center;
+        background: url('assets/images/checked.png') no-repeat center #fff;
+        z-index: 2;
+    }
+
+    .timeline-wrapper ul li .event-title{
+        margin: 0;
+        padding-bottom: 4px;
+        color: #000;
+        font-size: 14px;
+        font-weight: bold;
+        display: block;
+    }
+
+    .timeline-wrapper ul li .event-time{
+        margin: 0;
+        padding: 0;
+        padding-bottom: 2px;
+        color: #999;
+        font-size: 13px;
+        display: block;
+    }
+
+    .timeline-wrapper ul li .event-party{
+        color: #00A0BE;
+        display: block;
+        font-size: 13px;
+    }
+    
 
     .col-2{
         width: 50%;

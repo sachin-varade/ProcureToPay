@@ -34,6 +34,10 @@
               <li class="nav-item"><a class="nav-link" routerLink="vendor/po-fulfillment">Purchase Order Fulfillment</a></li>
               <li class="nav-item"><a class="nav-link" routerLink="block/recent">Blocks</a></li>
           </ul>
+          <ul *ngIf="getUser().role == 'logistic'" class="nav navbar-nav" routerLinkActive="active">
+            <li class="nav-item"><a class="nav-link" routerLink="logistic/create-consignment">Create Consignment</a></li>
+            <li class="nav-item"><a class="nav-link" routerLink="block/recent">Blocks</a></li>
+        </ul>
       </div>
     </nav>
   

@@ -93,7 +93,27 @@ type AllPurchaseOrderDetails struct{
 	PurchaseOrders []PurchaseOrder `json:"purchaseOrders"`
 }
 
+type LogisticTransaction struct {
+	ConsignmentNumber				string		`json:"consignmentNumber"`
+	GoodsIssueRefNumber			string		`json:"goodsIssueRefNumber"`
+	PurchaseOrderRefNumber	string		`json:"purchaseOrderRefNumber"`
+	SupplierNumber	string		`json:"supplierNumber"`
+	ShipToParty	string		`json:"shipToParty"`
+	PickedupDatetime	string		`json:"pickedupDatetime"`
+	ExpectedDeliveryDatetime	string		`json:"expectedDeliveryDatetime"`	
+	ActualDeliveryDatetime	string		`json:"actualDeliveryDatetime"`
+	HazardousMaterial	string		`json:"hazardousMaterial"`	
+	PackagingInstruction	string		`json:"packagingInstruction"`	
+}
 
+
+type AllLogisticTransactionIds struct{
+	ConsignmentNumbers []string `json:"ConsignmentNumbers"`
+}
+
+type AllLogisticTransactionDetails struct{
+	LogisticTransactions []LogisticTransaction `json:"logisticTransactions"`
+}
 
 // ============================================================================================================================
 // Init - initialize the chaincode 
@@ -131,6 +151,13 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response {
 		return shim.Error(err.Error())
 	}
 
+	var allLogisticTransactionIds AllLogisticTransactionIds
+	jsonAsBytesAllLogisticTransactionIds, _ := json.Marshal(allLogisticTransactionIds)
+	err = stub.PutState("allLogisticTransactionIds", jsonAsBytesAllLogisticTransactionIds)
+	if err != nil {		
+		return shim.Error(err.Error())
+	}
+
 	fmt.Println(" - ready for action")                        
 	return shim.Success(nil)
 }
@@ -152,7 +179,13 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 		return savePurchaseOrder(stub, args)
 	} else if function == "updatePurchaseOrder" {
 		return updatePurchaseOrder(stub, args)
-	}
+	} else if function == "getUniqueId" {
+		return getUniqueId(stub, args[0], args[1])
+	} else if function == "saveLogisticTransaction" {
+		return saveLogisticTransaction(stub, args)
+	} else if function == "getAllLogisticTransactions" {
+		return getAllLogisticTransactions(stub, args[0], args[1])
+	} 
 	
 	// error out
 	fmt.Println("Received unknown invoke function name - " + function)

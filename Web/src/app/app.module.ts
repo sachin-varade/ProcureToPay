@@ -29,8 +29,14 @@ import { InterceptorService } from "./services/interceptor.service";
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 import { PoCreationComponent } from './procurement/po-creation/po-creation.component';
 import { ProcurementService } from './services/procurement.service';
+import { LogisticService } from './services/logistic.service';
+import { VendorService } from './services/vendor.service';
+import { FinanceService } from './services/finance.service';
+import { BankService } from './services/bank.service';
+
 import { PoFulfilmentComponent } from './vendor/po-fulfilment/po-fulfilment.component';
 import { PoTrackerComponent } from './procurement/po-tracker/po-tracker.component';
+import { CreateConsignmentComponent } from './logistic/create-consignment/create-consignment.component';
 
 const appRoutes:Routes = [
   {
@@ -82,13 +88,18 @@ const appRoutes:Routes = [
     path: 'vendor/po-fulfillment',
     canActivate: [AuthguardGuard],
     component: PoFulfilmentComponent
+  },
+  {
+    path: 'logistic/create-consignment',
+    canActivate: [AuthguardGuard],
+    component: CreateConsignmentComponent
   }   
 ]
 
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, LoginComponent, FooterComponent, 
-    DashboardComponent, DialogComponent, BlockComponent, AlertComponent, PoCreationComponent, PoFulfilmentComponent, PoTrackerComponent],
+    DashboardComponent, DialogComponent, BlockComponent, AlertComponent, PoCreationComponent, PoFulfilmentComponent, PoTrackerComponent, CreateConsignmentComponent],
   imports: [  
   RouterModule.forRoot(appRoutes),
   FormsModule,
@@ -103,7 +114,7 @@ const appRoutes:Routes = [
   Ng4LoadingSpinnerModule
   ],
   providers: [UserService, AuthguardGuard, FormsModule, BlockService, AlertService,
-    ProcurementService,
+    ProcurementService, LogisticService, VendorService, FinanceService, BankService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,
