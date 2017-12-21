@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import * as LogisticModels from '../models/logistic';
+import * as VendorModels from '../models/vendor';
 import * as Constants from '../constants';
 import { AlertService } from './alert.service';
 import { Observable } from "rxjs/Observable";
@@ -45,4 +46,13 @@ export class LogisticService {
     });
   }
 
+  getAllVendorSalesOrders(option: string, value: string = ""): Promise<any> {
+    this.url = `${this.BASE_URL}/getAllVendorSalesOrders`;
+    return this.http.get(this.url+"/"+ option +"/"+ value).toPromise()
+    .then((results: any) => {
+      return results;
+    }).catch((err) => {
+      this.alertService.error("Error occured...");
+    });
+  }
 }

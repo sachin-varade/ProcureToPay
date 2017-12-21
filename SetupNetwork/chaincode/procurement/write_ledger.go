@@ -128,9 +128,9 @@ func updatePurchaseOrder(stub  shim.ChaincodeStubInterface, args []string) pb.Re
 	var err error
 	fmt.Println("Running updatePurchaseOrder..")
 
-	if len(args) != 13 {
-		fmt.Println("Incorrect number of arguments. Expecting 13 - ..")
-		return shim.Error("Incorrect number of arguments. Expecting 13")
+	if len(args) != 15 {
+		fmt.Println("Incorrect number of arguments. Expecting 15 - ..")
+		return shim.Error("Incorrect number of arguments. Expecting 15")
 	}
 
 	fmt.Println("Arguments :"+args[0]+","+args[1]+","+args[2]+","+args[3]+","+args[4]+","+args[5]+","+args[6]+","+args[7]+","+args[8]+","+args[9]+","+args[10]+","+args[11]+","+args[12]);
@@ -154,6 +154,27 @@ func updatePurchaseOrder(stub  shim.ChaincodeStubInterface, args []string) pb.Re
 	bt.InternalNotes					= args[10]
 	bt.ExternalNotes					= args[11]
 	bt.Status = args[12]
+	bt.TotalOrderAmount					= args[14]
+	var nbt PurchaseOrder
+	var material OrderMaterial
+	if args[13] != "" {
+		p := strings.Split(args[13], ",")
+		for i := range p {
+			c := strings.Split(p[i], "^")
+			material.OrderMaterialId = 		c[0]
+			material.BuyerMaterialGroup = 	c[1]
+			material.ProductName = 			c[2]
+			material.ProductDescription = 	c[3]
+			material.Quantity = 			c[4]
+			material.QuantityUnit = 		c[5]
+			material.PricePerUnit = 		c[6]
+			material.Currency = 			c[7]
+			material.NetAmount = 			c[8]
+			nbt.OrderedMaterial = append(nbt.OrderedMaterial, material)
+		}
+	}
+	bt.OrderedMaterial = nbt.OrderedMaterial
+
 	//Commit Inward entry to ledger
 	fmt.Println("updatePurchaseOrder - Commit Purchase Order To Ledger");
 	btAsBytes, _ := json.Marshal(bt)
@@ -170,7 +191,7 @@ func saveLogisticTransaction(stub  shim.ChaincodeStubInterface, args []string) p
 	var err error
 	fmt.Println("Running saveLogisticTransaction..")
 
-	if len(args) != 12 {
+	if len(args) != 10 {
 		fmt.Println("Incorrect number of arguments. Expecting 12")
 		return shim.Error("Incorrect number of arguments. Expecting 12")
 	}
@@ -197,9 +218,9 @@ func saveLogisticTransaction(stub  shim.ChaincodeStubInterface, args []string) p
 	bt.ShipToParty			= args[4]
 	bt.PickedupDatetime						= args[5]
 	bt.ExpectedDeliveryDatetime						= args[6]
-	bt.ActualDeliveryDatetime			= args[9]	
-	bt.HazardousMaterial			= args[10]
-	bt.PackagingInstruction			= args[11]
+	bt.ActualDeliveryDatetime			= args[7]	
+	bt.HazardousMaterial			= args[8]
+	bt.PackagingInstruction			= args[9]
 
 	//Commit Inward entry to ledger
 	fmt.Println("saveLogisticTransaction - Commit LogisticTransaction To Ledger");
@@ -244,7 +265,6 @@ func saveVendorSalesOrder(stub  shim.ChaincodeStubInterface, args []string) pb.R
 	if checkDuplicateId(allb.SalesOrderNumbers, args[0]) == 0{
 		return shim.Error("Duplicate Sales Order Number - "+ args[0])
 	}
-
 
 	var bt VendorSalesOrder
 	bt.SalesOrderNumber					= args[0]

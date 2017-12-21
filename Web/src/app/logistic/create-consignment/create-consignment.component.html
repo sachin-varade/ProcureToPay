@@ -1,6 +1,7 @@
 <div class="page-container cgt-logistic">
   <div class="container">
       <h2 class="page-title">Delivery Details</h2>
+      <form #myForm="ngForm">
       <div class="content-area">
           <div class="plain-block mrg-btm-30">
               <div class="border-box-wrapper">
@@ -9,13 +10,15 @@
                           <div class="border-box col-2">
                               <label class="label-field">Consignment No</label>
                               <span class="value-field">
-                                  <input type="text" class="input-style">
+                                  <input disabled [(ngModel)]="this.logisticTransaction.consignmentNumber" name="consignmentNumber" type="text" class="input-style">
                               </span>
                           </div>
                           <div class="border-box col-2">
                               <label class="label-field">Goods Issue ref. No</label>
                               <span class="value-field">
-                                  <input type="text" class="input-style">
+                                <select class="input-style" [(ngModel)]="this.logisticTransaction.goodsIssueRefNumber" (change)="changeGoodsIssueNumber()" name="goodsIssueRefNumber" id="goodsIssueRefNumber" required>
+                                    <option *ngFor="let item of vendorSalesOrderList" [value]="item.salesOrderNumber">{{item.salesOrderNumber}}</option>
+                                </select>
                               </span>
                           </div>
                           
@@ -25,11 +28,11 @@
                       <div class="border-box-row">
                           <div class="border-box col-2">
                               <label class="label-field">Purchase Order ref No</label>
-                              <span class="value-field">6937878546</span>
+                              <span class="value-field">{{this.logisticTransaction.purchaseOrderRefNumber}}</span>
                           </div>
                           <div class="border-box col-2">
                               <label class="label-field">Supplier No</label>
-                              <span class="value-field">756785687986</span>
+                              <span class="value-field">{{this.logisticTransaction.supplierNumber}}</span>
                           </div>
                           
                       </div>
@@ -39,12 +42,13 @@
                       <div class="border-box-row">
                           <div class="border-box col-2">
                               <label class="label-field">Ship to Party</label>
-                              <span class="value-field">person name</span>
+                              <span class="value-field">{{this.logisticTransaction.shipToParty}}</span>
                           </div>
                           <div class="border-box col-2">
                               <label class="label-field">Pickedup Time</label>
                               <span class="value-field">
-                                  <input type="text" class="input-style">
+                                <input type="text" placeholder="Date" [(ngModel)]="logisticTransaction.pickedupDatetime" name="pickedupDatetime" class="form-control date-picker-date date-input-small float-left" bsDatepicker required/>     
+                                <ngb-timepicker [(ngModel)]="pickedupDatetime" name="pickedupDatetime" class="date-picker-time float-left" required></ngb-timepicker>
                               </span>
                           </div>
                           
@@ -56,13 +60,15 @@
                           <div class="border-box col-2">
                               <label class="label-field">Expected Delivery</label>
                               <span class="value-field">
-                                  <input type="text" class="input-style">
+                                <input type="text" placeholder="Date" [(ngModel)]="logisticTransaction.expectedDeliveryDatetime" name="expectedDeliveryDatetime" class="form-control date-picker-date date-input-small float-left" bsDatepicker required/>     
+                                <ngb-timepicker [(ngModel)]="expectedDeliveryDatetime" name="expectedDeliveryDatetime" class="date-picker-time float-left" required></ngb-timepicker>
                               </span>
                           </div>
                           <div class="border-box col-2">
                               <label class="label-field">Actual Delivery</label>
                               <span class="value-field">
-                                  <input type="text" class="input-style">
+                                <input type="text" placeholder="Date" [(ngModel)]="logisticTransaction.actualDeliveryDatetime" name="actualDeliveryDatetime" class="form-control date-picker-date date-input-small float-left" bsDatepicker required/>     
+                                <ngb-timepicker [(ngModel)]="actualDeliveryDatetime" name="actualDeliveryDatetime" class="date-picker-time float-left" required></ngb-timepicker>
                               </span>
                           </div>
                           
@@ -74,7 +80,7 @@
                           <div class="border-box col-2">
                               <label class="label-field">Hazardous material</label>
                               <span class="value-field">
-                                  <select class="input-style">
+                                  <select [(ngModel)]="logisticTransaction.hazardousMaterial" class="input-style" name ="hazardousMaterial" required>
                                       <option>Yes</option>
                                       <option>No</option>
                                   </select>
@@ -83,7 +89,7 @@
                           <div class="border-box col-2">
                               <label class="label-field">Packaging Instruction</label>
                               <span class="value-field">
-                                  <textarea class="input-style"></textarea>
+                                  <textarea [(ngModel)]="logisticTransaction.packagingInstruction" name="packagingInstruction" class="input-style" required></textarea>
                               </span>
                           </div>
                           
@@ -96,10 +102,12 @@
           
 
           <div class="btn-area">
-              <button class="btn-border">Cancel</button>
-              <button class="btn-normal">Submit</button>
+            <button type="submit" (click)="clearForm(myForm)" class="btn-border">Clear</button>            
+            <button type="submit" [disabled]="!myForm.form.valid" (click)="saveLogisticTransaction(myForm);"  class="btn-normal">Save Consignment</button>
+            
           </div>
 
       </div>
+      </form>
   </div>
 </div>

@@ -44,6 +44,28 @@ export class PoCreationComponent implements OnInit {
     });
   }
 
+  calculateOrderAmount(){
+    var total=0;
+    this.purchaseOrder.orderedMaterial.forEach(element => {
+        element.netAmount = Number(element.quantity) * Number(element.pricePerUnit);
+        total += element.netAmount;
+    });
+    this.purchaseOrder.totalOrderAmount = total.toString();
+  }
+
+  changeSupplier(){
+    console.log(this.commonData.supplierDetails);
+    this.commonData.supplierDetails.forEach(element => {
+      if(element.supplierName == this.purchaseOrder.supplierName){
+        this.purchaseOrder.supplierUniqueNo = element.supplierUniqueNo;
+        this.purchaseOrder.supplierContactPerson = element.supplierContactPerson;
+        this.purchaseOrder.supplierContactPersonAddress = element.supplierContactPersonAddress;
+        this.purchaseOrder.supplierContactPersonPhone = element.supplierContactPersonPhone;
+        this.purchaseOrder.supplierContactPersonEmail = element.supplierContactPersonEmail;
+      }
+    });
+  }
+
   updatePO(){
     this.purchaseOrder.status = "Approved";
     this.procurementService.updatePurchaseOrder(this.purchaseOrder)

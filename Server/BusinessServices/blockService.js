@@ -14,16 +14,32 @@ module.exports = function (procurementService, financeService, logisticService, 
                 throw err;
             });
         }
-        else if(role.toUpperCase() === 'vendor'){
-            return processorService.queryInfo()
+        else if(role.toUpperCase() === 'VENDOR'){
+            return vendorService.queryInfo()
             .then((results) => {
                 return results;
             }).catch((err) => {
                 throw err;
             });
         }
-        else if(role.toUpperCase() === 'ROL4'){
-            return ikeaService.queryInfo()
+        else if(role.toUpperCase() === 'FINANCE'){
+            return financeService.queryInfo()
+            .then((results) => {
+                return results;
+            }).catch((err) => {
+                throw err;
+            });
+        }
+        else if(role.toUpperCase() === 'LOGISTIC'){
+            return logisticService.queryInfo()
+            .then((results) => {
+                return results;
+            }).catch((err) => {
+                throw err;
+            });
+        }
+        else if(role.toUpperCase() === 'BANK'){
+            return bankService.queryInfo()
             .then((results) => {
                 return results;
             }).catch((err) => {
@@ -42,16 +58,32 @@ module.exports = function (procurementService, financeService, logisticService, 
                 throw err;
             });
         }
-        else if(role.toUpperCase() === 'vendor'){
-            return processorService.queryBlock(blockNumber)
+        else if(role.toUpperCase() === 'VENDOR'){
+            return vendorService.queryBlock(blockNumber)
             .then((results) => {
                 return results;
             }).catch((err) => {
                 throw err;
             });
         }
-        else if(role.toUpperCase() === 'logistic'){
-            return ikeaService.queryBlock(blockNumber)
+        else if(role.toUpperCase() === 'LOGISTIC'){
+            return logisticService.queryBlock(blockNumber)
+            .then((results) => {
+                return results;
+            }).catch((err) => {
+                throw err;
+            });
+        }
+        else if(role.toUpperCase() === 'FINANCE'){
+            return financeService.queryBlock(blockNumber)
+            .then((results) => {
+                return results;
+            }).catch((err) => {
+                throw err;
+            });
+        }
+        else if(role.toUpperCase() === 'BANK'){
+            return bankService.queryBlock(blockNumber)
             .then((results) => {
                 return results;
             }).catch((err) => {

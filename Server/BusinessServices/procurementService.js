@@ -99,7 +99,15 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
     }
 
     procurementService.updatePurchaseOrder = function(purchaseOrder){
-        console.log("updatePurchaseOrder");        
+        console.log("updatePurchaseOrder"); 
+        var orderedMaterial = "";        
+        if(purchaseOrder.orderedMaterial){
+            purchaseOrder.orderedMaterial.forEach(element => {
+            if(orderedMaterial != "")
+                orderedMaterial += ",";
+            orderedMaterial += element.orderMaterialId.toString() +"^"+ element.buyerMaterialGroup +"^"+ element.productName +"^"+ element.productDescription +"^"+ element.quantity.toString() +"^"+ element.quantityUnit +"^"+ element.pricePerUnit.toString() +"^"+ element.currency +"^"+ element.netAmount.toString();
+            });
+        }       
         return fabric_client.getUserContext(users.procurementUser.enrollmentID, true)
         .then((user_from_store) => {
             helper.checkUserEnrolled(user_from_store);            
@@ -122,7 +130,9 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
                     purchaseOrder.termsOfPayment,
                     purchaseOrder.internalNotes,
                     purchaseOrder.externalNotes,
-                    purchaseOrder.status
+                    purchaseOrder.status,
+                    orderedMaterial,
+                    purchaseOrder.totalOrderAmount.toString(),
                 ]                
             );                
         }).then((results) => {

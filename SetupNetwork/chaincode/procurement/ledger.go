@@ -108,6 +108,7 @@ type VendorSalesOrder struct {
 	InvoicePartyId						string		`json:"invoicePartyId"`
 	InvoicePartyAddress					string		`json:"invoicePartyAddress"`
 	MaterialList						[]VendorMaterial		`json:"materialList"`
+	Status				string	`json:"status"`
 }
 
 
@@ -121,9 +122,7 @@ type VendorMaterial struct {
 	Currency					string		`json:"currency"`
 	NetAmount					string		`json:"netAmount"`
 	DispatchedQuantity			string		`json:"dispatchedQuantity"`
-	
 }
-
 
 type AllVendorSalesOrderNumbers struct{
 	SalesOrderNumbers 		[]string		`json:"salesOrderNumbers"`

@@ -54,16 +54,16 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
                 logisticConfig.channels.procurementchannel.chaincodeId, 
                 "saveLogisticTransaction",  
                 [
-                    logisticTransaction.ConsignmentNumber,
-                    logisticTransaction.GoodsIssueRefNumber,
-                    logisticTransaction.PurchaseOrderRefNumber,
-                    logisticTransaction.SupplierNumber,
-                    logisticTransaction.ShipToParty,
-                    logisticTransaction.PickedupDatetime,
-                    logisticTransaction.ExpectedDeliveryDatetime,
-                    logisticTransaction.ActualDeliveryDatetime,
-                    logisticTransaction.HazardousMaterial,
-                    logisticTransaction.PackagingInstruction       
+                    logisticTransaction.consignmentNumber,
+                    logisticTransaction.goodsIssueRefNumber,
+                    logisticTransaction.purchaseOrderRefNumber,
+                    logisticTransaction.supplierNumber,
+                    logisticTransaction.shipToParty,
+                    logisticTransaction.pickedupDatetime,
+                    logisticTransaction.expectedDeliveryDatetime,
+                    logisticTransaction.actualDeliveryDatetime,
+                    logisticTransaction.hazardousMaterial,
+                    logisticTransaction.packagingInstruction       
                 ]                
             );                
         }).then((results) => {

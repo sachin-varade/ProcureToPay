@@ -22,7 +22,7 @@
 
                           <div class="value-block">
                               <label class="label-field">PO Date</label>
-                              <span class="value-field">{{purchaseOrder.purchaseOrderDate}}</span>
+                              <span class="value-field">{{purchaseOrder.purchaseOrderDate | date : "short"}}</span>
                           </div>
 
                           <div class="value-block">
@@ -32,7 +32,7 @@
 
                           <div class="value-block">
                               <label class="label-field">Order Date</label>
-                              <span class="value-field">{{purchaseOrder.shoppingOrderDate}}</span>
+                              <span class="value-field">{{purchaseOrder.shoppingOrderDate | date : "short"}}</span>
                           </div>
                       </div>
 
@@ -48,10 +48,10 @@
                           <div class="value-block">
                               <label class="label-field">Contact person</label>
                               <span class="value-field">
-                                <select class="input-style" [(ngModel)]="purchaseOrder.buyerContactPerson" name="buyerContactPerson" id="buyerContactPerson" required>
+                                <!-- <select class="input-style" [(ngModel)]="purchaseOrder.buyerContactPerson" name="buyerContactPerson" id="buyerContactPerson" required>
                                         <option *ngFor="let item of commonData.purchaserContact" [value]="item.name">{{item.name}}</option>
-                                    </select>
-                                  
+                                    </select> -->
+                                  {{purchaseOrder.buyerContactPerson}}
                               </span>
                           </div>
 
@@ -76,8 +76,8 @@
                           <div class="value-block">
                               <label class="label-field">Supplier Name</label>
                               <span class="value-field">
-                                    <select class="input-style" [(ngModel)]="purchaseOrder.supplierName" name="supplierName" id="supplierName" required>
-                                            <option *ngFor="let item of userData.users.vendors" [value]="item.displayName">{{item.displayName}}</option>
+                                    <select class="input-style" (change)="changeSupplier()" [(ngModel)]="purchaseOrder.supplierName" name="supplierName" id="supplierName" required>
+                                            <option *ngFor="let item of commonData.supplierDetails" [value]="item.supplierName">{{item.supplierName}}</option>
                                     </select>  
                                
                               </span>
@@ -141,7 +141,7 @@
               <div class="panel-content clearfix">
                   <table class="table table-striped full-width">
                       <tr>
-                          <th>Meterial Group</th>
+                          <!-- <th>Meterial Group</th> -->
                           <th>Product Name</th>
                           <th>description</th>
                           <th>Quantity</th>
@@ -151,20 +151,20 @@
                           <th>Net Amount</th>
                       </tr>
                       <tr *ngFor="let item of purchaseOrder.orderedMaterial; let i = index" [attr.data-index]="i">
-                          <td>
+                          <!-- <td>
                               <select [(ngModel)]="item.buyerMaterialGroup" name="buyerMaterialGroup" class="input-style-small">
                                     <option *ngFor="let item of commonData.materialGroup" [value]="item.name">{{item.name}}</option>
                               </select>
-                          </td>
+                          </td> -->
                           <td><input [(ngModel)]="item.productName" name="productName" type="text" class="input-style-small"></td>
                           <td><input [(ngModel)]="item.productDescription" name="productDescription" type="text" class="input-style-small"></td>
-                          <td><input [(ngModel)]="item.quantity" name="quantity" type="text" class="input-style-small"></td>
+                          <td><input [(ngModel)]="item.quantity" (change)="calculateOrderAmount()" name="quantity" type="text" class="input-style-small"></td>
                           <td>
                               <select [(ngModel)]="item.quantityUnit" name="quantityUnit" class="input-style-small">
                                     <option *ngFor="let item of commonData.materialUnits" [value]="item.name">{{item.name}}</option>
                               </select>
                           </td>
-                          <td><input [(ngModel)]="item.pricePerUnit" name="pricePerUnit" type="text" class="input-style-small"></td>
+                          <td><input [(ngModel)]="item.pricePerUnit" (change)="calculateOrderAmount()" name="pricePerUnit" type="text" class="input-style-small"></td>
                           <td>
                               <select [(ngModel)]="item.currency" name="currency" class="input-style-small">
                                     <option *ngFor="let item of commonData.currancy" [value]="item.name">{{item.name}}</option>
