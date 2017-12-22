@@ -131,6 +131,36 @@ func getUniqueId(stub  shim.ChaincodeStubInterface, option string, value string)
 		}
 		rabAsBytes, _ := json.Marshal(uniqueId)
 		return shim.Success(rabAsBytes)	
+	} else if strings.ToLower(option) == "vendor" {
+		prefix = "VSOID-"
+		allBAsBytes, err := stub.GetState("allVendorSalesOrderNumbers")
+		if err != nil {
+			return shim.Error("Failed to get all allVendorSalesOrderNumbers")
+		}
+		var res AllVendorSalesOrderNumbers
+		err = json.Unmarshal(allBAsBytes, &res)
+		if err != nil {
+			fmt.Println("Printing Unmarshal error:-");
+			fmt.Println(err);
+			return shim.Error("Failed to Unmarshal all allVendorSalesOrderNumbers")
+		}
+		uniqueId := ""
+		if len(res.SalesOrderNumbers) != 0 {
+			uniqueId = res.SalesOrderNumbers[len(res.SalesOrderNumbers) - 1]
+			p := strings.Split(uniqueId, "-")
+			
+			input, e := strconv.Atoi(p[1])
+			if e != nil {
+				fmt.Println(e)
+			}
+			output := (input + 1)
+			uniqueId = prefix + strconv.Itoa(output)
+			
+		} else {
+			uniqueId = prefix +"1000"
+		}
+		rabAsBytes, _ := json.Marshal(uniqueId)
+		return shim.Success(rabAsBytes)	
 	}
 
 	return shim.Success(nil)
