@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProcurementService } from '../../services/procurement.service';
+import { VendorService } from '../../services/vendor.service';
 import { UserService } from '../../services/user.service';
 import { AlertService } from '../../services/alert.service';
 import * as ProcurementModels from '../../models/procurement';
@@ -13,15 +14,33 @@ import * as VendorModels from '../../models/vendor';
 })
 export class PoFulfilmentComponent implements OnInit {
 
+  currentUser: any;
+  commonData: any;
+  userData: any;
+
   purchaseOrderList: Array<ProcurementModels.PurchaseOrder> = new Array<ProcurementModels.PurchaseOrder>();
   purchaseOrder: ProcurementModels.PurchaseOrder = new ProcurementModels.PurchaseOrder();
   salesOrder: VendorModels.VendorSalesOrder = new VendorModels.VendorSalesOrder();
   
-  constructor(private procurementService: ProcurementService, private alertService: AlertService) { 
+  constructor(private procurementService: ProcurementService, 
+    private alertService: AlertService,
+    private vendorService: VendorService,
+    private user: UserService) {
+    this.currentUser = this.user.getUserLoggedIn();
+    this.userData = this.user.getUserData();
+    this.commonData = this.user.getCommonData(); 
     this.fetchApprovedPOs();
+    //this.getUniqueId(); //TODO : MDM : this is not working (see vendorService.js getUniqueId)
   }
 
   ngOnInit() {
+  }
+
+  getUniqueId(){
+    this.vendorService.getUniqueId('vendor')
+    .then((results: any) => {
+      this.salesOrder.salesOrderNumber = results;
+    });
   }
 
   fetchApprovedPOs(){
@@ -56,10 +75,13 @@ export class PoFulfilmentComponent implements OnInit {
     this.salesOrder.deliveryAddress = this.purchaseOrder.deliverToPersonAddress;
     this.salesOrder.invoicePartyId = "101";
     this.salesOrder.invoicePartyAddress = this.purchaseOrder.invoiceAddress
-    //this.salesOrder.materialList
+    //this.salesOrder.materialList //TODO : MDM
     this.salesOrder.status = "Created";
+    this.salesOrder.statusUpdatedOn = new Date();
+    this.salesOrder.statusUpdatedBy = this.currentUser.name;
 
-    this.procurementService.createVendorSalesOrder(this.salesOrder).then((results: any) => {
+    this.vendorService.createVendorSalesOrder(this.salesOrder)
+    .then((results: any) => {
       this.alertService.success("Sales Order created." + this.salesOrder.salesOrderNumber);
       this.fetchApprovedPOs();
     });

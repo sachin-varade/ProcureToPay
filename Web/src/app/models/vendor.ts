@@ -15,6 +15,8 @@ export class VendorSalesOrder {
 	invoicePartyAddress: string;
 	materialList: Array<VendorMaterial> = new Array<VendorMaterial>();
 	status: string;
+	statusUpdatedOn : Date;
+	statusUpdatedBy : string;
 }
 
 export class  VendorMaterial {

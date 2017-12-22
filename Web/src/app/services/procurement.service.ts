@@ -46,14 +46,5 @@ export class ProcurementService {
       this.alertService.error("Error occured...");
     });
   }
-
-  createVendorSalesOrder(salesOrder: VendorModels.VendorSalesOrder): Promise<any> {
-    this.url = `${this.BASE_URL}/createVendorSalesOrder`;
-    return this.http.post(this.url, salesOrder).toPromise()
-    .then((results: any) => {
-      return results;
-    }).catch((err) => {
-      this.alertService.error(err);
-    });
-  }
+  
 }
