@@ -120,6 +120,22 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
             throw err;
         });
     }
+
+    vendorService.getAllVendorSalesOrders = function(option, value){
+        console.log("getAllVendorSalesOrders");
+        return fabric_client.getUserContext(users.vendorUser.enrollmentID, true)
+        .then((user_from_store) => {
+            helper.checkUserEnrolled(user_from_store);
+            return queryChainCode.queryChainCode(channels.vendorChannelPC, 
+                vendorConfig.channels.procurementchannel.chaincodeId, 
+                "getAllVendorSalesOrders", 
+                [option, value]);
+        }).then((results) => {
+            return results;
+        }).catch((err) => {
+            throw err;
+        });
+    }
     
 	return vendorService;
 };

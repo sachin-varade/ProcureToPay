@@ -49,7 +49,6 @@ export class PoFulfilmentComponent implements OnInit {
       this.purchaseOrderList = results.purchaseOrders;
       if(this.purchaseOrderList){
         this.purchaseOrder = JSON.parse(JSON.stringify(this.purchaseOrderList[0]));
-        //this.purchaseOrder.deliverToPersonName
       }
     });
   }
