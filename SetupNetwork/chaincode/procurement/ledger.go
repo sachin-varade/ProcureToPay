@@ -109,6 +109,8 @@ type VendorSalesOrder struct {
 	InvoicePartyAddress					string		`json:"invoicePartyAddress"`
 	MaterialList						[]VendorMaterial		`json:"materialList"`
 	Status				string	`json:"status"`
+	StatusUpdatedOn				string	`json:"statusUpdatedOn"`
+	StatusUpdatedBy				string	`json:"statusUpdatedBy"`
 }
 
 
