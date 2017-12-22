@@ -83,8 +83,40 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
         });
     }
 
-   
-
+    vendorService.createVendorSalesOrder = function(salesOrder){
+        console.log("createVendorSalesOrder");        
+        return fabric_client.getUserContext(users.vendorUser.enrollmentID, true)
+        .then((user_from_store) => {
+            helper.checkUserEnrolled(user_from_store);            
+            return invokeChainCode.invokeChainCode(fabric_client, 
+                channels.vendorChannelPC, 
+                eventHubPeers.procurementEventHubPeer._url, 
+                //"grpc://localhost:7053",
+                vendorConfig.channels.procurementchannel.chaincodeId, 
+                "saveVendorSalesOrder",  
+                [ 
+                    salesOrder.salesOrderNumber,
+                    salesOrder.purchaseOrderRefNumber,
+                    salesOrder.purchaseOrderRefDate,	
+                    salesOrder.purchaserCompany,		
+                    salesOrder.purchaserCompanyDept,
+                    salesOrder.purchaserContactPersonName,
+                    salesOrder.purchaserContactPersonAddress,
+                    salesOrder.purchaserContactPersonPhone,
+                    salesOrder.purchaserContactPersonEmail,
+                    salesOrder.deliverToPersonName,
+                    salesOrder.deliveryAddress,
+                    salesOrder.invoicePartyId,
+                    salesOrder.invoicePartyAddress,
+                    salesOrder.materialList
+                ]                
+            );                
+        }).then((results) => {
+            return results;
+        }).catch((err) => {
+            throw err;
+        });
+    }
 	return vendorService;
 };
 

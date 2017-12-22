@@ -103,6 +103,11 @@ const appRoutes:Routes = [
     component: PoFulfilmentComponent
   },
   {
+    path: 'vendor/goodsIssue',
+    canActivate: [AuthguardGuard],
+    component: GoodsIssueComponent
+  },
+  {
     path: 'logistic/create-consignment',
     canActivate: [AuthguardGuard],
     component: CreateConsignmentComponent
