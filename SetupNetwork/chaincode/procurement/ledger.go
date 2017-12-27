@@ -108,9 +108,9 @@ type VendorSalesOrder struct {
 	InvoicePartyId						string		`json:"invoicePartyId"`
 	InvoicePartyAddress					string		`json:"invoicePartyAddress"`
 	MaterialList						[]VendorMaterial		`json:"materialList"`
-	Status				string	`json:"status"`
-	StatusUpdatedOn				string	`json:"statusUpdatedOn"`
-	StatusUpdatedBy				string	`json:"statusUpdatedBy"`
+	Status								string	`json:"status"`
+	StatusUpdatedOn						string	`json:"statusUpdatedOn"`
+	StatusUpdatedBy						string	`json:"statusUpdatedBy"`
 }
 
 
@@ -124,6 +124,7 @@ type VendorMaterial struct {
 	Currency					string		`json:"currency"`
 	NetAmount					string		`json:"netAmount"`
 	DispatchedQuantity			string		`json:"dispatchedQuantity"`
+	BatchNumber					string		`json:"batchNumber"`
 }
 
 type AllVendorSalesOrderNumbers struct{
@@ -135,16 +136,16 @@ type AllVendorSalesOrderDetails struct{
 }
 
 type LogisticTransaction struct {
-	ConsignmentNumber				string		`json:"consignmentNumber"`
-	GoodsIssueRefNumber			string		`json:"goodsIssueRefNumber"`
-	PurchaseOrderRefNumber	string		`json:"purchaseOrderRefNumber"`
-	SupplierNumber	string		`json:"supplierNumber"`
-	ShipToParty	string		`json:"shipToParty"`
-	PickedupDatetime	string		`json:"pickedupDatetime"`
-	ExpectedDeliveryDatetime	string		`json:"expectedDeliveryDatetime"`	
-	ActualDeliveryDatetime	string		`json:"actualDeliveryDatetime"`
-	HazardousMaterial	string		`json:"hazardousMaterial"`	
-	PackagingInstruction	string		`json:"packagingInstruction"`	
+	ConsignmentNumber					string		`json:"consignmentNumber"`
+	GoodsIssueRefNumber					string		`json:"goodsIssueRefNumber"`
+	PurchaseOrderRefNumber				string		`json:"purchaseOrderRefNumber"`
+	SupplierNumber						string		`json:"supplierNumber"`
+	ShipToParty							string		`json:"shipToParty"`
+	PickedupDatetime					string		`json:"pickedupDatetime"`
+	ExpectedDeliveryDatetime			string		`json:"expectedDeliveryDatetime"`	
+	ActualDeliveryDatetime				string		`json:"actualDeliveryDatetime"`
+	HazardousMaterial					string		`json:"hazardousMaterial"`	
+	PackagingInstruction				string		`json:"packagingInstruction"`	
 }
 
 
@@ -156,11 +157,28 @@ type AllLogisticTransactionDetails struct{
 	LogisticTransactions []LogisticTransaction `json:"logisticTransactions"`
 }
 
+type GoodsIssue struct {
+	GoodsIssueNumber					string		`json:"goodsIssueNumber"`
+	SalesOrderNumber					string		`json:"salesOrderNumber"`
+	DeliverToPersonName					string		`json:"deliverToPersonName"`
+	DeliveryAddress						string		`json:"deliveryAddress"`	
+	LogisticsProvider					string		`json:"logisticsProvider"`
+	MaterialList						[]VendorMaterial		`json:"materialList"`
+}
+
+type AllGoodsIssueNumbers struct{
+	GoodsIssueNumbers 					[]string 	`json:"goodsIssueNumbers"`
+}
+
+type AllGoodsIssueDetails struct{
+	GoodsIssueList 						[]GoodsIssue `json:"goodsIssueList"`
+}
+
 type GoodsReceipt struct {
 	GoodsReceiptNumber					string		`json:"goodsReceiptNumber"`
 	GoodsReceiptDate					string		`json:"goodsReceiptDate"`
 	PurchaseOrderRefNumber				string		`json:"purchaseOrderRefNumber"`
-	GoodIssueNumber					string		`json:"goodIssueNumber"`
+	GoodIssueNumber						string		`json:"goodIssueNumber"`
 	ConsignmentNumber					string		`json:"consignmentNumber"`
 	PurchaserCompany					string		`json:"purchaserCompany"`
 	PurchaserCompanyDept				string		`json:"purchaserCompanyDept"`
@@ -171,7 +189,7 @@ type GoodsReceipt struct {
 	DeliverToPersonName					string		`json:"deliverToPersonName"`
 	DeliveryAddress						string		`json:"deliveryAddress"`
 	MaterialList						[]VendorMaterial		`json:"materialList"`
-	TotalOrderAmount			string		`json:"totalOrderAmount"`
+	TotalOrderAmount					string		`json:"totalOrderAmount"`
 }
 
 type AllGoodsReceiptIds struct{
@@ -233,6 +251,13 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response {
 		return shim.Error(err.Error())
 	}
 
+	var allGoodsIssueNumbers AllGoodsIssueNumbers
+	jsonAsBytesAllGoodsIssueNumbers, _ := json.Marshal(allGoodsIssueNumbers)
+	err = stub.PutState("allGoodsIssueNumbers", jsonAsBytesAllGoodsIssueNumbers)
+	if err != nil {		
+		return shim.Error(err.Error())
+	}
+
 	var allGoodsReceiptIds AllGoodsReceiptIds
 	jsonAsBytesAllGoodsReceiptIds, _ := json.Marshal(allGoodsReceiptIds)
 	err = stub.PutState("allGoodsReceiptIds", jsonAsBytesAllGoodsReceiptIds)
@@ -271,6 +296,10 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 		return getAllVendorSalesOrders(stub, args[0], args[1])
 	} else if function == "saveVendorSalesOrder" {
 		return saveVendorSalesOrder(stub, args)
+	} else if function == "getAllGoodsIssue" {
+		return getAllGoodsIssue(stub, args[0], args[1])
+	} else if function == "saveGoodsIssue" {
+		return saveGoodsIssue(stub, args)
 	}
 	
 	// error out

@@ -402,3 +402,77 @@ func saveGoodsReceipt(stub  shim.ChaincodeStubInterface, args []string) pb.Respo
 
 	return shim.Success(nil)
 }
+
+
+// Save Goods Issue
+
+func saveGoodsIssue(stub  shim.ChaincodeStubInterface, args []string) pb.Response {	
+	var err error
+	fmt.Println("Running saveGoodsIssue..")
+
+	if len(args) != 6 {
+		fmt.Println("Incorrect number of arguments. Expecting 17 - ..")
+		return shim.Error("Incorrect number of arguments. Expecting 17")
+	}
+
+	fmt.Println("Arguments :"+args[0]+","+args[1]+","+args[2]+","+args[3]+","+args[4]+","+args[5]);
+
+	allBAsBytes, err := stub.GetState("allGoodsIssueNumbers")
+	if err != nil {
+		return shim.Error("Failed to get all Vendor Sales Order Numbers")
+	}
+	var allb AllGoodsIssueNumbers
+	err = json.Unmarshal(allBAsBytes, &allb)
+	if err != nil {
+		return shim.Error("Failed to Unmarshal all Goods Issue Numbers")
+	}
+	if checkDuplicateId(allb.GoodsIssueNumbers, args[0]) == 0{
+		return shim.Error("Duplicate Goods Issue Number - "+ args[0])
+	}
+
+	var bt GoodsIssue
+	bt.GoodsIssueNumber					= args[0]
+	bt.SalesOrderNumber					= args[1]
+	bt.DeliverToPersonName				= args[2]	
+	bt.DeliveryAddress					= args[3]		
+	bt.LogisticsProvider 				= args[4]
+
+	var material VendorMaterial
+	
+	if args[5] != "" {
+		p := strings.Split(args[5], ",")
+		for i := range p {
+			c := strings.Split(p[i], "^")
+			material.MaterialId 		= 		c[0]
+			material.ProductName 		= 		c[1]
+			material.ProductDescription = 		c[2]
+			material.Quantity 			= 		c[3]
+			material.QuantityUnit 		= 		c[4]
+			material.PricePerUnit 		= 		c[5]
+			material.Currency 			= 		c[6]
+			material.NetAmount 			= 		c[7]
+			material.DispatchedQuantity	= 		c[8]
+			material.BatchNumber		= 		c[9]
+			bt.MaterialList = append(bt.MaterialList, material)
+		}
+	}
+	
+	//Commit Sales Order entry to ledger
+	fmt.Println("saveGoodsIssue - Commit Goods Issue To Ledger");
+	btAsBytes, _ := json.Marshal(bt)
+	err = stub.PutState(bt.GoodsIssueNumber, btAsBytes)
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+
+	//Update All Abattoirs Array	
+	allb.GoodsIssueNumbers = append(allb.GoodsIssueNumbers, bt.GoodsIssueNumber)
+
+	allBuAsBytes, _ := json.Marshal(allb)
+	err = stub.PutState("allGoodsIssueNumbers", allBuAsBytes)
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+
+	return shim.Success(nil)
+}

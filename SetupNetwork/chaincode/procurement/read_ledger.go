@@ -326,7 +326,7 @@ func getAllVendorSalesOrders(stub  shim.ChaincodeStubInterface, option string, v
 }
 
 // ============================================================================================================================
-// Get All Vendor Sales Orders
+// Get All Goods Receipt Details
 // ============================================================================================================================
 func getAllGoodsReceiptDetails(stub  shim.ChaincodeStubInterface, option string, value string) pb.Response {
 	fmt.Println("allGoodsReceiptIds: Looking for allGoodsReceiptIds");
@@ -374,6 +374,68 @@ func getAllGoodsReceiptDetails(stub  shim.ChaincodeStubInterface, option string,
 			allIds.GoodsReceiptNumbers = append(allIds.GoodsReceiptNumbers, sb.GoodsReceiptNumber);	
 		} else if strings.ToLower(option) == "details" {
 			allDetails.GoodsReceiptNumbers = append(allDetails.GoodsReceiptNumbers, sb);	
+		}
+	}
+	if strings.ToLower(option) == "ids" {
+		rabAsBytes, _ := json.Marshal(allIds)		
+		return shim.Success(rabAsBytes)	
+	} else if strings.ToLower(option) == "details" {
+		rabAsBytes, _ := json.Marshal(allDetails)
+		return shim.Success(rabAsBytes)	
+	}
+	
+	return shim.Success(nil)
+}
+
+// ============================================================================================================================
+// Get All Vendor - Goods Issue
+// ============================================================================================================================
+func getAllGoodsIssue(stub  shim.ChaincodeStubInterface, option string, value string) pb.Response {
+	fmt.Println("getAllGoodsIssue: Looking for All Vendor Goods Issue");
+
+	//get the VendorSales Orders index
+	allBAsBytes, err := stub.GetState("allGoodsIssueNumbers")
+	if err != nil {
+		return shim.Error("Failed to get all Vendor Sales order numbers")
+	}
+
+	var res AllGoodsIssueNumbers
+	err = json.Unmarshal(allBAsBytes, &res)
+	//fmt.Println(allBAsBytes);
+	if err != nil {
+		fmt.Println("Printing Unmarshal error:-");
+		fmt.Println(err);
+		return shim.Error("Failed to Unmarshal all Vendor Goods Issue records")
+	}
+	var sb GoodsIssue
+	var allIds AllGoodsIssueNumbers
+	var allDetails AllGoodsIssueDetails
+	if strings.ToLower(option) == "id" && value != "" {
+		sbAsBytes, err := stub.GetState(value)
+		if err != nil {
+			return shim.Error("Failed to get Goods Issue record.")
+		}
+		json.Unmarshal(sbAsBytes, &sb)
+		if sb.GoodsIssueNumber != "" {
+			allDetails.GoodsIssueList = append(allDetails.GoodsIssueList, sb);	
+		}
+		rabAsBytes, _ := json.Marshal(allDetails)
+		return shim.Success(rabAsBytes)	
+	}
+	fmt.Println("loop all");
+	for i := range res.GoodsIssueNumbers{
+
+		sbAsBytes, err := stub.GetState(res.GoodsIssueNumbers[i])
+		if err != nil {
+			return shim.Error("Failed to get Goods Issue record.")
+		}
+		var sb GoodsIssue
+		json.Unmarshal(sbAsBytes, &sb)
+
+		if strings.ToLower(option) == "ids" {
+			allIds.GoodsIssueNumbers = append(allIds.GoodsIssueNumbers, sb.GoodsIssueNumber);	
+		} else if strings.ToLower(option) == "details" {
+			allDetails.GoodsIssueList = append(allDetails.GoodsIssueList, sb);	
 		}
 	}
 	if strings.ToLower(option) == "ids" {
