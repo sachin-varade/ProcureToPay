@@ -156,6 +156,32 @@ type AllLogisticTransactionDetails struct{
 	LogisticTransactions []LogisticTransaction `json:"logisticTransactions"`
 }
 
+type GoodsReceipt struct {
+	GoodsReceiptNumber					string		`json:"goodsReceiptNumber"`
+	GoodsReceiptDate					string		`json:"goodsReceiptDate"`
+	PurchaseOrderRefNumber				string		`json:"purchaseOrderRefNumber"`
+	GoodIssueNumber					string		`json:"goodIssueNumber"`
+	ConsignmentNumber					string		`json:"consignmentNumber"`
+	PurchaserCompany					string		`json:"purchaserCompany"`
+	PurchaserCompanyDept				string		`json:"purchaserCompanyDept"`
+	PurchaserContactPersonName			string		`json:"purchaserContactPersonName"`
+	PurchaserContactPersonAddress		string		`json:"purchaserContactPersonAddress"`
+	PurchaserContactPersonPhone			string		`json:"purchaserContactPersonPhone"`
+	PurchaserContactPersonEmail			string		`json:"purchaserContactPersonEmail"`
+	DeliverToPersonName					string		`json:"deliverToPersonName"`
+	DeliveryAddress						string		`json:"deliveryAddress"`
+	MaterialList						[]VendorMaterial		`json:"materialList"`
+	TotalOrderAmount			string		`json:"totalOrderAmount"`
+}
+
+type AllGoodsReceiptIds struct{
+	GoodsReceiptNumbers []string `json:"goodsReceiptNumbers"`
+}
+
+type AllGoodsReceiptDetails struct{
+	GoodsReceiptNumbers []GoodsReceipt `json:"goodsReceiptNumbers"`
+}
+
 // ============================================================================================================================
 // Init - initialize the chaincode 
 //
@@ -203,6 +229,13 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response {
 	var allLogisticTransactionIds AllLogisticTransactionIds
 	jsonAsBytesAllLogisticTransactionIds, _ := json.Marshal(allLogisticTransactionIds)
 	err = stub.PutState("allLogisticTransactionIds", jsonAsBytesAllLogisticTransactionIds)
+	if err != nil {		
+		return shim.Error(err.Error())
+	}
+
+	var allGoodsReceiptIds AllGoodsReceiptIds
+	jsonAsBytesAllGoodsReceiptIds, _ := json.Marshal(allGoodsReceiptIds)
+	err = stub.PutState("allGoodsReceiptIds", jsonAsBytesAllGoodsReceiptIds)
 	if err != nil {		
 		return shim.Error(err.Error())
 	}

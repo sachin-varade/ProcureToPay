@@ -322,3 +322,83 @@ func saveVendorSalesOrder(stub  shim.ChaincodeStubInterface, args []string) pb.R
 
 	return shim.Success(nil)
 }
+
+
+func saveGoodsReceipt(stub  shim.ChaincodeStubInterface, args []string) pb.Response {	
+	var err error
+	fmt.Println("Running saveGoodsReceipt..")
+
+	if len(args) != 17 {
+		fmt.Println("Incorrect number of arguments. Expecting 17 - ..")
+		return shim.Error("Incorrect number of arguments. Expecting 17")
+	}
+
+	fmt.Println("Arguments :"+args[0]+","+args[1]+","+args[2]+","+args[3]+","+args[4]+","+args[5]+","+args[6]+","+args[7]+","+args[8]+","+args[9]+","+args[10]+","+args[11]+","+args[12]);
+
+	allBAsBytes, err := stub.GetState("allGoodsReceiptIds")
+	if err != nil {
+		return shim.Error("Failed to get allGoodsReceiptIds")
+	}
+	var allb AllGoodsReceiptIds
+	err = json.Unmarshal(allBAsBytes, &allb)
+	if err != nil {
+		return shim.Error("Failed to Unmarshal allGoodsReceiptIds")
+	}
+	if checkDuplicateId(allb.GoodsReceiptNumbers, args[0]) == 0{
+		return shim.Error("Duplicate GoodsReceiptIds - "+ args[0])
+	}
+
+	var bt GoodsReceipt
+	bt.GoodsReceiptNumber					= args[0]
+	bt.GoodsReceiptDate			= args[1]
+	bt.PurchaseOrderRefNumber				= args[2]	
+	bt.GoodIssueNumber			= args[3]
+	bt.ConsignmentNumber		= args[4]
+	bt.PurchaserCompany					= args[5]		
+	bt.PurchaserCompanyDept 			= args[6]
+	bt.PurchaserContactPersonName		= args[7]
+	bt.PurchaserContactPersonAddress	= args[8]
+	bt.PurchaserContactPersonPhone		= args[9]
+	bt.PurchaserContactPersonEmail		= args[10]
+	bt.DeliverToPersonName				= args[11]
+	bt.DeliveryAddress					= args[12]
+	
+	bt.TotalOrderAmount				= args[13]
+
+	var material VendorMaterial
+	
+	if args[14] != "" {
+		p := strings.Split(args[14], ",")
+		for i := range p {
+			c := strings.Split(p[i], "^")
+			material.MaterialId 		= 		c[0]
+			material.ProductName 		= 		c[1]
+			material.ProductDescription = 		c[2]
+			material.Quantity 			= 		c[3]
+			material.QuantityUnit 		= 		c[4]
+			material.PricePerUnit 		= 		c[5]
+			material.Currency 			= 		c[6]
+			material.NetAmount 			= 		c[7]
+			bt.MaterialList = append(bt.MaterialList, material)
+		}
+	}
+	
+	//Commit Sales Order entry to ledger
+	fmt.Println("saveGoodsReceipt - Commit GoodsReceiptNumber To Ledger");
+	btAsBytes, _ := json.Marshal(bt)
+	err = stub.PutState(bt.GoodsReceiptNumber, btAsBytes)
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+
+	//Update All Abattoirs Array	
+	allb.GoodsReceiptNumbers = append(allb.GoodsReceiptNumbers, bt.GoodsReceiptNumber)
+
+	allBuAsBytes, _ := json.Marshal(allb)
+	err = stub.PutState("allGoodsReceiptIds", allBuAsBytes)
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+
+	return shim.Success(nil)
+}

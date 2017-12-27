@@ -98,6 +98,12 @@ router.get("/procurement/getUniqueId/:option/:value?", function(req, res) {
 	});	
 });
 
+router.get("/vendor/getUniqueId/:option/:value?", function(req, res) {    
+    var promise = vendorService.getUniqueId(req.params.option, req.params.value?req.params.value: "");
+	promise.then(function(resp,err){
+		res.send({"uniqueId": resp});
+	});	
+});
 
 // ------------------------ BLOCK routes --------------------
 router.get("/queryInfo/:role", function(req, res) {    
