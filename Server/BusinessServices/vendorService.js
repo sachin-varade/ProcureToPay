@@ -31,7 +31,7 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
         .then((user_from_store) => {
             helper.checkUserEnrolled(user_from_store);
             return queryChainCode.queryChainCode(channels.vendorChannelPC, 
-                vendorConfig.channels.vendorChannelPC.chaincodeId, 
+                vendorConfig.channels.procurementchannel.chaincodeId, 
                 "getUniqueId", 
                 [option, value]);
         }).then((results) => {
@@ -108,7 +108,10 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
                     salesOrder.deliveryAddress,
                     salesOrder.invoicePartyId,
                     salesOrder.invoicePartyAddress,
-                    salesOrder.materialList
+                    salesOrder.materialList,
+                    salesOrder.status,
+                    salesOrder.statusUpdatedOn,
+                    salesOrder.statusUpdatedBy
                 ]                
             );                
         }).then((results) => {
@@ -117,6 +120,23 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
             throw err;
         });
     }
+
+    vendorService.getAllVendorSalesOrders = function(option, value){
+        console.log("getAllVendorSalesOrders");
+        return fabric_client.getUserContext(users.vendorUser.enrollmentID, true)
+        .then((user_from_store) => {
+            helper.checkUserEnrolled(user_from_store);
+            return queryChainCode.queryChainCode(channels.vendorChannelPC, 
+                vendorConfig.channels.procurementchannel.chaincodeId, 
+                "getAllVendorSalesOrders", 
+                [option, value]);
+        }).then((results) => {
+            return results;
+        }).catch((err) => {
+            throw err;
+        });
+    }
+    
 	return vendorService;
 };
 
