@@ -90,7 +90,7 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
             helper.checkUserEnrolled(user_from_store);            
             return invokeChainCode.invokeChainCode(fabric_client, 
                 channels.vendorChannelPC, 
-                eventHubPeers.procurementEventHubPeer._url, 
+                eventHubPeers.vendorEventHubPeer._url, 
                 //"grpc://localhost:7053",
                 vendorConfig.channels.procurementchannel.chaincodeId, 
                 "saveVendorSalesOrder",  

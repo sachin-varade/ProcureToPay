@@ -45,6 +45,11 @@ router.get("/getCommonData", function(req, res) {
 	res.send(commonData);
 });
 
+router.get("/getPoData", function(req, res) {    
+	var poData = userService.getPoData();	
+	res.send(poData);
+});
+
 // ------------------------ PROCUREMENT routes --------------------
 router.post("/savePurchaseOrder", function(req, res) {    
 	var promise = procurementService.savePurchaseOrder(req.body);

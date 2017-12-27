@@ -43,8 +43,6 @@ type SimpleChaincode struct {
 type PurchaseOrder struct {
 	PurchaseOrderNumber			string		`json:"purchaseOrderNumber"`
 	PurchaseOrderDate			string		`json:"purchaseOrderDate"`
-	ShoppingOrderNumber			string		`json:"shoppingOrderNumber"`
-	ShoppingOrderDate			string		`json:"shoppingOrderDate"`
 	OrderBy						string		`json:"orderBy"`
 	BuyerCompany				string		`json:"buyerCompany"`
 	BuyerDepartment				string		`json:"buyerDepartment"`
@@ -59,7 +57,8 @@ type PurchaseOrder struct {
 	SupplierContactPersonAddressPhone				string		`json:"supplierContactPersonPhone"`
 	SupplierContactPersonAddressEmail				string		`json:"supplierContactPersonEmail"`
 	DeliverToPersonName			string		`json:"deliverToPersonName"`
-	DeliverToPersonAddress		string		`json:"deliverToPersonAddress"`
+	DeliverToPersonAddress		string		`json:"deliverToPersonAddress"`	
+	InvoicePartyId				string		`json:"invoicePartyId"`
 	InvoiceAddress				string		`json:"invoiceAddress"`
 	TotalOrderAmount			string		`json:"totalOrderAmount"`
 	AccountingType				string		`json:"accountingType"`
@@ -70,17 +69,21 @@ type PurchaseOrder struct {
 	ExternalNotes				string		`json:"externalNotes"`
 	OrderedMaterial				[]OrderMaterial	`json:"orderedMaterial"`
 	Status				string	`json:"status"`
+	StatusUpdatedOn				string	`json:"statusUpdatedOn"`
+	StatusUpdatedBy				string	`json:"statusUpdatedBy"`
+	VatNo				string	`json:"vatNo"`
+	TermsOfDelivery				string	`json:"termsOfDelivery"`
 }
 
 type OrderMaterial struct {
-	OrderMaterialId				string		`json:"orderMaterialId"`
-	BuyerMaterialGroup			string		`json:"buyerMaterialGroup"`
+	Pos				string		`json:"pos"`	
 	ProductName					string		`json:"productName"`
 	ProductDescription			string		`json:"productDescription"`
 	Quantity					string		`json:"quantity"`
 	QuantityUnit				string		`json:"quantityUnit"`
 	PricePerUnit				string		`json:"pricePerUnit"`	
 	Currency					string		`json:"currency"`
+	ExpectedDeliveryDate					string		`json:"expectedDeliveryDate"`
 	NetAmount				string		`json:"netAmount"`	
 }
 
@@ -172,6 +175,7 @@ type GoodsReceipt struct {
 	DeliveryAddress						string		`json:"deliveryAddress"`
 	MaterialList						[]VendorMaterial		`json:"materialList"`
 	TotalOrderAmount			string		`json:"totalOrderAmount"`
+	Fdf			string		`json:"fdf"`	
 }
 
 type AllGoodsReceiptIds struct{

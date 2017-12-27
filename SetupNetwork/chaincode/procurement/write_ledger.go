@@ -33,9 +33,9 @@ func savePurchaseOrder(stub  shim.ChaincodeStubInterface, args []string) pb.Resp
 	var err error
 	fmt.Println("Running savePurchaseOrder..")
 
-	if len(args) != 28 {
-		fmt.Println("Incorrect number of arguments. Expecting 28 - ..")
-		return shim.Error("Incorrect number of arguments. Expecting 28")
+	if len(args) != 29 {
+		fmt.Println("Incorrect number of arguments. Expecting 29 - ..")
+		return shim.Error("Incorrect number of arguments. Expecting 29")
 	}
 
 	fmt.Println("Arguments :"+args[0]+","+args[1]+","+args[2]+","+args[3]+","+args[4]+","+args[5]+","+args[6]+","+args[7]+","+args[8]+","+args[9]+","+args[10]+","+args[11]+","+args[12]);
@@ -52,53 +52,52 @@ func savePurchaseOrder(stub  shim.ChaincodeStubInterface, args []string) pb.Resp
 	if checkDuplicateId(allb.PurchaseOrderNumbers, args[0]) == 0{
 		return shim.Error("Duplicate PO Number - "+ args[0])
 	}
-
-
 	var bt PurchaseOrder
 	bt.PurchaseOrderNumber				= args[0]
 	bt.PurchaseOrderDate				= args[1]
-	bt.ShoppingOrderNumber				= args[2]	
-	bt.ShoppingOrderDate				= args[3]		
-	bt.OrderBy 							= args[4]
-	bt.BuyerCompany						= args[5]
-	bt.BuyerDepartment					= args[6]
-	bt.BuyerContactPerson				= args[7]
-	bt.BuyerContactPersonAddress		= args[8]
-	bt.BuyerContactPersonPhone			= args[9]
-	bt.BuyerContactPersonEmail			= args[10]
+	bt.OrderBy 							= args[2]
+	bt.BuyerCompany						= args[3]
+	bt.BuyerDepartment					= args[4]
+	bt.BuyerContactPerson				= args[5]
+	bt.BuyerContactPersonAddress		= args[6]
+	bt.BuyerContactPersonPhone			= args[7]
+	bt.BuyerContactPersonEmail			= args[8]
 	
-	bt.SupplierName						= args[11]
-	bt.SupplierUniqueNo					= args[12]
-	bt.SupplierContactPerson			= args[13]
-	bt.SupplierContactPersonAddress		= args[14]
-	bt.SupplierContactPersonAddressPhone= args[15]
-	bt.SupplierContactPersonAddressEmail= args[16]
+	bt.SupplierName						= args[9]
+	bt.SupplierUniqueNo					= args[10]
+	bt.SupplierContactPerson			= args[11]
+	bt.SupplierContactPersonAddress		= args[12]
+	bt.SupplierContactPersonAddressPhone= args[13]
+	bt.SupplierContactPersonAddressEmail= args[14]
 
-	bt.DeliverToPersonName				= args[17]	
-	bt.DeliverToPersonAddress			= args[18]	
-	bt.InvoiceAddress					= args[19]	
-	bt.TotalOrderAmount					= args[20]
-	bt.AccountingType					= args[21]
-	bt.CostCenter						= args[22]
-	bt.GLAccount						= args[23]
-	bt.TermsOfPayment					= args[24]
-	bt.InternalNotes					= args[25]
-	bt.ExternalNotes					= args[26]
-	bt.Status = "Created"
+	bt.DeliverToPersonName				= args[15]	
+	bt.DeliverToPersonAddress			= args[16]	
+	bt.InvoicePartyId					= args[17]	
+	bt.InvoiceAddress					= args[18]	
+	bt.TotalOrderAmount					= args[19]
+	bt.AccountingType					= args[20]
+	bt.CostCenter						= args[21]
+	bt.GLAccount						= args[22]
+	bt.TermsOfPayment					= args[23]
+	bt.InternalNotes					= args[24]
+	bt.ExternalNotes					= args[25]
+	bt.VatNo					= args[26]
+	bt.TermsOfDelivery					= args[27]
+	bt.Status = "Approved"
 	var material OrderMaterial
 	
-	if args[27] != "" {
-		p := strings.Split(args[27], ",")
+	if args[28] != "" {
+		p := strings.Split(args[28], ",")
 		for i := range p {
 			c := strings.Split(p[i], "^")
-			material.OrderMaterialId = 		c[0]
-			material.BuyerMaterialGroup = 	c[1]
-			material.ProductName = 			c[2]
-			material.ProductDescription = 	c[3]
-			material.Quantity = 			c[4]
-			material.QuantityUnit = 		c[5]
-			material.PricePerUnit = 		c[6]
-			material.Currency = 			c[7]
+			material.Pos = 		c[0]			
+			material.ProductName = 			c[1]
+			material.ProductDescription = 	c[2]
+			material.Quantity = 			c[3]
+			material.QuantityUnit = 		c[4]
+			material.PricePerUnit = 		c[5]
+			material.Currency = 			c[6]
+			material.ExpectedDeliveryDate = 			c[7]			
 			material.NetAmount = 			c[8]
 			bt.OrderedMaterial = append(bt.OrderedMaterial, material)
 		}
@@ -161,14 +160,14 @@ func updatePurchaseOrder(stub  shim.ChaincodeStubInterface, args []string) pb.Re
 		p := strings.Split(args[13], ",")
 		for i := range p {
 			c := strings.Split(p[i], "^")
-			material.OrderMaterialId = 		c[0]
-			material.BuyerMaterialGroup = 	c[1]
-			material.ProductName = 			c[2]
-			material.ProductDescription = 	c[3]
-			material.Quantity = 			c[4]
-			material.QuantityUnit = 		c[5]
-			material.PricePerUnit = 		c[6]
-			material.Currency = 			c[7]
+			material.Pos = 		c[0]			
+			material.ProductName = 			c[1]
+			material.ProductDescription = 	c[2]
+			material.Quantity = 			c[3]
+			material.QuantityUnit = 		c[4]
+			material.PricePerUnit = 		c[5]
+			material.Currency = 			c[6]
+			material.ExpectedDeliveryDate = 			c[7]
 			material.NetAmount = 			c[8]
 			nbt.OrderedMaterial = append(nbt.OrderedMaterial, material)
 		}
@@ -361,14 +360,14 @@ func saveGoodsReceipt(stub  shim.ChaincodeStubInterface, args []string) pb.Respo
 	bt.PurchaserContactPersonPhone		= args[9]
 	bt.PurchaserContactPersonEmail		= args[10]
 	bt.DeliverToPersonName				= args[11]
-	bt.DeliveryAddress					= args[12]
-	
+	bt.DeliveryAddress					= args[12]	
 	bt.TotalOrderAmount				= args[13]
+	bt.Fdf					= args[14]
 
 	var material VendorMaterial
 	
-	if args[14] != "" {
-		p := strings.Split(args[14], ",")
+	if args[15] != "" {
+		p := strings.Split(args[15], ",")
 		for i := range p {
 			c := strings.Split(p[i], "^")
 			material.MaterialId 		= 		c[0]

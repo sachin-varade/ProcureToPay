@@ -4,6 +4,7 @@ module.exports = function () {
     var userService = {};
     var commonData = require('../data/common.json');
     var userData = require('../data/users.json');
+    var poData = require('../data/poData.json');
 
     userService.login = function(user){
         var procurements = userData.users.procurements.filter(function(obj){ return obj.name.toLowerCase() == user.userName.toLowerCase()});
@@ -64,6 +65,10 @@ module.exports = function () {
 
     userService.getCommonData = function(user){
         return commonData;
+    }
+
+    userService.getPoData = function(user){
+        return poData;
     }
 
     userService.getUserNameById = function(userType, userId){

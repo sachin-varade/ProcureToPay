@@ -46,5 +46,15 @@ export class ProcurementService {
       this.alertService.error("Error occured...");
     });
   }
+
+  getPoData(): Promise<any> {
+    const url = `${this.BASE_URL}/getPoData`;
+    return this.http.get(url).toPromise()
+    .then((results: any) => {      
+      return results;
+    }).catch((err) => {
+        throw err;
+    });
+  }
   
 }

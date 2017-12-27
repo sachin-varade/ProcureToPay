@@ -63,8 +63,6 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
                 [
                     purchaseOrder.purchaseOrderNumber,
                     purchaseOrder.purchaseOrderDate,
-                    purchaseOrder.shoppingOrderNumber,
-                    purchaseOrder.shoppingOrderDate,
                     purchaseOrder.orderBy,
                     purchaseOrder.buyerCompany,
                     purchaseOrder.buyerDepartment,
@@ -80,6 +78,7 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
                     purchaseOrder.supplierContactPersonEmail,
                     purchaseOrder.deliverToPersonName,
                     purchaseOrder.deliverToPersonAddress,
+                    purchaseOrder.invoicePartyId,
                     purchaseOrder.invoiceAddress,
                     purchaseOrder.totalOrderAmount,
                     purchaseOrder.accountingType,
@@ -88,6 +87,8 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
                     purchaseOrder.termsOfPayment,
                     purchaseOrder.internalNotes,
                     purchaseOrder.externalNotes,
+                    purchaseOrder.vatNo,
+                    purchaseOrder.termsOfDelivery,
                     orderedMaterial                    
                 ]                
             );                
