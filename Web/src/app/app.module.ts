@@ -40,6 +40,7 @@ import { CreateConsignmentComponent } from './logistic/create-consignment/create
 import { GoodsReceiptComponent } from './procurement/goods-receipt/goods-receipt.component';
 import { InvoiceManagementComponent } from './procurement/invoice-management/invoice-management.component';
 import { GoodsIssueComponent } from './vendor/goods-issue/goods-issue.component';
+import { GenerateInvoiceComponent } from './vendor/generate-invoice/generate-invoice.component';
 
 const appRoutes:Routes = [
   {
@@ -108,6 +109,11 @@ const appRoutes:Routes = [
     component: GoodsIssueComponent
   },
   {
+    path: 'vendor/generate-invoice',
+    canActivate: [AuthguardGuard],
+    component: GenerateInvoiceComponent
+  },
+  {
     path: 'logistic/create-consignment',
     canActivate: [AuthguardGuard],
     component: CreateConsignmentComponent
@@ -117,7 +123,7 @@ const appRoutes:Routes = [
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, LoginComponent, FooterComponent, 
-    DashboardComponent, DialogComponent, BlockComponent, AlertComponent, PoCreationComponent, PoFulfilmentComponent, PoTrackerComponent, CreateConsignmentComponent, GoodsReceiptComponent, InvoiceManagementComponent, GoodsIssueComponent],
+    DashboardComponent, DialogComponent, BlockComponent, AlertComponent, PoCreationComponent, PoFulfilmentComponent, PoTrackerComponent, CreateConsignmentComponent, GoodsReceiptComponent, InvoiceManagementComponent, GoodsIssueComponent, GenerateInvoiceComponent],
   imports: [  
   RouterModule.forRoot(appRoutes),
   FormsModule,
