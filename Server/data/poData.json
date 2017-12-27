@@ -1,6 +1,6 @@
 [
     {
-        "purchaseOrderNumber": "38700624687",
+        "purchaseOrderNumber": "18700624687",
         "purchaseOrderDate": "2015-05-18T02:30:56",
         "shoppingOrderNumber": "ON001",
         "shoppingOrderDate": "2015-05-18T02:30:56",
@@ -21,6 +21,7 @@
         "deliverToPersonName": "Ilhas",
         "deliverToPersonAddress": "Mahale Shashank / 510.Ground. GOA",
         
+        "invoicePartyId": "9999",
         "invoiceAddress": "Amar Paradigm, S. No. 110/11/3, Baner Road Pune 411045",
         "totalOrderAmount": "5730",
         "accountingType": "ACC",
@@ -29,6 +30,8 @@
         "termsOfPayment": "test",
         "internalNotes": "notes",
         "externalNotes": "test notes",
+        "vatNo": "VAT-001",
+        "termsOfDelivery": "terms of delivery",
         "orderedMaterial": [
             {
                 "orderMaterialId": 1,
@@ -55,7 +58,7 @@
         ]
     },
     {
-        "purchaseOrderNumber": "38700624688",
+        "purchaseOrderNumber": "18700624688",
         "purchaseOrderDate": "2016-05-18T02:30:56",
         "shoppingOrderNumber": "ON001",
         "shoppingOrderDate": "2016-05-18T02:30:56",
@@ -76,6 +79,7 @@
         "deliverToPersonName": "Ilhas",
         "deliverToPersonAddress": "Mahale Shashank / 510.Ground. GOA",
         
+        "invoicePartyId": "9999",
         "invoiceAddress": "Amar Paradigm, S. No. 110/11/3, Baner Road Pune 411045",
         "totalOrderAmount": "5730",
         "accountingType": "ACC",
@@ -84,6 +88,8 @@
         "termsOfPayment": "test",
         "internalNotes": "notes",
         "externalNotes": "test notes",
+        "vatNo": "VAT-002",
+        "termsOfDelivery": "terms of delivery",
         "orderedMaterial": [
             {
                 "orderMaterialId": 1,

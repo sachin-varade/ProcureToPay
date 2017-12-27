@@ -15,6 +15,7 @@
                               <label class="label-field">PO Number</label>
                               <span class="value-field">
                                     <select class="input-style" [(ngModel)]="purchaseOrder.purchaseOrderNumber" (change)="setPO()" name="purchaseOrder" id="purchaseOrder" required>
+                                        <option value=""></option>
                                         <option *ngFor="let item of purchaseOrderList" [value]="item.purchaseOrderNumber">{{item.purchaseOrderNumber}}</option>
                                     </select>
                               </span>
@@ -224,6 +225,11 @@
                               <label class="label-field">Terms of Payment</label>
                               <span class="value-field"><textarea [(ngModel)]="purchaseOrder.termsOfPayment" name="termsOfPayment" required class="input-style"></textarea></span>
                           </div>
+
+                          <div class="value-block">
+                            <label class="label-field">Terms of Delivery</label>
+                            <span class="value-field"><textarea [(ngModel)]="purchaseOrder.termsOfDelivery" name="termsOfDelivery" required class="input-style"></textarea></span>
+                        </div>
                       </div>
                   </div>
               </div>

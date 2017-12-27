@@ -28,20 +28,32 @@ export class PoCreationComponent implements OnInit {
   ngOnInit() {
   }
   fetchPOs(){
-    this.procurementService.getAllPurchaseOrders('created')
+    this.procurementService.getPoData()
     .then((results: any) => {
-      this.purchaseOrderList = results.purchaseOrders;
-      if(this.purchaseOrderList){
-        this.purchaseOrder = JSON.parse(JSON.stringify(this.purchaseOrderList[0]));
-      }
+      this.purchaseOrderList = results;
+      this.procurementService.getAllPurchaseOrders('approved')
+      .then((results: any) => {
+        if(results.purchaseOrders){
+          results.purchaseOrders.forEach(element => {
+            this.purchaseOrderList = this.purchaseOrderList.filter(function(o){return o.purchaseOrderNumber !== element.purchaseOrderNumber; });
+          });  
+        }
+      });
     });
+
+   
   }
   setPO(){
-    this.purchaseOrderList.forEach(element => {
-      if(element.purchaseOrderNumber === this.purchaseOrder.purchaseOrderNumber){
-        this.purchaseOrder = JSON.parse(JSON.stringify(element));
-      }
-    });
+    if(this.purchaseOrder && this.purchaseOrder.purchaseOrderNumber){
+      this.purchaseOrderList.forEach(element => {
+        if(element.purchaseOrderNumber === this.purchaseOrder.purchaseOrderNumber){
+          this.purchaseOrder = JSON.parse(JSON.stringify(element));
+        }
+      });
+    }
+    else{
+      this.purchaseOrder = new ProcurementModels.PurchaseOrder();
+    }
   }
 
   calculateOrderAmount(){
@@ -68,10 +80,11 @@ export class PoCreationComponent implements OnInit {
 
   updatePO(){
     this.purchaseOrder.status = "Approved";
-    this.procurementService.updatePurchaseOrder(this.purchaseOrder)
+    this.procurementService.savePurchaseOrder(this.purchaseOrder)
     .then((results: any) => {
       this.alertService.success("Purchase Order approved.");
       this.fetchPOs();
+      this.purchaseOrder = new ProcurementModels.PurchaseOrder();
     });
   }
 }

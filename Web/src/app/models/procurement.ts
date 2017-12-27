@@ -32,13 +32,13 @@ export class PurchaseOrder {
 }
  
 export class OrderMaterial {
-    orderMaterialId: number;
-    buyerMaterialGroup: string;
+    pos: number;    
     productName: string;
     productDescription: string;
     quantity: number;
     quantityUnit: string;
     pricePerUnit: number;
     currency: string;
+    expectedDeliveryDate: Date;
     netAmount: number;
 }
