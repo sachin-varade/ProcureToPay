@@ -22,6 +22,7 @@ export class PoFulfilmentComponent implements OnInit {
   purchaseOrder: ProcurementModels.PurchaseOrder = new ProcurementModels.PurchaseOrder();
   salesOrder: VendorModels.VendorSalesOrder = new VendorModels.VendorSalesOrder();
   
+
   constructor(private procurementService: ProcurementService, 
     private alertService: AlertService,
     private vendorService: VendorService,
@@ -55,35 +56,58 @@ export class PoFulfilmentComponent implements OnInit {
 
   setPO(){
     this.purchaseOrderList.forEach(element => {
-      if(element.purchaseOrderNumber === this.purchaseOrder.purchaseOrderNumber){
+      if(element.purchaseOrderNumber === this.salesOrder.purchaseOrderRefNumber){
         this.purchaseOrder = JSON.parse(JSON.stringify(element));
+
+        this.salesOrder.purchaseOrderRefNumber = this.purchaseOrder.purchaseOrderNumber;
+        this.salesOrder.purchaseOrderRefDate = this.purchaseOrder.purchaseOrderDate;
+        this.salesOrder.purchaserCompany = this.purchaseOrder.buyerCompany;
+        this.salesOrder.purchaserCompanyDept = this.purchaseOrder.buyerDepartment;
+        this.salesOrder.purchaserContactPersonName = this.purchaseOrder.buyerContactPerson;
+        this.salesOrder.purchaserContactPersonAddress = this.purchaseOrder.buyerContactPersonAddress;
+        this.salesOrder.purchaserContactPersonPhone = this.purchaseOrder.buyerContactPersonPhone
+        this.salesOrder.purchaserContactPersonEmail = this.purchaseOrder.buyerContactPersonEmail;
+        this.salesOrder.deliverToPersonName = this.purchaseOrder.deliverToPersonName;
+        this.salesOrder.deliveryAddress = this.purchaseOrder.deliverToPersonAddress;
+        this.salesOrder.invoicePartyId = this.purchaseOrder.invoicePartyId;
+        this.salesOrder.vatNo = this.purchaseOrder.vatNo;
+        this.salesOrder.invoicePartyAddress = this.purchaseOrder.invoiceAddress;
+
+        let vendorMaterialList: Array<VendorModels.VendorMaterial> = new Array<VendorModels.VendorMaterial>();
+        
+        for (let entry of this.purchaseOrder.orderedMaterial) {
+          let vendorMaterial : VendorModels.VendorMaterial = new VendorModels.VendorMaterial();
+          vendorMaterial.MaterialId = "0";
+          vendorMaterial.ProductName = entry.productName;
+          vendorMaterial.ProductDescription = entry.productDescription;
+          vendorMaterial.Quantity = entry.quantity;
+          vendorMaterial.QuantityUnit = entry.quantityUnit;
+          vendorMaterial.PricePerUnit = entry.pricePerUnit;
+          vendorMaterial.Currency = entry.currency;
+          vendorMaterial.NetAmount = entry.netAmount;
+          vendorMaterialList.push(vendorMaterial);
+
+         }
+
+        this.salesOrder.materialList = vendorMaterialList;
+
+        this.salesOrder.status = "Created";
+        this.salesOrder.statusUpdatedOn = new Date();
+        this.salesOrder.statusUpdatedBy = this.currentUser.name;
+
+
       }
     });
   }
 
   createSO(){
-    this.salesOrder.purchaseOrderRefNumber = this.purchaseOrder.purchaseOrderNumber;
-    this.salesOrder.purchaseOrderRefDate = this.purchaseOrder.purchaseOrderDate;
-    this.salesOrder.purchaserCompany = this.purchaseOrder.buyerCompany;
-    this.salesOrder.purchaserCompanyDept = this.purchaseOrder.buyerDepartment;
-    this.salesOrder.purchaserContactPersonName = this.purchaseOrder.buyerContactPerson;
-    this.salesOrder.purchaserContactPersonAddress = this.purchaseOrder.buyerContactPersonAddress;
-    this.salesOrder.purchaserContactPersonPhone = this.purchaseOrder.buyerContactPersonPhone
-    this.salesOrder.purchaserContactPersonEmail = this.purchaseOrder.buyerContactPersonEmail;
-    this.salesOrder.deliverToPersonName = this.purchaseOrder.deliverToPersonName;
-    this.salesOrder.deliveryAddress = this.purchaseOrder.deliverToPersonAddress;
-    this.salesOrder.invoicePartyId = "101";
-    this.salesOrder.invoicePartyAddress = this.purchaseOrder.invoiceAddress
-    //this.salesOrder.materialList //TODO : MDM
-    this.salesOrder.status = "Created";
-    this.salesOrder.statusUpdatedOn = new Date();
-    this.salesOrder.statusUpdatedBy = this.currentUser.name;
-
     this.vendorService.createVendorSalesOrder(this.salesOrder)
     .then((results: any) => {
       this.alertService.success("Sales Order created." + this.salesOrder.salesOrderNumber);
       this.fetchApprovedPOs();
+      this.getUniqueId();
     });
+    
   }
 
 }

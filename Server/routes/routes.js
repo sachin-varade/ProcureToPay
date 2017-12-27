@@ -77,10 +77,17 @@ router.post("/createVendorSalesOrder", function(req, res) {
 	promise.then(function(resp,err){
 		res.send(resp);
 	});	
-})
+});
 
 router.get("/getAllVendorSalesOrders/:option/:value?", function(req, res) {    
     var promise = vendorService.getAllVendorSalesOrders(req.params.option, req.params.value?req.params.value: "");
+	promise.then(function(resp,err){
+		res.send(resp);
+	});	
+});
+
+router.post("/saveGoodsIssue", function(req, res) {    
+	var promise = vendorService.saveGoodsIssue(req.body);
 	promise.then(function(resp,err){
 		res.send(resp);
 	});	

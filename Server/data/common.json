@@ -50,5 +50,15 @@
 "costCenter": [
     {"id": 1, "name": "Cost Center 1"},
     {"id": 2, "name": "Cost Center 2"}
+],
+"sellerProductCodeList" :[
+    {"code":"P001", "description":"P001: Product 1"},
+    {"code":"P002", "description":"P002: Product 2"},
+    {"code":"P003", "description":"P003: Product 3"}
+],
+"logisticProviderList" :[
+    {"code":"LP001", "description":"LP001: Logistic Provider 1"},
+    {"code":"LP002", "description":"LP002: Logistic Provider 2"},
+    {"code":"LP003", "description":"LP003: Logistic Provider 3"}
 ]
 }

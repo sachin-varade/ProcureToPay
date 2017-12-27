@@ -29,6 +29,8 @@ export class PurchaseOrder {
     externalNotes: string;
     orderedMaterial: Array<OrderMaterial>;
     status: string;
+    invoicePartyId : string;
+    vatNo : string;
 }
  
 export class OrderMaterial {

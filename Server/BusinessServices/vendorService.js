@@ -85,6 +85,24 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
 
     vendorService.createVendorSalesOrder = function(salesOrder){
         console.log("createVendorSalesOrder");        
+
+        var orderedMaterial = "";        
+        if(salesOrder.materialList){
+            salesOrder.materialList.forEach(element => {
+                if(orderedMaterial != "") {
+                    orderedMaterial += ",";
+                }
+                orderedMaterial += element.MaterialId 
+                + "^"+ element.ProductName 
+                + "^"+ element.ProductDescription 
+                + "^"+ element.Quantity.toString() 
+                + "^"+ element.QuantityUnit 
+                + "^"+ element.PricePerUnit.toString() 
+                + "^"+ element.Currency 
+                + "^"+ element.NetAmount.toString();
+            });
+        }
+
         return fabric_client.getUserContext(users.vendorUser.enrollmentID, true)
         .then((user_from_store) => {
             helper.checkUserEnrolled(user_from_store);            
@@ -108,7 +126,7 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
                     salesOrder.deliveryAddress,
                     salesOrder.invoicePartyId,
                     salesOrder.invoicePartyAddress,
-                    salesOrder.materialList,
+                    orderedMaterial,
                     salesOrder.status,
                     salesOrder.statusUpdatedOn,
                     salesOrder.statusUpdatedBy
@@ -130,6 +148,53 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
                 vendorConfig.channels.procurementchannel.chaincodeId, 
                 "getAllVendorSalesOrders", 
                 [option, value]);
+        }).then((results) => {
+            return results;
+        }).catch((err) => {
+            throw err;
+        });
+    }
+
+    vendorService.saveGoodsIssue = function(salesOrder){
+        console.log("saveGoodsIssue");        
+
+        var orderedMaterial = "";        
+        if(salesOrder.materialList){
+            salesOrder.materialList.forEach(element => {
+                if(orderedMaterial != "") {
+                    orderedMaterial += ",";
+                }
+                orderedMaterial += element.materialId 
+                + "^"+ element.productName 
+                + "^"+ element.productDescription 
+                + "^"+ element.quantity.toString() 
+                + "^"+ element.quantityUnit 
+                + "^"+ element.pricePerUnit.toString() 
+                + "^"+ element.currency 
+                + "^"+ element.netAmount.toString()
+                + "^"+ element.dispatchedQuantity.toString()
+                + "^"+ element.batchNumber();
+            });
+        }
+
+        return fabric_client.getUserContext(users.vendorUser.enrollmentID, true)
+        .then((user_from_store) => {
+            helper.checkUserEnrolled(user_from_store);            
+            return invokeChainCode.invokeChainCode(fabric_client, 
+                channels.vendorChannelPC, 
+                eventHubPeers.vendorEventHubPeer._url, 
+                //"grpc://localhost:7053",
+                vendorConfig.channels.procurementchannel.chaincodeId, 
+                "saveGoodsIssue",  
+                [ 
+                    salesOrder.goodsIssueNumber,
+                    salesOrder.salesOrderNumber,
+                    salesOrder.deliverToPersonName,
+                    salesOrder.deliveryAddress,
+                    salesOrder.logisticsProvider,
+                    orderedMaterial
+                ]                
+            );                
         }).then((results) => {
             return results;
         }).catch((err) => {

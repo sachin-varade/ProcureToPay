@@ -17,6 +17,12 @@ export class VendorSalesOrder {
 	status: string;
 	statusUpdatedOn : Date;
 	statusUpdatedBy : string;
+	vatNo : string;
+
+	// --- below added for goods issue.
+	goodsIssueNumber : string;
+	logisticProvider : string;
+
 }
 
 export class  VendorMaterial {
@@ -26,9 +32,13 @@ export class  VendorMaterial {
 	Quantity: Number;
 	QuantityUnit: string;
 	PricePerUnit: Number;
-	Currency: Number;
+	Currency: string;
 	NetAmount: Number
 	DispatchedQuantity: Number;
+	sellerProductCode : string; 
+
+	// --- below added for goods issue.
+	batchNumber : string;
 }
 
 export class  VendorInvoice {

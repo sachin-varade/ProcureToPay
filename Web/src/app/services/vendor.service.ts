@@ -59,4 +59,14 @@ export class VendorService {
     });
   }
 
+  saveGoodsIssue(salesOrder: VendorModels.VendorSalesOrder): Promise<any> {
+    this.url = `${this.BASE_URL}/saveGoodsIssue`;
+    return this.http.post(this.url, salesOrder).toPromise()
+    .then((results: any) => {
+      return results;
+    }).catch((err) => {
+      this.alertService.error(err);
+    });
+  }
+
 }

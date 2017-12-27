@@ -7,62 +7,68 @@
                 <div class="border-box-wrapper">
                     <div class="border-box-table">
                         <div class="border-box-row">
-                            <div class="border-box col-1">
+                            <div class="border-box col-3">
                                 <label class="label-field">Sales Order Number</label>
                                 <input type="text" [(ngModel)]="salesOrder.salesOrderNumber" name="salesOrderNumber" required class="input-style" readonly>
                             </div>
-                        </div>
-                    </div>
-                    <div class="border-box-table">
-                        <div class="border-box-row">
                             <div class="border-box col-3">
                                 <label class="label-field">PO Number</label>
                                 <span class="value-field">
-                                    <select class="input-style" [(ngModel)]="purchaseOrder.purchaseOrderNumber" (change)="setPO()" name="purchaseOrder" id="purchaseOrder" required>
-                                        <option *ngFor="let item of purchaseOrderList" [value]="item.purchaseOrderNumber">{{item.purchaseOrderNumber}}</option>
+                                    <select class="input-style" [(ngModel)]="salesOrder.purchaseOrderRefNumber" (change)="setPO()" name="purchaseOrderRefNumbe" id="purchaseOrderRefNumbe" required>
+                                        <option *ngFor="let itemPO of purchaseOrderList" [value]="itemPO.purchaseOrderNumber">{{itemPO.purchaseOrderNumber}}</option>
                                     </select>
                                 </span>        
                             </div>
-                            <div class="border-box col-3">
+                            <div class="border-box col-3 end-box">
                                 <label class="label-field">PO Date</label>
-                                <span class="value-field">{{purchaseOrder.purchaseOrderDate}}</span>
+                                <span class="value-field">{{salesOrder.purchaseOrderRefDate}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-box-table">
+                        <div class="border-box-row">
+                            <div class="border-box col-3">
+                                <label class="label-field">Purchaser Company / Department</label>
+                                <span class="value-field">{{salesOrder.purchaserCompany}} / {{salesOrder.purchaserCompanyDept}}</span>
+                            </div>
+                            <div class="border-box col-3">
+                                <label class="label-field">Purchaser Contact Person</label>
+                                <span class="value-field">{{salesOrder.purchaserContactPersonName}}</span>
                             </div>
                             <div class="border-box col-3 end-box">
-                                <label class="label-field">Purchaser Company / Department</label>
-                                <span class="value-field">{{purchaseOrder.buyerCompany}} / {{purchaseOrder.buyerDepartment}}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="border-box-table">
-                        <div class="border-box-row">
-                            <div class="border-box">
-                                <label class="label-field">Purchaser Contact Person</label>
-                                <span class="value-field">{{purchaseOrder.buyerContactPerson}}</span>
-                            </div>
-                            <div class="border-box">
                                 <label class="label-field">Purchaser Contact Address / Phone </label>
-                                <span class="value-field">{{purchaseOrder.buyerContactPersonAddress}} <br/> Phone: {{purchaseOrder.buyerContactPersonPhone}}</span>
-                            </div>
-                            <div class="border-box end-box">
-                                <label class="label-field">Purchaser Email</label>
-                                <span class="value-field">{{purchaseOrder.buyerContactPersonEmail}}</span>
+                                <span class="value-field">{{salesOrder.purchaserContactPersonAddress}} <br/> Phone: {{salesOrder.purchaserContactPersonPhone}}</span>
                             </div>
                         </div>
                     </div>
-  
                     <div class="border-box-table">
                         <div class="border-box-row">
-                            <div class="border-box">
+                            <div class="border-box col-3">
+                                <label class="label-field">Purchaser Email</label>
+                                <span class="value-field">{{salesOrder.purchaserContactPersonEmail}}</span>
+                            </div>
+                            <div class="border-box col-3">
                                 <label class="label-field">Delivery To</label>
-                                <span class="value-field">{{purchaseOrder.deliverToPersonName}}</span>
+                                <span class="value-field">{{salesOrder.deliverToPersonName}}</span>
                             </div>
-                            <div class="border-box">
+                            <div class="border-box col-3 end-box">
                                 <label class="label-field">Delivery Address</label>
-                                <span class="value-field">{{purchaseOrder.deliverToPersonAddress}}</span>
+                                <span class="value-field">{{salesOrder.deliveryAddress}}</span>
                             </div>
-                            <div class="border-box end-box">
+                        </div>
+                    </div>
+                    <div class="border-box-table">
+                        <div class="border-box-row">
+                            <div class="border-box col-3">
+                                <label class="label-field">Invoice party ID</label>
+                                <span class="value-field">-</span>
+                            </div>
+                            <div class="border-box col-3">
                                 <label class="label-field">Invoice Address</label>
-                                <span class="value-field">{{purchaseOrder.invoiceAddress}}</span>
+                                <span class="value-field">{{salesOrder.invoicePartyAddress}}</span>
+                            </div>
+                            <div class="border-box col-3 end-box">
+
                             </div>
                         </div>
                     </div>
@@ -74,7 +80,6 @@
                 <div class="border-box-wrapper">
                     <table class="table table-striped full-width">
                         <tr>
-                            <th>Material Group</th>
                             <th>Product Name</th>
                             <th>Description</th>
                             <th>Seller Product Code</th>
@@ -84,36 +89,49 @@
                             <th>Currency</th>
                             <th>Net Amount</th>
                         </tr>
-                        <tr *ngFor="let item of purchaseOrder.orderedMaterial; let i = index" [attr.data-index]="i">
+                        <tr *ngFor="let item of salesOrder.materialList; let i = index" [attr.data-index]="i">
                             <td>
-                                <span>{{item.buyerMaterialGroup}}</span>
+                                <span>{{item.ProductName}}</span>
                             </td>
                             <td>
-                                <span>{{item.productName}}</span>
+                                <span>{{item.ProductDescription}}</span>
                             </td>
                             <td>
-                                <span>{{item.productDescription}}</span>
+                                <select [(ngModel)]="item.sellerProductCode" name="sellerProductCode" class="input-style-small">
+                                    <option *ngFor="let itemSPC of commonData.sellerProductCodeList" [value]="itemSPC.code">{{itemSPC.code}}</option>
+                                </select>
                             </td>
                             <td>
-                              <span>Seller Product Code</span>
+                                <span>{{item.Quantity}}</span> 
                             </td>
                             <td>
-                                <span>{{item.quantity}}</span> 
+                                <span>{{item.QuantityUnit}}</span> 
                             </td>
                             <td>
-                                <span>{{item.quantityUnit}}</span> 
+                                <span>{{item.PricePerUnit}}</span> 
                             </td>
                             <td>
-                                <span>{{item.pricePerUnit}}</span> 
+                                <span>{{item.Currency}}</span> 
                             </td>
                             <td>
-                                <span>{{item.currency}}</span> 
-                            </td>
-                            <td>
-                                <strong>{{item.netAmount}}</strong>
+                                <strong>{{item.NetAmount}}</strong>
                             </td>
                         </tr>
                     </table>
+                </div>
+            </div>
+
+            <div class="plain-block mrg-btm-30">
+                <h5 class="sub-title-sm">Accounting</h5>
+                <div class="border-box-wrapper">
+                    <div class="border-box-table">
+                        <div class="border-box-row">
+                            <div class="border-box end-box">
+                                <label class="label-field">Terms of Delivery</label>
+                                <textarea rows="4" cols="100"></textarea>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
   

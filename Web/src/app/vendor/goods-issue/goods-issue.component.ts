@@ -26,9 +26,17 @@ export class GoodsIssueComponent implements OnInit {
     this.userData = this.user.getUserData();
     this.commonData = this.user.getCommonData(); 
     this.fetchAllVendorSOs();
+    this.getUniqueId();
   }
 
   ngOnInit() {
+  }
+
+  getUniqueId(){
+    this.vendorService.getUniqueId('goods-receipt')
+    .then((results: any) => {
+      this.salesOrder.goodsIssueNumber = results;
+    });
   }
 
   fetchAllVendorSOs(){
@@ -48,5 +56,17 @@ export class GoodsIssueComponent implements OnInit {
       }
     });
   }
+
+
+  createGoodsIssue(){
+    this.vendorService.saveGoodsIssue(this.salesOrder)
+    .then((results: any) => {
+      this.alertService.success("Goods issued." + this.salesOrder.goodsIssueNumber);
+      this.fetchAllVendorSOs();
+      //this.getUniqueId();
+    });
+    
+  }
+
 
 }

@@ -7,11 +7,11 @@
               <div class="border-box-wrapper">
                   <div class="border-box-table">
                       <div class="border-box-row">
-                          <div class="border-box col-3">
+                          <div class="border-box col-2">
                               <label class="label-field">Goods Issue Number</label>
-                              <input type="text">
+                              <input type="text" [(ngModel)]="salesOrder.goodsIssueNumber">
                           </div>
-                          <div class="border-box col-3">
+                          <div class="border-box col-2 end-box">
                               <label class="label-field">Sales Order Number</label>
                               <span class="value-field">
                                 <select class="input-style" [(ngModel)]="salesOrder.salesOrderNumber" (change)="setSO()" name="salesOrderNumber" id="salesOrderNumber" required>
@@ -23,52 +23,13 @@
                   </div>
                   <div class="border-box-table">
                       <div class="border-box-row">
-                          <div class="border-box col-3">
-                              <label class="label-field">PO Number</label>
-                              <span class="value-field">
-                                <span class="value-field">{{salesOrder.purchaseOrderRefNumber}}</span>
-                              </span>        
-                          </div>
-                          <div class="border-box col-3">
-                              <label class="label-field">PO Date</label>
-                              <span class="value-field">{{salesOrder.purchaseOrderRefDate}}</span>
-                          </div>
-                          <div class="border-box col-3 end-box">
-                              <label class="label-field">Purchaser Company / Department</label>
-                              <span class="value-field">{{salesOrder.purchaserCompany}} / {{salesOrder.purchaserCompanyDept}}</span>
-                          </div>
-                      </div>
-                  </div>
-                  <div class="border-box-table">
-                      <div class="border-box-row">
-                          <div class="border-box">
-                              <label class="label-field">Purchaser Contact Person</label>
-                              <span class="value-field">{{salesOrder.purchaserContactPersonName}}</span>
-                          </div>
-                          <div class="border-box">
-                              <label class="label-field">Purchaser Contact Address / Phone </label>
-                              <span class="value-field">{{salesOrder.purchaserContactPersonAddress}} <br/> Phone: {{salesOrder.purchaserContactPersonPhone}}</span>
-                          </div>
-                          <div class="border-box end-box">
-                              <label class="label-field">Purchaser Email</label>
-                              <span class="value-field">{{salesOrder.purchaserContactPersonEmail}}</span>
-                          </div>
-                      </div>
-                  </div>
-
-                  <div class="border-box-table">
-                      <div class="border-box-row">
-                          <div class="border-box">
+                          <div class="border-box col-2">
                               <label class="label-field">Delivery To</label>
                               <span class="value-field">{{salesOrder.deliverToPersonName}}</span>
                           </div>
-                          <div class="border-box">
+                          <div class="border-box col-2 end-box">
                               <label class="label-field">Delivery Address</label>
                               <span class="value-field">{{salesOrder.deliveryAddress}}</span>
-                          </div>
-                          <div class="border-box end-box">
-                              <label class="label-field">Invoice Address</label>
-                              <span class="value-field">{{salesOrder.invoicePartyAddress}}</span>
                           </div>
                       </div>
                   </div>
@@ -80,7 +41,7 @@
               <div class="border-box-wrapper">
                   <table class="table table-striped full-width">
                       <tr>
-                          <th>Material Group</th>
+                          <th>Line Item Ref.</th>
                           <th>Product Name</th>
                           <th>Description</th>
                           <th>Seller Product Code</th>
@@ -94,7 +55,7 @@
                       </tr>
                       <tr *ngFor="let item of salesOrder.materialList; let i = index" [attr.data-index]="i">
                           <td>
-                              <span>{{item.buyerMaterialGroup}}</span>
+                              1
                           </td>
                           <td>
                               <span>{{item.productName}}</span>
@@ -103,7 +64,7 @@
                               <span>{{item.productDescription}}</span>
                           </td>
                           <td>
-                            <span>Seller Product Code</span>
+                            <span>{{item.sellerProductCode}}</span>
                           </td>
                           <td>
                               <span>{{item.quantity}}</span> 
@@ -120,17 +81,33 @@
                           <td>
                               <strong>{{item.netAmount}}</strong>
                           </td>
-                          <td><input type="text" class="input-style-small"></td>
-                          <td><input type="text" class="input-style-small"></td>
+                          <td><input [(ngModel)]="item.DispatchedQuantity" type="text" class="input-style-small"></td>
+                          <td><input [(ngModel)]="item.batchNumber" type="text" class="input-style-small"></td>
 
                       </tr>
                   </table>
               </div>
           </div>
 
+          <div class="plain-block mrg-btm-30">
+                <h5 class="sub-title-sm">Additional Info</h5>
+                <div class="border-box-wrapper">
+                    <div class="border-box-table">
+                        <div class="border-box-row">
+                            <div class="border-box end-box">
+                                <label class="label-field">Logistic Provider</label>
+                                <select [(ngModel)]="salesOrder.logisticProvider" name="logisticProvider" class="input-style-small">
+                                    <option *ngFor="let item of commonData.logisticProviderList" [value]="item.code">{{item.description}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
           <div class="btn-area">
               <button class="btn-border">Cancel</button>
-              <button class="btn-normal" (click)="createSO()">Issue Goods</button>
+              <button class="btn-normal" (click)="createGoodsIssue()">Issue Goods</button>
           </div>
 
       </div>
