@@ -410,15 +410,15 @@ func saveGoodsIssue(stub  shim.ChaincodeStubInterface, args []string) pb.Respons
 	fmt.Println("Running saveGoodsIssue..")
 
 	if len(args) != 6 {
-		fmt.Println("Incorrect number of arguments. Expecting 17 - ..")
-		return shim.Error("Incorrect number of arguments. Expecting 17")
+		fmt.Println("Incorrect number of arguments. Expecting 6 - ..")
+		return shim.Error("Incorrect number of arguments. Expecting 6")
 	}
 
 	fmt.Println("Arguments :"+args[0]+","+args[1]+","+args[2]+","+args[3]+","+args[4]+","+args[5]);
 
 	allBAsBytes, err := stub.GetState("allGoodsIssueNumbers")
 	if err != nil {
-		return shim.Error("Failed to get all Vendor Sales Order Numbers")
+		return shim.Error("Failed to get all Vendor Goods Issue Numbers")
 	}
 	var allb AllGoodsIssueNumbers
 	err = json.Unmarshal(allBAsBytes, &allb)
@@ -475,3 +475,95 @@ func saveGoodsIssue(stub  shim.ChaincodeStubInterface, args []string) pb.Respons
 
 	return shim.Success(nil)
 }
+
+
+//------------------------------------------------------------------------------------
+//	Save vendor Issue
+//------------------------------------------------------------------------------------
+func saveVendorInvoice(stub  shim.ChaincodeStubInterface, args []string) pb.Response {	
+	var err error
+	fmt.Println("Running saveVendorInvoice..")
+
+	if len(args) != 21 {
+		fmt.Println("Incorrect number of arguments. Expecting 21 - ..")
+		return shim.Error("Incorrect number of arguments. Expecting 21")
+	}
+
+	fmt.Println("Arguments :"+args[0]+","+args[1]+","+args[2]+","+args[3]+","+args[4]+","+args[5]+","+args[6]+","+args[7]+","+args[8]+","+args[9]+","+args[10]+","+args[11]+","+args[12]);
+	fmt.Println("Arguments :"+args[13]+","+args[14]+","+args[15]+","+args[16]+","+args[17]+","+args[18]+","+args[19]);
+
+	allBAsBytes, err := stub.GetState("allVendorInvoiceNumbers")
+	if err != nil {
+		return shim.Error("Failed to get all Vendor Invoice Numbers")
+	}
+	var allb AllVendorInvoiceNumbers
+	err = json.Unmarshal(allBAsBytes, &allb)
+	if err != nil {
+		return shim.Error("Failed to Unmarshal all Vendor Invoice Numbers")
+	}
+	if checkDuplicateId(allb.InvoiceNumbers, args[0]) == 0{
+		return shim.Error("Duplicate Vendor Invoice Number - "+ args[0])
+	}
+
+	var bt VendorInvoice
+	bt.InvoiceNumber					= args[0]
+	bt.InvoiceDate						= args[1]
+	bt.GoodsIssueNumber					= args[2]	
+	bt.GoodsIssueDate					= args[3]		
+	bt.SalesOrderNumber 				= args[4]
+	bt.PurchaseOrderRefNumber 			= args[5]
+	bt.PurchaseOrderRefDate 			= args[6]
+	bt.SupplierCode 					= args[7]
+	bt.PurchaserCompany 				= args[8]
+	bt.PurchaserCompanyDept 			= args[9]
+	bt.PurchaserContactPersonName 		= args[10]
+	bt.PurchaserContactPersonAddress 	= args[11]
+	bt.PurchaserContactPersonPhone 		= args[12]
+	bt.PurchaserContactPersonEmail 		= args[13]
+	bt.DeliverToPersonName 				= args[14]
+	bt.DeliveryAddress 					= args[15]
+	bt.InvoicePartyId 					= args[16]
+	bt.InvoiceAddress 					= args[17]
+	bt.GrossAmount 						= args[18]
+	bt.VatNumber 						= args[19]
+
+	var material VendorMaterial
+	
+	if args[20] != "" {
+		p := strings.Split(args[20], ",")
+		for i := range p {
+			c := strings.Split(p[i], "^")
+			material.MaterialId 		= 		c[0]
+			material.ProductName 		= 		c[1]
+			material.ProductDescription = 		c[2]
+			material.Quantity 			= 		c[3]
+			material.QuantityUnit 		= 		c[4]
+			material.PricePerUnit 		= 		c[5]
+			material.Currency 			= 		c[6]
+			material.NetAmount 			= 		c[7]
+			material.DispatchedQuantity	= 		c[8]
+			material.BatchNumber		= 		c[9]
+			bt.MaterialList = append(bt.MaterialList, material)
+		}
+	}
+	
+	//Commit Sales Order entry to ledger
+	fmt.Println("saveVendorInvoice - Commit Vendor Invoice To Ledger");
+	btAsBytes, _ := json.Marshal(bt)
+	err = stub.PutState(bt.InvoiceNumber, btAsBytes)
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+
+	//Update All Abattoirs Array	
+	allb.InvoiceNumbers = append(allb.InvoiceNumbers, bt.InvoiceNumber)
+
+	allBuAsBytes, _ := json.Marshal(allb)
+	err = stub.PutState("allVendorInvoiceNumbers", allBuAsBytes)
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+
+	return shim.Success(nil)
+}
+

@@ -204,6 +204,39 @@ type AllGoodsReceiptDetails struct{
 	GoodsReceiptNumbers []GoodsReceipt `json:"goodsReceiptNumbers"`
 }
 
+type VendorInvoice struct {
+	InvoiceNumber						string		`json:"invoiceNumber"`
+	InvoiceDate							string		`json:"invoiceDate"`
+	GoodsIssueNumber					string		`json:"goodsIssueNumber"`
+	GoodsIssueDate						string		`json:"goodsIssueDate"`
+	SalesOrderNumber					string		`json:"salesOrderNumber"`
+	PurchaseOrderRefNumber				string		`json:"purchaseOrderRefNumber"`
+	PurchaseOrderRefDate				string		`json:"purchaseOrderRefDate"`
+	SupplierCode						string		`json:"supplierCode"`
+	PurchaserCompany					string		`json:"purchaserCompany"`
+	PurchaserCompanyDept				string		`json:"purchaserCompanyDept"`
+	PurchaserContactPersonName			string		`json:"purchaserContactPersonName"`
+	PurchaserContactPersonAddress		string		`json:"purchaserContactPersonAddress"`
+	PurchaserContactPersonPhone			string		`json:"purchaserContactPersonPhone"`
+	PurchaserContactPersonEmail			string		`json:"purchaserContactPersonEmail"`
+	DeliverToPersonName					string		`json:"deliverToPersonName"`
+	DeliveryAddress						string		`json:"deliveryAddress"`
+	InvoicePartyId						string		`json:"invoicePartyId"`
+	InvoiceAddress						string		`json:"invoiceAddress"`
+	GrossAmount							string		`json:"grossAmount"`
+	VatNumber							string		`json:"vatNumber"`
+	MaterialList						[]VendorMaterial		`json:"materialList"`
+}
+
+type AllVendorInvoiceNumbers struct{
+	InvoiceNumbers 						[]string 	`json:"invoiceNumbers"`
+}
+
+type AllVendorInvoiceDetails struct{
+	VendorInvoices 						[]VendorInvoice `json:"vendorInvoices"`
+}
+
+
 // ============================================================================================================================
 // Init - initialize the chaincode 
 //
@@ -269,6 +302,13 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response {
 		return shim.Error(err.Error())
 	}
 
+	var allVendorInvoiceNumbers AllVendorInvoiceNumbers
+	jsonAsBytesAllVendorInvoiceNumbers, _ := json.Marshal(allVendorInvoiceNumbers)
+	err = stub.PutState("allVendorInvoiceNumbers", jsonAsBytesAllVendorInvoiceNumbers)
+	if err != nil {		
+		return shim.Error(err.Error())
+	}
+
 	fmt.Println(" - ready for action")                        
 	return shim.Success(nil)
 }
@@ -304,6 +344,10 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 		return getAllGoodsIssue(stub, args[0], args[1])
 	} else if function == "saveGoodsIssue" {
 		return saveGoodsIssue(stub, args)
+	} else if function == "getAllVendorInvoices" {
+		return getAllVendorInvoices(stub, args[0], args[1])
+	} else if function == "saveVendorInvoice" {
+		return saveVendorInvoice(stub, args)
 	}
 	
 	// error out
