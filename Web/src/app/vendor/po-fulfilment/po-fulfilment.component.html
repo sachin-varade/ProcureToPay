@@ -9,7 +9,7 @@
                         <div class="border-box-row">
                             <div class="border-box col-1">
                                 <label class="label-field">Sales Order Number</label>
-                                <input type="text" [(ngModel)]="salesOrder.salesOrderNumber" name="salesOrderNumber" required class="input-style">
+                                <input type="text" [(ngModel)]="salesOrder.salesOrderNumber" name="salesOrderNumber" required class="input-style" readonly>
                             </div>
                         </div>
                     </div>
@@ -119,7 +119,7 @@
   
             <div class="btn-area">
                 <button class="btn-border">Cancel</button>
-                <button class="btn-normal" (click)="createSO()">Approve & Generate SO</button>
+                <button class="btn-normal" (click)="createSO()">Create Sales Order</button>
             </div>
   
         </div>

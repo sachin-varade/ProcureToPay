@@ -30,7 +30,7 @@ export class PoFulfilmentComponent implements OnInit {
     this.userData = this.user.getUserData();
     this.commonData = this.user.getCommonData(); 
     this.fetchApprovedPOs();
-    //this.getUniqueId(); //TODO : MDM : this is not working (see vendorService.js getUniqueId)
+    this.getUniqueId(); 
   }
 
   ngOnInit() {
