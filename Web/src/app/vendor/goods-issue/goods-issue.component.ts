@@ -33,7 +33,7 @@ export class GoodsIssueComponent implements OnInit {
   }
 
   getUniqueId(){
-    this.vendorService.getUniqueId('goods-receipt')
+    this.vendorService.getUniqueId('goods-issue')
     .then((results: any) => {
       this.salesOrder.goodsIssueNumber = results;
     });
