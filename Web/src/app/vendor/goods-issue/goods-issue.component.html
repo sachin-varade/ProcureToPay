@@ -9,7 +9,7 @@
                       <div class="border-box-row">
                           <div class="border-box col-2">
                               <label class="label-field">Goods Issue Number</label>
-                              <input type="text" [(ngModel)]="salesOrder.goodsIssueNumber">
+                              <input type="text" [(ngModel)]="salesOrder.goodsIssueNumber" required class="input-style" readonly>
                           </div>
                           <div class="border-box col-2 end-box">
                               <label class="label-field">Sales Order Number</label>
@@ -81,8 +81,8 @@
                           <td>
                               <strong>{{item.netAmount}}</strong>
                           </td>
-                          <td><input [(ngModel)]="item.dispatchedQuantity" type="text" class="input-style-small"></td>
-                          <td><input [(ngModel)]="item.batchNumber" type="text" class="input-style-small"></td>
+                          <td><input [(ngModel)]="item.dispatchedQuantity" type="text" class="input-style-small" required></td>
+                          <td><input [(ngModel)]="item.batchNumber" type="text" class="input-style-small" required></td>
 
                       </tr>
                   </table>
@@ -96,7 +96,7 @@
                         <div class="border-box-row">
                             <div class="border-box end-box">
                                 <label class="label-field">Logistic Provider</label>
-                                <select [(ngModel)]="salesOrder.logisticProvider" name="logisticProvider" class="input-style-small">
+                                <select [(ngModel)]="salesOrder.logisticProvider" name="logisticProvider" class="input-style-small" required>
                                     <option *ngFor="let item of commonData.logisticProviderList" [value]="item.code">{{item.description}}</option>
                                 </select>
                             </div>

@@ -73,7 +73,6 @@ export class PoFulfilmentComponent implements OnInit {
         this.salesOrder.invoicePartyAddress = this.purchaseOrder.invoiceAddress;
         this.salesOrder.vatNo = this.purchaseOrder.vatNo;
         this.salesOrder.termsOfDelivery = this.purchaseOrder.termsOfDelivery;
-        this.salesOrder.vatNo = this.purchaseOrder.vatNo;
         this.salesOrder.totalOrderAmount = this.purchaseOrder.totalOrderAmount;
         this.salesOrder.supplierCode = this.purchaseOrder.supplierUniqueNo;
 
@@ -90,6 +89,7 @@ export class PoFulfilmentComponent implements OnInit {
           vendorMaterial.currency = entry.currency;
           vendorMaterial.netAmount = entry.netAmount;
           vendorMaterial.expectedDeliveryDate = entry.expectedDeliveryDate;
+          vendorMaterial.pos = entry.pos;
           vendorMaterialList.push(vendorMaterial);
          }
 
