@@ -15,14 +15,14 @@
                             <div class="border-box col-3">
                                 <label class="label-field">PO Number</label>
                                 <span class="value-field">
-                                    <select class="input-style" [(ngModel)]="salesOrder.purchaseOrderRefNumber" (change)="setPO()" name="purchaseOrderRefNumbe" id="purchaseOrderRefNumbe" required>
+                                    <select class="input-style" [(ngModel)]="salesOrder.purchaseOrderRefNumber" (change)="setPO()" name="purchaseOrderRefNumber" id="purchaseOrderRefNumber" required>
                                         <option *ngFor="let itemPO of purchaseOrderList" [value]="itemPO.purchaseOrderNumber">{{itemPO.purchaseOrderNumber}}</option>
                                     </select>
                                 </span>        
                             </div>
                             <div class="border-box col-3 end-box">
                                 <label class="label-field">PO Date</label>
-                                <span class="value-field">{{salesOrder.purchaseOrderRefDate}}</span>
+                                <span class="value-field">{{salesOrder.purchaseOrderRefDate | date:'dd-MMM-yyyy'}}</span>
                             </div>
                         </div>
                     </div>
@@ -89,7 +89,7 @@
                             <th>Units</th>
                             <th>Unit price</th>
                             <th>Currency</th>
-                            <th>Net Amount</th>
+                            <!-- <th>Net Amount</th> -->
                         </tr>
                         <tr *ngFor="let item of salesOrder.materialList; let i = index" [attr.data-index]="i">
                             <td>
@@ -120,9 +120,9 @@
                             <td>
                                 <span>{{item.currency}}</span> 
                             </td>
-                            <td>
+                            <!-- <td>
                                 <strong>{{item.netAmount}}</strong>
-                            </td>
+                            </td> -->
                         </tr>
                     </table>
                 </div>

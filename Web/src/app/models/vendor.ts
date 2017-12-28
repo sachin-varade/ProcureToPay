@@ -24,6 +24,7 @@ export class VendorSalesOrder {
 	// --- below added for goods issue.
 	goodsIssueNumber : string;
 	logisticProvider : string;
+	logisticsConsignmentNumber : string;
 
 }
 

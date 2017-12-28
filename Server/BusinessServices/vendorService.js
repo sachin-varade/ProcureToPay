@@ -198,7 +198,8 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
                     salesOrder.deliverToPersonName,
                     salesOrder.deliveryAddress,
                     salesOrder.logisticProvider,
-                    orderedMaterial
+                    orderedMaterial,
+                    salesOrder.logisticsConsignmentNumber
                 ]                
             );                
         }).then((results) => {

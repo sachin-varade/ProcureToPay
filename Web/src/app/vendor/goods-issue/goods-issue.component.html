@@ -3,7 +3,6 @@
       <h2 class="page-title">Goods Issue</h2>
       <div class="content-area">
           <div class="plain-block mrg-btm-30">
-              <h5 class="sub-title-sm">Sales Order Details</h5>
               <div class="border-box-wrapper">
                   <div class="border-box-table">
                       <div class="border-box-row">
@@ -12,12 +11,10 @@
                               <input type="text" [(ngModel)]="salesOrder.goodsIssueNumber" required class="input-style" readonly>
                           </div>
                           <div class="border-box col-2 end-box">
-                              <label class="label-field">Sales Order Number</label>
-                              <span class="value-field">
-                                <select class="input-style" [(ngModel)]="salesOrder.salesOrderNumber" (change)="setSO()" name="salesOrderNumber" id="salesOrderNumber" required>
-                                    <option *ngFor="let item of salesOrderList" [value]="item.salesOrderNumber">{{item.salesOrderNumber}}</option>
-                                </select>
-                            </span>
+                            <label class="label-field">Sales Order Number</label>
+                            <select class="input-style" [(ngModel)]="salesOrder.salesOrderNumber" (change)="setSO()" name="salesOrderNumber" id="salesOrderNumber" required>
+                                <option *ngFor="let item of salesOrderList" [value]="item.salesOrderNumber">{{item.salesOrderNumber}}</option>
+                            </select>
                           </div>
                       </div>
                   </div>
@@ -84,11 +81,15 @@
                 <div class="border-box-wrapper">
                     <div class="border-box-table">
                         <div class="border-box-row">
-                            <div class="border-box end-box">
+                            <div class="border-box col-2">
                                 <label class="label-field">Logistic Provider</label>
-                                <select [(ngModel)]="salesOrder.logisticProvider" name="logisticProvider" class="input-style-small" required>
-                                    <option *ngFor="let item of commonData.logisticProviderList" [value]="item.code">{{item.description}}</option>
+                                <select [(ngModel)]="salesOrder.logisticProvider" name="logisticProvider" class="input-style" required>
+                                    <option *ngFor="let item of userData.users.logistics" [value]="item.name">{{item.displayName}}</option>
                                 </select>
+                            </div>
+                            <div class="border-box col-2 end-box">
+                                <label class="label-field">Consignment Number</label>
+                                <input type="text" [(ngModel)]="salesOrder.logisticsConsignmentNumber" required class="input-style">
                             </div>
                         </div>
                     </div>

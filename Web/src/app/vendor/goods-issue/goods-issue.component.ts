@@ -26,6 +26,7 @@ export class GoodsIssueComponent implements OnInit {
     this.userData = this.user.getUserData();
     this.commonData = this.user.getCommonData(); 
     this.fetchAllVendorSOs();
+    this.getUniqueId();
   }
 
   ngOnInit() {
@@ -62,6 +63,8 @@ export class GoodsIssueComponent implements OnInit {
       this.fetchAllVendorSOs();
       this.getUniqueId();
       this.salesOrder = new VendorModels.VendorSalesOrder();
+      var salesOrderNumberSelect = <HTMLSelectElement>document.getElementById('salesOrderNumber');
+      salesOrderNumberSelect.selectedIndex = -1;
     });    
   }
 

@@ -21,42 +21,42 @@ export class PoFulfilmentComponent implements OnInit {
   purchaseOrderList: Array<ProcurementModels.PurchaseOrder> = new Array<ProcurementModels.PurchaseOrder>();
   purchaseOrder: ProcurementModels.PurchaseOrder = new ProcurementModels.PurchaseOrder();
   salesOrder: VendorModels.VendorSalesOrder = new VendorModels.VendorSalesOrder();
-  
 
-  constructor(private procurementService: ProcurementService, 
+
+  constructor(private procurementService: ProcurementService,
     private alertService: AlertService,
     private vendorService: VendorService,
     private user: UserService) {
     this.currentUser = this.user.getUserLoggedIn();
     this.userData = this.user.getUserData();
-    this.commonData = this.user.getCommonData(); 
+    this.commonData = this.user.getCommonData();
     this.fetchApprovedPOs();
-    this.getUniqueId(); 
+    this.getUniqueId();
   }
 
   ngOnInit() {
   }
 
-  getUniqueId(){
+  getUniqueId() {
     this.vendorService.getUniqueId('vendor')
-    .then((results: any) => {
-      this.salesOrder.salesOrderNumber = results;
-    });
+      .then((results: any) => {
+        this.salesOrder.salesOrderNumber = results;
+      });
   }
 
-  fetchApprovedPOs(){
+  fetchApprovedPOs() {
     this.procurementService.getAllPurchaseOrders('approved')
-    .then((results: any) => {
-      this.purchaseOrderList = results.purchaseOrders;
-      if(this.purchaseOrderList){
-        this.purchaseOrder = JSON.parse(JSON.stringify(this.purchaseOrderList[0]));
-      }
-    });
+      .then((results: any) => {
+        this.purchaseOrderList = results.purchaseOrders;
+        if (this.purchaseOrderList) {
+          this.purchaseOrder = JSON.parse(JSON.stringify(this.purchaseOrderList[0]));
+        }
+      });
   }
 
-  setPO(){
+  setPO() {
     this.purchaseOrderList.forEach(element => {
-      if(element.purchaseOrderNumber === this.salesOrder.purchaseOrderRefNumber){
+      if (element.purchaseOrderNumber === this.salesOrder.purchaseOrderRefNumber) {
         this.purchaseOrder = JSON.parse(JSON.stringify(element));
 
         this.salesOrder.purchaseOrderRefNumber = this.purchaseOrder.purchaseOrderNumber;
@@ -77,9 +77,9 @@ export class PoFulfilmentComponent implements OnInit {
         this.salesOrder.supplierCode = this.purchaseOrder.supplierUniqueNo;
 
         let vendorMaterialList: Array<VendorModels.VendorMaterial> = new Array<VendorModels.VendorMaterial>();
-        
+
         for (let entry of this.purchaseOrder.orderedMaterial) {
-          let vendorMaterial : VendorModels.VendorMaterial = new VendorModels.VendorMaterial();
+          let vendorMaterial: VendorModels.VendorMaterial = new VendorModels.VendorMaterial();
           vendorMaterial.materialId = entry.pos.toString();
           vendorMaterial.productName = entry.productName;
           vendorMaterial.productDescription = entry.productDescription;
@@ -91,7 +91,7 @@ export class PoFulfilmentComponent implements OnInit {
           vendorMaterial.expectedDeliveryDate = entry.expectedDeliveryDate;
           vendorMaterial.pos = entry.pos;
           vendorMaterialList.push(vendorMaterial);
-         }
+        }
 
         this.salesOrder.materialList = vendorMaterialList;
 
@@ -104,15 +104,18 @@ export class PoFulfilmentComponent implements OnInit {
     });
   }
 
-  createSO(){
+  createSO() {
     this.vendorService.createVendorSalesOrder(this.salesOrder)
-    .then((results: any) => {
-      this.alertService.success("Sales Order created." + this.salesOrder.salesOrderNumber);
-      this.fetchApprovedPOs();
-      this.getUniqueId();
-      this.salesOrder = new VendorModels.VendorSalesOrder();
-    });
-    
+      .then((results: any) => {
+        this.alertService.success("Sales Order created." + this.salesOrder.salesOrderNumber);
+        this.fetchApprovedPOs();
+        this.getUniqueId();
+        this.salesOrder = new VendorModels.VendorSalesOrder();
+        var purchaseOrderRefNumberSelect = <HTMLSelectElement>document.getElementById('purchaseOrderRefNumber');
+        purchaseOrderRefNumberSelect.selectedIndex = -1;
+        //purchaseOrderRefNumberSelect.textContent = '';
+      });
+
   }
 
 }
