@@ -99,7 +99,8 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
                 + "^"+ element.quantityUnit 
                 + "^"+ element.pricePerUnit.toString() 
                 + "^"+ element.currency 
-                + "^"+ element.netAmount.toString();
+                + "^"+ element.netAmount.toString()
+                + "^"+ element.expectedDeliveryDate                
             });
         }
 
@@ -132,7 +133,8 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
                     salesOrder.statusUpdatedBy,
                     salesOrder.vatNo,
                     salesOrder.termsOfDelivery,
-                    salesOrder.totalOrderAmount.toString()
+                    salesOrder.totalOrderAmount.toString(),
+                    salesOrder.supplierCode
                 ]                
             );                
         }).then((results) => {
@@ -176,7 +178,8 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
                 + "^"+ element.currency 
                 + "^"+ element.netAmount.toString()
                 + "^"+ element.dispatchedQuantity.toString()
-                + "^"+ element.batchNumber;
+                + "^"+ element.batchNumber
+                + "^"+ element.expectedDeliveryDate                
             });
         }
 
@@ -274,12 +277,19 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
                     salesOrder.invoiceAddress,
                     salesOrder.grossAmount.toString(),
                     salesOrder.vatNumber, 
-                    orderedMaterial
+                    orderedMaterial,
+                    salesOrder.invoicePublishDate
                 ]                
             );                
         }).then((results) => {
             return results;
         }).catch((err) => {
+            if(err.message.indexOf("SMART_CONTRACT") > -1){
+                return {
+                    type: "ERROR",
+                    message: err.message
+                }
+            }            
             throw err;
         });
     }

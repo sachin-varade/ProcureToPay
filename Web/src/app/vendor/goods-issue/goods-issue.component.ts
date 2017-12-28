@@ -26,7 +26,6 @@ export class GoodsIssueComponent implements OnInit {
     this.userData = this.user.getUserData();
     this.commonData = this.user.getCommonData(); 
     this.fetchAllVendorSOs();
-    this.getUniqueId();
   }
 
   ngOnInit() {
@@ -45,6 +44,7 @@ export class GoodsIssueComponent implements OnInit {
       this.salesOrderList = results.vendorSalesOrders;
       if(this.salesOrderList){
         this.salesOrder = JSON.parse(JSON.stringify(this.salesOrderList[0]));
+        this.getUniqueId();
       }
     });
   }
@@ -64,8 +64,7 @@ export class GoodsIssueComponent implements OnInit {
       this.alertService.success("Goods issued." + this.salesOrder.goodsIssueNumber);
       this.fetchAllVendorSOs();
       this.getUniqueId();
-    });
-    
+    });    
   }
 
 

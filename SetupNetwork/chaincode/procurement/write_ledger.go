@@ -245,7 +245,7 @@ func saveVendorSalesOrder(stub  shim.ChaincodeStubInterface, args []string) pb.R
 	var err error
 	fmt.Println("Running saveVendorSalesOrder..")
 
-	if len(args) != 20 {
+	if len(args) != 21 {
 		fmt.Println("Incorrect number of arguments. Expecting 20 - ..")
 		return shim.Error("Incorrect number of arguments. Expecting 20")
 	}
@@ -286,6 +286,7 @@ func saveVendorSalesOrder(stub  shim.ChaincodeStubInterface, args []string) pb.R
 	bt.VatNo				= args[17]
 	bt.TermsOfDelivery				= args[18]
 	bt.TotalOrderAmount				= args[19]
+	bt.SupplierCode				= args[20]
 
 	var material VendorMaterial
 	
@@ -301,6 +302,7 @@ func saveVendorSalesOrder(stub  shim.ChaincodeStubInterface, args []string) pb.R
 			material.PricePerUnit 		= 		c[5]
 			material.Currency 			= 		c[6]
 			material.NetAmount 			= 		c[7]
+			material.ExpectedDeliveryDate= 		c[8]
 			bt.MaterialList = append(bt.MaterialList, material)
 		}
 	}
@@ -455,6 +457,7 @@ func saveGoodsIssue(stub  shim.ChaincodeStubInterface, args []string) pb.Respons
 			material.NetAmount 			= 		c[7]
 			material.DispatchedQuantity	= 		c[8]
 			material.BatchNumber		= 		c[9]
+			material.ExpectedDeliveryDate= 		c[10]
 			bt.MaterialList = append(bt.MaterialList, material)
 		}
 	}
@@ -487,9 +490,9 @@ func saveVendorInvoice(stub  shim.ChaincodeStubInterface, args []string) pb.Resp
 	var err error
 	fmt.Println("Running saveVendorInvoice..")
 
-	if len(args) != 21 {
-		fmt.Println("Incorrect number of arguments. Expecting 21 - ..")
-		return shim.Error("Incorrect number of arguments. Expecting 21")
+	if len(args) != 22 {
+		fmt.Println("Incorrect number of arguments. Expecting 22 - ..")
+		return shim.Error("Incorrect number of arguments. Expecting 22")
 	}
 
 	fmt.Println("Arguments :"+args[0]+","+args[1]+","+args[2]+","+args[3]+","+args[4]+","+args[5]+","+args[6]+","+args[7]+","+args[8]+","+args[9]+","+args[10]+","+args[11]+","+args[12]);
@@ -529,9 +532,43 @@ func saveVendorInvoice(stub  shim.ChaincodeStubInterface, args []string) pb.Resp
 	bt.InvoiceAddress 					= args[17]
 	bt.GrossAmount 						= args[18]
 	bt.VatNumber 						= args[19]
+	bt.InvoicePublishDate 						= args[21]
 
+	//Validation - Start
+
+	if bt.PurchaseOrderRefNumber == "" {
+		return shim.Error("SMART_CONTRACT Error: Purchase Order Ref. Number is mandatory field")
+	} else if bt.VatNumber == "" {
+		return shim.Error("SMART_CONTRACT Error: VAT Number is mandatory field")
+	} else if bt.GrossAmount == "" {
+		return shim.Error("SMART_CONTRACT Error: Gross Amount is mandatory field")
+	} else if bt.InvoicePartyId == "" {
+		return shim.Error("SMART_CONTRACT Error: Bill to Party Id is mandatory field")
+	}
+
+
+	//Get PO details for referenced PO number for cross validations
+	var responsePO = getAllPurchaseOrders(stub, "id", bt.PurchaseOrderRefNumber)
+	if responsePO.Status != shim.OK {       
+		return shim.Error("SMART_CONTRACT Error: Referenced Purchase Order details not found")      
+	}
+	var allPODetails AllPurchaseOrderDetails
+	json.Unmarshal([]byte(string(responsePO.Payload)), &allPODetails)
+
+	for i := range allPODetails.PurchaseOrders{
+		// PO supplier code = INV supplier code
+		if allPODetails.PurchaseOrders[i].SupplierUniqueNo != bt.SupplierCode {
+			return shim.Error("SMART_CONTRACT Error: Supplier code does not match in Invoice and Purchase Order")
+		}
+
+		// PO Bill-to-Party ID = INV Bill-to-Party ID 
+		if allPODetails.PurchaseOrders[i].InvoicePartyId != bt.InvoicePartyId {
+			return shim.Error("SMART_CONTRACT Error: Invoiced Party does not match in Invoice and Purchase Order")
+		}
+	}
+
+	//Validation - End
 	var material VendorMaterial
-	
 	if args[20] != "" {
 		p := strings.Split(args[20], ",")
 		for i := range p {

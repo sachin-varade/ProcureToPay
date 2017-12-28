@@ -117,6 +117,7 @@ type VendorSalesOrder struct {
 	VatNo				string	`json:"vatNo"`
 	TermsOfDelivery				string	`json:"termsOfDelivery"`
 	TotalOrderAmount			string		`json:"totalOrderAmount"`
+	SupplierCode			string		`json:"supplierCode"`	
 }
 
 
@@ -211,6 +212,7 @@ type AllGoodsReceiptDetails struct{
 type VendorInvoice struct {
 	InvoiceNumber						string		`json:"invoiceNumber"`
 	InvoiceDate							string		`json:"invoiceDate"`
+	InvoicePublishDate							string		`json:"invoicePublishDate"`
 	GoodsIssueNumber					string		`json:"goodsIssueNumber"`
 	GoodsIssueDate						string		`json:"goodsIssueDate"`
 	SalesOrderNumber					string		`json:"salesOrderNumber"`

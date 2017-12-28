@@ -25,7 +25,7 @@
                               <label class="label-field">PO Date</label>
                               <span class="value-field">{{purchaseOrder.purchaseOrderDate | date : "short"}}</span>
                           </div>
-
+<!-- 
                           <div class="value-block">
                               <label class="label-field">Order Number</label>
                               <span class="value-field">{{purchaseOrder.shoppingOrderNumber}}</span>
@@ -34,7 +34,7 @@
                           <div class="value-block">
                               <label class="label-field">Order Date</label>
                               <span class="value-field">{{purchaseOrder.shoppingOrderDate | date : "short"}}</span>
-                          </div>
+                          </div> -->
                       </div>
 
                       <div class="plain-block">
@@ -123,7 +123,13 @@
                               <label class="label-field">Delivery Address</label>
                               <span class="value-field"><textarea [(ngModel)]="purchaseOrder.deliverToPersonAddress" name="deliverToPersonAddress" required class="input-style"></textarea></span>
                           </div>
-
+                          
+                          <div class="value-block">
+                                <label class="label-field">Bill-to-address</label>
+                                <span class="value-field">
+                                        <input type="text" [(ngModel)]="purchaseOrder.invoicePartyId" name="invoicePartyId" required class="input-style">
+                                </span>
+                            </div>
                           <div class="value-block">
                               <label class="label-field">Invoice Address</label>
                               <span class="value-field"><textarea [(ngModel)]="purchaseOrder.invoiceAddress" name="invoiceAddress" required class="input-style"></textarea></span>

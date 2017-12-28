@@ -69,4 +69,23 @@ export class VendorService {
     });
   }
 
+  saveVendorInvoice(salesOrder: VendorModels.VendorInvoice): Promise<any> {
+    this.url = `${this.BASE_URL}/saveVendorInvoice`;
+    return this.http.post(this.url, salesOrder).toPromise()
+    .then((results: any) => {
+      return results;
+    }).catch((err) => {
+      this.alertService.error(err);
+    });
+  }
+
+  getAllVendorInvoices(option: string, value: string = ""): Promise<any> {
+    this.url = `${this.BASE_URL}/getAllVendorInvoices`;
+    return this.http.get(this.url+"/"+ option +"/"+ value).toPromise()
+    .then((results: any) => {
+      return results;
+    }).catch((err) => {
+      this.alertService.error("Error occured...");
+    });
+  }
 }

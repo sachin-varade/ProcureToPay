@@ -1,5 +1,6 @@
 <div class="page-container cgt-buyer">
     <div class="container">
+        <form #myForm="ngForm">
         <h2 class="page-title">Generate Invoice</h2>
         <div class="content-area">
             <div class="plain-block mrg-btm-30">
@@ -9,12 +10,17 @@
                         <div class="border-box-row">
                             <div class="border-box col-3">
                                 <label class="label-field">Invoice Number</label>
-                                <input disabled [(ngModel)]="vendorInvoice.invoiceNumber" type="text">
+                                <input disabled [(ngModel)]="vendorInvoice.invoiceNumber" name="invoiceNumber" type="text" required>
                             </div>
                             <div class="border-box col-3">
-                                <label class="label-field">Invoice Date</label>
-                                <input disabled [(ngModel)]="vendorInvoice.invoiceDate" type="text">
-                            </div>                            
+                                <label class="label-field">Invoice Date</label>                                
+                                <input placeholder="Date" [(ngModel)]="vendorInvoice.invoiceDate" name="invoiceDate" type="text" class="input-style-small" bsDatepicker required/>
+                            </div>
+                            
+                            <div class="border-box col-3">
+                                <label class="label-field">Invoice Publish Date</label>                                
+                                <input placeholder="Date" [(ngModel)]="vendorInvoice.invoicePublishDate" name="invoicePublishDate" type="text" class="input-style-small" bsDatepicker required/>
+                            </div>
                         </div>
                     </div>
                     <div class="border-box-table">
@@ -22,17 +28,18 @@
                             <div class="border-box col-3">
                                 <label class="label-field">Goods Issue Number</label>
                                 <select class="input-style" [(ngModel)]="vendorInvoice.goodsIssueNumber" (change)="setGIN()" name="goodsIssueNumber" id="goodsIssueNumber" required>
+                                    <option value=""></option>
                                     <option *ngFor="let item of goodsIssueList" [value]="item.goodsIssueNumber">{{item.goodsIssueNumber}}</option>
                                 </select>
                             </div>
                             <div class="border-box col-3">
-                                <label class="label-field">Goods Issue Date</label>
-                                <input disabled [(ngModel)]="vendorInvoice.goodsIssueDate" type="text">
+                                <label class="label-field">Goods Issue Date</label>                                
+                                <input placeholder="Date" [(ngModel)]="vendorInvoice.goodsIssueDate" name="goodsIssueDate" type="text" class="input-style-small" bsDatepicker required/>
                             </div>
                             <div class="border-box col-3 end-box">
                                 <label class="label-field">Sales Order Number</label>
                                 <span class="value-field">
-                                    <input [(ngModel)]="vendorInvoice.salesOrderNumber" name="salesOrderNumber" type="text">                                 
+                                    <input [(ngModel)]="vendorInvoice.salesOrderNumber" name="salesOrderNumber" type="text" required>                                 
                               </span>
                             </div>
                         </div>
@@ -42,7 +49,7 @@
                             <div class="border-box col-3">
                                 <label class="label-field">PO ref. Number</label>
                                 <span class="value-field">
-                                    <input [(ngModel)]="vendorInvoice.purchaseOrderRefNo" name="purchaseOrderRefNo" type="text">                                                                     
+                                    <input [(ngModel)]="vendorInvoice.purchaseOrderRefNumber" name="purchaseOrderRefNumber" type="text" required>                                                                     
                                 </span>        
                             </div>
                             <div class="border-box col-3">
@@ -63,7 +70,7 @@
                             </div>
                             <div class="border-box">
                                 <label class="label-field">Purchaser Contact Phone </label>
-                                <span class="value-field">{{vendorInvoice.purchaserContactPersonPhone}} <br/> Phone: {{vendorInvoice.purchaserContactPersonPhone}}</span>
+                                <span class="value-field">{{vendorInvoice.purchaserContactPersonPhone}} </span>
                             </div>
                             
                             <div class="border-box end-box">
@@ -72,7 +79,7 @@
                             </div>
                             <div class="border-box">
                                 <label class="label-field">Purchaser Contact Address</label>
-                                <span class="value-field">{{vendorInvoice.purchaserContactPersonAddress}} <br/> Phone: {{vendorInvoice.purchaserContactPersonPhone}}</span>
+                                <span class="value-field">{{vendorInvoice.purchaserContactPersonAddress}} </span>
                             </div>
                         </div>
                     </div>
@@ -88,12 +95,12 @@
                                 <span class="value-field">{{vendorInvoice.deliveryAddress}}</span>
                             </div>
                             <div class="border-box end-box">
-                                <label class="label-field">Invoice Party Id</label>
-                                <span class="value-field">{{vendorInvoice.invoicePartyAddress}}</span>
+                                <label class="label-field">Invoice Party Id</label>                                
+                                <input [(ngModel)]="vendorInvoice.invoicePartyId" name="invoicePartyId" type="text" required>                                 
                             </div>
                             <div class="border-box end-box">
                                 <label class="label-field">Invoice Address</label>
-                                <span class="value-field">{{vendorInvoice.invoicePartyAddress}}</span>
+                                <span class="value-field">{{vendorInvoice.invoiceAddress}}</span>
                             </div>
                         </div>
                     </div>
@@ -119,7 +126,7 @@
                         </tr>
                         <tr *ngFor="let item of vendorInvoice.materialList; let i = index" [attr.data-index]="i">
                             <td>
-                                <span>{{item.buyerMaterialGroup}}</span>
+                                <span>{{item.materialId}}</span>
                             </td>
                             <td>
                                 <span>{{item.productName}}</span>
@@ -145,8 +152,12 @@
                             <td>
                                 <strong>{{item.netAmount}}</strong>
                             </td>
-                            <td><input type="text" class="input-style-small"></td>
-                            <td><input type="text" class="input-style-small"></td>
+                            <td>
+                                <span>{{item.dispatchedQuantity}}</span> 
+                            </td>
+                            <td>
+                                <strong>{{item.batchNumber}}</strong>
+                            </td>
   
                         </tr>
                     </table>
@@ -154,10 +165,12 @@
             </div>
   
             <div class="btn-area">
-                <button class="btn-border">Cancel</button>
-                <button class="btn-normal" (click)="generateInvoice()">Generate Invoice</button>                
+                <button type="submit" (click)="clearForm(myForm)" class="btn-border">Cancel</button>            
+                <button type="submit" [disabled]="!myForm.form.valid" (click)="generateInvoice(myForm);"  class="btn-normal">Generate Invoice</button>
+                
             </div>
   
         </div>
+    </form>
     </div>
   </div>

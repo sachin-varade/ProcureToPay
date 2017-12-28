@@ -40,14 +40,16 @@ export class PoCreationComponent implements OnInit {
         }
       });
     });
-
-   
   }
   setPO(){
     if(this.purchaseOrder && this.purchaseOrder.purchaseOrderNumber){
       this.purchaseOrderList.forEach(element => {
         if(element.purchaseOrderNumber === this.purchaseOrder.purchaseOrderNumber){
           this.purchaseOrder = JSON.parse(JSON.stringify(element));
+          this.purchaseOrder.orderedMaterial.forEach(element => {
+            element.expectedDeliveryDate = new Date();
+            element.expectedDeliveryDate.setDate((new Date().getDate())+10);
+        });
         }
       });
     }

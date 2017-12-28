@@ -75,6 +75,7 @@ export class PoFulfilmentComponent implements OnInit {
         this.salesOrder.termsOfDelivery = this.purchaseOrder.termsOfDelivery;
         this.salesOrder.vatNo = this.purchaseOrder.vatNo;
         this.salesOrder.totalOrderAmount = this.purchaseOrder.totalOrderAmount;
+        this.salesOrder.supplierCode = this.purchaseOrder.supplierUniqueNo;
 
         let vendorMaterialList: Array<VendorModels.VendorMaterial> = new Array<VendorModels.VendorMaterial>();
         
@@ -88,8 +89,8 @@ export class PoFulfilmentComponent implements OnInit {
           vendorMaterial.pricePerUnit = entry.pricePerUnit;
           vendorMaterial.currency = entry.currency;
           vendorMaterial.netAmount = entry.netAmount;
+          vendorMaterial.expectedDeliveryDate = entry.expectedDeliveryDate;
           vendorMaterialList.push(vendorMaterial);
-
          }
 
         this.salesOrder.materialList = vendorMaterialList;

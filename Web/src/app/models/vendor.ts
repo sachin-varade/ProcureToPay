@@ -20,6 +20,7 @@ export class VendorSalesOrder {
 	vatNo : string;
 	termsOfDelivery: string;
 	totalOrderAmount: string;
+	supplierCode: string;
 	// --- below added for goods issue.
 	goodsIssueNumber : string;
 	logisticProvider : string;
@@ -37,7 +38,7 @@ export class  VendorMaterial {
 	netAmount: Number
 	dispatchedQuantity: Number;
 	sellerProductCode : string; 
-
+	expectedDeliveryDate: Date;
 	// --- below added for goods issue.
 	batchNumber : string;
 }
@@ -54,6 +55,7 @@ export class GoodsIssue{
 export class  VendorInvoice {
 	invoiceNumber: string;
 	invoiceDate: Date;
+	invoicePublishDate: Date;
 	goodsIssueNumber: string;
 	goodsIssueDate: Date;
 	salesOrderNumber: string;
