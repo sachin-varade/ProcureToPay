@@ -53,6 +53,7 @@ export class GoodsIssueComponent implements OnInit {
     this.salesOrderList.forEach(element => {
       if(element.salesOrderNumber === this.salesOrder.salesOrderNumber){
         this.salesOrder = JSON.parse(JSON.stringify(element));
+        this.getUniqueId();
       }
     });
   }

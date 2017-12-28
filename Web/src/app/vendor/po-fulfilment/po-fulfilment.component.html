@@ -1,6 +1,7 @@
 <div class="page-container cgt-buyer">
     <div class="container">
         <h2 class="page-title">PO Fulfilment</h2>
+        <form #myForm="ngForm">
         <div class="content-area">
             <div class="plain-block mrg-btm-30">
                 <h5 class="sub-title-sm">Order Details</h5>
@@ -61,7 +62,7 @@
                         <div class="border-box-row">
                             <div class="border-box col-3">
                                 <label class="label-field">Invoice party ID</label>
-                                <span class="value-field">-</span>
+                                <span class="value-field">{{salesOrder.invoicePartyId}}</span>
                             </div>
                             <div class="border-box col-3">
                                 <label class="label-field">Invoice Address</label>
@@ -97,7 +98,7 @@
                                 <span>{{item.productDescription}}</span>
                             </td>
                             <td>
-                                <select [(ngModel)]="item.sellerProductCode" name="sellerProductCode" class="input-style-small">
+                                <select [(ngModel)]="item.sellerProductCode" name="sellerProductCode" class="input-style-small" required>
                                     <option *ngFor="let itemSPC of commonData.sellerProductCodeList" [value]="itemSPC.code">{{itemSPC.code}}</option>
                                 </select>
                             </td>
@@ -128,7 +129,7 @@
                         <div class="border-box-row">
                             <div class="border-box end-box">
                                 <label class="label-field">Terms of Delivery</label>
-                                <textarea rows="4" cols="100"></textarea>
+                                <textarea rows="4" cols="100" readonly>{{salesOrder.termsOfDelivery}}</textarea>
                             </div>
                         </div>
                     </div>
@@ -137,9 +138,10 @@
   
             <div class="btn-area">
                 <button class="btn-border">Cancel</button>
-                <button class="btn-normal" (click)="createSO()">Create Sales Order</button>
+                <button class="btn-normal" [disabled]="!myForm.form.valid" (click)="createSO()">Create Sales Order</button>
             </div>
   
         </div>
+    </form>
     </div>
   </div>

@@ -27,6 +27,7 @@ export class VendorSalesOrder {
 }
 
 export class  VendorMaterial {
+	pos: number;  
 	materialId: string;
 	productName: string;
 	productDescription: string;
