@@ -44,18 +44,15 @@
                           <th>Line Item Ref.</th>
                           <th>Product Name</th>
                           <th>Description</th>
-                          <th>Seller Product Code</th>
+                          <!-- <th>Seller Product Code</th> -->
                           <th>Quantity</th>
                           <th>Units</th>
-                          <th>Unit price</th>
-                          <th>Currency</th>
-                          <th>Net Amount</th>
                           <th>Dispatched Qty</th>
                           <th>Batch No</th>
                       </tr>
                       <tr *ngFor="let item of salesOrder.materialList; let i = index" [attr.data-index]="i">
                           <td>
-                              1
+                            <span>{{item.materialId}}</span>
                           </td>
                           <td>
                               <span>{{item.productName}}</span>
@@ -63,23 +60,16 @@
                           <td>
                               <span>{{item.productDescription}}</span>
                           </td>
+                          <!--
                           <td>
                             <span>{{item.sellerProductCode}}</span>
                           </td>
+                            -->
                           <td>
                               <span>{{item.quantity}}</span> 
                           </td>
                           <td>
                               <span>{{item.quantityUnit}}</span> 
-                          </td>
-                          <td>
-                              <span>{{item.pricePerUnit}}</span> 
-                          </td>
-                          <td>
-                              <span>{{item.currency}}</span> 
-                          </td>
-                          <td>
-                              <strong>{{item.netAmount}}</strong>
                           </td>
                           <td><input [(ngModel)]="item.dispatchedQuantity" type="text" class="input-style-small" required></td>
                           <td><input [(ngModel)]="item.batchNumber" type="text" class="input-style-small" required></td>

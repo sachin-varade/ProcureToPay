@@ -38,7 +38,7 @@
                             </div>
                             <div class="border-box col-3 end-box">
                                 <label class="label-field">Purchaser Contact Address / Phone </label>
-                                <span class="value-field">{{salesOrder.purchaserContactPersonAddress}} <br/> Phone: {{salesOrder.purchaserContactPersonPhone}}</span>
+                                <span class="value-field">{{salesOrder.purchaserContactPersonAddress}} <br/> {{salesOrder.purchaserContactPersonPhone}}</span>
                             </div>
                         </div>
                     </div>
@@ -81,9 +81,10 @@
                 <div class="border-box-wrapper">
                     <table class="table table-striped full-width">
                         <tr>
+                            <th>Line Item Ref.</th>
                             <th>Product Name</th>
                             <th>Description</th>
-                            <th>Seller Product Code</th>
+                            <!-- <th>Seller Product Code</th> -->
                             <th>Quantity</th>
                             <th>Units</th>
                             <th>Unit price</th>
@@ -92,16 +93,21 @@
                         </tr>
                         <tr *ngFor="let item of salesOrder.materialList; let i = index" [attr.data-index]="i">
                             <td>
+                                <span>{{item.materialId}}</span>
+                            </td>
+                            <td>
                                 <span>{{item.productName}}</span>
                             </td>
                             <td>
                                 <span>{{item.productDescription}}</span>
                             </td>
+                            <!--
                             <td>
                                 <select [(ngModel)]="item.sellerProductCode" name="sellerProductCode" class="input-style-small" required>
                                     <option *ngFor="let itemSPC of commonData.sellerProductCodeList" [value]="itemSPC.code">{{itemSPC.code}}</option>
                                 </select>
                             </td>
+                            -->
                             <td>
                                 <span>{{item.quantity}}</span> 
                             </td>

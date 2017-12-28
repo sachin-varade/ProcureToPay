@@ -80,7 +80,7 @@ export class PoFulfilmentComponent implements OnInit {
         
         for (let entry of this.purchaseOrder.orderedMaterial) {
           let vendorMaterial : VendorModels.VendorMaterial = new VendorModels.VendorMaterial();
-          vendorMaterial.materialId = "0";
+          vendorMaterial.materialId = entry.pos.toString();
           vendorMaterial.productName = entry.productName;
           vendorMaterial.productDescription = entry.productDescription;
           vendorMaterial.quantity = entry.quantity;
@@ -110,6 +110,7 @@ export class PoFulfilmentComponent implements OnInit {
       this.alertService.success("Sales Order created." + this.salesOrder.salesOrderNumber);
       this.fetchApprovedPOs();
       this.getUniqueId();
+      this.salesOrder = new VendorModels.VendorSalesOrder();
     });
     
   }

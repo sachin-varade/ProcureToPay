@@ -42,10 +42,6 @@ export class GoodsIssueComponent implements OnInit {
     this.vendorService.getAllVendorSalesOrders('details')
     .then((results: any) => {
       this.salesOrderList = results.vendorSalesOrders;
-      if(this.salesOrderList){
-        this.salesOrder = JSON.parse(JSON.stringify(this.salesOrderList[0]));
-        this.getUniqueId();
-      }
     });
   }
 
@@ -65,6 +61,7 @@ export class GoodsIssueComponent implements OnInit {
       this.alertService.success("Goods issued." + this.salesOrder.goodsIssueNumber);
       this.fetchAllVendorSOs();
       this.getUniqueId();
+      this.salesOrder = new VendorModels.VendorSalesOrder();
     });    
   }
 
