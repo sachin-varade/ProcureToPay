@@ -1,6 +1,7 @@
 <div class="page-container cgt-buyer">
   <div class="container">
       <h2 class="page-title">Goods Issue</h2>
+      <form #myForm="ngForm">
       <div class="content-area">
           <div class="plain-block mrg-btm-30">
               <div class="border-box-wrapper">
@@ -8,7 +9,7 @@
                       <div class="border-box-row">
                           <div class="border-box col-2">
                               <label class="label-field">Goods Issue Number</label>
-                              <input type="text" [(ngModel)]="salesOrder.goodsIssueNumber" required class="input-style" readonly>
+                              <input type="text" [(ngModel)]="salesOrder.goodsIssueNumber" name="goodsIssueNumber" id="goodsIssueNumber" class="input-style" readonly required>
                           </div>
                           <div class="border-box col-2 end-box">
                             <label class="label-field">Sales Order Number</label>
@@ -68,8 +69,8 @@
                           <td>
                               <span>{{item.quantityUnit}}</span> 
                           </td>
-                          <td><input [(ngModel)]="item.dispatchedQuantity" type="text" class="input-style-small" required></td>
-                          <td><input [(ngModel)]="item.batchNumber" type="text" class="input-style-small" required></td>
+                          <td><input [(ngModel)]="item.dispatchedQuantity" type="text" name="dispatchedQuantity" id="dispatchedQuantity" class="input-style-small" required></td>
+                          <td><input [(ngModel)]="item.batchNumber" type="text" name="batchNumber" id="batchNumber" class="input-style-small" required></td>
 
                       </tr>
                   </table>
@@ -89,7 +90,7 @@
                             </div>
                             <div class="border-box col-2 end-box">
                                 <label class="label-field">Consignment Number</label>
-                                <input type="text" [(ngModel)]="salesOrder.logisticsConsignmentNumber" required class="input-style">
+                                <input type="text" [(ngModel)]="salesOrder.logisticsConsignmentNumber" name="logisticsConsignmentNumber" required class="input-style">
                             </div>
                         </div>
                     </div>
@@ -98,9 +99,10 @@
 
           <div class="btn-area">
               <button class="btn-border">Cancel</button>
-              <button class="btn-normal" (click)="createGoodsIssue()">Issue Goods</button>
+              <button class="btn-normal" [disabled]="!myForm.form.valid" (click)="createGoodsIssue()">Issue Goods</button>
           </div>
 
       </div>
+    </form>
   </div>
 </div>
