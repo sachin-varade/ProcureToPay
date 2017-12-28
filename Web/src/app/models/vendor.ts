@@ -26,15 +26,15 @@ export class VendorSalesOrder {
 }
 
 export class  VendorMaterial {
-	MaterialId: string;
-	ProductName: string;
-	ProductDescription: string;
-	Quantity: Number;
-	QuantityUnit: string;
-	PricePerUnit: Number;
-	Currency: string;
-	NetAmount: Number
-	DispatchedQuantity: Number;
+	materialId: string;
+	productName: string;
+	productDescription: string;
+	quantity: Number;
+	quantityUnit: string;
+	pricePerUnit: Number;
+	currency: string;
+	netAmount: Number
+	dispatchedQuantity: Number;
 	sellerProductCode : string; 
 
 	// --- below added for goods issue.

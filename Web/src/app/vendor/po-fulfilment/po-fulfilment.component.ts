@@ -77,14 +77,14 @@ export class PoFulfilmentComponent implements OnInit {
         
         for (let entry of this.purchaseOrder.orderedMaterial) {
           let vendorMaterial : VendorModels.VendorMaterial = new VendorModels.VendorMaterial();
-          vendorMaterial.MaterialId = "0";
-          vendorMaterial.ProductName = entry.productName;
-          vendorMaterial.ProductDescription = entry.productDescription;
-          vendorMaterial.Quantity = entry.quantity;
-          vendorMaterial.QuantityUnit = entry.quantityUnit;
-          vendorMaterial.PricePerUnit = entry.pricePerUnit;
-          vendorMaterial.Currency = entry.currency;
-          vendorMaterial.NetAmount = entry.netAmount;
+          vendorMaterial.materialId = "0";
+          vendorMaterial.productName = entry.productName;
+          vendorMaterial.productDescription = entry.productDescription;
+          vendorMaterial.quantity = entry.quantity;
+          vendorMaterial.quantityUnit = entry.quantityUnit;
+          vendorMaterial.pricePerUnit = entry.pricePerUnit;
+          vendorMaterial.currency = entry.currency;
+          vendorMaterial.netAmount = entry.netAmount;
           vendorMaterialList.push(vendorMaterial);
 
          }

@@ -63,7 +63,7 @@ export class GoodsIssueComponent implements OnInit {
     .then((results: any) => {
       this.alertService.success("Goods issued." + this.salesOrder.goodsIssueNumber);
       this.fetchAllVendorSOs();
-      //this.getUniqueId();
+      this.getUniqueId();
     });
     
   }

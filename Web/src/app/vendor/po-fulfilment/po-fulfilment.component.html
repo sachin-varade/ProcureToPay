@@ -91,10 +91,10 @@
                         </tr>
                         <tr *ngFor="let item of salesOrder.materialList; let i = index" [attr.data-index]="i">
                             <td>
-                                <span>{{item.ProductName}}</span>
+                                <span>{{item.productName}}</span>
                             </td>
                             <td>
-                                <span>{{item.ProductDescription}}</span>
+                                <span>{{item.productDescription}}</span>
                             </td>
                             <td>
                                 <select [(ngModel)]="item.sellerProductCode" name="sellerProductCode" class="input-style-small">
@@ -102,19 +102,19 @@
                                 </select>
                             </td>
                             <td>
-                                <span>{{item.Quantity}}</span> 
+                                <span>{{item.quantity}}</span> 
                             </td>
                             <td>
-                                <span>{{item.QuantityUnit}}</span> 
+                                <span>{{item.quantityUnit}}</span> 
                             </td>
                             <td>
-                                <span>{{item.PricePerUnit}}</span> 
+                                <span>{{item.pricePerUnit}}</span> 
                             </td>
                             <td>
-                                <span>{{item.Currency}}</span> 
+                                <span>{{item.currency}}</span> 
                             </td>
                             <td>
-                                <strong>{{item.NetAmount}}</strong>
+                                <strong>{{item.netAmount}}</strong>
                             </td>
                         </tr>
                     </table>

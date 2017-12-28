@@ -92,14 +92,14 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
                 if(orderedMaterial != "") {
                     orderedMaterial += ",";
                 }
-                orderedMaterial += element.MaterialId 
-                + "^"+ element.ProductName 
-                + "^"+ element.ProductDescription 
-                + "^"+ element.Quantity.toString() 
-                + "^"+ element.QuantityUnit 
-                + "^"+ element.PricePerUnit.toString() 
-                + "^"+ element.Currency 
-                + "^"+ element.NetAmount.toString();
+                orderedMaterial += element.materialId 
+                + "^"+ element.productName 
+                + "^"+ element.productDescription 
+                + "^"+ element.quantity.toString() 
+                + "^"+ element.quantityUnit 
+                + "^"+ element.pricePerUnit.toString() 
+                + "^"+ element.currency 
+                + "^"+ element.netAmount.toString();
             });
         }
 
@@ -191,7 +191,7 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
                     salesOrder.salesOrderNumber,
                     salesOrder.deliverToPersonName,
                     salesOrder.deliveryAddress,
-                    salesOrder.logisticsProvider,
+                    salesOrder.logisticProvider,
                     orderedMaterial
                 ]                
             );                
