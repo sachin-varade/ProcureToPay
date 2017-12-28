@@ -246,8 +246,8 @@ func saveVendorSalesOrder(stub  shim.ChaincodeStubInterface, args []string) pb.R
 	fmt.Println("Running saveVendorSalesOrder..")
 
 	if len(args) != 21 {
-		fmt.Println("Incorrect number of arguments. Expecting 20 - ..")
-		return shim.Error("Incorrect number of arguments. Expecting 20")
+		fmt.Println("Incorrect number of arguments. Expecting 21 - ..")
+		return shim.Error("Incorrect number of arguments. Expecting 21")
 	}
 
 	fmt.Println("Arguments :"+args[0]+","+args[1]+","+args[2]+","+args[3]+","+args[4]+","+args[5]+","+args[6]+","+args[7]+","+args[8]+","+args[9]+","+args[10]+","+args[11]+","+args[12]);
@@ -280,13 +280,13 @@ func saveVendorSalesOrder(stub  shim.ChaincodeStubInterface, args []string) pb.R
 	
 	bt.InvoicePartyId					= args[11]
 	bt.InvoicePartyAddress				= args[12]
-	bt.Status				= args[14]
+	bt.Status						= args[14]
 	bt.StatusUpdatedOn				= args[15]
 	bt.StatusUpdatedBy				= args[16]
-	bt.VatNo				= args[17]
+	bt.VatNo						= args[17]
 	bt.TermsOfDelivery				= args[18]
 	bt.TotalOrderAmount				= args[19]
-	bt.SupplierCode				= args[20]
+	bt.SupplierCode					= args[20]
 
 	var material VendorMaterial
 	
@@ -414,12 +414,12 @@ func saveGoodsIssue(stub  shim.ChaincodeStubInterface, args []string) pb.Respons
 	var err error
 	fmt.Println("Running saveGoodsIssue..")
 
-	if len(args) != 6 {
-		fmt.Println("Incorrect number of arguments. Expecting 6 - ..")
-		return shim.Error("Incorrect number of arguments. Expecting 6")
+	if len(args) != 7 {
+		fmt.Println("Incorrect number of arguments. Expecting 7 - ..")
+		return shim.Error("Incorrect number of arguments. Expecting 7")
 	}
 
-	fmt.Println("Arguments :"+args[0]+","+args[1]+","+args[2]+","+args[3]+","+args[4]+","+args[5]);
+	fmt.Println("Arguments :"+args[0]+","+args[1]+","+args[2]+","+args[3]+","+args[4]+","+args[5]+","+args[6]);
 
 	allBAsBytes, err := stub.GetState("allGoodsIssueNumbers")
 	if err != nil {
@@ -440,6 +440,7 @@ func saveGoodsIssue(stub  shim.ChaincodeStubInterface, args []string) pb.Respons
 	bt.DeliverToPersonName				= args[2]	
 	bt.DeliveryAddress					= args[3]		
 	bt.LogisticsProvider 				= args[4]
+	bt.LogisticsConsignmentNumber		= args[6]
 
 	var material VendorMaterial
 	

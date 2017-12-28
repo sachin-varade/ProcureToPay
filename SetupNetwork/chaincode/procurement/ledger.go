@@ -172,6 +172,7 @@ type GoodsIssue struct {
 	DeliveryAddress						string		`json:"deliveryAddress"`	
 	LogisticsProvider					string		`json:"logisticsProvider"`
 	MaterialList						[]VendorMaterial		`json:"materialList"`
+	LogisticsConsignmentNumber					string		`json:"logisticsConsignmentNumber"`
 }
 
 type AllGoodsIssueNumbers struct{
