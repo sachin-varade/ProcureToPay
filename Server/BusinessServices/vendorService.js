@@ -278,7 +278,7 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
                     salesOrder.grossAmount.toString(),
                     salesOrder.vatNumber, 
                     orderedMaterial,
-                    salesOrder.invoicePublishDate
+                    new Date().toString()
                 ]                
             );                
         }).then((results) => {
