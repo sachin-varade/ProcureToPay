@@ -70,8 +70,11 @@ export class PoFulfilmentComponent implements OnInit {
         this.salesOrder.deliverToPersonName = this.purchaseOrder.deliverToPersonName;
         this.salesOrder.deliveryAddress = this.purchaseOrder.deliverToPersonAddress;
         this.salesOrder.invoicePartyId = this.purchaseOrder.invoicePartyId;
-        this.salesOrder.vatNo = this.purchaseOrder.vatNo;
         this.salesOrder.invoicePartyAddress = this.purchaseOrder.invoiceAddress;
+        this.salesOrder.vatNo = this.purchaseOrder.vatNo;
+        this.salesOrder.termsOfDelivery = this.purchaseOrder.termsOfDelivery;
+        this.salesOrder.vatNo = this.purchaseOrder.vatNo;
+        this.salesOrder.totalOrderAmount = this.purchaseOrder.totalOrderAmount;
 
         let vendorMaterialList: Array<VendorModels.VendorMaterial> = new Array<VendorModels.VendorMaterial>();
         

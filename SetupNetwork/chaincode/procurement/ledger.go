@@ -114,6 +114,9 @@ type VendorSalesOrder struct {
 	Status								string	`json:"status"`
 	StatusUpdatedOn						string	`json:"statusUpdatedOn"`
 	StatusUpdatedBy						string	`json:"statusUpdatedBy"`
+	VatNo				string	`json:"vatNo"`
+	TermsOfDelivery				string	`json:"termsOfDelivery"`
+	TotalOrderAmount			string		`json:"totalOrderAmount"`
 }
 
 

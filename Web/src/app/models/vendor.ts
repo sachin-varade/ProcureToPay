@@ -18,7 +18,8 @@ export class VendorSalesOrder {
 	statusUpdatedOn : Date;
 	statusUpdatedBy : string;
 	vatNo : string;
-
+	termsOfDelivery: string;
+	totalOrderAmount: string;
 	// --- below added for goods issue.
 	goodsIssueNumber : string;
 	logisticProvider : string;

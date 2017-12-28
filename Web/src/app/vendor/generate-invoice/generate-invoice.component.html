@@ -9,11 +9,11 @@
                         <div class="border-box-row">
                             <div class="border-box col-3">
                                 <label class="label-field">Invoice Number</label>
-                                <input type="text">
+                                <input disabled [(ngModel)]="vendorInvoice.invoiceNumber" type="text">
                             </div>
                             <div class="border-box col-3">
                                 <label class="label-field">Invoice Date</label>
-                                <input disabled type="text">
+                                <input disabled [(ngModel)]="vendorInvoice.invoiceDate" type="text">
                             </div>                            
                         </div>
                     </div>
@@ -21,20 +21,18 @@
                         <div class="border-box-row">
                             <div class="border-box col-3">
                                 <label class="label-field">Goods Issue Number</label>
-                                <select class="input-style" [(ngModel)]="salesOrder.goodsIssueNumber" (change)="setGIN()" name="goodsIssueNumber" id="salesOrderNumber" required>
-                                    <option *ngFor="let item of salesOrderList" [value]="item.salesOrderNumber">{{item.salesOrderNumber}}</option>
+                                <select class="input-style" [(ngModel)]="vendorInvoice.goodsIssueNumber" (change)="setGIN()" name="goodsIssueNumber" id="goodsIssueNumber" required>
+                                    <option *ngFor="let item of goodsIssueList" [value]="item.goodsIssueNumber">{{item.goodsIssueNumber}}</option>
                                 </select>
                             </div>
                             <div class="border-box col-3">
                                 <label class="label-field">Goods Issue Date</label>
-                                <input disabled type="text">
+                                <input disabled [(ngModel)]="vendorInvoice.goodsIssueDate" type="text">
                             </div>
                             <div class="border-box col-3 end-box">
                                 <label class="label-field">Sales Order Number</label>
                                 <span class="value-field">
-                                  <select class="input-style" [(ngModel)]="salesOrder.salesOrderNumber" (change)="setSO()" name="salesOrderNumber" id="salesOrderNumber" required>
-                                      <option *ngFor="let item of salesOrderList" [value]="item.salesOrderNumber">{{item.salesOrderNumber}}</option>
-                                  </select>
+                                    <input [(ngModel)]="vendorInvoice.salesOrderNumber" name="salesOrderNumber" type="text">                                 
                               </span>
                             </div>
                         </div>
@@ -44,18 +42,16 @@
                             <div class="border-box col-3">
                                 <label class="label-field">PO ref. Number</label>
                                 <span class="value-field">
-                                    <select class="input-style" [(ngModel)]="salesOrder.purchaseOrderRefNo" (change)="setPO()" name="purchaseOrderRefNo" id="purchaseOrderRefNo" required>
-                                        <option *ngFor="let item of salesOrderList" [value]="item.salesOrderNumber">{{item.salesOrderNumber}}</option>
-                                    </select>
+                                    <input [(ngModel)]="vendorInvoice.purchaseOrderRefNo" name="purchaseOrderRefNo" type="text">                                                                     
                                 </span>        
                             </div>
                             <div class="border-box col-3">
                                 <label class="label-field">PO Date</label>
-                                <span class="value-field">{{salesOrder.purchaseOrderRefDate}}</span>
+                                <span class="value-field">{{vendorInvoice.purchaseOrderRefDate}}</span>
                             </div>
                             <div class="border-box col-3 end-box">
                                 <label class="label-field">Purchaser Company / Department</label>
-                                <span class="value-field">{{salesOrder.purchaserCompany}} / {{salesOrder.purchaserCompanyDept}}</span>
+                                <span class="value-field">{{vendorInvoice.purchaserCompany}} / {{vendorInvoice.purchaserCompanyDept}}</span>
                             </div>
                         </div>
                     </div>
@@ -63,20 +59,20 @@
                         <div class="border-box-row">
                             <div class="border-box">
                                 <label class="label-field">Purchaser Contact Person</label>
-                                <span class="value-field">{{salesOrder.purchaserContactPersonName}}</span>
+                                <span class="value-field">{{vendorInvoice.purchaserContactPersonName}}</span>
                             </div>
                             <div class="border-box">
                                 <label class="label-field">Purchaser Contact Phone </label>
-                                <span class="value-field">{{salesOrder.purchaserContactPersonPhone}} <br/> Phone: {{salesOrder.purchaserContactPersonPhone}}</span>
+                                <span class="value-field">{{vendorInvoice.purchaserContactPersonPhone}} <br/> Phone: {{vendorInvoice.purchaserContactPersonPhone}}</span>
                             </div>
                             
                             <div class="border-box end-box">
                                 <label class="label-field">Purchaser Email</label>
-                                <span class="value-field">{{salesOrder.purchaserContactPersonEmail}}</span>
+                                <span class="value-field">{{vendorInvoice.purchaserContactPersonEmail}}</span>
                             </div>
                             <div class="border-box">
                                 <label class="label-field">Purchaser Contact Address</label>
-                                <span class="value-field">{{salesOrder.purchaserContactPersonAddress}} <br/> Phone: {{salesOrder.purchaserContactPersonPhone}}</span>
+                                <span class="value-field">{{vendorInvoice.purchaserContactPersonAddress}} <br/> Phone: {{vendorInvoice.purchaserContactPersonPhone}}</span>
                             </div>
                         </div>
                     </div>
@@ -85,19 +81,19 @@
                         <div class="border-box-row">
                             <div class="border-box">
                                 <label class="label-field">Delivery To</label>
-                                <span class="value-field">{{salesOrder.deliverToPersonName}}</span>
+                                <span class="value-field">{{vendorInvoice.deliverToPersonName}}</span>
                             </div>
                             <div class="border-box">
                                 <label class="label-field">Delivery Address</label>
-                                <span class="value-field">{{salesOrder.deliveryAddress}}</span>
+                                <span class="value-field">{{vendorInvoice.deliveryAddress}}</span>
                             </div>
                             <div class="border-box end-box">
                                 <label class="label-field">Invoice Party Id</label>
-                                <span class="value-field">{{salesOrder.invoicePartyAddress}}</span>
+                                <span class="value-field">{{vendorInvoice.invoicePartyAddress}}</span>
                             </div>
                             <div class="border-box end-box">
                                 <label class="label-field">Invoice Address</label>
-                                <span class="value-field">{{salesOrder.invoicePartyAddress}}</span>
+                                <span class="value-field">{{vendorInvoice.invoicePartyAddress}}</span>
                             </div>
                         </div>
                     </div>
@@ -121,7 +117,7 @@
                             <th>Dispatched Qty</th>
                             <th>Batch No</th>
                         </tr>
-                        <tr *ngFor="let item of salesOrder.materialList; let i = index" [attr.data-index]="i">
+                        <tr *ngFor="let item of vendorInvoice.materialList; let i = index" [attr.data-index]="i">
                             <td>
                                 <span>{{item.buyerMaterialGroup}}</span>
                             </td>

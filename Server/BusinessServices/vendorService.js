@@ -129,7 +129,10 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
                     orderedMaterial,
                     salesOrder.status,
                     salesOrder.statusUpdatedOn,
-                    salesOrder.statusUpdatedBy
+                    salesOrder.statusUpdatedBy,
+                    salesOrder.vatNo,
+                    salesOrder.termsOfDelivery,
+                    salesOrder.totalOrderAmount.toString()
                 ]                
             );                
         }).then((results) => {

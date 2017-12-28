@@ -31,6 +31,7 @@ export class PurchaseOrder {
     status: string;
     invoicePartyId : string;
     vatNo : string;
+    termsOfDelivery: string;
 }
  
 export class OrderMaterial {

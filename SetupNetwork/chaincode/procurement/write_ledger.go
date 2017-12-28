@@ -245,9 +245,9 @@ func saveVendorSalesOrder(stub  shim.ChaincodeStubInterface, args []string) pb.R
 	var err error
 	fmt.Println("Running saveVendorSalesOrder..")
 
-	if len(args) != 17 {
-		fmt.Println("Incorrect number of arguments. Expecting 17 - ..")
-		return shim.Error("Incorrect number of arguments. Expecting 17")
+	if len(args) != 20 {
+		fmt.Println("Incorrect number of arguments. Expecting 20 - ..")
+		return shim.Error("Incorrect number of arguments. Expecting 20")
 	}
 
 	fmt.Println("Arguments :"+args[0]+","+args[1]+","+args[2]+","+args[3]+","+args[4]+","+args[5]+","+args[6]+","+args[7]+","+args[8]+","+args[9]+","+args[10]+","+args[11]+","+args[12]);
@@ -283,6 +283,9 @@ func saveVendorSalesOrder(stub  shim.ChaincodeStubInterface, args []string) pb.R
 	bt.Status				= args[14]
 	bt.StatusUpdatedOn				= args[15]
 	bt.StatusUpdatedBy				= args[16]
+	bt.VatNo				= args[17]
+	bt.TermsOfDelivery				= args[18]
+	bt.TotalOrderAmount				= args[19]
 
 	var material VendorMaterial
 	
