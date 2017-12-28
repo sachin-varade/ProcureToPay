@@ -173,7 +173,7 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
                 + "^"+ element.currency 
                 + "^"+ element.netAmount.toString()
                 + "^"+ element.dispatchedQuantity.toString()
-                + "^"+ element.batchNumber();
+                + "^"+ element.batchNumber;
             });
         }
 
@@ -202,6 +202,22 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
         });
     }
     
+    vendorService.getAllGoodsIssue = function(option, value){
+        console.log("getAllGoodsIssue");
+        return fabric_client.getUserContext(users.vendorUser.enrollmentID, true)
+        .then((user_from_store) => {
+            helper.checkUserEnrolled(user_from_store);
+            return queryChainCode.queryChainCode(channels.vendorChannelPC, 
+                vendorConfig.channels.procurementchannel.chaincodeId, 
+                "getAllGoodsIssue", 
+                [option, value]);
+        }).then((results) => {
+            return results;
+        }).catch((err) => {
+            throw err;
+        });
+    }
+
 	return vendorService;
 };
 

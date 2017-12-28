@@ -221,7 +221,38 @@ func getUniqueId(stub  shim.ChaincodeStubInterface, option string, value string)
 				}
 				rabAsBytes, _ := json.Marshal(uniqueId)
 				return shim.Success(rabAsBytes)	
-			}
+				} else if strings.ToLower(option) == "invoice" {
+					prefix = "INVID-"
+					allBAsBytes, err := stub.GetState("allVendorInvoiceNumbers")
+					if err != nil {
+						return shim.Error("Failed to get all allVendorInvoiceNumbers")
+					}
+					var res AllVendorInvoiceNumbers
+					err = json.Unmarshal(allBAsBytes, &res)
+					if err != nil {
+						fmt.Println("Printing Unmarshal error:-");
+						fmt.Println(err);
+						return shim.Error("Failed to Unmarshal all allVendorInvoiceNumbers")
+					}
+					uniqueId := ""
+					if len(res.InvoiceNumbers) != 0 {
+						uniqueId = res.InvoiceNumbers[len(res.InvoiceNumbers) - 1]
+						p := strings.Split(uniqueId, "-")
+						
+						input, e := strconv.Atoi(p[1])
+						if e != nil {
+							fmt.Println(e)
+						}
+						output := (input + 1)
+						uniqueId = prefix + strconv.Itoa(output)
+						
+					} else {
+						uniqueId = prefix +"1000"
+					}
+					rabAsBytes, _ := json.Marshal(uniqueId)
+					return shim.Success(rabAsBytes)	
+				}
+			
 
 	return shim.Success(nil)
 }

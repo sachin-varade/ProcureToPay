@@ -10,6 +10,42 @@ border-left: 5px solid #a94442; /* red */
 .ng-untouched:not(form)  {
 border-left: 1px solid #ccc; /* red */
 }
+
+.alert-outer{
+    right: 0px;
+    left:0px;
+    margin: 5px 5px 0 5px;
+    top: 110px;
+    z-index: 100;
+}
+
+.alert{
+    padding: 7px 20px 7px 40px;
+    margin-bottom: 5px;
+    background-repeat: no-repeat;
+    background-position: 10px 7px;
+}
+
+.alert-dismissable .close, .alert-dismissible .close{
+    top: 0px;
+    right: -15px;
+}
+
+.alert-success{
+    background-image: url('assets/images/alert-success.png');
+}
+
+ .alert-danger{
+    background-image: url('assets/images/alert-danger.png');
+}
+
+ .alert-info{
+    background-image: url('assets/images/alert-info.png');
+}
+
+ .alert-warning{
+    background-image: url('assets/images/alert-warning.png');
+}
     
     /* You can add global styles to this file, and also import other style files */
     

@@ -41,6 +41,15 @@ export class  VendorMaterial {
 	batchNumber : string;
 }
 
+export class GoodsIssue{
+	goodsIssueNumber: string;
+	salesOrderNumber: string;
+	deliverToPersonName: string;
+	deliveryAddress: string;
+	logisticsProvider: string;
+	materialList: Array<VendorMaterial> = new Array<VendorMaterial>();
+}
+
 export class  VendorInvoice {
 	invoiceNumber: string;
 	invoiceDate: Date;

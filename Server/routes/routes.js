@@ -93,6 +93,13 @@ router.post("/saveGoodsIssue", function(req, res) {
 	});	
 });
 
+router.get("/getAllGoodsIssue/:option/:value?", function(req, res) {    
+    var promise = vendorService.getAllGoodsIssue(req.params.option, req.params.value?req.params.value: "");
+	promise.then(function(resp,err){
+		res.send(resp);
+	});	
+});
+
 // ------------------------ LOGISTIC routes --------------------
 router.post("/saveLogisticTransaction", function(req, res) {    
 	var promise = logisticService.saveLogisticTransaction(req.body);
