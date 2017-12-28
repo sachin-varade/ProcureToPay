@@ -543,6 +543,7 @@ func saveVendorInvoice(stub  shim.ChaincodeStubInterface, args []string) pb.Resp
 			material.NetAmount 			= 		c[7]
 			material.DispatchedQuantity	= 		c[8]
 			material.BatchNumber		= 		c[9]
+			material.ExpectedDeliveryDate		= 		c[10]
 			bt.MaterialList = append(bt.MaterialList, material)
 		}
 	}

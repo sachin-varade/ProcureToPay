@@ -1,6 +1,6 @@
 [
     {
-        "purchaseOrderNumber": "18700624687",
+        "purchaseOrderNumber": "28700624687",
         "purchaseOrderDate": "2015-05-18T02:30:56",
         "shoppingOrderNumber": "ON001",
         "shoppingOrderDate": "2015-05-18T02:30:56",
@@ -34,7 +34,7 @@
         "termsOfDelivery": "terms of delivery",
         "orderedMaterial": [
             {
-                "orderMaterialId": 1,
+                "pos": 1,
                 "buyerMaterialGroup": "GROUP",
                 "productName": "Earthing Plate 600X600X6 mm C.I.",
                 "productDescription": "Earthing Plate 600X600X6 mm C.I.",
@@ -42,10 +42,11 @@
                 "quantityUnit": "Piece",
                 "pricePerUnit": "1600",
                 "currency": "INR",
+                "expectedDeliveryDate": "",
                 "netAmount": 1600
             },
             {
-                "orderMaterialId": 1,
+                "pos": 2,
                 "buyerMaterialGroup": "GROUP",
                 "productName": "600x600 MM METAL CHAMBER WITH COVER.",
                 "productDescription": "600x600 MM METAL CHAMBER WITH COVER.",
@@ -53,12 +54,13 @@
                 "quantityUnit": "Piece",
                 "pricePerUnit": "2150",
                 "currency": "INR",
+                "expectedDeliveryDate": "",
                 "netAmount": 2150
             }           
         ]
     },
     {
-        "purchaseOrderNumber": "18700624688",
+        "purchaseOrderNumber": "28700624688",
         "purchaseOrderDate": "2016-05-18T02:30:56",
         "shoppingOrderNumber": "ON001",
         "shoppingOrderDate": "2016-05-18T02:30:56",
@@ -92,7 +94,7 @@
         "termsOfDelivery": "terms of delivery",
         "orderedMaterial": [
             {
-                "orderMaterialId": 1,
+                "pos": 1,
                 "buyerMaterialGroup": "GROUP",
                 "productName": "Earthing Plate 600X600X6 mm C.I.",
                 "productDescription": "Earthing Plate 600X600X6 mm C.I.",
@@ -100,10 +102,11 @@
                 "quantityUnit": "Piece",
                 "pricePerUnit": "1600",
                 "currency": "INR",
+                "expectedDeliveryDate": "",
                 "netAmount": 1600
             },
             {
-                "orderMaterialId": 1,
+                "pos": 2,
                 "buyerMaterialGroup": "GROUP",
                 "productName": "600x600 MM METAL CHAMBER WITH COVER.",
                 "productDescription": "600x600 MM METAL CHAMBER WITH COVER.",
@@ -111,6 +114,7 @@
                 "quantityUnit": "Piece",
                 "pricePerUnit": "2150",
                 "currency": "INR",
+                "expectedDeliveryDate": "",
                 "netAmount": 2150
             }           
         ]

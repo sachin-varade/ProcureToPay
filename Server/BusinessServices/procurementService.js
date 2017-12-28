@@ -48,7 +48,11 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
             purchaseOrder.orderedMaterial.forEach(element => {
             if(orderedMaterial != "")
                 orderedMaterial += ",";
-            orderedMaterial += element.orderMaterialId.toString() +"^"+ element.buyerMaterialGroup +"^"+ element.productName +"^"+ element.productDescription +"^"+ element.quantity.toString() +"^"+ element.quantityUnit +"^"+ element.pricePerUnit.toString() +"^"+ element.currency +"^"+ element.netAmount.toString();
+            orderedMaterial += element.pos.toString() 
+            +"^"+ element.productName +"^"+ element.productDescription 
+            +"^"+ element.quantity.toString() +"^"+ element.quantityUnit 
+            +"^"+ element.pricePerUnit.toString() +"^"+ element.currency 
+            +"^"+ element.expectedDeliveryDate +"^"+ element.netAmount.toString();
             });
         }
         return fabric_client.getUserContext(users.procurementUser.enrollmentID, true)

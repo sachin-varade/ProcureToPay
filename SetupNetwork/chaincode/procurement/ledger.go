@@ -128,6 +128,7 @@ type VendorMaterial struct {
 	NetAmount					string		`json:"netAmount"`
 	DispatchedQuantity			string		`json:"dispatchedQuantity"`
 	BatchNumber					string		`json:"batchNumber"`
+	ExpectedDeliveryDate					string		`json:"expectedDeliveryDate"`
 }
 
 type AllVendorSalesOrderNumbers struct{

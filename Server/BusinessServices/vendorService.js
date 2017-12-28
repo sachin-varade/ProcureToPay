@@ -218,6 +218,85 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
         });
     }
 
+    vendorService.saveVendorInvoice = function(salesOrder){
+        console.log("saveVendorInvoice");        
+
+        var orderedMaterial = "";        
+        if(salesOrder.materialList){
+            salesOrder.materialList.forEach(element => {
+                if(orderedMaterial != "") {
+                    orderedMaterial += ",";
+                }
+                orderedMaterial += element.materialId 
+                + "^"+ element.productName 
+                + "^"+ element.productDescription 
+                + "^"+ element.quantity.toString() 
+                + "^"+ element.quantityUnit 
+                + "^"+ element.pricePerUnit.toString() 
+                + "^"+ element.currency 
+                + "^"+ element.netAmount.toString()
+                + "^"+ element.dispatchedQuantity.toString()
+                + "^"+ element.batchNumber
+                + "^"+ element.expectedDeliveryDate;
+            });
+        }
+
+        return fabric_client.getUserContext(users.vendorUser.enrollmentID, true)
+        .then((user_from_store) => {
+            helper.checkUserEnrolled(user_from_store);            
+            return invokeChainCode.invokeChainCode(fabric_client, 
+                channels.vendorChannelPC, 
+                eventHubPeers.vendorEventHubPeer._url, 
+                //"grpc://localhost:7053",
+                vendorConfig.channels.procurementchannel.chaincodeId, 
+                "saveVendorInvoice",  
+                [ 
+                    salesOrder.invoiceNumber,
+                    salesOrder.invoiceDate,
+                    salesOrder.goodsIssueNumber,
+                    salesOrder.goodsIssueDate,
+                    salesOrder.salesOrderNumber,
+                    salesOrder.purchaseOrderRefNumber,
+                    salesOrder.purchaseOrderRefDate,
+                    salesOrder.supplierCode,
+                    salesOrder.purchaserCompany,
+                    salesOrder.purchaserCompanyDept,
+                    salesOrder.purchaserContactPersonName,
+                    salesOrder.purchaserContactPersonAddress,
+                    salesOrder.purchaserContactPersonPhone,
+                    salesOrder.purchaserContactPersonEmail,
+                    salesOrder.deliverToPersonName,
+                    salesOrder.deliveryAddress,
+                    salesOrder.invoicePartyId,
+                    salesOrder.invoiceAddress,
+                    salesOrder.grossAmount.toString(),
+                    salesOrder.vatNumber, 
+                    orderedMaterial
+                ]                
+            );                
+        }).then((results) => {
+            return results;
+        }).catch((err) => {
+            throw err;
+        });
+    }
+    
+    vendorService.getAllVendorInvoices = function(option, value){
+        console.log("getAllVendorInvoices");
+        return fabric_client.getUserContext(users.vendorUser.enrollmentID, true)
+        .then((user_from_store) => {
+            helper.checkUserEnrolled(user_from_store);
+            return queryChainCode.queryChainCode(channels.vendorChannelPC, 
+                vendorConfig.channels.procurementchannel.chaincodeId, 
+                "getAllVendorInvoices", 
+                [option, value]);
+        }).then((results) => {
+            return results;
+        }).catch((err) => {
+            throw err;
+        });
+    }
+
 	return vendorService;
 };
 

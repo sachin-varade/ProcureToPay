@@ -142,6 +142,7 @@
               <div class="panel-content clearfix">
                   <table class="table table-striped full-width">
                       <tr>
+                            <th>Pos.</th>
                           <!-- <th>Meterial Group</th> -->
                           <th>Product Name</th>
                           <th>description</th>
@@ -150,9 +151,11 @@
                           <th>Unit price</th>
                           <th>Currency</th>
                           <th>Net Amount</th>
+                          <th>Expected Delivery Date</th>
                       </tr>
                       <tr *ngFor="let item of purchaseOrder.orderedMaterial; let i = index" [attr.data-index]="i">
-                          <!-- <td>
+                            <td>{{item.pos}}</td>  
+                        <!-- <td>
                               <select [(ngModel)]="item.buyerMaterialGroup" name="buyerMaterialGroup" class="input-style-small">
                                     <option *ngFor="let item of commonData.materialGroup" [value]="item.name">{{item.name}}</option>
                               </select>
@@ -172,6 +175,7 @@
                               </select>
                           </td>
                           <td><strong>{{item.netAmount}}</strong></td>
+                          <td><input placeholder="Date" [(ngModel)]="item.expectedDeliveryDate" name="expectedDeliveryDate" type="text" class="input-style-small" bsDatepicker required/></td>                          
                       </tr>
                   </table>
               </div>

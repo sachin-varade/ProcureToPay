@@ -100,6 +100,20 @@ router.get("/getAllGoodsIssue/:option/:value?", function(req, res) {
 	});	
 });
 
+router.post("/saveVendorInvoice", function(req, res) {    
+	var promise = vendorService.saveVendorInvoice(req.body);
+	promise.then(function(resp,err){
+		res.send(resp);
+	});	
+});
+
+router.get("/getAllVendorInvoices/:option/:value?", function(req, res) {    
+    var promise = vendorService.getAllVendorInvoices(req.params.option, req.params.value?req.params.value: "");
+	promise.then(function(resp,err){
+		res.send(resp);
+	});	
+});
+
 // ------------------------ LOGISTIC routes --------------------
 router.post("/saveLogisticTransaction", function(req, res) {    
 	var promise = logisticService.saveLogisticTransaction(req.body);
