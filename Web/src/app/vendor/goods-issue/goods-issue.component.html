@@ -14,6 +14,7 @@
                           <div class="border-box col-2 end-box">
                             <label class="label-field">Sales Order Number</label>
                             <select class="input-style" [(ngModel)]="salesOrder.salesOrderNumber" (change)="setSO()" name="salesOrderNumber" id="salesOrderNumber" required>
+                                <option value=""></option>
                                 <option *ngFor="let item of salesOrderList" [value]="item.salesOrderNumber">{{item.salesOrderNumber}}</option>
                             </select>
                           </div>
@@ -90,7 +91,7 @@
                             </div>
                             <div class="border-box col-2 end-box">
                                 <label class="label-field">Consignment Number</label>
-                                <input type="text" [(ngModel)]="salesOrder.logisticsConsignmentNumber" name="logisticsConsignmentNumber" required class="input-style">
+                                <input type="text" [(ngModel)]="salesOrder.logisticsConsignmentNumber" name="logisticsConsignmentNumber" required class="input-style" readonly>
                             </div>
                         </div>
                     </div>
@@ -98,7 +99,7 @@
             </div>
 
           <div class="btn-area">
-              <button class="btn-border">Cancel</button>
+              <button class="btn-border" (click)="resetData()">Clear</button>
               <button class="btn-normal" [disabled]="!myForm.form.valid" (click)="createGoodsIssue()">Issue Goods</button>
           </div>
 
