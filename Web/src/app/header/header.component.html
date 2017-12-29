@@ -1,49 +1,53 @@
 <div id="header" *ngIf="router.url!='/'">
-    <div class="header-inner clearfix">
-      <div class="container">
-        <img id="companyLogoImg" src="assets/images/ikea-logo.png">
-  
-        <div class="user-control" *ngIf="user.loggedInUser">
-          <div class="user-name">
-            <img src="assets/images/user.png">
-            <span>{{user.loggedInUser.displayName}}</span>
-            <span> ({{user.loggedInUser.role}})</span>
-          </div>
-          <div class="logout">
-            <a (click)="logout();"><img src="assets/images/logout.png"></a>
-          </div>
+  <div class="header-inner clearfix">
+    <div class="container">
+      <img id="companyLogoImg" src="assets/images/ikea-logo.png">
+
+      <div class="user-control" *ngIf="user.loggedInUser">
+        <div class="user-name">
+          <img src="assets/images/user.png">
+          <span>{{user.loggedInUser.displayName}}</span>
+          <span> ({{user.loggedInUser.role}})</span>
+        </div>
+        <div class="logout">
+          <a (click)="logout();"><img src="assets/images/logout.png"></a>
         </div>
       </div>
-    </div>    
-    <link id="theme1" rel="stylesheet" href="../../assets/themes/theme-ikea.css"/> 
-    <link id="theme" rel="stylesheet" href=""/> 
-    <nav class="navbar navbar-dark bg-inverse menu-nav" *ngIf="user.loggedInUser">
-      
-      <div class="container">  
-          
-          <ul *ngIf="getUser().role == 'procurement'" class="nav navbar-nav" routerLinkActive="active">
-              <li class="nav-item"><a class="nav-link" routerLink="procurement/create-po">Create Purchase Order</a></li>
-              <li class="nav-item"><a class="nav-link" routerLink="procurement/goods-receipt">Goods Receipt</a></li>
-              <li class="nav-item"><a class="nav-link" routerLink="procurement/invoice-management">Invoice Management</a></li>
-              <li class="nav-item"><a class="nav-link" routerLink="procurement/track-po">PO Tracker</a></li>
-              <li class="nav-item"><a class="nav-link" routerLink="block/recent">Blocks</a></li>
-          </ul>
-          <ul *ngIf="getUser().role == 'finance'" class="nav navbar-nav" routerLinkActive="active">
-              <li class="nav-item"><a class="nav-link" routerLink="dashboard">Menu 2</a></li>
-              <li class="nav-item"><a class="nav-link" routerLink="block/recent">Blocks</a></li>
-          </ul>
-          <ul *ngIf="getUser().role == 'vendor'" class="nav navbar-nav" routerLinkActive="active">
-              <li class="nav-item"><a class="nav-link" routerLink="vendor/po-fulfillment">Sales Order</a></li>
-              <li class="nav-item"><a class="nav-link" routerLink="vendor/goodsIssue">Goods Issue</a></li>
-              <li class="nav-item"><a class="nav-link" routerLink="vendor/generate-invoice">Generate Invoice</a></li>
-              <li class="nav-item"><a class="nav-link" routerLink="block/recent">Blocks</a></li>
-          </ul>
-          <ul *ngIf="getUser().role == 'logistic'" class="nav navbar-nav" routerLinkActive="active">
-            <li class="nav-item"><a class="nav-link" routerLink="logistic/create-consignment">Create Consignment</a></li>
+    </div>
+  </div>    
+  <!-- <link id="theme1" rel="stylesheet" href="../../assets/themes/theme-ikea.css"/>  -->
+  <link id="theme" rel="stylesheet" href=""/> 
+  <nav class="navbar navbar-dark bg-inverse menu-nav" *ngIf="user.loggedInUser">
+    
+    <div class="container">  
+        
+        <ul *ngIf="getUser().role == 'procurement'" class="nav navbar-nav" routerLinkActive="active">
+            <li class="nav-item"><a class="nav-link" routerLink="procurement/create-po">Create Purchase Order</a></li>
+            <li class="nav-item"><a class="nav-link" routerLink="procurement/goods-receipt">Goods Receipt</a></li>
+            
+            <li class="nav-item"><a class="nav-link" routerLink="procurement/track-po">PO Tracker</a></li>
             <li class="nav-item"><a class="nav-link" routerLink="block/recent">Blocks</a></li>
         </ul>
-      </div>
-    </nav>
+        <ul *ngIf="getUser().role == 'finance'" class="nav navbar-nav" routerLinkActive="active">
+          <li class="nav-item"><a class="nav-link" routerLink="procurement/invoice-management">Invoice Management</a></li>
+            <li class="nav-item"><a class="nav-link" routerLink="block/recent">Blocks</a></li>
+        </ul>
+        <ul *ngIf="getUser().role == 'vendor'" class="nav navbar-nav" routerLinkActive="active">
+            <li class="nav-item"><a class="nav-link" routerLink="vendor/po-fulfillment">Purchase Order Fulfillment</a></li>
+            <li class="nav-item"><a class="nav-link" routerLink="vendor/goodsIssue">Goods Issue</a></li>
+            <li class="nav-item"><a class="nav-link" routerLink="vendor/generate-invoice">Generate Invoice</a></li>
+            <li class="nav-item"><a class="nav-link" routerLink="block/recent">Blocks</a></li>
+        </ul>
+        <ul *ngIf="getUser().role == 'logistic'" class="nav navbar-nav" routerLinkActive="active">
+          <li class="nav-item"><a class="nav-link" routerLink="logistic/create-consignment">Create Consignment</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="block/recent">Blocks</a></li>
+      </ul>
+
+      <ul *ngIf="getUser().role == 'bank'" class="nav navbar-nav" routerLinkActive="active">        
+        <li class="nav-item"><a class="nav-link" routerLink="block/recent">Blocks</a></li>
+      </ul>
+    </div>
+  </nav>
+
   
-    
-  </div>
+</div>
