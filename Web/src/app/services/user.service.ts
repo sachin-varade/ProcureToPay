@@ -12,8 +12,8 @@ export class UserService {
   private loggedInUser: any = null;
 
   constructor(private http: HttpClient) {
-    if (localStorage.getItem('loggedInUser')) {
-      this.loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+    if (sessionStorage.getItem('loggedInUser')) {
+      this.loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
     }
   }
 
@@ -25,7 +25,7 @@ export class UserService {
         return results;
       }
       this.loggedInUser = results;
-      localStorage.setItem('loggedInUser', JSON.stringify(results));
+      sessionStorage.setItem('loggedInUser', JSON.stringify(results));
       return results;
     }).catch((err) => {
         throw err;
@@ -33,20 +33,20 @@ export class UserService {
   }
 
   logout() {
-    localStorage.setItem('isUserLoggedIn', null);
-    localStorage.setItem('loggedInUser', null);
-    localStorage.setItem('userData', null);
-    localStorage.setItem('commonData', null);
+    sessionStorage.setItem('isUserLoggedIn', null);
+    sessionStorage.setItem('loggedInUser', null);
+    sessionStorage.setItem('userData', null);
+    sessionStorage.setItem('commonData', null);
   }
 
   getUserData(): Promise<any> {
-    if (localStorage.getItem('userData') !== null && localStorage.getItem('userData') !== 'null') {
-      return JSON.parse(localStorage.getItem('userData'));
+    if (sessionStorage.getItem('userData') !== null && sessionStorage.getItem('userData') !== 'null') {
+      return JSON.parse(sessionStorage.getItem('userData'));
     } else {
       const url = `${this.BASE_URL}/getUserData`;
       return this.http.get(url).toPromise()
       .then((results: any) => {
-        localStorage.setItem('userData', JSON.stringify(results));
+        sessionStorage.setItem('userData', JSON.stringify(results));
         return results;
       }).catch((err) => {
           throw err;
@@ -55,13 +55,13 @@ export class UserService {
   }
 
   getCommonData(): Promise<any> {
-    if (localStorage.getItem('commonData') !== null && localStorage.getItem('commonData') !== 'null') {
-      return JSON.parse(localStorage.getItem('commonData'));
+    if (sessionStorage.getItem('commonData') !== null && sessionStorage.getItem('commonData') !== 'null') {
+      return JSON.parse(sessionStorage.getItem('commonData'));
     } else {
       const url = `${this.BASE_URL}/getCommonData`;
       return this.http.get(url).toPromise()
       .then((results: any) => {
-        localStorage.setItem('commonData', JSON.stringify(results));
+        sessionStorage.setItem('commonData', JSON.stringify(results));
         return results;
       }).catch((err) => {
           throw err;
@@ -70,16 +70,16 @@ export class UserService {
   }
 
   setUserLoggedIn() {
-    localStorage.setItem('isUserLoggedIn', 'true');
+    sessionStorage.setItem('isUserLoggedIn', 'true');
   }
 
   isUserLoggedIn() {
-    return localStorage.getItem('isUserLoggedIn');
+    return sessionStorage.getItem('isUserLoggedIn');
   }
 
   getUserLoggedIn() {
-    if(localStorage.getItem('loggedInUser') !== ''){
-      return JSON.parse(localStorage.getItem('loggedInUser'));
+    if(sessionStorage.getItem('loggedInUser') !== ''){
+      return JSON.parse(sessionStorage.getItem('loggedInUser'));
     }
   }
 }

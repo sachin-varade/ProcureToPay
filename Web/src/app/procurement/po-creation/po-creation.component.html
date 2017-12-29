@@ -143,7 +143,7 @@
 
           <div class="panel-expand">
               <div class="panel-title">
-                  <h3>Meterial</h3>
+                  <h3>Meterial Details</h3>
                   <span class="arrow"></span>
               </div>
               <div class="panel-content clearfix">
@@ -152,13 +152,13 @@
                             <th>Pos.</th>
                           <!-- <th>Meterial Group</th> -->
                           <th>Product Name</th>
-                          <th>description</th>
+                          <th>Description</th>
+                          <th>Expected Delivery Date</th>
                           <th>Quantity</th>
                           <th>Units</th>
                           <th>Unit price</th>
                           <th>Currency</th>
-                          <th>Net Amount</th>
-                          <th>Expected Delivery Date</th>
+                          <th>Net Amount</th>                          
                       </tr>
                       <tr *ngFor="let item of purchaseOrder.orderedMaterial; let i = index" [attr.data-index]="i">
                             <td>{{item.pos}}</td>  
@@ -169,6 +169,7 @@
                           </td> -->
                           <td><input [(ngModel)]="item.productName" name="productName" type="text" class="input-style-small"></td>
                           <td><input [(ngModel)]="item.productDescription" name="productDescription" type="text" class="input-style-small"></td>
+                          <td><input placeholder="Date" [(ngModel)]="item.expectedDeliveryDate" name="expectedDeliveryDate" type="text" class="input-style-small" bsDatepicker required/></td>
                           <td><input [(ngModel)]="item.quantity" (change)="calculateOrderAmount()" name="quantity" type="text" class="input-style-small"></td>
                           <td>
                               <select [(ngModel)]="item.quantityUnit" name="quantityUnit" class="input-style-small">
@@ -181,8 +182,7 @@
                                     <option *ngFor="let item of commonData.currancy" [value]="item.name">{{item.name}}</option>
                               </select>
                           </td>
-                          <td><strong>{{item.netAmount}}</strong></td>
-                          <td><input placeholder="Date" [(ngModel)]="item.expectedDeliveryDate" name="expectedDeliveryDate" type="text" class="input-style-small" bsDatepicker required/></td>                          
+                          <td><strong>{{item.netAmount}}</strong></td>                          
                       </tr>
                   </table>
               </div>
@@ -190,7 +190,7 @@
 
           <div class="panel-expand">
               <div class="panel-title">
-                  <h3>Accounting</h3>
+                  <h3>Accounting Details</h3>
                   <span class="arrow"></span>
               </div>
               <div class="panel-content clearfix">
@@ -248,7 +248,7 @@
 
           <div class="panel-expand">
               <div class="panel-title">
-                  <h3>Additional Info</h3>
+                  <h3>Additional Information</h3>
                   <span class="arrow"></span>
               </div>
               <div class="panel-content clearfix">
