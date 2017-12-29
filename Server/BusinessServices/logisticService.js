@@ -64,7 +64,11 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
                     logisticTransaction.expectedDeliveryDatetime,
                     logisticTransaction.actualDeliveryDatetime,
                     logisticTransaction.hazardousMaterial,
-                    logisticTransaction.packagingInstruction       
+                    logisticTransaction.packagingInstruction
+                    //logisticTransaction.route,
+                    //logisticTransaction.vehicleId,
+                    //logisticTransaction.status
+
                 ]                
             );                
         }).then((results) => {

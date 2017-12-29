@@ -10,4 +10,7 @@ export class LogisticTransaction {
     actualDeliveryDatetime: Date;
     hazardousMaterial: string;
     packagingInstruction: string;
+    route : string;
+    vehicleId : string;
+    status : string;
 }

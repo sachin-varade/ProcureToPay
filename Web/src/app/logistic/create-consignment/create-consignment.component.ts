@@ -70,6 +70,7 @@ export class CreateConsignmentComponent implements OnInit {
     this.logisticTransaction.expectedDeliveryDatetime.setMinutes(this.expectedDeliveryDatetime.minute);
     this.logisticTransaction.actualDeliveryDatetime.setHours(this.actualDeliveryDatetime.hour);
     this.logisticTransaction.actualDeliveryDatetime.setMinutes(this.actualDeliveryDatetime.minute);
+    this.logisticTransaction.status = "delivered";
     this.logisticService.saveLogisticTransaction(this.logisticTransaction)
       .then((results: any) => {
         this.alertService.success("Consignment " + this.logisticTransaction.consignmentNumber + " Saved.");

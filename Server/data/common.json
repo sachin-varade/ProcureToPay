@@ -60,5 +60,14 @@
     {"code":"LP001", "description":"LP001: Logistic Provider 1"},
     {"code":"LP002", "description":"LP002: Logistic Provider 2"},
     {"code":"LP003", "description":"LP003: Logistic Provider 3"}
+],
+"vehicleList":[
+    {"registrationNumber" : "MH02AA1111", "description" : "MH02AA1111 Trailer Truck"},
+    {"registrationNumber" : "MH02AA2222", "description" : "MH02AA2222 Van"},
+    {"registrationNumber" : "MH02AA3333", "description" : "MH02AA3333 Car"}
+],
+"routeList":[
+    {"code" : "ROUTE1", "description" : "ROUTE1 ABC to XYZ"},
+    {"code" : "ROUTE2", "description" : "ROUTE2 XYZ to MNO"}
 ]
 }
