@@ -190,12 +190,12 @@ func saveLogisticTransaction(stub  shim.ChaincodeStubInterface, args []string) p
 	var err error
 	fmt.Println("Running saveLogisticTransaction..")
 
-	if len(args) != 10 {
-		fmt.Println("Incorrect number of arguments. Expecting 12")
-		return shim.Error("Incorrect number of arguments. Expecting 12")
+	if len(args) != 13 {
+		fmt.Println("Incorrect number of arguments. Expecting 13")
+		return shim.Error("Incorrect number of arguments. Expecting 13")
 	}
 
-	fmt.Println("Arguments :"+args[0]+","+args[1]+","+args[2]+","+args[3]+","+args[4]+","+args[5]+","+args[6]+","+args[7]);
+	fmt.Println("Arguments :"+args[0]+","+args[1]+","+args[2]+","+args[3]+","+args[4]+","+args[5]+","+args[6]+","+args[7]+","+args[8]+","+args[9]+","+args[10]+","+args[11]+","+args[12]);
 	allBAsBytes, err := stub.GetState("allLogisticTransactionIds")
 	if err != nil {
 		return shim.Error("Failed to get all AllLogisticTransactionIds")
@@ -210,16 +210,19 @@ func saveLogisticTransaction(stub  shim.ChaincodeStubInterface, args []string) p
 	}
 	
 	var bt LogisticTransaction
-	bt.ConsignmentNumber				= args[0]
-	bt.GoodsIssueRefNumber				= args[1]
-	bt.PurchaseOrderRefNumber				= args[2]
-	bt.SupplierNumber							= args[3]
-	bt.ShipToParty			= args[4]
-	bt.PickedupDatetime						= args[5]
-	bt.ExpectedDeliveryDatetime						= args[6]
-	bt.ActualDeliveryDatetime			= args[7]	
+	bt.ConsignmentNumber			= args[0]
+	bt.GoodsIssueRefNumber			= args[1]
+	bt.PurchaseOrderRefNumber		= args[2]
+	bt.SupplierNumber				= args[3]
+	bt.ShipToParty					= args[4]
+	bt.PickedupDatetime				= args[5]
+	bt.ExpectedDeliveryDatetime		= args[6]
+	bt.ActualDeliveryDatetime		= args[7]	
 	bt.HazardousMaterial			= args[8]
 	bt.PackagingInstruction			= args[9]
+	bt.Route 						= args[10]
+	bt.VehicleId 					= args[11]
+	bt.Status 						= args[12]
 
 	//Commit Inward entry to ledger
 	fmt.Println("saveLogisticTransaction - Commit LogisticTransaction To Ledger");

@@ -153,7 +153,10 @@ type LogisticTransaction struct {
 	ExpectedDeliveryDatetime			string		`json:"expectedDeliveryDatetime"`	
 	ActualDeliveryDatetime				string		`json:"actualDeliveryDatetime"`
 	HazardousMaterial					string		`json:"hazardousMaterial"`	
-	PackagingInstruction				string		`json:"packagingInstruction"`	
+	PackagingInstruction				string		`json:"packagingInstruction"`
+	Route								string		`json:"route"`	
+	VehicleId							string		`json:"vehicleId"`
+	Status								string		`json:"status"`
 }
 
 
