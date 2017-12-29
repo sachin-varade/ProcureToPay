@@ -55,6 +55,14 @@ export class PoFulfilmentComponent implements OnInit {
   }
 
   setPO() {
+
+    //alert("|"+ this.salesOrder.purchaseOrderRefNumber + "|");
+    if(!this.salesOrder.purchaseOrderRefNumber){
+      this.salesOrder = new VendorModels.VendorSalesOrder();
+      this.getUniqueId();
+      return;
+    }
+
     this.purchaseOrderList.forEach(element => {
       if (element.purchaseOrderNumber === this.salesOrder.purchaseOrderRefNumber) {
         this.purchaseOrder = JSON.parse(JSON.stringify(element));
@@ -98,9 +106,7 @@ export class PoFulfilmentComponent implements OnInit {
         this.salesOrder.status = "Created";
         this.salesOrder.statusUpdatedOn = new Date();
         this.salesOrder.statusUpdatedBy = this.currentUser.name;
-
-
-      }
+      } 
     });
   }
 
@@ -109,13 +115,15 @@ export class PoFulfilmentComponent implements OnInit {
       .then((results: any) => {
         this.alertService.success("Sales Order created." + this.salesOrder.salesOrderNumber);
         this.fetchApprovedPOs();
-        this.getUniqueId();
         this.salesOrder = new VendorModels.VendorSalesOrder();
-        var purchaseOrderRefNumberSelect = <HTMLSelectElement>document.getElementById('purchaseOrderRefNumber');
-        purchaseOrderRefNumberSelect.selectedIndex = -1;
-        //purchaseOrderRefNumberSelect.textContent = '';
+        this.getUniqueId();
       });
 
+  }
+
+  resetData(){
+    this.salesOrder.purchaseOrderRefNumber = '';
+    this.setPO();
   }
 
 }

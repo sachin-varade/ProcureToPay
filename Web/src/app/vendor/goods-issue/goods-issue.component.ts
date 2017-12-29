@@ -37,6 +37,11 @@ export class GoodsIssueComponent implements OnInit {
     .then((results: any) => {
       this.salesOrder.goodsIssueNumber = results;
     });
+
+    this.vendorService.getUniqueId('vendor-consignment')
+    .then((results: any) => {
+      this.salesOrder.logisticsConsignmentNumber = results;
+    });
   }
 
   fetchAllVendorSOs(){
@@ -47,6 +52,12 @@ export class GoodsIssueComponent implements OnInit {
   }
 
   setSO(){
+    if(!this.salesOrder.salesOrderNumber){
+      this.salesOrder = new VendorModels.VendorSalesOrder();
+      this.getUniqueId();
+      return;
+    }
+
     this.salesOrderList.forEach(element => {
       if(element.salesOrderNumber === this.salesOrder.salesOrderNumber){
         this.salesOrder = JSON.parse(JSON.stringify(element));
@@ -66,6 +77,11 @@ export class GoodsIssueComponent implements OnInit {
       var salesOrderNumberSelect = <HTMLSelectElement>document.getElementById('salesOrderNumber');
       salesOrderNumberSelect.selectedIndex = -1;
     });    
+  }
+
+  resetData(){
+    this.salesOrder.salesOrderNumber = '';
+    this.setSO();
   }
 
 
