@@ -14,9 +14,9 @@
                               </span>
                           </div>
                           <div class="border-box col-2">
-                              <label class="label-field">Goods Issue ref. No</label>
+                              <label class="label-field">Sales Order Number</label>
                               <span class="value-field">
-                                <select class="input-style" [(ngModel)]="this.logisticTransaction.goodsIssueRefNumber" (change)="changeGoodsIssueNumber()" name="goodsIssueRefNumber" id="goodsIssueRefNumber" required>
+                                <select class="input-style" [(ngModel)]="this.logisticTransaction.salesOrderRefNumber" (change)="changeSONumber()" name="salesOrderRefNumber" id="salesOrderRefNumber" required>
                                     <option *ngFor="let item of vendorSalesOrderList" [value]="item.salesOrderNumber">{{item.salesOrderNumber}}</option>
                                 </select>
                               </span>
@@ -26,10 +26,10 @@
                   </div>
                   <div class="border-box-table">
                       <div class="border-box-row">
-                          <div class="border-box col-2">
+                          <!-- <div class="border-box col-2">
                               <label class="label-field">Purchase Order ref No</label>
                               <span class="value-field">{{this.logisticTransaction.purchaseOrderRefNumber}}</span>
-                          </div>
+                          </div> -->
                           <div class="border-box col-2">
                               <label class="label-field">Supplier No</label>
                               <span class="value-field">{{this.logisticTransaction.supplierNumber}}</span>
@@ -95,6 +95,38 @@
                           
                       </div>
                   </div>
+
+                  <div class="plain-block mrg-btm-30">
+                    <h5 class="sub-title-sm">Material Details</h5>
+                    <div class="border-box-wrapper">
+                        <table class="table table-striped full-width">
+                            <tr>
+                                <th>Line Item Ref.</th>
+                                <th>Product Name</th>
+                                <th>Description</th>
+                                <th>Quantity</th>
+                                <th>Units</th>
+                            </tr>
+                            <tr *ngFor="let item of vendorSalesOrder.materialList; let i = index" [attr.data-index]="i">
+                                <td>
+                                  <span>{{item.materialId}}</span>
+                                </td>
+                                <td>
+                                    <span>{{item.productName}}</span>
+                                </td>
+                                <td>
+                                    <span>{{item.productDescription}}</span>
+                                </td>
+                                <td>
+                                    <span>{{item.quantity}}</span> 
+                                </td>
+                                <td>
+                                    <span>{{item.quantityUnit}}</span> 
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
 
               </div>
           </div>

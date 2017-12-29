@@ -1,5 +1,6 @@
 export class LogisticTransaction {
     consignmentNumber: string;
+    salesOrderRefNumber : string;
     goodsIssueRefNumber: string;
     purchaseOrderRefNumber: string;
     supplierNumber: string;
