@@ -1,4 +1,4 @@
-<div class="page-container cgt-buyer">
+<div class="page-container cgt-vendor">
     <div class="container">
         <h2 class="page-title">Sales Order</h2>
         <form #myForm="ngForm">
@@ -34,40 +34,40 @@
                                 <span class="value-field">{{salesOrder.purchaserCompany}} / {{salesOrder.purchaserCompanyDept}}</span>
                             </div>
                             <div class="border-box col-3">
-                                <label class="label-field">Purchaser Contact Person</label>
-                                <span class="value-field">{{salesOrder.purchaserContactPersonName}}</span>
+                                <label class="label-field">Purchaser Email</label>
+                                <span class="value-field">{{salesOrder.purchaserContactPersonEmail}}</span>
                             </div>
                             <div class="border-box col-3 end-box">
-                                <label class="label-field">Purchaser Contact Address / Phone </label>
-                                <span class="value-field">{{salesOrder.purchaserContactPersonAddress}} <br/> {{salesOrder.purchaserContactPersonPhone}}</span>
+                                <label class="label-field">Bill-to-address</label>
+                                <span class="value-field">{{salesOrder.invoicePartyId}}</span>
                             </div>
                         </div>
                     </div>
                     <div class="border-box-table">
                         <div class="border-box-row">
                             <div class="border-box col-3">
-                                <label class="label-field">Purchaser Email</label>
-                                <span class="value-field">{{salesOrder.purchaserContactPersonEmail}}</span>
+                                <label class="label-field">Purchaser Contact Person</label>
+                                <span class="value-field">{{salesOrder.purchaserContactPersonName}}</span>
                             </div>
                             <div class="border-box col-3">
                                 <label class="label-field">Delivery To</label>
                                 <span class="value-field">{{salesOrder.deliverToPersonName}}</span>
                             </div>
                             <div class="border-box col-3 end-box">
-                                <label class="label-field">Delivery Address</label>
-                                <span class="value-field">{{salesOrder.deliveryAddress}}</span>
+                                <label class="label-field">Invoice Address</label>
+                                <span class="value-field">{{salesOrder.invoicePartyAddress}}</span>
                             </div>
                         </div>
                     </div>
                     <div class="border-box-table">
                         <div class="border-box-row">
                             <div class="border-box col-3">
-                                <label class="label-field">Bill-to-address</label>
-                                <span class="value-field">{{salesOrder.invoicePartyId}}</span>
+                                <label class="label-field">Purchaser Contact Address / Phone</label>
+                                <span class="value-field">{{salesOrder.purchaserContactPersonAddress}} <br/> {{salesOrder.purchaserContactPersonPhone}}</span>
                             </div>
                             <div class="border-box col-3">
-                                <label class="label-field">Invoice Address</label>
-                                <span class="value-field">{{salesOrder.invoicePartyAddress}}</span>
+                                <label class="label-field">Delivery Address</label>
+                                <span class="value-field">{{salesOrder.deliveryAddress}}</span>
                             </div>
                             <div class="border-box col-3 end-box">
 

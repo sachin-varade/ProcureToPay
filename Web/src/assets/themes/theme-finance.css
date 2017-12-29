@@ -12,7 +12,7 @@
     color: #b8cfe0;
 }
 
-.title-main{
+.page-title{
     color: #3e78a4;
 }
 
@@ -38,5 +38,9 @@
     border-color: #275070;
 }
 
-
+.sub-title-sm{
+        font-size: 19px;
+        font-weight: lighter;
+        padding-left: 10px;
+    }
 

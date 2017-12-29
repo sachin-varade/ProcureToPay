@@ -206,6 +206,14 @@
             padding: 5% 10%;
         }
     
+        .login-box form{
+            height: 100%;
+        }
+    
+        .cgt-finance .form-area form{
+            height: auto;
+        }
+    
         .login-wrapper.cgt-buyer .login-box{
             height: 100%;
             background: #fff;
@@ -670,7 +678,6 @@
         .cgt-finance .sub-title-sm, .cgt-logistic .sub-title-sm{
             font-size: 19px;
             font-weight: lighter;
-            padding-left: 10px;
         }
     
         .cgt-logistic .sub-title-sm{
@@ -720,6 +727,7 @@
             display: inline-block;
             margin: 0 5px;
             outline: none;
+            cursor: pointer;
         }
     
         .btn-border{

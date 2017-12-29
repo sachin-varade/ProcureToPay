@@ -1,14 +1,14 @@
 .menu-nav{
-    background: #232f84;
+    background: #00755e;
     color: #fff;
 }
 
 .menu-nav ul li a{
-    color: #b7bef4;
+    color: #fff;
 }
 
 .menu-nav ul li a:hover, .menu-nav ul li a:focus{
-    background: #3e4bad;
+    background: #015d4b;
     color: #fff;
 }
 
@@ -18,24 +18,24 @@
 
 .btn-normal{
     color:#fff;
-    background-color: #232f84;
-    border-color: #232f84;
+    background-color: #00755e;
+    border-color: #00755e;
 }
 
 .btn-normal:hover{
-    background-color: #3e4bad;
+    background-color: #015d4b;
     color:#fff;
 }
 
 .btn-border{
-    color:#232f84;
+    color:#00755e;
     background-color: #fff;
-    border-color: #232f84;
+    border-color: #00755e;
 }
 .btn-border:hover{
     color:#fff;
-    background-color: #232f84;
-    border-color: #232f84;
+    background-color: #00755e;
+    border-color: #00755e;
 }
 
 

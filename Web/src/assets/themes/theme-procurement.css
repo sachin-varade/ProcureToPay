@@ -1,5 +1,5 @@
 .menu-nav{
-    background: #010066 !important;
+    background: #00A0BE !important;
     color: #fff;
 }
 
@@ -8,7 +8,7 @@
 }
 
 .menu-nav ul li a:hover, .menu-nav ul li a:focus{
-    background: #2f2e90 !important;
+    background: #0172ad !important;
     color: #fff;
 }
 

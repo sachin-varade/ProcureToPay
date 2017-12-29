@@ -1,5 +1,5 @@
 .menu-nav{
-    background: #232f84;
+    background: #010066;
     color: #fff;
 }
 
@@ -8,34 +8,41 @@
 }
 
 .menu-nav ul li a:hover, .menu-nav ul li a:focus{
-    background: #3e4bad;
+    background: #100f8b;
     color: #fff;
 }
 
-.title-main{
-    color: #6d7be0;
+.page-title{
+    color: #019934;
+    font-size: 32px;
+    margin: 20px 0;
 }
 
 .btn-normal{
     color:#fff;
-    background-color: #eb8200;
+    background-color: #019934;
 }
 
 .btn-normal:hover{
-    background-color: #d77905;
+    background-color: #01812c;
     color:#fff;
 }
 
 .btn-border{
-    color:#eb8200;
+    color:#019934;
     background-color: #fff;
-    border-color: #eb8200;
+    border-color: #019934;
 }
 .btn-border:hover{
     color:#fff;
-    background-color: #eb8200;
-    border-color: #eb8200;
+    background-color: #019934;
+    border-color: #019934;
 }
+
+.sub-title-sm{
+        font-size: 19px;
+        font-weight: lighter;
+    }
 
 
 
