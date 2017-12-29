@@ -199,7 +199,8 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
                     salesOrder.deliveryAddress,
                     salesOrder.logisticProvider,
                     orderedMaterial,
-                    salesOrder.logisticsConsignmentNumber
+                    salesOrder.logisticsConsignmentNumber,
+                    new Date().toString()
                 ]                
             );                
         }).then((results) => {
@@ -248,6 +249,13 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
             });
         }
 
+        var status, updatedBy, updatedOn = "";
+        if(salesOrder.statusUpdates && salesOrder.statusUpdates.length > 0){
+            status = salesOrder.statusUpdates[salesOrder.statusUpdates.length-1].status;
+            updatedBy = salesOrder.statusUpdates[salesOrder.statusUpdates.length-1].updatedBy.toString();
+            updatedOn = salesOrder.statusUpdates[salesOrder.statusUpdates.length-1].updatedOn;
+        }
+
         return fabric_client.getUserContext(users.vendorUser.enrollmentID, true)
         .then((user_from_store) => {
             helper.checkUserEnrolled(user_from_store);            
@@ -279,7 +287,10 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
                     salesOrder.grossAmount.toString(),
                     salesOrder.vatNumber, 
                     orderedMaterial,
-                    new Date().toString()
+                    new Date().toString(),
+                    status,
+                    updatedBy,
+                    updatedOn
                 ]                
             );                
         }).then((results) => {

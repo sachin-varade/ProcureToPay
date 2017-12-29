@@ -52,6 +52,7 @@ export class GoodsIssue{
 	deliveryAddress: string;
 	logisticsProvider: string;
 	materialList: Array<VendorMaterial> = new Array<VendorMaterial>();
+	goodsIssueDate: Date;
 }
 
 export class  VendorInvoice {
@@ -77,4 +78,12 @@ export class  VendorInvoice {
 	grossAmount: number;
 	vatNumber: string;
 	materialList: Array<VendorMaterial> = new Array<VendorMaterial>();
+	statusUpdates: Array<StatusUpdates> = new Array<StatusUpdates>();
+}
+
+
+export class  StatusUpdates {
+	status: string;
+	updatedBy: number;
+	updatedOn: Date;
 }

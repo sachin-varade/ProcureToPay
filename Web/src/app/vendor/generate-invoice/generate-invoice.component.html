@@ -22,19 +22,34 @@
                         <div class="border-box-row">
                             <div class="border-box col-3">
                                 <label class="label-field">Goods Issue Number</label>
-                                <select class="input-style" [(ngModel)]="vendorInvoice.goodsIssueNumber" (change)="setGIN()" name="goodsIssueNumber" id="goodsIssueNumber" required>
+                                <select class="input-style" [(ngModel)]="vendorInvoice.goodsIssueNumber" (change)="setGIN(myForm)" name="goodsIssueNumber" id="goodsIssueNumber" required>
                                     <option value=""></option>
                                     <option *ngFor="let item of goodsIssueList" [value]="item.goodsIssueNumber">{{item.goodsIssueNumber}}</option>
                                 </select>
                             </div>
                             <div class="border-box col-3">
                                 <label class="label-field">Goods Issue Date</label>                                
-                                <input placeholder="Date" [(ngModel)]="vendorInvoice.goodsIssueDate" name="goodsIssueDate" type="text" class="input-style-small" bsDatepicker required/>
+                                <!-- <input placeholder="Date" [(ngModel)]="vendorInvoice.goodsIssueDate" name="goodsIssueDate" type="text" class="input-style-small" bsDatepicker required/> -->
+                                {{vendorInvoice.goodsIssueDate | date : "short"}}
                             </div>
                             <div class="border-box col-3 end-box">
                                 <label class="label-field">Sales Order Number</label>
                                 <span class="value-field">
-                                    <input [(ngModel)]="vendorInvoice.salesOrderNumber" name="salesOrderNumber" type="text" required>                                 
+                                    <input [(ngModel)]="vendorInvoice.salesOrderNumber" name="salesOrderNumber" type="text" >                                 
+                              </span>
+                            </div>
+
+                            <div class="border-box col-3 end-box">
+                                <label class="label-field">VAT No</label>
+                                <span class="value-field">
+                                    <input [(ngModel)]="vendorInvoice.vatNumber" name="vatNumber" type="text" >                                 
+                              </span>
+                            </div>
+
+                            <div class="border-box col-3 end-box">
+                                <label class="label-field">Vendor Unique</label>
+                                <span class="value-field">
+                                    <input [(ngModel)]="vendorInvoice.supplierCode" name="supplierCode" type="text" >                                 
                               </span>
                             </div>
                         </div>
@@ -44,12 +59,12 @@
                             <div class="border-box col-3">
                                 <label class="label-field">PO ref. Number</label>
                                 <span class="value-field">
-                                    <input [(ngModel)]="vendorInvoice.purchaseOrderRefNumber" name="purchaseOrderRefNumber" type="text" required>                                                                     
+                                    <input [(ngModel)]="vendorInvoice.purchaseOrderRefNumber" name="purchaseOrderRefNumber" type="text" >                                                                     
                                 </span>        
                             </div>
                             <div class="border-box col-3">
                                 <label class="label-field">PO Date</label>
-                                <span class="value-field">{{vendorInvoice.purchaseOrderRefDate}}</span>
+                                <span class="value-field">{{vendorInvoice.purchaseOrderRefDate | date : "short"}}</span>
                             </div>
                             <div class="border-box col-3 end-box">
                                 <label class="label-field">Purchaser Company / Department</label>
@@ -90,8 +105,8 @@
                                 <span class="value-field">{{vendorInvoice.deliveryAddress}}</span>
                             </div>
                             <div class="border-box end-box">
-                                <label class="label-field">Invoice Party Id</label>                                
-                                <input [(ngModel)]="vendorInvoice.invoicePartyId" name="invoicePartyId" type="text" required>                                 
+                                <label class="label-field">Bill-to-address</label>                                
+                                <input [(ngModel)]="vendorInvoice.invoicePartyId" name="invoicePartyId" type="text" >                                 
                             </div>
                             <div class="border-box end-box">
                                 <label class="label-field">Invoice Address</label>
@@ -110,7 +125,7 @@
                             <th>Pos</th>
                             <th>Product Name</th>
                             <th>Description</th>
-                            <th>Seller Product Code</th>
+                            <!-- <th>Seller Product Code</th> -->
                             <th>Quantity</th>
                             <th>Units</th>
                             <th>Unit price</th>
@@ -129,9 +144,9 @@
                             <td>
                                 <span>{{item.productDescription}}</span>
                             </td>
-                            <td>
+                            <!-- <td>
                               <span>Seller Product Code</span>
-                            </td>
+                            </td> -->
                             <td>
                                 <span>{{item.quantity}}</span> 
                             </td>

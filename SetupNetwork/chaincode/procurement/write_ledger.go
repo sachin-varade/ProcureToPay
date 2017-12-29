@@ -414,9 +414,9 @@ func saveGoodsIssue(stub  shim.ChaincodeStubInterface, args []string) pb.Respons
 	var err error
 	fmt.Println("Running saveGoodsIssue..")
 
-	if len(args) != 7 {
-		fmt.Println("Incorrect number of arguments. Expecting 7 - ..")
-		return shim.Error("Incorrect number of arguments. Expecting 7")
+	if len(args) != 8 {
+		fmt.Println("Incorrect number of arguments. Expecting 8 - ..")
+		return shim.Error("Incorrect number of arguments. Expecting 8")
 	}
 
 	fmt.Println("Arguments :"+args[0]+","+args[1]+","+args[2]+","+args[3]+","+args[4]+","+args[5]+","+args[6]);
@@ -441,6 +441,7 @@ func saveGoodsIssue(stub  shim.ChaincodeStubInterface, args []string) pb.Respons
 	bt.DeliveryAddress					= args[3]		
 	bt.LogisticsProvider 				= args[4]
 	bt.LogisticsConsignmentNumber		= args[6]
+	bt.GoodsIssueDate		= args[7]
 
 	var material VendorMaterial
 	
@@ -491,9 +492,9 @@ func saveVendorInvoice(stub  shim.ChaincodeStubInterface, args []string) pb.Resp
 	var err error
 	fmt.Println("Running saveVendorInvoice..")
 
-	if len(args) != 22 {
-		fmt.Println("Incorrect number of arguments. Expecting 22 - ..")
-		return shim.Error("Incorrect number of arguments. Expecting 22")
+	if len(args) != 25 {
+		fmt.Println("Incorrect number of arguments. Expecting 25 - ..")
+		return shim.Error("Incorrect number of arguments. Expecting 25")
 	}
 
 	fmt.Println("Arguments :"+args[0]+","+args[1]+","+args[2]+","+args[3]+","+args[4]+","+args[5]+","+args[6]+","+args[7]+","+args[8]+","+args[9]+","+args[10]+","+args[11]+","+args[12]);
@@ -568,6 +569,12 @@ func saveVendorInvoice(stub  shim.ChaincodeStubInterface, args []string) pb.Resp
 	}
 
 	//Validation - End
+	var st StatusUpdates
+	st.Status = args[22]
+	st.UpdatedBy = args[23]
+	st.UpdatedOn = args[24]
+	bt.StatusUpdates = append(bt.StatusUpdates, st)	
+
 	var material VendorMaterial
 	if args[20] != "" {
 		p := strings.Split(args[20], ",")
