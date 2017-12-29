@@ -69,8 +69,8 @@
                           <td>
                               <span>{{item.quantityUnit}}</span> 
                           </td>
-                          <td><input [(ngModel)]="item.dispatchedQuantity" type="text" name="dispatchedQuantity" id="dispatchedQuantity" class="input-style-small" required></td>
-                          <td><input [(ngModel)]="item.batchNumber" type="text" name="batchNumber" id="batchNumber" class="input-style-small" required></td>
+                          <td><input [(ngModel)]="item.dispatchedQuantity" type="text" [name]="'qty' + item.materialId" [id]="'qty' + item.materialId" class="input-style-small" required></td>
+                          <td><input [(ngModel)]="item.batchNumber" type="text" [name]="'batch' + item.materialId" [id]="'batch' + item.materialId" class="input-style-small" required></td>
 
                       </tr>
                   </table>

@@ -167,6 +167,7 @@ type AllLogisticTransactionDetails struct{
 
 type GoodsIssue struct {
 	GoodsIssueNumber					string		`json:"goodsIssueNumber"`
+	GoodsIssueDate					string		`json:"goodsIssueDate"`
 	SalesOrderNumber					string		`json:"salesOrderNumber"`
 	DeliverToPersonName					string		`json:"deliverToPersonName"`
 	DeliveryAddress						string		`json:"deliveryAddress"`	
@@ -233,6 +234,13 @@ type VendorInvoice struct {
 	GrossAmount							string		`json:"grossAmount"`
 	VatNumber							string		`json:"vatNumber"`
 	MaterialList						[]VendorMaterial		`json:"materialList"`
+	StatusUpdates						[]StatusUpdates		`json:"statusUpdates"`
+}
+
+type StatusUpdates struct{
+	Status 						string 	`json:"status"`
+	UpdatedBy 						string 	`json:"updatedBy"`
+	UpdatedOn 						string 	`json:"updatedOn"`
 }
 
 type AllVendorInvoiceNumbers struct{

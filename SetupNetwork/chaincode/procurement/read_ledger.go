@@ -221,7 +221,44 @@ func getUniqueId(stub  shim.ChaincodeStubInterface, option string, value string)
 				}
 				rabAsBytes, _ := json.Marshal(uniqueId)
 				return shim.Success(rabAsBytes)	
-				} else if strings.ToLower(option) == "invoice" {
+				} else if strings.ToLower(option) == "vendor-consignment" {
+					prefix = "VCID-"
+					allBAsBytes, err := stub.GetState("allGoodsIssueNumbers")
+					if err != nil {
+						return shim.Error("Failed to get all AllGoodsIssueNumbers")
+					}
+					var res AllGoodsIssueNumbers
+					err = json.Unmarshal(allBAsBytes, &res)
+					if err != nil {
+						fmt.Println("Printing Unmarshal error:-");
+						fmt.Println(err);
+						return shim.Error("Failed to Unmarshal all AllGoodsIssueNumbers")
+					}
+					uniqueId := ""
+					if len(res.GoodsIssueNumbers) != 0 {
+						var sb GoodsIssue
+						uniqueId = res.GoodsIssueNumbers[len(res.GoodsIssueNumbers) - 1]
+						sbAsBytes, err := stub.GetState(uniqueId)
+						if err != nil {
+							return shim.Error("Failed to get vendor record.")
+						}
+						json.Unmarshal(sbAsBytes, &sb)
+						uniqueId = sb.LogisticsConsignmentNumber
+						p := strings.Split(uniqueId, "-")
+						
+						input, e := strconv.Atoi(p[1])
+						if e != nil {
+							fmt.Println(e)
+						}
+						output := (input + 1)
+						uniqueId = prefix + strconv.Itoa(output)
+						
+					} else {
+						uniqueId = prefix +"1000"
+					}
+					rabAsBytes, _ := json.Marshal(uniqueId)
+					return shim.Success(rabAsBytes)						
+					} else if strings.ToLower(option) == "invoice" {
 					prefix = "INVID-"
 					allBAsBytes, err := stub.GetState("allVendorInvoiceNumbers")
 					if err != nil {
@@ -557,12 +594,20 @@ func getAllVendorInvoices(stub  shim.ChaincodeStubInterface, option string, valu
 		}
 		var sb VendorInvoice
 		json.Unmarshal(sbAsBytes, &sb)
-
+		var lastStatus StatusUpdates
+		lastStatus = sb.StatusUpdates[len(sb.StatusUpdates)-1]
 		if strings.ToLower(option) == "ids" {
 			allIds.InvoiceNumbers = append(allIds.InvoiceNumbers, sb.InvoiceNumber);	
 		} else if strings.ToLower(option) == "details" {
 			allDetails.VendorInvoices = append(allDetails.VendorInvoices, sb);	
+		} else if strings.ToLower(option) == "created" && strings.ToLower(lastStatus.Status) == "created" {
+			allDetails.VendorInvoices = append(allDetails.VendorInvoices, sb);	
+		} else if strings.ToLower(option) == "validated" && strings.ToLower(lastStatus.Status) == "validated" {
+			allDetails.VendorInvoices = append(allDetails.VendorInvoices, sb);	
+		} else if strings.ToLower(option) == "approved" && strings.ToLower(lastStatus.Status) == "validated" {
+			allDetails.VendorInvoices = append(allDetails.VendorInvoices, sb);	
 		}
+
 	}
 	if strings.ToLower(option) == "ids" {
 		rabAsBytes, _ := json.Marshal(allIds)		

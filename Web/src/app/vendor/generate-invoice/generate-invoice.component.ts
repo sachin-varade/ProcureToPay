@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { NgModel, NgForm } from '@angular/forms';
 import { VendorService } from '../../services/vendor.service';
 import { UserService } from '../../services/user.service';
 import { AlertService } from '../../services/alert.service';
 import * as VendorModels from '../../models/vendor';
+import { StatusUpdates } from '../../models/vendor';
 
 @Component({
   selector: 'app-generate-invoice',
@@ -23,6 +25,7 @@ export class GenerateInvoiceComponent implements OnInit {
       this.commonData = this.user.getCommonData(); 
       this.getAllGoodsIssue();
       this.getUniqueId();
+      this.vendorInvoice.invoiceDate= new Date();
   }
 
   getAllGoodsIssue(){
@@ -50,16 +53,15 @@ export class GenerateInvoiceComponent implements OnInit {
   ngOnInit() {
   }
 
-  setGIN(){
+  setGIN(myForm: NgForm){
     if(this.vendorInvoice && this.vendorInvoice.goodsIssueNumber){
       this.goodsIssueList.forEach(element => {
         if(element.goodsIssueNumber === this.vendorInvoice.goodsIssueNumber){
           this.vendorService.getAllVendorSalesOrders('id', element.salesOrderNumber)
           .then((results: any) => {          
             
-            this.vendorInvoice.invoiceDate= new Date();
             this.vendorInvoice.goodsIssueNumber= element.goodsIssueNumber;
-            this.vendorInvoice.goodsIssueDate= new Date();
+            this.vendorInvoice.goodsIssueDate= element.goodsIssueDate;
 
             this.vendorInvoice.salesOrderNumber= element.salesOrderNumber;
             
@@ -89,11 +91,18 @@ export class GenerateInvoiceComponent implements OnInit {
       });
     }
     else{
-      this.vendorInvoice = new VendorModels.VendorInvoice();
+      this.clearForm(myForm);
     }
     this.getUniqueId();
   }
-  generateInvoice(){
+  generateInvoice(myForm: NgForm){
+    this.vendorInvoice.statusUpdates.push(      
+      {
+        status: "created",
+        updatedBy: this.currentUser.id,
+        updatedOn: new Date()
+      }
+    );
     this.vendorService.saveVendorInvoice(this.vendorInvoice)
     .then((results: any) => { 
       if(results && results.type && results.type === "ERROR"){
@@ -105,11 +114,17 @@ export class GenerateInvoiceComponent implements OnInit {
         }
       }      
       else{
-        this.getAllGoodsIssue();
-        this.getUniqueId();
+        this.getAllGoodsIssue();        
         this.alertService.success("Invoice Saved.");
-        this.vendorInvoice = new VendorModels.VendorInvoice();
+        this.clearForm(myForm);
       }
     });
+  }
+
+  clearForm(myForm: NgForm){
+    myForm.resetForm();
+    this.getUniqueId();
+    this.vendorInvoice = new VendorModels.VendorInvoice();
+    this.vendorInvoice.invoiceDate= new Date();
   }
 }
