@@ -159,8 +159,9 @@ func savePaymentProposal(stub  shim.ChaincodeStubInterface, args []string) pb.Re
 	bt.VendorUniqueNumber					= args[2]
 	bt.VendorBankAccountNumber				= args[3]	
 	bt.VendorBankAccountType				= args[4]
-	bt.CreatedBy							= args[5]
-	bt.CreationDate							= args[6]
+	bt.BankUniqueid							= args[5]
+	bt.CreatedBy							= args[6]
+	bt.CreationDate							= args[7]
 
 	var paymentProposalDetails PaymentProposalDetails
 	
@@ -169,11 +170,13 @@ func savePaymentProposal(stub  shim.ChaincodeStubInterface, args []string) pb.Re
 		for i := range p {
 			c := strings.Split(p[i], "^")
 			paymentProposalDetails.PaymentProposalNumber 		= c[0]
-			paymentProposalDetails.PaymentDate 					= c[1]
-			paymentProposalDetails.Amount 						= c[2]
-			paymentProposalDetails.PoReferenceNumber 			= c[3]
-			paymentProposalDetails.InvoiceReferenceNumber 		= c[4]
-			paymentProposalDetails.Status 						= c[5]
+			paymentProposalDetails.ProposedPaymentDate			= c[1]
+			paymentProposalDetails.Tax							= c[2]
+			paymentProposalDetails.Amount 						= c[3]
+			paymentProposalDetails.PoReferenceNumber 			= c[4]
+			paymentProposalDetails.InvoiceReferenceNumber 		= c[5]
+			paymentProposalDetails.Status 						= c[6]
+			paymentProposalDetails.BankProcessingDate			= c[7]
 			bt.ProposalDetails	= append(bt.ProposalDetails, paymentProposalDetails)
 		}
 	}

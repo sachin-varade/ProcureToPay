@@ -107,11 +107,13 @@ type PaymentProposal struct {
 
 type PaymentProposalDetails struct {
 	PaymentProposalNumber					string	`json:"paymentProposalNumber"`
-	PaymentDate								string	`json:"paymentDate"`
+	ProposedPaymentDate						string	`json:"proposedPaymentDate"`
+	Tax										string	`json:"tax"`
 	Amount									string	`json:"amount"`
 	PoReferenceNumber						string	`json:"poReferenceNumber"`
 	InvoiceReferenceNumber					string	`json:"InvoiceReferenceNumber"`
 	Status									string	`json:"status"`
+	BankProcessingDate						string	`json:"bankProcessingDate"`
 }
 
 type AllPaymentProposalNumbers struct {
