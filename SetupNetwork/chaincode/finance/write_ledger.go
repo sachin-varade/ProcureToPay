@@ -132,12 +132,12 @@ func savePaymentProposal(stub  shim.ChaincodeStubInterface, args []string) pb.Re
 	var err error
 	fmt.Println("Running savePaymentProposal..")
 
-	if len(args) != 8 {
-		fmt.Println("Incorrect number of arguments. Expecting 8")
-		return shim.Error("Incorrect number of arguments. Expecting 8")
+	if len(args) != 9 {
+		fmt.Println("Incorrect number of arguments. Expecting 9")
+		return shim.Error("Incorrect number of arguments. Expecting 9")
 	}
 
-	fmt.Println("Arguments :"+args[0]+","+args[1]+","+args[2]+","+args[3]+","+args[4]+","+args[5]+","+args[6]+","+args[7]);
+	fmt.Println("Arguments :"+args[0]+","+args[1]+","+args[2]+","+args[3]+","+args[4]+","+args[5]+","+args[6]+","+args[7]+","+args[8]);
 
 	//check duplicate 	
 	allBAsBytes, err := stub.GetState("allPaymentProposalNumbers")
@@ -165,8 +165,8 @@ func savePaymentProposal(stub  shim.ChaincodeStubInterface, args []string) pb.Re
 
 	var paymentProposalDetails PaymentProposalDetails
 	
-	if args[7] != "" {
-		p := strings.Split(args[7], ",")
+	if args[8] != "" {
+		p := strings.Split(args[8], ",")
 		for i := range p {
 			c := strings.Split(p[i], "^")
 			paymentProposalDetails.PaymentProposalNumber 		= c[0]
