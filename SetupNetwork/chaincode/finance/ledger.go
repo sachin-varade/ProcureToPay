@@ -100,6 +100,7 @@ type PaymentProposal struct {
 	VendorUniqueNumber						string	`json:"vendorUniqueNumber"`
 	VendorBankAccountNumber					string	`json:"vendorBankAccountNumber"`
 	VendorBankAccountType					string	`json:"vendorBankAccountType"`
+	BankUniqueid							string	`json:"bankUniqueid"`
 	CreatedBy								string	`json:"createdBy"`
 	CreationDate							string	`json:"creationDate"`
 	ProposalDetails							[]PaymentProposalDetails	`json:"proposalDetails"`	
