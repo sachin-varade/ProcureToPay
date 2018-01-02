@@ -72,6 +72,20 @@ router.get("/getAllPurchaseOrders/:option/:value?", function(req, res) {
 	});	
 });
 
+router.post("/saveGoodsReceipt", function(req, res) {    
+	var promise = procurementService.saveGoodsReceipt(req.body);
+	promise.then(function(resp,err){
+		res.send(resp);
+	});	
+});
+
+router.get("/getAllGoodsReceiptDetails/:option/:value?", function(req, res) {    
+    var promise = procurementService.getAllGoodsReceiptDetails(req.params.option, req.params.value?req.params.value: "");
+	promise.then(function(resp,err){
+		res.send(resp);
+	});	
+});
+
 router.post("/createVendorSalesOrder", function(req, res) {    
 	var promise = vendorService.createVendorSalesOrder(req.body);
 	promise.then(function(resp,err){

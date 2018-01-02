@@ -79,6 +79,7 @@ export class  VendorInvoice {
 	vatNumber: string;
 	materialList: Array<VendorMaterial> = new Array<VendorMaterial>();
 	statusUpdates: Array<StatusUpdates> = new Array<StatusUpdates>();
+	currentStatus: string = "Created";
 }
 
 

@@ -335,9 +335,9 @@ func saveGoodsReceipt(stub  shim.ChaincodeStubInterface, args []string) pb.Respo
 	var err error
 	fmt.Println("Running saveGoodsReceipt..")
 
-	if len(args) != 17 {
-		fmt.Println("Incorrect number of arguments. Expecting 17 - ..")
-		return shim.Error("Incorrect number of arguments. Expecting 17")
+	if len(args) != 15 {
+		fmt.Println("Incorrect number of arguments. Expecting 15 - ..")
+		return shim.Error("Incorrect number of arguments. Expecting 15")
 	}
 
 	fmt.Println("Arguments :"+args[0]+","+args[1]+","+args[2]+","+args[3]+","+args[4]+","+args[5]+","+args[6]+","+args[7]+","+args[8]+","+args[9]+","+args[10]+","+args[11]+","+args[12]);
@@ -369,16 +369,15 @@ func saveGoodsReceipt(stub  shim.ChaincodeStubInterface, args []string) pb.Respo
 	bt.PurchaserContactPersonEmail		= args[10]
 	bt.DeliverToPersonName				= args[11]
 	bt.DeliveryAddress					= args[12]	
-	bt.TotalOrderAmount				= args[13]
-	bt.Fdf					= args[14]
+	bt.TotalOrderAmount				= args[13]	
 
-	var material VendorMaterial
+	var material GoodsReceiptMaterial
 	
-	if args[15] != "" {
-		p := strings.Split(args[15], ",")
+	if args[14] != "" {
+		p := strings.Split(args[14], ",")
 		for i := range p {
 			c := strings.Split(p[i], "^")
-			material.MaterialId 		= 		c[0]
+			material.Pos 		= 		c[0]
 			material.ProductName 		= 		c[1]
 			material.ProductDescription = 		c[2]
 			material.Quantity 			= 		c[3]
@@ -386,6 +385,11 @@ func saveGoodsReceipt(stub  shim.ChaincodeStubInterface, args []string) pb.Respo
 			material.PricePerUnit 		= 		c[5]
 			material.Currency 			= 		c[6]
 			material.NetAmount 			= 		c[7]
+			material.DispatchedQuantity	= 		c[8]
+			material.BatchNumber		= 		c[9]
+			material.ExpectedDeliveryDate		= 		c[10]
+			material.ReceivedQuantity		= 		c[11]
+			material.Fdf		= 		c[12]
 			bt.MaterialList = append(bt.MaterialList, material)
 		}
 	}

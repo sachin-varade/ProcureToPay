@@ -33,16 +33,41 @@ export class InvoiceManagementComponent implements OnInit {
     .then((results: any) => {
       if(results && results.vendorInvoices){
         this.vendorInvoiceList = results.vendorInvoices;
+        this.financeService.getAllFinanceInvoices('details')
+        .then((results: any) => {
+          if(results && results.financeInvoices){
+            this.vendorInvoiceList.forEach(element => {
+              var finInvoice = results.financeInvoices.filter(function(o){return o.invoiceNumber === element.invoiceNumber; });
+              if(finInvoice && finInvoice.length > 0){
+                element.currentStatus = finInvoice[0].currentStatus;
+              }
+              else{
+                element.currentStatus = "Created";
+              }
+            }); 
+          }
+          else{
+            this.vendorInvoiceList.forEach(element => {
+              element.currentStatus = "Created";
+            }); 
+          }
+        });
       }
     });
   }
 
-  selectInvoice(){
-    this.vendorInvoiceList.forEach(element => {
-      if(element.invoiceNumber === this.financeInvoice.invoiceNumber){
-        this.financeInvoice = JSON.parse(JSON.stringify(element));
-      }
-    });
+  selectInvoice(myForm: NgForm){
+    if(this.financeInvoice && this.financeInvoice.invoiceNumber){
+      this.vendorInvoiceList.forEach(element => {
+        if(element.invoiceNumber === this.financeInvoice.invoiceNumber){
+          this.financeInvoice = JSON.parse(JSON.stringify(element));
+        }
+      });
+    }
+    else{
+      this.clearForm(myForm);
+      this.financeInvoice.invoiceDate = null;
+    }
   }
 
   ngOnInit() {

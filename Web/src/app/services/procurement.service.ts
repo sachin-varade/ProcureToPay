@@ -47,6 +47,26 @@ export class ProcurementService {
     });
   }
 
+  saveGoodsReceipt(purchaseOrder: ProcurementModels.GoodsReceipt): Promise<any> {
+    this.url = `${this.BASE_URL}/saveGoodsReceipt`;
+    return this.http.post(this.url, purchaseOrder).toPromise()
+    .then((results: any) => {
+      return results;
+    }).catch((err) => {
+      this.alertService.error(err);
+    });
+  }
+
+  getAllGoodsReceiptDetails(option: string, value: string = ""): Promise<any> {
+    this.url = `${this.BASE_URL}/getAllGoodsReceiptDetails`;
+    return this.http.get(this.url+"/"+ option +"/"+ value).toPromise()
+    .then((results: any) => {
+      return results;
+    }).catch((err) => {
+      this.alertService.error("Error occured...");
+    });
+  }
+
   getPoData(): Promise<any> {
     const url = `${this.BASE_URL}/getPoData`;
     return this.http.get(url).toPromise()

@@ -343,13 +343,15 @@ func getAllLogisticTransactions(stub  shim.ChaincodeStubInterface, option string
 			allIds.ConsignmentNumbers = append(allIds.ConsignmentNumbers, sb.ConsignmentNumber);	
 		} else if strings.ToLower(option) == "details" {
 			allDetails.LogisticTransactions = append(allDetails.LogisticTransactions, sb);	
+		} else if strings.ToLower(option) == "po" && strings.ToLower(value) == strings.ToLower(sb.PurchaseOrderRefNumber) {
+			allDetails.LogisticTransactions = append(allDetails.LogisticTransactions, sb);	
 		}	
 	}
 
 	if strings.ToLower(option) == "ids" {
 		rabAsBytes, _ := json.Marshal(allIds)		
 		return shim.Success(rabAsBytes)	
-	} else if strings.ToLower(option) == "details" {
+	} else if strings.ToLower(option) == "details" || strings.ToLower(option) == "po" {
 		rabAsBytes, _ := json.Marshal(allDetails)
 		return shim.Success(rabAsBytes)	
 	}
@@ -472,12 +474,14 @@ func getAllGoodsReceiptDetails(stub  shim.ChaincodeStubInterface, option string,
 			allIds.GoodsReceiptNumbers = append(allIds.GoodsReceiptNumbers, sb.GoodsReceiptNumber);	
 		} else if strings.ToLower(option) == "details" {
 			allDetails.GoodsReceiptNumbers = append(allDetails.GoodsReceiptNumbers, sb);	
+		} else if strings.ToLower(option) == "po" && strings.ToLower(value) == strings.ToLower(sb.PurchaseOrderRefNumber) {
+			allDetails.GoodsReceiptNumbers = append(allDetails.GoodsReceiptNumbers, sb);	
 		}
 	}
 	if strings.ToLower(option) == "ids" {
 		rabAsBytes, _ := json.Marshal(allIds)		
 		return shim.Success(rabAsBytes)	
-	} else if strings.ToLower(option) == "details" {
+	} else if strings.ToLower(option) == "details" || strings.ToLower(option) == "po" {
 		rabAsBytes, _ := json.Marshal(allDetails)
 		return shim.Success(rabAsBytes)	
 	}
@@ -534,12 +538,22 @@ func getAllGoodsIssue(stub  shim.ChaincodeStubInterface, option string, value st
 			allIds.GoodsIssueNumbers = append(allIds.GoodsIssueNumbers, sb.GoodsIssueNumber);	
 		} else if strings.ToLower(option) == "details" {
 			allDetails.GoodsIssueList = append(allDetails.GoodsIssueList, sb);	
+		} else if strings.ToLower(option) == "po" {
+			sbAsBytesvso, err := stub.GetState(sb.SalesOrderNumber)
+			if err != nil {
+				return shim.Error("Failed to get SO.")
+			}
+			var vso VendorSalesOrder
+			json.Unmarshal(sbAsBytesvso, &vso)
+			if strings.ToLower(value) == strings.ToLower(vso.PurchaseOrderRefNumber) {
+				allDetails.GoodsIssueList = append(allDetails.GoodsIssueList, sb);	
+			}
 		}
 	}
 	if strings.ToLower(option) == "ids" {
 		rabAsBytes, _ := json.Marshal(allIds)		
 		return shim.Success(rabAsBytes)	
-	} else if strings.ToLower(option) == "details" {
+	} else if strings.ToLower(option) == "details" || strings.ToLower(option) == "po" {
 		rabAsBytes, _ := json.Marshal(allDetails)
 		return shim.Success(rabAsBytes)	
 	}

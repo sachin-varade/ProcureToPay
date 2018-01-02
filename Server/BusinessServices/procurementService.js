@@ -147,6 +147,78 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
         });
     }
 
+    procurementService.getAllGoodsReceiptDetails = function(option, value){
+        console.log("getAllGoodsReceiptDetails");
+        return fabric_client.getUserContext(users.procurementUser.enrollmentID, true)
+        .then((user_from_store) => {
+            helper.checkUserEnrolled(user_from_store);
+            return queryChainCode.queryChainCode(channels.procurementChannelPC, 
+                procurementConfig.channels.procurementchannel.chaincodeId, 
+                "getAllGoodsReceiptDetails", 
+                [option, value]);
+        }).then((results) => {
+            return results;
+        }).catch((err) => {
+            throw err;
+        });
+    }
+
+    procurementService.saveGoodsReceipt = function(goodsReceipt){
+        console.log("saveGoodsReceipt");
+        var orderedMaterial = "";        
+        if(goodsReceipt.orderedMaterial){
+            goodsReceipt.orderedMaterial.forEach(element => {
+            if(orderedMaterial != "")
+                orderedMaterial += ",";
+                orderedMaterial += element.pos 
+                + "^"+ element.productName 
+                + "^"+ element.productDescription 
+                + "^"+ element.quantity.toString() 
+                + "^"+ element.quantityUnit 
+                + "^"+ element.pricePerUnit.toString() 
+                + "^"+ element.currency 
+                + "^"+ element.netAmount.toString()
+                + "^"+ element.dispatchedQuantity.toString()
+                + "^"+ element.batchNumber
+                + "^"+ element.expectedDeliveryDate
+                + "^"+ element.receivedQuantity
+                + "^"+ element.fdf
+            });
+        }
+        return fabric_client.getUserContext(users.procurementUser.enrollmentID, true)
+        .then((user_from_store) => {
+            helper.checkUserEnrolled(user_from_store);            
+            return invokeChainCode.invokeChainCode(fabric_client, 
+                channels.procurementChannelPC, 
+                eventHubPeers.procurementEventHubPeer._url, 
+                //"grpc://localhost:7053",
+                procurementConfig.channels.procurementchannel.chaincodeId, 
+                "saveGoodsReceipt",  
+                [
+                    goodsReceipt.goodsReceiptNumber,
+                    goodsReceipt.goodsReceiptDate,
+                    goodsReceipt.purchaseOrderRefNumber,
+                    goodsReceipt.goodIssueNumber,
+                    goodsReceipt.consignmentNumber,
+                    goodsReceipt.purchaserCompany,
+                    goodsReceipt.purchaserCompanyDept,
+                    goodsReceipt.purchaserContactPersonName,
+                    goodsReceipt.purchaserContactPersonAddress,
+                    goodsReceipt.purchaserContactPersonPhone,
+                    goodsReceipt.purchaserContactPersonEmail,
+                    goodsReceipt.deliverToPersonName,
+                    goodsReceipt.deliveryAddress,
+                    goodsReceipt.totalOrderAmount,
+                    orderedMaterial                    
+                ]                
+            );                
+        }).then((results) => {
+            return results;
+        }).catch((err) => {
+            throw err;
+        });
+    }
+
     procurementService.queryInfo = function(){
         console.log("queryInfo");
         return fabric_client.getUserContext(users.procurementUser.enrollmentID, true)

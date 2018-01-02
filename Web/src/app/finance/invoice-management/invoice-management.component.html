@@ -13,7 +13,7 @@
                               <span class="value-field">
                                 <select class="input-style" [(ngModel)]="financeInvoice.invoiceNumber" (change)="selectInvoice(myForm)" name="invoiceNumber" id="invoiceNumber" required>
                                   <option value=""></option>
-                                  <option *ngFor="let item of vendorInvoiceList" [value]="item.invoiceNumber">{{item.invoiceNumber}}</option>
+                                  <option *ngFor="let item of vendorInvoiceList" [value]="item.invoiceNumber">{{item.invoiceNumber}} ({{item.currentStatus}}) </option>
                                 </select>
                               </span>
                           </div>
@@ -168,15 +168,12 @@
                       </tr>
                   </table>
               </div>
-          </div>
-
-          <div class="btn-area">
-              <button class="btn-border">Cancel</button>
-              <button class="btn-normal">Submit</button>
-          </div>
+          </div>          
           <div class="btn-area">
               <button type="submit" (click)="clearForm(myForm)" class="btn-border">Cancel</button>            
-              <button type="submit" [disabled]="!myForm.form.valid" (click)="saveInvoice(myForm);"  class="btn-normal">Submit</button>
+              <button type="submit" [disabled]="!myForm.form.valid" *ngIf="financeInvoice.invoiceNumber && financeInvoice.currentStatus == 'Created'" (click)="saveInvoice(myForm);"  class="btn-normal">Park Invoice</button>
+              <button type="submit" [disabled]="!myForm.form.valid" *ngIf="financeInvoice.invoiceNumber && financeInvoice.currentStatus == 'Parked'" (click)="saveInvoice(myForm);"  class="btn-normal">Post Invoice</button>
+              <!-- <button type="submit" [disabled]="!myForm.form.valid" *ngIf="financeInvoice.currentStatus == 'Posted'" (click)="saveInvoice(myForm);"  class="btn-normal">Submit</button> -->
           </div>
 
       </div>

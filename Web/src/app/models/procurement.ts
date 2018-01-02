@@ -45,3 +45,39 @@ export class OrderMaterial {
     expectedDeliveryDate: Date;
     netAmount: number;
 }
+
+export class GoodsReceipt {
+    goodsReceiptNumber: string;
+	goodsReceiptDate: Date;
+	purchaseOrderRefNumber: string;
+	goodsIssueNumber: string;
+	consignmentNumber: string;
+	purchaserCompany: string;
+	purchaserCompanyDept: string;
+	purchaserContactPersonName: string;
+	purchaserContactPersonAddress: string;
+	purchaserContactPersonPhone: string;
+	purchaserContactPersonEmail: string;
+	deliverToPersonName: string;
+    deliveryAddress: string;
+    materialList: Array<GoodsReceiptMaterial>;
+	totalOrderAmount: Number;
+}
+
+
+export class GoodsReceiptMaterial {
+    pos: number;  	
+	productName: string;
+	productDescription: string;
+	quantity: Number;
+	quantityUnit: string;
+	pricePerUnit: Number;
+	currency: string;
+	netAmount: Number
+	dispatchedQuantity: Number;
+	sellerProductCode : string; 
+	expectedDeliveryDate: Date;
+	batchNumber : string;
+    receivedQuantity: Number;
+    fdf: string;
+}

@@ -15,29 +15,37 @@
                           <div class="value-block">
                               <label class="label-field">Goods Receipt No</label>
                               <span class="value-field">
-                                  <input type="text" class="input-style">
+                                  <input type="text" [(ngModel)]="goodsReceipt.goodsReceiptNumber" name="goodsReceiptNumber" class="input-style">
                               </span>
                           </div>
 
                           <div class="value-block">
                               <label class="label-field">Goods Receipt Date</label>
-                              <span class="value-field"><input type="text" class="input-style"></span>
+                              <span class="value-field"><input type="text" [(ngModel)]="goodsReceipt.goodsReceiptDate" name="goodsReceiptDate" class="input-style"></span>
                           </div>
 
                           <div class="value-block">
                               <label class="label-field">Purchase Order Ref. No</label>
-                              <span class="value-field"><input type="text" class="input-style"></span>
+                              <span class="value-field"><input (change)="getGoodsReceipt(myForm);" type="text" [(ngModel)]="goodsReceipt.purchaseOrderRefNumber" name="purchaseOrderRefNumber" class="input-style"></span>
                           </div>
 
                           <div class="value-block">
                               <label class="label-field">Goods Issue Number</label>
                               <span class="value-field">
-                                  <select class="input-style">
-                                      <option selected>6363463463634</option>
-                                      <option>346363463634636</option>
+                                  <select class="input-style" [(ngModel)]="goodsReceipt.goodIssueNumber" name="goodIssueNumber">
+                                        <option *ngFor="let item of goodsIssueList" [value]="item.goodsIssueNumber">{{item.goodsIssueNumber}}</option>
                                   </select>
                               </span>
                           </div>
+
+                          <div class="value-block">
+                                <label class="label-field">Consignment Number</label>
+                                <span class="value-field">
+                                    <select class="input-style" [(ngModel)]="goodsReceipt.consignmentNumber" name="consignmentNumber">
+                                          <option *ngFor="let item of logisticTransactionList" [value]="item.consignmentNumber">{{item.consignmentNumber}}</option>
+                                    </select>
+                                </span>
+                            </div>
                       </div>
 
                       <div class="plain-block">
@@ -45,14 +53,14 @@
                           <div class="value-block">
                               <label class="label-field">Delivery to Person</label>
                               <span class="value-field">
-                                  Person Name
+                                  {{goodsReceipt.deliverToPersonName}}
                               </span>
                           </div>
 
                           <div class="value-block">
                               <label class="label-field">Delivery Address</label>
                               <span class="value-field">
-                                  Address line 1, street name, Location Name, City, State
+                                    {{goodsReceipt.deliveryAddress}}
                               </span>
                           </div>
 
@@ -67,26 +75,24 @@
                           <div class="value-block">
                               <label class="label-field">Purchaser Company/Dept</label>
                               <span class="value-field">
-                                  Company Name
+                                    {{goodsReceipt.purchaserCompany}}
                               </span>
                           </div>
 
                           <div class="value-block">
                               <label class="label-field">Purchaser Contact Person</label>
-                              <span class="value-field">Contact Person Name</span>
+                              <span class="value-field">{{goodsReceipt.purchaserContactPersonName}}</span>
                           </div>
 
                           <div class="value-block">
                               <label class="label-field">Purchaser Contact Address/Phone</label>
-                              <span class="value-field">Address line 1, street name, Location Name, City, State</span>
+                              <span class="value-field">{{goodsReceipt.purchaserContactPersonAddress}}</span>
                           </div>
 
                           <div class="value-block">
-                              <label class="label-field">Purchaser Eontact Email</label>
-                              <span class="value-field">name@companyname.com</span>
+                              <label class="label-field">Purchaser Contact Email</label>
+                              <span class="value-field">{{goodsReceipt.purchaserContactPersonEmail}}</span>
                           </div>
-
-                          
                       </div>
 
                   </div>
@@ -101,54 +107,64 @@
               <div class="panel-content clearfix">
                   <table class="table table-striped full-width">
                       <tr>
-                          <th>Product Name</th>
-                          <th>description</th>
-                          <th>Quantity</th>
-                          <th>Units</th>
-                          <th>Unit price</th>
-                          <th>Currency</th>
-                          <th>Net Amount</th>
-                          <th>Dispatched Qty</th>
-                          <th>Batch No</th>
-                          <th>Received Qty</th>
-                      </tr>
-                      <tr>
-                          <td>Product Name 1</td>
-                          <td>Product Description comes here</td>
-                          <td>12</td>
-                          <td>
-                              Kg
-                          </td>
-                          <td>500</td>
-                          <td>
-                              USD
-                          </td>
-                          <td><strong>6000</strong></td>
-                          <td>12</td>
-                          <td>45345354353</td>
-                          <td><input type="text" class="input-style-small"></td>
-                      </tr>
-                      <tr>
-                          <td>Product Name 2</td>
-                          <td>Product Description comes here</td>
-                          <td>19</td>
-                          <td>
-                              Kg
-                          </td>
-                          <td>700</td>
-                          <td>
-                              USD
-                          </td>
-                          <td><strong>9000</strong></td>
-                          <td>15</td>
-                          <td>45345354353</td>
-                          <td><input type="text" class="input-style-small"></td>
-                      </tr>
+                            <th></th>
+                            <th>Pos</th>
+                            <th>Product Name</th>
+                            <th>Description</th>
+                            <!-- <th>Seller Product Code</th> -->
+                            <th>Quantity</th>
+                            <th>Units</th>
+                            <th>Unit price</th>
+                            <th>Currency</th>
+                            <th>Net Amount</th>
+                            <th>Dispatched Qty</th>
+                            <th>Batch No</th>
+                            <th>Received Qty</th>
+                        </tr>
+                        <tr *ngFor="let item of goodsReceipt.materialList; let i = index" [attr.data-index]="i">
+                                <td>
+                                    <input [(ngModel)]="item.selected" type="checkbox" 
+                                    [name]="'receivedQuantity' + item.pos" [id]="'receivedQuantity' + item.pos" 
+                                    class="input-style-small" required>
+                                </td>
+                            <td>
+                                <span>{{item.pos}}</span>
+                            </td>
+                            <td>
+                                <span>{{item.productName}}</span>
+                            </td>
+                            <td>
+                                <span>{{item.productDescription}}</span>
+                            </td>
+                            <!-- <td>
+                              <span>Seller Product Code</span>
+                            </td> -->
+                            <td>
+                                <span>{{item.quantity}}</span> 
+                            </td>
+                            <td>
+                                <span>{{item.quantityUnit}}</span> 
+                            </td>
+                            <td>
+                                <span>{{item.pricePerUnit}}</span> 
+                            </td>
+                            <td>
+                                <span>{{item.currency}}</span> 
+                            </td>
+                            <td>
+                                <strong>{{item.netAmount}}</strong>
+                            </td>
+                            <td>
+                                <span>{{item.dispatchedQuantity}}</span> 
+                            </td>
+                            <td>
+                                <strong>{{item.batchNumber}}</strong>
+                            </td>
+                            <td><input [(ngModel)]="item.receivedQuantity" type="text" [name]="'receivedQuantity' + item.pos" [id]="'receivedQuantity' + item.pos" class="input-style-small" required></td>
+                        </tr>
                   </table>
               </div>
           </div>
-
-          
 
           <div class="btn-area">
               <button class="btn-border">Cancel</button>

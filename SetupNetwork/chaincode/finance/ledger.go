@@ -91,7 +91,7 @@ type AllFinanceInvoiceNumbers struct{
 }
 
 type AllFinanceInvoiceDetails struct{
-	FinanceInvoices 						[]FinanceInvoice `json:"financeInvoice"`
+	FinanceInvoices 						[]FinanceInvoice `json:"financeInvoices"`
 }
 
 

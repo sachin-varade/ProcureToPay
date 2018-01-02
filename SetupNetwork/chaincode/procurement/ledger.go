@@ -201,8 +201,24 @@ type GoodsReceipt struct {
 	PurchaserContactPersonEmail			string		`json:"purchaserContactPersonEmail"`
 	DeliverToPersonName					string		`json:"deliverToPersonName"`
 	DeliveryAddress						string		`json:"deliveryAddress"`
-	MaterialList						[]VendorMaterial		`json:"materialList"`
+	MaterialList						[]GoodsReceiptMaterial		`json:"materialList"`
 	TotalOrderAmount			string		`json:"totalOrderAmount"`
+}
+
+type GoodsReceiptMaterial struct {
+	Pos					string		`json:"pos"`
+	ProductName					string		`json:"productName"`
+	ProductDescription			string		`json:"productDescription"`
+	Quantity					string		`json:"quantity"`	
+	QuantityUnit				string		`json:"quantityUnit"`
+	PricePerUnit				string		`json:"pricePerUnit"`	
+	Currency					string		`json:"currency"`
+	NetAmount					string		`json:"netAmount"`
+	DispatchedQuantity			string		`json:"dispatchedQuantity"`
+	BatchNumber					string		`json:"batchNumber"`
+	SellerProductCode					string		`json:"sellerProductCode"`
+	ExpectedDeliveryDate					string		`json:"expectedDeliveryDate"`
+	ReceivedQuantity			string		`json:"receivedQuantity"`
 	Fdf			string		`json:"fdf"`	
 }
 
