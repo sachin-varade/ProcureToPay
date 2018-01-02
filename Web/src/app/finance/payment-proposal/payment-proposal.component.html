@@ -1,3 +1,104 @@
-<p>
-  payment-proposal works!
-</p>
+<div class="page-container cgt-finance">
+  <div class="container">
+    <h2 class="page-title">Payment Proposal</h2>
+    <form #myForm="ngForm">
+      <div class="content-area">
+        <div class="plain-block mrg-btm-30">
+          <div class="border-box-wrapper">
+
+            <div class="border-box-table">
+              <div class="border-box-row">
+                <div class="border-box col-3">
+                  <label class="label-field">Payment Proposal No</label>
+                  <span class="value-field">
+                    <input [(ngModel)]="this.paymentProposal.paymentProposalNumber" name="paymentProposalNumber" type="text" class="input-style">
+                  </span>
+                </div>
+                <div class="border-box col-3">
+                  <label class="label-field">Vendor/Seller1</label>
+                  <span class="value-field">
+                    <select [(ngModel)]="this.selectedVendor.name" class="input-style" (change)="changeVendor()" name="vendorName" id="vendorName" required>
+                      <option value=""></option>
+                      <option *ngFor="let item of userData.users.vendors" [value]="item.name">{{item.displayName}}</option>
+                    </select>
+                  </span>
+                </div>
+                <div class="border-box col-3">
+                  <label class="label-field">Proposal Date</label>
+                  <span class="value-field">
+                      <input type="text" placeholder="Proposal Date" [(ngModel)]="this.paymentProposal.proposalDate" name="proposalDate" 
+                        class="form-control date-picker-date date-input-small float-left"
+                        bsDatepicker required/>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="border-box-table">
+              <div class="border-box-row">
+                <div class="border-box col-3">
+                  <label class="label-field">Seller Code</label>
+                  <span class="value-field">
+                    <span class="value-field">{{this.paymentProposal.vendorUniqueId}}</span>
+                  </span>
+                </div>
+                <div class="border-box col-3">
+                  <label class="label-field">Bank Account Number</label>
+                  <span class="value-field">{{this.paymentProposal.vendorBankAccountNumber}}</span>
+                </div>
+                <div class="border-box col-3">
+                  <label class="label-field">Bank AccountType</label>
+                  <span class="value-field">{{this.paymentProposal.vendorBankAccountType}}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="plain-block mrg-btm-30">
+              <h5 class="sub-title-sm">Invoices Not Paid</h5>
+              <div class="border-box-wrapper">
+                <table class="table table-striped full-width">
+                  <tr>
+                    <th></th>
+                    <th>Invoice Number</th>
+                    <th>Invoice Date</th>
+                    <th>Gross Amount</th>
+                    <th>Credit Date</th>
+                  </tr>
+                  <tr *ngFor="let item of financeInvoiceList; let i = index" [attr.data-index]="i">
+                    <td>
+                      <span><input type="checkbox"></span>
+                    </td>
+                    <td>
+                      <span>{{item.invoiceNumber}}</span>
+                    </td>
+                    <td>
+                      <span>{{item.invoiceDate}}</span>
+                    </td>
+                    <td>
+                      <span>{{item.grossAmount}}</span>
+                    </td>
+                    <td>
+                      <span class="value-field">
+                          <input type="text" placeholder="Credit Date" [(ngModel)]="this.paymentProposal.proposalDate" name="proposalDate" 
+                            class="form-control date-picker-date date-input-small float-left"
+                            bsDatepicker required/>
+                      </span>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="btn-area">
+          <button type="submit" (click)="clearForm(myForm)" class="btn-border">Clear</button>
+          <button type="submit" [disabled]="!myForm.form.valid" (click)="savePaymentProposal(myForm);" class="btn-normal">Create Payment Proposal</button>
+
+        </div>
+
+      </div>
+    </form>
+  </div>
+</div>

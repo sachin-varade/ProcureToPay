@@ -47,3 +47,26 @@ export class  Material {
 	// --- below added for goods issue.
 	batchNumber : string;
 }
+
+export class PaymentProposal {
+	paymentProposalNumber : string;
+	proposalDate : Date;
+	vendorUniqueId : string;
+	vendorBankAccountNumber : string;
+	vendorBankAccountType : string;
+	vendorBankUniqueId : string;
+	createdBy : string;
+	createdDate : Date;
+	paymentProposalDetails : Array<PaymentProposalDetail> = new Array<PaymentProposalDetail>();
+}
+
+export class PaymentProposalDetail {
+	paymentProposalNumber : string;
+	proposalDate : Date;
+	tax : Number;
+	amount : Number;
+	poReferenceNumber : string;
+	invoiceRefernceNumber : string;
+	status: string;
+	bankProcessingDate : Date;
+}

@@ -137,6 +137,60 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
         });
     }
 
+    financeService.savePaymentProposal = function(paymentProposal){
+        console.log("savePaymentProposal");        
+
+        var details = "";        
+        if(paymentProposal.paymentProposalDetails){
+            paymentProposal.paymentProposalDetails.forEach(element => {
+                if(details != "") {
+                    details += ",";
+                }
+                details += element.paymentProposalNumber 
+                + "^"+ element.proposalDate 
+                + "^"+ element.tax.toString()
+                + "^"+ element.amount.toString() 
+                + "^"+ element.poReferenceNumber 
+                + "^"+ element.invoiceRefernceNumber 
+                + "^"+ element.status 
+                + "^"+ element.bankProcessingDate;
+            });
+        }
+
+        return fabric_client.getUserContext(users.financeUser.enrollmentID, true)
+        .then((user_from_store) => {
+            helper.checkUserEnrolled(user_from_store);            
+            return invokeChainCode.invokeChainCode(fabric_client, 
+                channels.financeChannelFC, 
+                eventHubPeers.financeEventHubPeer._url, 
+                //"grpc://localhost:7053",
+                financeConfig.channels.financechannel.chaincodeId, 
+                "savePaymentProposal",  
+                [ 
+                    paymentProposal.paymentProposalNumber,
+                    paymentProposal.proposalDate,
+                    paymentProposal.vendorUniqueId,
+                    paymentProposal.vendorBankAccountNumber,
+                    paymentProposal.vendorBankAccountType,
+                    paymentProposal.vendorBankUniqueId,
+                    paymentProposal.createdBy,
+                    paymentProposal.createdDate,
+                    details
+                ]                
+            );                
+        }).then((results) => {
+            return results;
+        }).catch((err) => {
+            if(err.message.indexOf("SMART_CONTRACT") > -1){
+                return {
+                    type: "ERROR",
+                    message: err.message
+                }
+            }            
+            throw err;
+        });
+    }
+
     financeService.queryInfo = function(){
         console.log("queryInfo");
         return fabric_client.getUserContext(users.financeUser.enrollmentID, true)
