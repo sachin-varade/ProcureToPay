@@ -1,0 +1,185 @@
+<div class="page-container cgt-finance">
+  <div class="container">
+      <form #myForm="ngForm">
+      <h2 class="page-title">Invoice Management</h2>
+      <div class="content-area">
+          <div class="plain-block mrg-btm-30">
+              <h5 class="sub-title-sm">Invoice Details</h5>
+              <div class="border-box-wrapper">
+                  <div class="border-box-table">
+                      <div class="border-box-row">
+                          <div class="border-box col-3">
+                              <label class="label-field">Invoice No</label>
+                              <span class="value-field">
+                                <select class="input-style" [(ngModel)]="financeInvoice.invoiceNumber" (change)="selectInvoice(myForm)" name="invoiceNumber" id="invoiceNumber" required>
+                                  <option value=""></option>
+                                  <option *ngFor="let item of vendorInvoiceList" [value]="item.invoiceNumber">{{item.invoiceNumber}}</option>
+                                </select>
+                              </span>
+                          </div>
+                          <div class="border-box col-3">
+                              <label class="label-field">Invoice Date</label>
+                              <span class="value-field">
+                                  {{financeInvoice.invoiceDate | date : "short"}}
+                              </span>
+                          </div>
+                          <div class="border-box col-3 end-box">
+                              <label class="label-field">PO Ref. No</label>
+                              <span class="value-field">
+                                <input type="text" [(ngModel)]="financeInvoice.purchaseOrderRefNumber" name="purchaseOrderRefNumber" class="input-style">
+                              </span>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="border-box-table">
+                      <div class="border-box-row">
+                          <div class="border-box col-3">
+                              <label class="label-field">PO Date</label>
+                              <span class="value-field">{{financeInvoice.purchaseOrderRefDate | date : "short"}}</span>
+                          </div>
+                          <div class="border-box col-3">
+                              <label class="label-field">Goods Issue No</label>
+                              <span class="value-field">
+                                  <input type="text" [(ngModel)]="financeInvoice.goodsIssueNumber" name="goodsIssueNumber" class="input-style">
+                              </span>
+                          </div>
+                          <div class="border-box col-3 end-box">
+                              <label class="label-field">Goods Issue Date</label>
+                              <span class="value-field">{{financeInvoice.goodsIssueDate | date : "short"}}</span>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="border-box-table">
+                      <div class="border-box-row">
+                          <div class="border-box col-3">
+                              <label class="label-field">Sales Order No</label>
+                              <span class="value-field">
+                                  <input type="text" [(ngModel)]="financeInvoice.salesOrderNumber" name="salesOrderNumber" class="input-style">
+                              </span>
+                          </div>
+                          <div class="border-box col-3">
+                              <label class="label-field">Purchaser Company/Dept</label>
+                              <span class="value-field">{{financeInvoice.purchaserCompany}}</span>
+                          </div>
+                          <div class="border-box col-3 end-box">
+                              <label class="label-field">Purchaser contact person</label>
+                              <span class="value-field">{{financeInvoice.purchaserContactPersonName}}</span>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="border-box-table">
+                      <div class="border-box-row">
+                          <div class="border-box col-3">
+                              <label class="label-field">Purchaser Contact Address/Phone</label>
+                              <span class="value-field">
+                                {{financeInvoice.purchaserContactPersonAddress}}
+                              </span>
+                          </div>
+                          <div class="border-box col-3">
+                              <label class="label-field">Purchaser Contact Email</label>
+                              <span class="value-field">{{financeInvoice.purchaserContactPersonEmail}}</span>
+                          </div>
+                          <div class="border-box col-3 end-box">
+                              <label class="label-field">Delivery to Person</label>
+                              <span class="value-field">{{financeInvoice.deliverToPersonName}}</span>
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="border-box-table">
+                      <div class="border-box-row">
+                          <div class="border-box col-3">
+                              <label class="label-field">Delivery Address</label>
+                              <span class="value-field">
+                                {{financeInvoice.deliveryAddress}}
+                              </span>
+                          </div>
+                          <div class="border-box col-3">
+                              <label class="label-field">Bill-to-address</label>
+                              <span class="value-field">
+                                  <input type="text" [(ngModel)]="financeInvoice.invoicePartyId" name="invoicePartyId" class="input-style">
+                              </span>
+                          </div>
+                          <div class="border-box col-3 end-box">
+                              <label class="label-field">Invoice Address</label>
+                              <span class="value-field">
+                                {{financeInvoice.invoiceAddress}}
+                              </span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <div class="plain-block mrg-btm-30">
+              <h5 class="sub-title-sm">Meterial Details</h5>
+              <div class="border-box-wrapper" style="padding:0 10px;">
+                  <table class="table table-striped table-bordered full-width">
+                      <tr>
+                          <th>Pos</th>
+                          <th>Product Name</th>
+                          <th>Description</th>
+                          <!-- <th>Seller Product Code</th> -->
+                          <th>Quantity</th>
+                          <th>Units</th>
+                          <th>Unit price</th>
+                          <th>Currency</th>
+                          <th>Net Amount</th>
+                          <th>Dispatched Qty</th>
+                          <th>Batch No</th>
+                      </tr>
+                      <tr *ngFor="let item of financeInvoice.materialList; let i = index" [attr.data-index]="i">
+                          <td>
+                              <span>{{item.materialId}}</span>
+                          </td>
+                          <td>
+                              <span>{{item.productName}}</span>
+                          </td>
+                          <td>
+                              <span>{{item.productDescription}}</span>
+                          </td>
+                          <!-- <td>
+                            <span>Seller Product Code</span>
+                          </td> -->
+                          <td>
+                              <span>{{item.quantity}}</span> 
+                          </td>
+                          <td>
+                              <span>{{item.quantityUnit}}</span> 
+                          </td>
+                          <td>
+                              <span>{{item.pricePerUnit}}</span> 
+                          </td>
+                          <td>
+                              <span>{{item.currency}}</span> 
+                          </td>
+                          <td>
+                              <strong>{{item.netAmount}}</strong>
+                          </td>
+                          <td>
+                              <span>{{item.dispatchedQuantity}}</span> 
+                          </td>
+                          <td>
+                              <strong>{{item.batchNumber}}</strong>
+                          </td>
+
+                      </tr>
+                  </table>
+              </div>
+          </div>
+
+          <div class="btn-area">
+              <button class="btn-border">Cancel</button>
+              <button class="btn-normal">Submit</button>
+          </div>
+          <div class="btn-area">
+              <button type="submit" (click)="clearForm(myForm)" class="btn-border">Cancel</button>            
+              <button type="submit" [disabled]="!myForm.form.valid" (click)="saveInvoice(myForm);"  class="btn-normal">Submit</button>
+          </div>
+
+      </div>
+      </form> 
+  </div>
+</div>

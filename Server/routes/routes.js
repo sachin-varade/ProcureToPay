@@ -130,6 +130,22 @@ router.get("/getAllLogisticTransactions/:option/:value?", function(req, res) {
 });
 
 
+// ------------------------ FINANCE routes --------------------
+router.post("/saveFinanceInvoice", function(req, res) {    
+	var promise = financeService.saveFinanceInvoice(req.body);
+	promise.then(function(resp,err){
+		res.send(resp);
+	});	
+});
+
+router.get("/getAllFinanceInvoices/:option/:value?", function(req, res) {    
+    var promise = financeService.getAllFinanceInvoices(req.params.option, req.params.value?req.params.value: "");
+	promise.then(function(resp,err){
+		res.send(resp);
+	});	
+});
+
+
 // ------------------------ UNIQUE IDs routes --------------------
 router.get("/procurement/getUniqueId/:option/:value?", function(req, res) {    
     var promise = logisticService.getUniqueId(req.params.option, req.params.value?req.params.value: "");

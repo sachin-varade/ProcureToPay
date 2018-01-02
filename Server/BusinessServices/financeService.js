@@ -25,6 +25,102 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
     eventHubPeers = eventHubPeers;
     orderer = orderer;
 
+    financeService.saveFinanceInvoice = function(invoice){
+        console.log("saveFinanceInvoice");        
+
+        var orderedMaterial = "";        
+        if(invoice.materialList){
+            invoice.materialList.forEach(element => {
+                if(orderedMaterial != "") {
+                    orderedMaterial += ",";
+                }
+                orderedMaterial += element.materialId 
+                + "^"+ element.productName 
+                + "^"+ element.productDescription 
+                + "^"+ element.quantity.toString() 
+                + "^"+ element.quantityUnit 
+                + "^"+ element.pricePerUnit.toString() 
+                + "^"+ element.currency 
+                + "^"+ element.netAmount.toString()
+                + "^"+ element.dispatchedQuantity.toString()
+                + "^"+ element.batchNumber
+                + "^"+ element.expectedDeliveryDate;
+            });
+        }
+
+        var status, updatedBy, updatedOn = "";
+        if(invoice.statusUpdates && invoice.statusUpdates.length > 0){
+            status = invoice.statusUpdates[invoice.statusUpdates.length-1].status;
+            updatedBy = invoice.statusUpdates[invoice.statusUpdates.length-1].updatedBy.toString();
+            updatedOn = invoice.statusUpdates[invoice.statusUpdates.length-1].updatedOn;
+        }
+
+        return fabric_client.getUserContext(users.financeUser.enrollmentID, true)
+        .then((user_from_store) => {
+            helper.checkUserEnrolled(user_from_store);            
+            return invokeChainCode.invokeChainCode(fabric_client, 
+                channels.financeChannelFC, 
+                eventHubPeers.financeEventHubPeer._url, 
+                //"grpc://localhost:7053",
+                financeConfig.channels.financechannel.chaincodeId, 
+                "saveFinanceInvoice",  
+                [ 
+                    invoice.invoiceNumber,
+                    invoice.invoiceDate,
+                    invoice.goodsIssueNumber,
+                    invoice.goodsIssueDate,
+                    invoice.salesOrderNumber,
+                    invoice.purchaseOrderRefNumber,
+                    invoice.purchaseOrderRefDate,
+                    invoice.supplierCode,
+                    invoice.purchaserCompany,
+                    invoice.purchaserCompanyDept,
+                    invoice.purchaserContactPersonName,
+                    invoice.purchaserContactPersonAddress,
+                    invoice.purchaserContactPersonPhone,
+                    invoice.purchaserContactPersonEmail,
+                    invoice.deliverToPersonName,
+                    invoice.deliveryAddress,
+                    invoice.invoicePartyId,
+                    invoice.invoiceAddress,
+                    invoice.grossAmount.toString(),
+                    invoice.vatNumber, 
+                    orderedMaterial,
+                    invoice.invoicePublishDate,
+                    status,
+                    updatedBy,
+                    updatedOn
+                ]                
+            );                
+        }).then((results) => {
+            return results;
+        }).catch((err) => {
+            if(err.message.indexOf("SMART_CONTRACT") > -1){
+                return {
+                    type: "ERROR",
+                    message: err.message
+                }
+            }            
+            throw err;
+        });
+    }
+    
+    financeService.getAllFinanceInvoices = function(option, value){
+        console.log("getAllFinanceInvoices");
+        return fabric_client.getUserContext(users.financeUser.enrollmentID, true)
+        .then((user_from_store) => {
+            helper.checkUserEnrolled(user_from_store);
+            return queryChainCode.queryChainCode(channels.financeChannelFC, 
+                financeConfig.channels.financechannel.chaincodeId, 
+                "getAllFinanceInvoices", 
+                [option, value]);
+        }).then((results) => {
+            return results;
+        }).catch((err) => {
+            throw err;
+        });
+    }
+
     financeService.getUniqueId = function(option, value){
         console.log("getUniqueId");
         return fabric_client.getUserContext(users.financeUser.enrollmentID, true)

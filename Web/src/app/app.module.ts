@@ -38,9 +38,10 @@ import { PoFulfilmentComponent } from './vendor/po-fulfilment/po-fulfilment.comp
 import { PoTrackerComponent } from './procurement/po-tracker/po-tracker.component';
 import { CreateConsignmentComponent } from './logistic/create-consignment/create-consignment.component';
 import { GoodsReceiptComponent } from './procurement/goods-receipt/goods-receipt.component';
-import { InvoiceManagementComponent } from './procurement/invoice-management/invoice-management.component';
+import { InvoiceManagementComponent } from './finance/invoice-management/invoice-management.component';
 import { GoodsIssueComponent } from './vendor/goods-issue/goods-issue.component';
 import { GenerateInvoiceComponent } from './vendor/generate-invoice/generate-invoice.component';
+import { PaymentProposalComponent } from './finance/payment-proposal/payment-proposal.component';
 
 const appRoutes:Routes = [
   {
@@ -94,7 +95,7 @@ const appRoutes:Routes = [
     component: GoodsReceiptComponent
   },
   {
-    path: 'procurement/invoice-management',
+    path: 'finance/invoice-management',
     canActivate: [AuthguardGuard],
     component: InvoiceManagementComponent
   },
@@ -123,7 +124,7 @@ const appRoutes:Routes = [
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, LoginComponent, FooterComponent, 
-    DashboardComponent, DialogComponent, BlockComponent, AlertComponent, PoCreationComponent, PoFulfilmentComponent, PoTrackerComponent, CreateConsignmentComponent, GoodsReceiptComponent, InvoiceManagementComponent, GoodsIssueComponent, GenerateInvoiceComponent],
+    DashboardComponent, DialogComponent, BlockComponent, AlertComponent, PoCreationComponent, PoFulfilmentComponent, PoTrackerComponent, CreateConsignmentComponent, GoodsReceiptComponent, InvoiceManagementComponent, GoodsIssueComponent, GenerateInvoiceComponent, PaymentProposalComponent],
   imports: [  
   RouterModule.forRoot(appRoutes),
   FormsModule,

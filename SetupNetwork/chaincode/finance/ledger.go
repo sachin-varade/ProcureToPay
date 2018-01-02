@@ -39,83 +39,59 @@ func main() {
 type SimpleChaincode struct {
 }
 
-type IkeaReceived struct {
-	IkeaReceivedNumber					string	`json:"ikeaReceivedNumber"`
-	IkeaId							string	`json:"ikeaId"`
-	PurchaseOrderNumber					string	`json:"purchaseOrderNumber"`	
-	ConsignmentNumber					string	`json:"consignmentNumber"`	
-	TransportConsitionSatisfied			string	`json:"transportConsitionSatisfied"`
-	GUIDNumber							string	`json:"guidNumber"`
-	MaterialName						string	`json:"materialName"`
-	MaterialGrade						string	`json:"materialGrade"`	
-	Quantity							string	`json:"quantity"`
-	QuantityUnit						string	`json:"quantityUnit"`	
-	UsedByDate							string	`json:"usedByDate"`
-	ReceivedDate						string	`json:"receivedDate"`	
-	TransitTime							string	`json:"transitTime"`
-	Storage								string	`json:"storage"`
-	AcceptanceCheckList					[]AcceptanceCriteria	`json:"acceptanceCheckList"`
-	UpdatedOn							string	`json:"updatedOn"`
-	UpdatedBy							string	`json:"updatedBy"`
+type Material struct {
+	MaterialId					string		`json:"materialId"`
+	ProductName					string		`json:"productName"`
+	ProductDescription			string		`json:"productDescription"`
+	Quantity					string		`json:"quantity"`	
+	QuantityUnit				string		`json:"quantityUnit"`
+	PricePerUnit				string		`json:"pricePerUnit"`	
+	Currency					string		`json:"currency"`
+	NetAmount					string		`json:"netAmount"`
+	DispatchedQuantity			string		`json:"dispatchedQuantity"`
+	BatchNumber					string		`json:"batchNumber"`
+	ExpectedDeliveryDate					string		`json:"expectedDeliveryDate"`
 }
 
-type AcceptanceCriteria struct {
-	Id						string	`json:"id"`	
-	RuleCondition			string	`json:"ruleCondition"`
-	ConditionSatisfied		string	`json:"conditionSatisfied"`
+type FinanceInvoice struct {
+	InvoiceNumber						string		`json:"invoiceNumber"`
+	InvoiceDate							string		`json:"invoiceDate"`
+	InvoicePublishDate							string		`json:"invoicePublishDate"`
+	GoodsIssueNumber					string		`json:"goodsIssueNumber"`
+	GoodsIssueDate						string		`json:"goodsIssueDate"`
+	SalesOrderNumber					string		`json:"salesOrderNumber"`
+	PurchaseOrderRefNumber				string		`json:"purchaseOrderRefNumber"`
+	PurchaseOrderRefDate				string		`json:"purchaseOrderRefDate"`
+	SupplierCode						string		`json:"supplierCode"`
+	PurchaserCompany					string		`json:"purchaserCompany"`
+	PurchaserCompanyDept				string		`json:"purchaserCompanyDept"`
+	PurchaserContactPersonName			string		`json:"purchaserContactPersonName"`
+	PurchaserContactPersonAddress		string		`json:"purchaserContactPersonAddress"`
+	PurchaserContactPersonPhone			string		`json:"purchaserContactPersonPhone"`
+	PurchaserContactPersonEmail			string		`json:"purchaserContactPersonEmail"`
+	DeliverToPersonName					string		`json:"deliverToPersonName"`
+	DeliveryAddress						string		`json:"deliveryAddress"`
+	InvoicePartyId						string		`json:"invoicePartyId"`
+	InvoiceAddress						string		`json:"invoiceAddress"`
+	GrossAmount							string		`json:"grossAmount"`
+	VatNumber							string		`json:"vatNumber"`
+	MaterialList						[]Material		`json:"materialList"`
+	StatusUpdates						[]StatusUpdates		`json:"statusUpdates"`
+	CurrentStatus							string		`json:"currentStatus"`
 }
 
-
-type IkeaDispatch struct {
-	IkeaDispatchNumber					string	`json: "ikeaDispatchNumber"`
-	IkeaReceivedNumber					string	`json:"ikeaReceivedNumber"`
-	IkeaId							string	`json:"ikeaId"`
-	GUIDNumber							string	`json:"guidNumber"`
-	MaterialName						string	`json:"materialName"`
-	MaterialGrade						string	`json:"materialGrade"`	
-	Quantity							string	`json:"quantity"`
-	QuantityUnit						string	`json:"quantityUnit"`	
-	DispatchDateTime					string	`json:"dispatchDateTime"`
-	SoldFromDate					string	`json:"soldFromDate"`
-	SoldUntillDate					string	`json:"soldUntillDate"`
-	PreparedBy					string	`json:"preparedBy"`
-	PreparedOn					string	`json:"preparedOn"`
-	SoldAt					string	`json:"soldAt"`
+type StatusUpdates struct{
+	Status 						string 	`json:"status"`
+	UpdatedBy 						string 	`json:"updatedBy"`
+	UpdatedOn 						string 	`json:"updatedOn"`
 }
 
-type IkeaBill struct {
-	BillNumber							string	`json:"billNumber"`	
-	BillDateTime						string	`json:"billDateTime"`		
-	IkeaFamily							string	`json:"ikeaFamily"`
-	GUIDUniqueNumber					string	`json:"guidUniqueNumber"`
-	MaterialName						string	`json:"materialName"`
-	Quantity							string	`json:"quantity"`
-	IkeaDispatchNumber					string	`json:"ikeaDispatchNumber"`
-	Amount							string	`json:"amount"`
+type AllFinanceInvoiceNumbers struct{
+	InvoiceNumbers 						[]string 	`json:"invoiceNumbers"`
 }
 
-type AllIkeaReceivedIds struct{
-	IkeaReceivedNumbers []string	`json:"ikeaReceivedNumbers"`
-}
-
-type AllIkeaReceivedDetails struct{
-	IkeaReceived []IkeaReceived	`json:"ikeaReceived"`
-}
-
-type AllIkeaDispatchIds struct{
-	IkeaDispatchNumbers []string	`json:"ikeaDispatchNumbers"`
-}
-
-type AllIkeaDispatchDetails struct{
-	IkeaDispatch []IkeaDispatch	`json:"ikeaDispatch"`
-}
-
-type AllIkeaBillNumbers struct{
-	IkeaBillNumbers []string	`json:"ikeaBillNumbers"`
-}
-
-type AllIkeaBillNumberDetails struct{
-	IkeaBillNumbers []IkeaBill	`json:"ikeaBillNumbers"`
+type AllFinanceInvoiceDetails struct{
+	FinanceInvoices 						[]FinanceInvoice `json:"financeInvoice"`
 }
 
 
@@ -148,23 +124,9 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response {
 		}
 	}
 	
-	var allIkeaReceivedIds AllIkeaReceivedIds
-	jsonAsBytesAllIkeaReceivedIds, _ := json.Marshal(allIkeaReceivedIds)
-	err = stub.PutState("allIkeaReceivedIds", jsonAsBytesAllIkeaReceivedIds)
-	if err != nil {		
-		return shim.Error(err.Error())
-	}
-
-	var allIkeaDispatchIds AllIkeaDispatchIds
-	jsonAsBytesAllIkeaDispatchIds, _ := json.Marshal(allIkeaDispatchIds)
-	err = stub.PutState("allIkeaDispatchIds", jsonAsBytesAllIkeaDispatchIds)
-	if err != nil {		
-		return shim.Error(err.Error())
-	}
-
-	var allIkeaBillNumbers AllIkeaBillNumbers
-	jsonAsBytesAllIkeaBillNumbers, _ := json.Marshal(allIkeaBillNumbers)
-	err = stub.PutState("allIkeaBillNumbers", jsonAsBytesAllIkeaBillNumbers)
+	var allFinanceInvoiceNumbers AllFinanceInvoiceNumbers
+	jsonAsBytesAllFinanceInvoiceNumbers, _ := json.Marshal(allFinanceInvoiceNumbers)
+	err = stub.PutState("allFinanceInvoiceNumbers", jsonAsBytesAllFinanceInvoiceNumbers)
 	if err != nil {		
 		return shim.Error(err.Error())
 	}
@@ -184,20 +146,10 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 	// Handle different functions
 	if function == "init" {                    //initialize the chaincode state, used as reset
 		return t.Init(stub)
-	} else if function == "getAllIkeaReceived" {
-		return getAllIkeaReceived(stub, args[0], args[1])
-	} else if function == "saveIkeaReceived" {
-		return saveIkeaReceived(stub, args)
-	} else if function == "getAllIkeaDispatch" {
-		return getAllIkeaDispatch(stub, args[0], args[1])
-	} else if function == "saveIkeaDispatch" {
-		return saveIkeaDispatch(stub, args)
-	} else if function == "saveIkeaBill" {
-		return saveIkeaBill(stub, args)
-	} else if function == "getIkeaBillDetails" {
-		return getIkeaBillDetails(stub, args[0], args[1])
-	} else if function == "getUniqueId" {
-		return getUniqueId(stub, args[0], args[1])
+	} else if function == "getAllFinanceInvoices" {
+		return getAllFinanceInvoices(stub, args[0], args[1])
+	} else if function == "saveFinanceInvoice" {
+		return saveFinanceInvoice(stub, args)
 	}
 	
 	// error out

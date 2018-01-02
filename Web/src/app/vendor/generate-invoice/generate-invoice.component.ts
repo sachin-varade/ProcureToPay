@@ -4,7 +4,6 @@ import { VendorService } from '../../services/vendor.service';
 import { UserService } from '../../services/user.service';
 import { AlertService } from '../../services/alert.service';
 import * as VendorModels from '../../models/vendor';
-import { StatusUpdates } from '../../models/vendor';
 
 @Component({
   selector: 'app-generate-invoice',

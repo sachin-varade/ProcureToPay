@@ -28,197 +28,101 @@ import (
 	pb "github.com/hyperledger/fabric/protos/peer"
 )
 
-//Create Ikea Received block
-func saveIkeaReceived(stub  shim.ChaincodeStubInterface, args []string) pb.Response {	
+
+//------------------------------------------------------------------------------------
+//	Save finance invoice
+//------------------------------------------------------------------------------------
+func saveFinanceInvoice(stub  shim.ChaincodeStubInterface, args []string) pb.Response {	
 	var err error
-	fmt.Println("Running saveIkeaReceived..")
+	fmt.Println("Running saveFinanceInvoice..")
 
-	if len(args) != 17 {
-		fmt.Println("Incorrect number of arguments. Expecting 17")
-		return shim.Error("Incorrect number of arguments. Expecting 17")
+	if len(args) != 25 {
+		fmt.Println("Incorrect number of arguments. Expecting 25 - ..")
+		return shim.Error("Incorrect number of arguments. Expecting 25")
 	}
 
-	fmt.Println("Arguments :"+args[0]+","+args[1]+","+args[2]+","+args[3]+","+args[4]+","+args[5]+","+args[6]+","+args[7]+","+args[8]+","+args[9]+","+args[10]);
+	fmt.Println("Arguments :"+args[0]+","+args[1]+","+args[2]+","+args[3]+","+args[4]+","+args[5]+","+args[6]+","+args[7]+","+args[8]+","+args[9]+","+args[10]+","+args[11]+","+args[12]);
+	fmt.Println("Arguments :"+args[13]+","+args[14]+","+args[15]+","+args[16]+","+args[17]+","+args[18]+","+args[19]);
 
-	//check duplicate 	
-	allBAsBytes, err := stub.GetState("allIkeaReceivedIds")
+	allBAsBytes, err := stub.GetState("allFinanceInvoiceNumbers")
 	if err != nil {
-		return shim.Error("Failed to get all Ikea Received Ids")
+		return shim.Error("Failed to get all Finance Invoice Numbers")
 	}
-	var allb AllIkeaReceivedIds
+	var allb AllFinanceInvoiceNumbers
 	err = json.Unmarshal(allBAsBytes, &allb)
 	if err != nil {
-		return shim.Error("Failed to Unmarshal all Received")
+		return shim.Error("Failed to Unmarshal all Finance Invoice Numbers")
 	}
-	if checkDuplicateId(allb.IkeaReceivedNumbers, args[0]) == 0{
-		return shim.Error("Duplicate IkeaReceivedNumber - "+ args[0])
+	if checkDuplicateId(allb.InvoiceNumbers, args[0]) == 0{
+		return shim.Error("Duplicate Finance Invoice Number - "+ args[0])
 	}
 
-	var bt IkeaReceived
-	bt.IkeaReceivedNumber				= args[0]
-	bt.IkeaId						= args[1]
-	bt.PurchaseOrderNumber				= args[2]
-	bt.ConsignmentNumber				= args[3]	
-	bt.TransportConsitionSatisfied		= args[4]
-	bt.GUIDNumber						= args[5]
-	bt.MaterialName						= args[6]
-	bt.MaterialGrade					= args[7]	
-	bt.Quantity							= args[8]
-	bt.QuantityUnit						= args[9]	
-	bt.UsedByDate						= args[10]
-	bt.ReceivedDate						= args[11]
-	bt.TransitTime						= args[12]
-	bt.Storage							= args[13]
-	bt.UpdatedBy						= args[15]
-	bt.UpdatedOn						= args[16]
+	var bt FinanceInvoice
+	bt.InvoiceNumber					= args[0]
+	bt.InvoiceDate						= args[1]
+	bt.GoodsIssueNumber					= args[2]	
+	bt.GoodsIssueDate					= args[3]		
+	bt.SalesOrderNumber 				= args[4]
+	bt.PurchaseOrderRefNumber 			= args[5]
+	bt.PurchaseOrderRefDate 			= args[6]
+	bt.SupplierCode 					= args[7]
+	bt.PurchaserCompany 				= args[8]
+	bt.PurchaserCompanyDept 			= args[9]
+	bt.PurchaserContactPersonName 		= args[10]
+	bt.PurchaserContactPersonAddress 	= args[11]
+	bt.PurchaserContactPersonPhone 		= args[12]
+	bt.PurchaserContactPersonEmail 		= args[13]
+	bt.DeliverToPersonName 				= args[14]
+	bt.DeliveryAddress 					= args[15]
+	bt.InvoicePartyId 					= args[16]
+	bt.InvoiceAddress 					= args[17]
+	bt.GrossAmount 						= args[18]
+	bt.VatNumber 						= args[19]
+	bt.InvoicePublishDate 						= args[21]
+	bt.CurrentStatus 						= args[22]
 
-	var acceptanceCriteria AcceptanceCriteria
-	
-	if args[14] != "" {
-		p := strings.Split(args[14], ",")
+	var st StatusUpdates
+	st.Status = args[22]
+	st.UpdatedBy = args[23]
+	st.UpdatedOn = args[24]
+	bt.StatusUpdates = append(bt.StatusUpdates, st)	
+
+	var material Material
+	if args[20] != "" {
+		p := strings.Split(args[20], ",")
 		for i := range p {
 			c := strings.Split(p[i], "^")
-			acceptanceCriteria.Id 					= c[0]
-			acceptanceCriteria.RuleCondition 		= c[1]
-			acceptanceCriteria.ConditionSatisfied 	= c[2]
-			bt.AcceptanceCheckList	= append(bt.AcceptanceCheckList, acceptanceCriteria)
+			material.MaterialId 		= 		c[0]
+			material.ProductName 		= 		c[1]
+			material.ProductDescription = 		c[2]
+			material.Quantity 			= 		c[3]
+			material.QuantityUnit 		= 		c[4]
+			material.PricePerUnit 		= 		c[5]
+			material.Currency 			= 		c[6]
+			material.NetAmount 			= 		c[7]
+			material.DispatchedQuantity	= 		c[8]
+			material.BatchNumber		= 		c[9]
+			material.ExpectedDeliveryDate		= 		c[10]
+			bt.MaterialList = append(bt.MaterialList, material)
 		}
 	}
-
-	//Commit Inward entry to ledger
-	fmt.Println("saveIkeaReceived - Commit Ikea Received To Ledger");
+	
+	//Commit Sales Order entry to ledger
+	fmt.Println("saveFinanceInvoice - Commit Finance Invoice To Ledger");
 	btAsBytes, _ := json.Marshal(bt)
-	err = stub.PutState(bt.IkeaReceivedNumber, btAsBytes)
-	if err != nil {		
+	err = stub.PutState(bt.InvoiceNumber, btAsBytes)
+	if err != nil {
 		return shim.Error(err.Error())
 	}
 
-	allb.IkeaReceivedNumbers = append(allb.IkeaReceivedNumbers, bt.IkeaReceivedNumber)
+	//Update All Abattoirs Array	
+	allb.InvoiceNumbers = append(allb.InvoiceNumbers, bt.InvoiceNumber)
 
 	allBuAsBytes, _ := json.Marshal(allb)
-	err = stub.PutState("allIkeaReceivedIds", allBuAsBytes)
+	err = stub.PutState("allFinanceInvoiceNumbers", allBuAsBytes)
 	if err != nil {
 		return shim.Error(err.Error())
 	}
 
 	return shim.Success(nil)
 }
-
-
-//Create Ikea Dispatch block
-func saveIkeaDispatch(stub  shim.ChaincodeStubInterface, args []string) pb.Response {	
-	var err error
-	fmt.Println("Running saveIkeaDispatch..")
-
-	if len(args) != 14 {
-		fmt.Println("Incorrect number of arguments. Expecting 14")
-		return shim.Error("Incorrect number of arguments. Expecting 14")
-	}
-
-	fmt.Println("Arguments :"+args[0]+","+args[1]+","+args[2]+","+args[3]+","+args[4]+","+args[5]+","+args[6]+","+args[7]);
-
-	allBAsBytes, err := stub.GetState("allIkeaDispatchIds")
-	if err != nil {
-		return shim.Error("Failed to get all Ikea Dispatch Ids")
-	}
-	var allb AllIkeaDispatchIds
-	err = json.Unmarshal(allBAsBytes, &allb)
-	if err != nil {
-		return shim.Error("Failed to Unmarshal all Dispatch")
-	}
-	if checkDuplicateId(allb.IkeaDispatchNumbers, args[0]) == 0{
-		return shim.Error("Duplicate IkeaDispatchNumber - "+ args[0])
-	}
-
-	var bt IkeaDispatch
-	bt.IkeaDispatchNumber				= args[0]
-	bt.IkeaReceivedNumber						= args[1]	
-	bt.IkeaId						= args[2]
-	bt.GUIDNumber						= args[3]
-	bt.MaterialName						= args[4]
-	bt.MaterialGrade					= args[5]	
-	bt.Quantity							= args[6]
-	bt.QuantityUnit						= args[7]	
-	bt.DispatchDateTime					= args[8]
-	bt.SoldFromDate					= args[9]
-	bt.SoldUntillDate					= args[10]
-	bt.PreparedBy					= args[11]
-	bt.PreparedOn					= args[12]
-	bt.SoldAt					= args[13]
-
-	//Commit Inward entry to ledger
-	fmt.Println("saveIkeaDispatch - Commit Ikea Dispatch To Ledger");
-	btAsBytes, _ := json.Marshal(bt)
-	err = stub.PutState(bt.IkeaDispatchNumber, btAsBytes)
-	if err != nil {		
-		return shim.Error(err.Error())
-	}
-
-	//Update All Ikea DispatchIds Array	
-	allb.IkeaDispatchNumbers = append(allb.IkeaDispatchNumbers, bt.IkeaDispatchNumber)
-
-	allBuAsBytes, _ := json.Marshal(allb)
-	err = stub.PutState("allIkeaDispatchIds", allBuAsBytes)
-	if err != nil {
-		return shim.Error(err.Error())
-	}
-
-	return shim.Success(nil)
-}
-
-
-//Create Ikea Bill block
-func saveIkeaBill(stub  shim.ChaincodeStubInterface, args []string) pb.Response {	
-	var err error
-	fmt.Println("Running saveIkeaBill..")
-
-	if len(args) != 8 {
-		fmt.Println("Incorrect number of arguments. Expecting 8")
-		return shim.Error("Incorrect number of arguments. Expecting 8")
-	}
-
-	fmt.Println("Arguments :"+args[0]+","+args[1]+","+args[2]+","+args[3]+","+args[4]+","+args[5]+","+args[6]);
-	allBAsBytes, err := stub.GetState("allIkeaBillNumbers")
-	if err != nil {
-		return shim.Error("Failed to get all Ikea Bill Numbers")
-	}
-	var allb AllIkeaBillNumbers
-	err = json.Unmarshal(allBAsBytes, &allb)
-	if err != nil {
-		return shim.Error("Failed to Unmarshal all Bills")
-	}
-	if checkDuplicateId(allb.IkeaBillNumbers, args[0]) == 0{
-		return shim.Error("Duplicate BillNumber - "+ args[0])
-	}
-
-	var bt IkeaBill
-	bt.BillNumber				= args[0]
-	bt.BillDateTime				= args[1]	
-	bt.IkeaFamily				= args[2]
-	bt.GUIDUniqueNumber			= args[3]
-	bt.MaterialName				= args[4]
-	bt.Quantity					= args[5]
-	bt.IkeaDispatchNumber		= args[6]
-	bt.Amount		= args[7]
-
-	//Commit Inward entry to ledger
-	fmt.Println("saveIkeaBill - Commit Ikea Bill To Ledger");
-	btAsBytes, _ := json.Marshal(bt)
-	err = stub.PutState(bt.BillNumber, btAsBytes)
-	if err != nil {		
-		return shim.Error(err.Error())
-	}
-
-	//Update All Ikea DispatchIds Array	
-	allb.IkeaBillNumbers = append(allb.IkeaBillNumbers, bt.BillNumber)
-
-	allBuAsBytes, _ := json.Marshal(allb)
-	err = stub.PutState("allIkeaBillNumbers", allBuAsBytes)
-	if err != nil {
-		return shim.Error(err.Error())
-	}
-
-	return shim.Success(nil)
-}
-
-
