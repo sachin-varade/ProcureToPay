@@ -126,3 +126,73 @@ func saveFinanceInvoice(stub  shim.ChaincodeStubInterface, args []string) pb.Res
 
 	return shim.Success(nil)
 }
+
+//Create Payment Proposal block
+func savePaymentProposal(stub  shim.ChaincodeStubInterface, args []string) pb.Response {	
+	var err error
+	fmt.Println("Running savePaymentProposal..")
+
+	if len(args) != 8 {
+		fmt.Println("Incorrect number of arguments. Expecting 8")
+		return shim.Error("Incorrect number of arguments. Expecting 8")
+	}
+
+	fmt.Println("Arguments :"+args[0]+","+args[1]+","+args[2]+","+args[3]+","+args[4]+","+args[5]+","+args[6]+","+args[7]);
+
+	//check duplicate 	
+	allBAsBytes, err := stub.GetState("allPaymentProposalNumbers")
+	if err != nil {
+		return shim.Error("Failed to get all Payment Proposal Numbers")
+	}
+	var allb AllPaymentProposalNumbers
+	err = json.Unmarshal(allBAsBytes, &allb)
+	if err != nil {
+		return shim.Error("Failed to Unmarshal all Payment Proposals")
+	}
+	if checkDuplicateId(allb.PaymentProposalNumbers, args[0]) == 0{
+		return shim.Error("Duplicate PaymentProposalNumber - "+ args[0])
+	}
+
+	var bt PaymentProposal
+	bt.PaymentProposalNumber				= args[0]
+	bt.PaymentProposalDate					= args[1]
+	bt.VendorUniqueNumber					= args[2]
+	bt.VendorBankAccountNumber				= args[3]	
+	bt.VendorBankAccountType				= args[4]
+	bt.CreatedBy							= args[5]
+	bt.CreationDate							= args[6]
+
+	var paymentProposalDetails PaymentProposalDetails
+	
+	if args[7] != "" {
+		p := strings.Split(args[7], ",")
+		for i := range p {
+			c := strings.Split(p[i], "^")
+			paymentProposalDetails.PaymentProposalNumber 		= c[0]
+			paymentProposalDetails.PaymentDate 					= c[1]
+			paymentProposalDetails.Amount 						= c[2]
+			paymentProposalDetails.PoReferenceNumber 			= c[3]
+			paymentProposalDetails.InvoiceReferenceNumber 		= c[4]
+			paymentProposalDetails.Status 						= c[5]
+			bt.ProposalDetails	= append(bt.ProposalDetails, paymentProposalDetails)
+		}
+	}
+
+	//Commit Inward entry to ledger
+	fmt.Println("savePaymentProposal - Commit Payment Proposal To Ledger");
+	btAsBytes, _ := json.Marshal(bt)
+	err = stub.PutState(bt.PaymentProposalNumber, btAsBytes)
+	if err != nil {		
+		return shim.Error(err.Error())
+	}
+
+	allb.PaymentProposalNumbers = append(allb.PaymentProposalNumbers, bt.PaymentProposalNumber)
+
+	allBuAsBytes, _ := json.Marshal(allb)
+	err = stub.PutState("allPaymentProposalNumbers", allBuAsBytes)
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+
+	return shim.Success(nil)
+}
