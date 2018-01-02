@@ -89,3 +89,66 @@ func getAllFinanceInvoices(stub  shim.ChaincodeStubInterface, option string, val
 	
 	return shim.Success(nil)
 }
+
+// ============================================================================================================================
+// Get All Payment Proposals
+// ============================================================================================================================
+func getAllPaymentProposals(stub  shim.ChaincodeStubInterface, option string, value string) pb.Response {
+	fmt.Println("getAllPaymentProposals: Looking for All Payment Proposals");
+
+	//get  All Payment proposals index
+	allBAsBytes, err := stub.GetState("allPaymentProposalNumbers")
+	if err != nil {
+		return shim.Error("Failed to get all Payment proposals")
+	}
+
+	var res AllPaymentProposalNumbers
+	err = json.Unmarshal(allBAsBytes, &res)
+	//fmt.Println(allBAsBytes);
+	if err != nil {
+		fmt.Println("Printing Unmarshal error:-");
+		fmt.Println(err);
+		return shim.Error("Failed to Unmarshal all Payment proposal Numbers")
+	}
+
+	var allIds AllPaymentProposalNumbers
+	var allDetails AllPaymentProposalDetails
+	var sb PaymentProposal
+	if strings.ToLower(option) == "id" && value != "" {
+		sbAsBytes, err := stub.GetState(value)
+		if err != nil {
+			return shim.Error("Failed to get Payment Proposal Number ")
+		}
+
+		json.Unmarshal(sbAsBytes, &sb)
+		if sb.PaymentProposalNumber != "" {
+			allDetails.PaymentProposals = append(allDetails.PaymentProposals,sb);	
+		}
+		rabAsBytes, _ := json.Marshal(allDetails)
+		return shim.Success(rabAsBytes)	
+	}
+
+	for i := range res.PaymentProposalNumbers{
+		sbAsBytes, err := stub.GetState(res.PaymentProposalNumbers[i])
+		if err != nil {
+			return shim.Error("Failed to get Payment Proposal Number")
+		}
+		json.Unmarshal(sbAsBytes, &sb)
+
+		if strings.ToLower(option) == "ids" {
+			allIds.PaymentProposalNumbers = append(allIds.PaymentProposalNumbers,sb.PaymentProposalNumber);	
+		} else if strings.ToLower(option) == "details" {
+			allDetails.PaymentProposals = append(allDetails.PaymentProposals,sb);	
+		}
+	}
+	
+	if strings.ToLower(option) == "ids" {
+		rabAsBytes, _ := json.Marshal(allIds)
+		return shim.Success(rabAsBytes)	
+	} else if strings.ToLower(option) == "details" {
+		rabAsBytes, _ := json.Marshal(allDetails)
+		return shim.Success(rabAsBytes)	
+	}
+	
+	return shim.Success(nil)
+}

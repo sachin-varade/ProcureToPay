@@ -94,6 +94,37 @@ type AllFinanceInvoiceDetails struct{
 	FinanceInvoices 						[]FinanceInvoice `json:"financeInvoices"`
 }
 
+type PaymentProposal struct {
+	PaymentProposalNumber					string	`json:"paymentProposalNumber"`
+	PaymentProposalDate						string	`json:"paymentProposalDate"`
+	VendorUniqueNumber						string	`json:"vendorUniqueNumber"`
+	VendorBankAccountNumber					string	`json:"vendorBankAccountNumber"`
+	VendorBankAccountType					string	`json:"vendorBankAccountType"`
+	BankUniqueid							string	`json:"bankUniqueid"`
+	CreatedBy								string	`json:"createdBy"`
+	CreationDate							string	`json:"creationDate"`
+	ProposalDetails							[]PaymentProposalDetails	`json:"proposalDetails"`	
+}
+
+type PaymentProposalDetails struct {
+	PaymentProposalNumber					string	`json:"paymentProposalNumber"`
+	ProposedPaymentDate						string	`json:"proposedPaymentDate"`
+	Tax										string	`json:"tax"`
+	Amount									string	`json:"amount"`
+	PoReferenceNumber						string	`json:"poReferenceNumber"`
+	InvoiceReferenceNumber					string	`json:"InvoiceReferenceNumber"`
+	Status									string	`json:"status"`
+	BankProcessingDate						string	`json:"bankProcessingDate"`
+}
+
+type AllPaymentProposalNumbers struct {
+	PaymentProposalNumbers 			[]string	`json:"paymentProposalNumbers"`
+}
+
+type AllPaymentProposalDetails struct {
+	PaymentProposals []PaymentProposal	`json:"paymentProposals"`
+}
+
 
 // ============================================================================================================================
 // Init - initialize the chaincode 
@@ -131,6 +162,14 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface) pb.Response {
 		return shim.Error(err.Error())
 	}
 
+
+	var allPaymentProposalNumbers AllPaymentProposalNumbers
+	jsonAsBytesAllPaymentProposalNumbers, _ := json.Marshal(allPaymentProposalNumbers)
+	err = stub.PutState("allPaymentProposalNumbers", jsonAsBytesAllPaymentProposalNumbers)
+	if err != nil {		
+		return shim.Error(err.Error())
+	}
+
 	fmt.Println(" - ready for action")                        
 	return shim.Success(nil)
 }
@@ -150,6 +189,10 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 		return getAllFinanceInvoices(stub, args[0], args[1])
 	} else if function == "saveFinanceInvoice" {
 		return saveFinanceInvoice(stub, args)
+	} else if function == "getAllPaymentProposals" {
+		return getAllPaymentProposals(stub, args[0], args[1])
+	} else if function == "savePaymentProposal" {
+		return savePaymentProposal(stub, args)
 	}
 	
 	// error out
