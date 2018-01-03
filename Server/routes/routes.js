@@ -1,7 +1,7 @@
 "use strict";
 var express = require("express");
 var channelObjects = require("../BusinessServices/channelObjects.js");
-var procurementService, financeService, logisticService, vendorService, bankService, userService, blockService;
+var procurementService, financeService, logisticService, vendorService, bankService, userService, blockService, poTrackerService;
 setTimeout(function() {    
 	procurementService = require("../BusinessServices/procurementService.js")(channelObjects.fabric_client, channelObjects.channels, channelObjects.peers, channelObjects.eventHubPeers, channelObjects.orderer, channelObjects.usersForTransaction);
 	financeService = require("../BusinessServices/financeService.js")(channelObjects.fabric_client, channelObjects.channels, channelObjects.peers, channelObjects.eventHubPeers, channelObjects.orderer, channelObjects.usersForTransaction);
@@ -10,6 +10,7 @@ setTimeout(function() {
 	bankService = require("../BusinessServices/bankService.js")(channelObjects.fabric_client, channelObjects.channels, channelObjects.peers, channelObjects.eventHubPeers, channelObjects.orderer, channelObjects.usersForTransaction);
 	userService = require("../BusinessServices/userService.js")();
 	blockService = require("../BusinessServices/blockService.js")(procurementService, financeService, logisticService, vendorService, bankService, userService);
+	poTrackerService = require("../BusinessServices/poTrackerService.js")(procurementService, financeService, logisticService, vendorService, bankService, userService);
 }, 2000);
 
 // ROUTES FOR OUR API
@@ -199,6 +200,14 @@ router.get("/queryBlock/:role/:blockNumber", function(req, res) {
 
 router.get("/getRecentBlocks/:role/:blockNumber", function(req, res) {    
     var promise = blockService.getRecentBlocks(req.params.role, req.params.blockNumber);
+	promise.then(function(resp,err){
+		res.send(resp);
+	});	
+});
+
+// ------------------------ PO Tracker routes --------------------
+router.get("/getPurchaseOrderTrackingDetails/:option/:value?", function(req, res) {    
+    var promise = poTrackerService.getPurchaseOrderTrackingDetails(req.params.option, req.params.value?req.params.value: "");
 	promise.then(function(resp,err){
 		res.send(resp);
 	});	
