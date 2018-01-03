@@ -38,5 +38,11 @@
     border-color: #9d8032;
 }
 
+.login-wrapper.cgt-bank .login-box .form-area .btn-inline{
+        background: #9d8032 !important;
+        float: none !important;
+        text-align: center;
+    }
+
 
 

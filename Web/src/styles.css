@@ -357,6 +357,13 @@ border-left: 1px solid #ccc; /* red */
         text-transform: uppercase;
     }
 
+    .login-wrapper.cgt-bank{
+        background: url('assets/images/bank-login-bg.jpg') no-repeat center;
+        -webkit-background-size:cover;
+        -moz-background-size:cover;
+        background-size:cover;
+    }
+
     .login-wrapper.cgt-vendor .login-box{
         height: 100%;
         background: #fff;
@@ -397,7 +404,7 @@ border-left: 1px solid #ccc; /* red */
         text-transform: uppercase;
     }
 
-    .login-wrapper.cgt-vendor .login-box .form-area input, .login-wrapper.cgt-logistic .login-box .form-area input{
+    .login-wrapper.cgt-vendor .login-box .form-area input, .login-wrapper.cgt-logistic .login-box .form-area input, .login-wrapper.cgt-bank .login-box .form-area input{
         margin-bottom: 25px;
         border: none;
         border-bottom: solid 1px #ccc;
@@ -406,7 +413,7 @@ border-left: 1px solid #ccc; /* red */
         padding-left: 39px;
     }
 
-    .login-wrapper.cgt-vendor .login-box .form-area .btn-inline, .login-wrapper.cgt-logistic .login-box .form-area .btn-inline{
+    .login-wrapper.cgt-vendor .login-box .form-area .btn-inline, .login-wrapper.cgt-logistic .login-box .form-area .btn-inline, .login-wrapper.cgt-bank .login-box .form-area .btn-inline{
         float: right;
         padding: 0 50px;
         height: 41px;
@@ -508,11 +515,16 @@ border-left: 1px solid #ccc; /* red */
         margin: 50px auto;
     }
 
-    .login-wrapper.cgt-logistic .logo-area img{
+    .login-wrapper.cgt-bank .logo-area{
+        width: 175px;
+        margin: 50px auto;
+    }
+
+    .login-wrapper.cgt-logistic .logo-area img, .login-wrapper.cgt-bank .logo-area img{
         width: 100%;
     }
 
-    .login-wrapper.cgt-logistic .login-box{
+    .login-wrapper.cgt-logistic .login-box, .login-wrapper.cgt-bank .login-box{
         position: absolute;
         top: 45%;
         width: 36%;
