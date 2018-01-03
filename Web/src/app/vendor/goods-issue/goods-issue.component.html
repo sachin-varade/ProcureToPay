@@ -9,14 +9,17 @@
                       <div class="border-box-row">
                           <div class="border-box col-2">
                               <label class="label-field">Goods Issue Number</label>
-                              <input type="text" [(ngModel)]="salesOrder.goodsIssueNumber" name="goodsIssueNumber" id="goodsIssueNumber" class="input-style" readonly required>
-                          </div>
+                              <span class="value-field">
+                                <input type="text" [(ngModel)]="salesOrder.goodsIssueNumber" name="goodsIssueNumber" id="goodsIssueNumber" class="input-style" readonly required>
+                              </span>
+                            </div>
                           <div class="border-box col-2 end-box">
                             <label class="label-field">Sales Order Number</label>
-                            <select class="input-style" [(ngModel)]="salesOrder.salesOrderNumber" (change)="setSO()" name="salesOrderNumber" id="salesOrderNumber" required>
-                                <option value=""></option>
-                                <option *ngFor="let item of salesOrderList" [value]="item.salesOrderNumber">{{item.salesOrderNumber}}</option>
-                            </select>
+                            <span class="value-field">
+                                <select class="input-style" [(ngModel)]="salesOrder.salesOrderNumber" (change)="setSO()" name="salesOrderNumber" id="salesOrderNumber" required>
+                                    <option *ngFor="let item of salesOrderList" [value]="item.salesOrderNumber">{{item.salesOrderNumber}}</option>
+                                </select>
+                            </span>
                           </div>
                       </div>
                   </div>
@@ -85,21 +88,25 @@
                         <div class="border-box-row">
                             <div class="border-box col-2">
                                 <label class="label-field">Logistic Provider</label>
-                                <select [(ngModel)]="salesOrder.logisticProvider" name="logisticProvider" class="input-style" required>
-                                    <option *ngFor="let item of userData.users.logistics" [value]="item.name">{{item.displayName}}</option>
-                                </select>
+                                <span class="value-field">
+                                    <select [(ngModel)]="salesOrder.logisticProvider" name="logisticProvider" class="input-style" required>
+                                        <option *ngFor="let item of userData.users.logistics" [value]="item.name">{{item.displayName}}</option>
+                                    </select>
+                                </span>
                             </div>
-                            <!--<div class="border-box col-2 end-box">
-                                <label class="label-field">Consignment Number</label>
-                                <input type="text" [(ngModel)]="salesOrder.logisticsConsignmentNumber" name="logisticsConsignmentNumber" required class="input-style" readonly>
-                            </div>-->
+                            <div class="border-box col-2 end-box">
+                                <!-- <label class="label-field">Consignment Number</label>
+                                <span class="value-field">
+                                    <input type="text" [(ngModel)]="salesOrder.logisticsConsignmentNumber" name="logisticsConsignmentNumber" required class="input-style">
+                                </span> -->
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
           <div class="btn-area">
-              <button class="btn-border" (click)="resetData()">Clear</button>
+                <button class="btn-border" (click)="resetData()">Clear</button>
               <button class="btn-normal" [disabled]="!myForm.form.valid" (click)="createGoodsIssue()">Issue Goods</button>
           </div>
 

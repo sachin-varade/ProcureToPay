@@ -765,24 +765,7 @@ border-left: 1px solid #ccc; /* red */
         color: #fff;
     }
 
-    .cgt-logistic .btn-normal{
-        background: #00A0BE;
-    }
-
-    .cgt-logistic .btn-normal:hover{
-        background: #048fa9;
-    }
-
-    .cgt-logistic .btn-border{
-        border: solid 1px #00A0BE;
-        color: #00A0BE;
-    }
-
-    .cgt-logistic .btn-border:hover{
-        border: solid 1px #00A0BE;
-        background: #00A0BE;
-        color: #fff;
-    }
+    
 
     .border-box-wrapper{
         max-width: 100%;
@@ -1132,6 +1115,28 @@ border-left: 1px solid #ccc; /* red */
 
     .col-4{
         width: 25%;
+    }
+
+    .btn-link{
+        position: absolute;
+    }
+
+    .date-input-small{
+        width: 180px;
+        margin-right: 10px;
+    }
+
+    .chevron::before{
+        border-width: 0.1em 0.1em 0 0 !important;
+        height: 9px !important;
+        left: 23px !important;
+        top: -3px !important;
+        width: 9px !important;
+        color: #aaa;
+    }
+    
+    .chevron.bottom:before{
+        top: 2px !important;
     }
 
 
