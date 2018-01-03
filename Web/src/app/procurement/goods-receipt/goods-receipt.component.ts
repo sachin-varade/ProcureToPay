@@ -29,6 +29,8 @@ export class GoodsReceiptComponent implements OnInit {
       this.currentUser = this.user.getUserLoggedIn();
       this.userData = this.user.getUserData();
       this.commonData = this.user.getCommonData();       
+      this.goodsReceipt.goodsReceiptDate= new Date();
+      this.getUniqueId();
   }
 
   ngOnInit() {
@@ -37,8 +39,26 @@ export class GoodsReceiptComponent implements OnInit {
   getGoodsReceipt(){
     this.procurementService.getAllGoodsReceiptDetails('po', this.goodsReceipt.purchaseOrderRefNumber)
     .then((results: any) => {
-      if(results && results.GoodsReceiptNumbers){
-        this.goodsReceipt = results.GoodsReceiptNumbers[0];
+      if(results && results.goodsReceiptNumbers){
+        this.goodsReceipt = results.goodsReceiptNumbers[0];
+        this.vendorService.getAllGoodsIssue('po', this.goodsReceipt.purchaseOrderRefNumber)
+        .then((results: any) => {
+          if(results && results.goodsIssueList){
+            this.goodsIssueList = results.goodsIssueList;
+          }
+        });
+        this.logisticService.getAllLogisticTransactions('po', this.goodsReceipt.purchaseOrderRefNumber)
+        .then((results: any) => {        
+          if(results && results.logisticTransactions && results.logisticTransactions.length > 0){
+            this.logisticTransactionList = results.logisticTransactions;            
+          }  
+        });
+
+        this.goodsReceipt.materialList.forEach(element => {
+          element.receivedQuantity = element.receivedQuantity ? element.receivedQuantity : null;
+          element.fdfDisabled = element.fdf && element.fdf.toString() == "true" ? true : false;
+          element.fdf = element.fdf && element.fdf.toString() == "true" ? true : false;
+        });
       }
       else{
         this.getAllGoodsIssue();
@@ -92,6 +112,14 @@ export class GoodsReceiptComponent implements OnInit {
     .then((results: any) => {
       this.goodsReceipt.goodsReceiptNumber = results;
     });
+  }
+
+  saveGoodsReceipt(myForm: NgForm) {
+    this.procurementService.saveGoodsReceipt(this.goodsReceipt)
+      .then((results: any) => {
+        this.alertService.success("Goods Receipt Saved.");
+        this.getGoodsReceipt();
+      });
   }
 
   clearForm(myForm: NgForm){

@@ -351,9 +351,9 @@ func saveGoodsReceipt(stub  shim.ChaincodeStubInterface, args []string) pb.Respo
 	if err != nil {
 		return shim.Error("Failed to Unmarshal allGoodsReceiptIds")
 	}
-	if checkDuplicateId(allb.GoodsReceiptNumbers, args[0]) == 0{
-		return shim.Error("Duplicate GoodsReceiptIds - "+ args[0])
-	}
+	// if checkDuplicateId(allb.GoodsReceiptNumbers, args[0]) == 0{
+	// 	return shim.Error("Duplicate GoodsReceiptIds - "+ args[0])
+	// }
 
 	var bt GoodsReceipt
 	bt.GoodsReceiptNumber					= args[0]

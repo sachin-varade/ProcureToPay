@@ -382,6 +382,10 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 		return getAllVendorInvoices(stub, args[0], args[1])
 	} else if function == "saveVendorInvoice" {
 		return saveVendorInvoice(stub, args)
+	} else if function == "getAllGoodsReceiptDetails" {
+		return getAllGoodsReceiptDetails(stub, args[0], args[1])
+	} else if function == "saveGoodsReceipt" {
+		return saveGoodsReceipt(stub, args)
 	}
 	
 	// error out

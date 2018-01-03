@@ -15,13 +15,16 @@
                           <div class="value-block">
                               <label class="label-field">Goods Receipt No</label>
                               <span class="value-field">
-                                  <input type="text" [(ngModel)]="goodsReceipt.goodsReceiptNumber" name="goodsReceiptNumber" class="input-style">
+                                  <input disabled type="text" [(ngModel)]="goodsReceipt.goodsReceiptNumber" name="goodsReceiptNumber" class="input-style">
                               </span>
                           </div>
 
                           <div class="value-block">
                               <label class="label-field">Goods Receipt Date</label>
-                              <span class="value-field"><input type="text" [(ngModel)]="goodsReceipt.goodsReceiptDate" name="goodsReceiptDate" class="input-style"></span>
+                              <span class="value-field">
+                                    <input disabled type="text" placeholder="Date" [(ngModel)]="goodsReceipt.goodsReceiptDate" name="goodsReceiptDate"
+                                    class="form-control date-picker-date date-input-small float-left" bsDatepicker required/>
+                                </span>
                           </div>
 
                           <div class="value-block">
@@ -32,7 +35,7 @@
                           <div class="value-block">
                               <label class="label-field">Goods Issue Number</label>
                               <span class="value-field">
-                                  <select class="input-style" [(ngModel)]="goodsReceipt.goodIssueNumber" name="goodIssueNumber">
+                                  <select class="input-style" [(ngModel)]="goodsReceipt.goodIssueNumber" name="goodIssueNumber" required>
                                         <option *ngFor="let item of goodsIssueList" [value]="item.goodsIssueNumber">{{item.goodsIssueNumber}}</option>
                                   </select>
                               </span>
@@ -41,7 +44,7 @@
                           <div class="value-block">
                                 <label class="label-field">Consignment Number</label>
                                 <span class="value-field">
-                                    <select class="input-style" [(ngModel)]="goodsReceipt.consignmentNumber" name="consignmentNumber">
+                                    <select class="input-style" [(ngModel)]="goodsReceipt.consignmentNumber" name="consignmentNumber" required>
                                           <option *ngFor="let item of logisticTransactionList" [value]="item.consignmentNumber">{{item.consignmentNumber}}</option>
                                     </select>
                                 </span>
@@ -107,7 +110,6 @@
               <div class="panel-content clearfix">
                   <table class="table table-striped full-width">
                       <tr>
-                            <th></th>
                             <th>Pos</th>
                             <th>Product Name</th>
                             <th>Description</th>
@@ -120,13 +122,10 @@
                             <th>Dispatched Qty</th>
                             <th>Batch No</th>
                             <th>Received Qty</th>
+                            <th>FDF</th>
                         </tr>
                         <tr *ngFor="let item of goodsReceipt.materialList; let i = index" [attr.data-index]="i">
-                                <td>
-                                    <input [(ngModel)]="item.selected" type="checkbox" 
-                                    [name]="'receivedQuantity' + item.pos" [id]="'receivedQuantity' + item.pos" 
-                                    class="input-style-small" required>
-                                </td>
+                               
                             <td>
                                 <span>{{item.pos}}</span>
                             </td>
@@ -160,17 +159,21 @@
                             <td>
                                 <strong>{{item.batchNumber}}</strong>
                             </td>
-                            <td><input [(ngModel)]="item.receivedQuantity" type="text" [name]="'receivedQuantity' + item.pos" [id]="'receivedQuantity' + item.pos" class="input-style-small" required></td>
+                            <td><input [disabled]="item.fdf" [(ngModel)]="item.receivedQuantity" type="text" [name]="'receivedQuantity' + item.pos" [id]="'receivedQuantity' + item.pos" class="input-style-small"></td>
+                            <td>
+                                <input [disabled]="item.fdfDisabled" [(ngModel)]="item.fdf" type="checkbox" 
+                                [name]="'fdf' + item.pos" [id]="'fdf' + item.pos" 
+                                class="input-style-small">
+                            </td>
                         </tr>
                   </table>
               </div>
           </div>
 
           <div class="btn-area">
-              <button class="btn-border">Cancel</button>
-              <button class="btn-normal">Submit</button>
-          </div>
-
+                <button type="submit" (click)="clearForm(myForm)" class="btn-border">Clear</button>
+                <button type="submit" [disabled]="!myForm.form.valid" (click)="saveGoodsReceipt(myForm);" class="btn-normal">Submit</button>
+        </div>
       </div>
     </form>
   </div>

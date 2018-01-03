@@ -50,7 +50,7 @@ export class GoodsReceipt {
     goodsReceiptNumber: string;
 	goodsReceiptDate: Date;
 	purchaseOrderRefNumber: string;
-	goodsIssueNumber: string;
+	goodIssueNumber: string;
 	consignmentNumber: string;
 	purchaserCompany: string;
 	purchaserCompanyDept: string;
@@ -79,5 +79,6 @@ export class GoodsReceiptMaterial {
 	expectedDeliveryDate: Date;
 	batchNumber : string;
     receivedQuantity: Number;
-    fdf: string;
+    fdf: boolean;
+    fdfDisabled: boolean;
 }

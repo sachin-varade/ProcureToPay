@@ -165,9 +165,11 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
 
     procurementService.saveGoodsReceipt = function(goodsReceipt){
         console.log("saveGoodsReceipt");
-        var orderedMaterial = "";        
-        if(goodsReceipt.orderedMaterial){
-            goodsReceipt.orderedMaterial.forEach(element => {
+        var orderedMaterial = "";    
+        var totalOrderAmount = 0;    
+        if(goodsReceipt.materialList){
+            goodsReceipt.materialList.forEach(element => {
+                totalOrderAmount += Number(element.netAmount);
             if(orderedMaterial != "")
                 orderedMaterial += ",";
                 orderedMaterial += element.pos 
@@ -181,8 +183,8 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
                 + "^"+ element.dispatchedQuantity.toString()
                 + "^"+ element.batchNumber
                 + "^"+ element.expectedDeliveryDate
-                + "^"+ element.receivedQuantity
-                + "^"+ element.fdf
+                + "^"+ (element.receivedQuantity ? element.receivedQuantity.toString(): "0")
+                + "^"+ ((element.fdf && element.fdf == true) ? "true" : "false")
             });
         }
         return fabric_client.getUserContext(users.procurementUser.enrollmentID, true)
@@ -208,7 +210,7 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
                     goodsReceipt.purchaserContactPersonEmail,
                     goodsReceipt.deliverToPersonName,
                     goodsReceipt.deliveryAddress,
-                    goodsReceipt.totalOrderAmount,
+                    totalOrderAmount.toString(),
                     orderedMaterial                    
                 ]                
             );                
