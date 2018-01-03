@@ -37,4 +37,14 @@ export class FinanceService {
       this.alertService.error("Error occured...");
     });
   }
+
+  savePaymentProposal(paymentProposal: FinanceModels.PaymentProposal): Promise<any> {
+    this.url = `${this.BASE_URL}/savePaymentProposal`;
+    return this.http.post(this.url, paymentProposal).toPromise()
+    .then((results: any) => {
+      return results;
+    }).catch((err) => {
+      this.alertService.error(err);
+    });
+  }
 }

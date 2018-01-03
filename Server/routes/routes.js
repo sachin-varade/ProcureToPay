@@ -159,6 +159,13 @@ router.get("/getAllFinanceInvoices/:option/:value?", function(req, res) {
 	});	
 });
 
+router.post("/savePaymentProposal", function(req, res) {    
+	var promise = financeService.savePaymentProposal(req.body);
+	promise.then(function(resp,err){
+		res.send(resp);
+	});	
+});
+
 
 // ------------------------ UNIQUE IDs routes --------------------
 router.get("/procurement/getUniqueId/:option/:value?", function(req, res) {    

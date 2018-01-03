@@ -88,3 +88,12 @@ export class  StatusUpdates {
 	updatedBy: number;
 	updatedOn: Date;
 }
+
+export class Vendor {
+	name : string;
+	displayName : string;
+	uniqueId : string;
+	bankAccountNumber : string;
+	bankAccountType : string;
+	bankUniqueId : string;
+}

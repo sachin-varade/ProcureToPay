@@ -100,6 +100,11 @@ const appRoutes:Routes = [
     component: InvoiceManagementComponent
   },
   {
+    path: 'finance/payment-proposal',
+    canActivate: [AuthguardGuard],
+    component: PaymentProposalComponent
+  },
+  {
     path: 'vendor/po-fulfillment',
     canActivate: [AuthguardGuard],
     component: PoFulfilmentComponent
