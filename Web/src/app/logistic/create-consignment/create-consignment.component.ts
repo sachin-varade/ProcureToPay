@@ -71,8 +71,8 @@ export class CreateConsignmentComponent implements OnInit {
         this.pickedupDatetime = {hour: this.logisticTransaction.pickedupDatetime.getHours(), minute: this.logisticTransaction.pickedupDatetime.getMinutes()};
         this.logisticTransaction.expectedDeliveryDatetime =new Date();
         this.expectedDeliveryDatetime = {hour: this.logisticTransaction.expectedDeliveryDatetime.getHours()+10, minute: this.logisticTransaction.expectedDeliveryDatetime.getMinutes()};
-        this.logisticTransaction.actualDeliveryDatetime =new Date();
-        this.actualDeliveryDatetime = {hour: this.logisticTransaction.actualDeliveryDatetime.getHours()+9, minute: this.logisticTransaction.actualDeliveryDatetime.getMinutes()};
+        //this.logisticTransaction.actualDeliveryDatetime =new Date();
+        //this.actualDeliveryDatetime = {hour: this.logisticTransaction.actualDeliveryDatetime.getHours()+9, minute: this.logisticTransaction.actualDeliveryDatetime.getMinutes()};
         this.logisticTransaction.hazardousMaterial = "No";
         this.logisticTransaction.packagingInstruction = "Should be packed well.";
         this.logisticTransaction.route = this.commonData.routeList[0].code;

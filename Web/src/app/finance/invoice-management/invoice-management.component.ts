@@ -18,6 +18,9 @@ export class InvoiceManagementComponent implements OnInit {
   userData: any;
   financeInvoice: FinanceModels.FinanceInvoice = new FinanceModels.FinanceInvoice();
   vendorInvoiceList: Array<VendorModels.VendorInvoice> = new Array<VendorModels.VendorInvoice>();
+
+  vendorInvoiceStatus : string;
+
   constructor(private alertService: AlertService,
     private vendorService: VendorService,
     private user: UserService,
@@ -60,6 +63,7 @@ export class InvoiceManagementComponent implements OnInit {
     if(this.financeInvoice && this.financeInvoice.invoiceNumber){
       this.vendorInvoiceList.forEach(element => {
         if(element.invoiceNumber === this.financeInvoice.invoiceNumber){
+          this.vendorInvoiceStatus = element.currentStatus;
           this.financeInvoice = JSON.parse(JSON.stringify(element));
         }
       });
@@ -67,6 +71,7 @@ export class InvoiceManagementComponent implements OnInit {
     else{
       this.clearForm(myForm);
       this.financeInvoice.invoiceDate = null;
+      this.vendorInvoiceStatus = '';
     }
   }
 
