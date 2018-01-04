@@ -40,7 +40,7 @@ export class PaymentProposalComponent implements OnInit {
   }
 
   getUniqueId() {
-    this.financeService.getUniqueId('payment-proposal') //TODO : to be changed
+    this.financeService.getUniqueId('payment-proposal')
       .then((results: any) => {
         this.paymentProposal.paymentProposalNumber = results;
       });
@@ -90,16 +90,19 @@ export class PaymentProposalComponent implements OnInit {
 
   savePaymentProposal(myForm: NgForm) {
     let invoiceSelected: boolean = false;
+    
+    let paymentProposalDetailsToSave: Array<FinanceModels.PaymentProposalDetail> = new Array<FinanceModels.PaymentProposalDetail>();
     for (let entry of this.paymentProposal.paymentProposalDetails) {
       if (entry.selectedInUI) {
         invoiceSelected = true;
-        break;
+        paymentProposalDetailsToSave.push(entry);
       }
     }
 
     if (invoiceSelected) {
       this.paymentProposal.createdBy = this.currentUser.name;
       this.paymentProposal.createdDate = new Date();
+      this.paymentProposal.paymentProposalDetails = paymentProposalDetailsToSave;
 
       this.financeService.savePaymentProposal(this.paymentProposal)
         .then((results: any) => {
