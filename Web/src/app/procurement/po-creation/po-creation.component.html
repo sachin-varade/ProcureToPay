@@ -90,7 +90,7 @@
                               <label class="label-field">Supplier Name</label>
                               <span class="value-field">
                                     <select class="input-style" (change)="changeSupplier()" [(ngModel)]="purchaseOrder.supplierName" name="supplierName" id="supplierName" required>
-                                            <option *ngFor="let item of commonData.supplierDetails" [value]="item.supplierName">{{item.supplierName}}</option>
+                                            <option *ngFor="let item of userData.users.vendors" [value]="item.supplierName">{{item.supplierName}}</option>
                                     </select>  
                                
                               </span>

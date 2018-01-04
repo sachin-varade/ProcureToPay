@@ -69,7 +69,7 @@ export class PoCreationComponent implements OnInit {
 
   changeSupplier(){
     console.log(this.commonData.supplierDetails);
-    this.commonData.supplierDetails.forEach(element => {
+    this.userData.users.vendors.forEach(element => {
       if(element.supplierName == this.purchaseOrder.supplierName){
         this.purchaseOrder.supplierUniqueNo = element.supplierUniqueNo;
         this.purchaseOrder.supplierContactPerson = element.supplierContactPerson;

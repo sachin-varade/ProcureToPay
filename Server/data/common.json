@@ -6,25 +6,7 @@
                         {"id": 4, "name": "Location4"},
                         {"id": 5, "name": "Location5"}
                     ],
-                   
-"supplierDetails": [
-    {   "id": 1, 
-        "supplierName": "JYOTI ENTERPRISES",
-        "supplierUniqueNo": "989898",
-        "supplierContactPerson": "JYOTI",
-        "supplierContactPersonAddress": "403005 ILHAS-GOA India",
-        "supplierContactPersonPhone": "9899898898",
-        "supplierContactPersonEmail": "jyotienterprisesgoa@yahoo.in"
-    },
-    {   "id": 1, 
-        "supplierName": "JK ENTERPRISES",
-        "supplierUniqueNo": "8787878",
-        "supplierContactPerson": "John Doe",
-        "supplierContactPersonAddress": "LBS ROAD, Mumbai India",
-        "supplierContactPersonPhone": "7878787878",
-        "supplierContactPersonEmail": "jkenterprises@gmail.com"
-    }
-],
+  
 
 "purchaserContact": [
     {"id": 1, "name": "John Doe"}

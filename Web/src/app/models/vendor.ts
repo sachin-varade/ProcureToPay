@@ -92,7 +92,7 @@ export class  StatusUpdates {
 export class Vendor {
 	name : string;
 	displayName : string;
-	uniqueId : string;
+	supplierUniqueNo : string;
 	bankAccountNumber : string;
 	bankAccountType : string;
 	bankUniqueId : string;

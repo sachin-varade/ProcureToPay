@@ -45,7 +45,7 @@ export class PoFulfilmentComponent implements OnInit {
   }
 
   fetchApprovedPOs() {
-    this.procurementService.getAllPurchaseOrders('approved')
+    this.procurementService.getAllPurchaseOrders('approved', this.currentUser.uniqueId)
       .then((results: any) => {
         this.purchaseOrderList = results.purchaseOrders;
         if (this.purchaseOrderList) {

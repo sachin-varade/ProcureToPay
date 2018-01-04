@@ -50,7 +50,7 @@ export class PaymentProposalComponent implements OnInit {
     this.userData.users.vendors.forEach(element => {
       if (element.name === this.selectedVendor.name) {
         this.selectedVendor = JSON.parse(JSON.stringify(element));
-        this.paymentProposal.vendorUniqueId = this.selectedVendor.uniqueId
+        this.paymentProposal.vendorUniqueId = this.selectedVendor.supplierUniqueNo;
         this.paymentProposal.vendorBankAccountNumber = this.selectedVendor.bankAccountNumber;
         this.paymentProposal.vendorBankAccountType = this.selectedVendor.bankAccountType;
         this.paymentProposal.vendorBankUniqueId = this.selectedVendor.bankUniqueId;
