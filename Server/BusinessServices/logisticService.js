@@ -55,7 +55,7 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
                 "saveLogisticTransaction",  
                 [
                     logisticTransaction.consignmentNumber,
-                    logisticTransaction.salesOrderRefNumber, 
+                    logisticTransaction.goodsIssueRefNumber, 
                     //TODO : MDM : salesOrderRefNumber passed, GO code stores this in bt.GoodsIssueRefNumber
                     logisticTransaction.purchaseOrderRefNumber,
                     logisticTransaction.supplierNumber,

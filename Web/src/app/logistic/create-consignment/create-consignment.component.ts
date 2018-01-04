@@ -36,7 +36,7 @@ export class CreateConsignmentComponent implements OnInit {
   }
 
   getUniqueId() {
-    this.logisticService.getUniqueId('vendor-consignment')
+    this.logisticService.getUniqueId('logistic')
       .then((results: any) => {
         this.logisticTransaction.consignmentNumber = results;
       });
@@ -57,6 +57,14 @@ export class CreateConsignmentComponent implements OnInit {
       if (element.salesOrderNumber == this.logisticTransaction.salesOrderRefNumber) {
         this.vendorSalesOrder = JSON.parse(JSON.stringify(element));
         this.logisticTransaction.purchaseOrderRefNumber = element.purchaseOrderRefNumber;
+        
+        this.vendorService.getAllGoodsIssue('po', this.logisticTransaction.purchaseOrderRefNumber)
+        .then((results: any) => {
+          if(results && results.goodsIssueList && results.goodsIssueList.length > 0){
+            this.logisticTransaction.goodsIssueRefNumber = results.goodsIssueList[0].goodsIssueNumber;
+          }
+        });
+
         this.logisticTransaction.supplierNumber = element.invoicePartyId;
         this.logisticTransaction.shipToParty = element.deliverToPersonName;
         this.logisticTransaction.pickedupDatetime =new Date();
@@ -85,12 +93,14 @@ export class CreateConsignmentComponent implements OnInit {
       .then((results: any) => {
         this.alertService.success("Consignment " + this.logisticTransaction.consignmentNumber + " Saved.");
         this.clearForm(myForm);
-        this.getUniqueId();
+        
       });
   }
 
   clearForm(myForm: NgForm) {
     myForm.resetForm();
     this.logisticTransaction = new LogisticModels.LogisticTransaction();
+    this.vendorSalesOrder = new VendorModels.VendorSalesOrder();
+    this.getUniqueId();
   }
 }
