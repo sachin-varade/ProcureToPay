@@ -17,6 +17,7 @@
                             <label class="label-field">Sales Order Number</label>
                             <span class="value-field">
                                 <select class="input-style" [(ngModel)]="salesOrder.salesOrderNumber" (change)="setSO()" name="salesOrderNumber" id="salesOrderNumber" required>
+                                    <option value=""></option>
                                     <option *ngFor="let item of salesOrderList" [value]="item.salesOrderNumber">{{item.salesOrderNumber}}</option>
                                 </select>
                             </span>
