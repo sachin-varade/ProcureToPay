@@ -62,7 +62,7 @@ export class PaymentProposal {
 
 export class PaymentProposalDetail {
 	paymentProposalNumber : string;
-	proposalDate : Date;
+	proposedPaymentDate : Date;
 	tax : Number;
 	amount : Number;
 	poReferenceNumber : string;

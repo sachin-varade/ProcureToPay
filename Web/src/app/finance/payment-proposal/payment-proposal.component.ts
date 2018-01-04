@@ -71,15 +71,15 @@ export class PaymentProposalComponent implements OnInit {
             if (entry.supplierCode === this.selectedVendor.supplierUniqueNo) {
               let detail: FinanceModels.PaymentProposalDetail = new FinanceModels.PaymentProposalDetail();
               detail.paymentProposalNumber = this.paymentProposal.paymentProposalNumber;
-              detail.proposalDate = this.paymentProposal.proposalDate;
+              detail.proposedPaymentDate = new Date();
               detail.tax = 10; //TODO
               detail.invoiceDate = entry.invoiceDate;
               detail.amount = entry.grossAmount;
               detail.poReferenceNumber = entry.purchaseOrderRefNumber;
               detail.invoiceRefernceNumber = entry.invoiceNumber;
               detail.status = "Posted";
-              detail.bankProcessingDate = new Date();
-              detail.selectedInUI = false;
+              detail.bankProcessingDate = null;
+              detail.selectedInUI = true;
               paymentProposalDetailsLocal.push(detail);
             }
           }

@@ -185,7 +185,7 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
                     details += ",";
                 }
                 details += element.paymentProposalNumber 
-                + "^"+ element.proposalDate 
+                + "^"+ element.proposedPaymentDate 
                 + "^"+ element.tax.toString()
                 + "^"+ element.amount.toString() 
                 + "^"+ element.poReferenceNumber 
