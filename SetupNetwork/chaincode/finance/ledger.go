@@ -193,6 +193,8 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 		return getAllPaymentProposals(stub, args[0], args[1])
 	} else if function == "savePaymentProposal" {
 		return savePaymentProposal(stub, args)
+	} else if function == "updateFinanceInvoice" {
+		return updateFinanceInvoice(stub, args)
 	}
 	
 	// error out

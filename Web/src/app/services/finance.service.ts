@@ -28,6 +28,16 @@ export class FinanceService {
     });
   }
 
+  updateFinanceInvoice(salesOrder: FinanceModels.FinanceInvoice): Promise<any> {
+    this.url = `${this.BASE_URL}/updateFinanceInvoice`;
+    return this.http.post(this.url, salesOrder).toPromise()
+    .then((results: any) => {
+      return results;
+    }).catch((err) => {
+      this.alertService.error(err);
+    });
+  }
+
   getAllFinanceInvoices(option: string, value: string = ""): Promise<any> {
     this.url = `${this.BASE_URL}/getAllFinanceInvoices`;
     return this.http.get(this.url+"/"+ option +"/"+ value).toPromise()

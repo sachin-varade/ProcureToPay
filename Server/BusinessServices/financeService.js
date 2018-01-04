@@ -104,6 +104,44 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
             throw err;
         });
     }
+
+    financeService.updateFinanceInvoice = function(invoice){
+        console.log("updateFinanceInvoice");        
+        var status, updatedBy, updatedOn = "";
+        if(invoice.statusUpdates && invoice.statusUpdates.length > 0){
+            status = invoice.statusUpdates[invoice.statusUpdates.length-1].status;
+            updatedBy = invoice.statusUpdates[invoice.statusUpdates.length-1].updatedBy.toString();
+            updatedOn = invoice.statusUpdates[invoice.statusUpdates.length-1].updatedOn;
+        }
+
+        return fabric_client.getUserContext(users.financeUser.enrollmentID, true)
+        .then((user_from_store) => {
+            helper.checkUserEnrolled(user_from_store);            
+            return invokeChainCode.invokeChainCode(fabric_client, 
+                channels.financeChannelFC, 
+                eventHubPeers.financeEventHubPeer._url, 
+                //"grpc://localhost:7053",
+                financeConfig.channels.financechannel.chaincodeId, 
+                "updateFinanceInvoice",  
+                [ 
+                    invoice.invoiceNumber,
+                    status,
+                    updatedBy,
+                    updatedOn
+                ]                
+            );                
+        }).then((results) => {
+            return results;
+        }).catch((err) => {
+            if(err.message.indexOf("SMART_CONTRACT") > -1){
+                return {
+                    type: "ERROR",
+                    message: err.message
+                }
+            }            
+            throw err;
+        });
+    }
     
     financeService.getAllFinanceInvoices = function(option, value){
         console.log("getAllFinanceInvoices");

@@ -4,7 +4,9 @@ import { ProcurementService } from '../../services/procurement.service';
 import { UserService } from '../../services/user.service';
 import { AlertService } from '../../services/alert.service';
 import { LogisticService } from '../../services/logistic.service';
+import { FinanceService } from '../../services/finance.service';
 import * as VendorModels from '../../models/vendor';
+import * as FinanceModels from '../../models/finance';
 import * as ProcurementModels from '../../models/procurement';
 import * as LogisticModels from '../../models/logistic';
 import { NgModel, NgForm } from '@angular/forms';
@@ -18,6 +20,7 @@ export class GoodsReceiptComponent implements OnInit {
   currentUser: any;
   commonData: any;
   userData: any;
+  financeInvoice: FinanceModels.FinanceInvoice = new FinanceModels.FinanceInvoice();
   goodsIssueList: Array<VendorModels.GoodsIssue> = new Array<VendorModels.GoodsIssue>();
   goodsReceipt: ProcurementModels.GoodsReceipt = new ProcurementModels.GoodsReceipt();
   logisticTransactionList: Array<LogisticModels.LogisticTransaction> = new Array<LogisticModels.LogisticTransaction>();
@@ -25,6 +28,7 @@ export class GoodsReceiptComponent implements OnInit {
     private vendorService: VendorService,
     private procurementService: ProcurementService,
     private logisticService: LogisticService,
+    private financeService: FinanceService,
     private user: UserService) { 
       this.currentUser = this.user.getUserLoggedIn();
       this.userData = this.user.getUserData();
@@ -39,8 +43,8 @@ export class GoodsReceiptComponent implements OnInit {
   getGoodsReceipt(){
     this.procurementService.getAllGoodsReceiptDetails('po', this.goodsReceipt.purchaseOrderRefNumber)
     .then((results: any) => {
-      if(results && results.goodsReceiptNumbers){
-        this.goodsReceipt = results.goodsReceiptNumbers[0];
+      if(results && results.goodsReceipts){
+        this.goodsReceipt = results.goodsReceipts[0];
         this.vendorService.getAllGoodsIssue('po', this.goodsReceipt.purchaseOrderRefNumber)
         .then((results: any) => {
           if(results && results.goodsIssueList){
@@ -118,6 +122,23 @@ export class GoodsReceiptComponent implements OnInit {
     this.procurementService.saveGoodsReceipt(this.goodsReceipt)
       .then((results: any) => {
         this.alertService.success("Goods Receipt Saved.");
+        this.financeService.getAllFinanceInvoices("po", this.goodsReceipt.purchaseOrderRefNumber)
+        .then((results: any) => {
+          if(results && results.financeInvoices && results.financeInvoices.length > 0){
+            this.financeInvoice = results.financeInvoices[0];
+            this.financeInvoice.statusUpdates.push(      
+              {
+                status: "Posted",
+                updatedBy: this.currentUser.id,
+                updatedOn: new Date()
+              }
+            );
+            this.financeService.updateFinanceInvoice(this.financeInvoice)
+            .then((results: any) => {
+              this.alertService.success("Finance Invoice Posted for this Purchase Order.");
+            });
+          }
+        });
         this.getGoodsReceipt();
       });
   }

@@ -59,6 +59,16 @@ export class CreateConsignmentComponent implements OnInit {
         this.logisticTransaction.purchaseOrderRefNumber = element.purchaseOrderRefNumber;
         this.logisticTransaction.supplierNumber = element.invoicePartyId;
         this.logisticTransaction.shipToParty = element.deliverToPersonName;
+        this.logisticTransaction.pickedupDatetime =new Date();
+        this.pickedupDatetime = {hour: this.logisticTransaction.pickedupDatetime.getHours(), minute: this.logisticTransaction.pickedupDatetime.getMinutes()};
+        this.logisticTransaction.expectedDeliveryDatetime =new Date();
+        this.expectedDeliveryDatetime = {hour: this.logisticTransaction.expectedDeliveryDatetime.getHours()+10, minute: this.logisticTransaction.expectedDeliveryDatetime.getMinutes()};
+        this.logisticTransaction.actualDeliveryDatetime =new Date();
+        this.actualDeliveryDatetime = {hour: this.logisticTransaction.actualDeliveryDatetime.getHours()+9, minute: this.logisticTransaction.actualDeliveryDatetime.getMinutes()};
+        this.logisticTransaction.hazardousMaterial = "No";
+        this.logisticTransaction.packagingInstruction = "Should be packed well.";
+        this.logisticTransaction.route = this.commonData.routeList[0].code;
+        this.logisticTransaction.vehicleId = this.commonData.vehicleList[0].registrationNumber;
       }
     });
   }
