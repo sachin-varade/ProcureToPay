@@ -15,7 +15,7 @@
                   </span>
                 </div>
                 <div class="border-box col-3">
-                  <label class="label-field">Vendor/Seller1</label>
+                  <label class="label-field">Vendor/Seller</label>
                   <span class="value-field">
                     <select [(ngModel)]="this.selectedVendor.name" class="input-style" (change)="changeVendor()" name="vendorName" id="vendorName" required>
                       <option value=""></option>
@@ -66,22 +66,22 @@
                     <th>Gross Amount</th>
                     <th>Credit Date</th>
                   </tr>
-                  <tr *ngFor="let item of financeInvoiceList; let i = index" [attr.data-index]="i">
+                  <tr *ngFor="let item of this.paymentProposal.paymentProposalDetails; let i = index" [attr.data-index]="i">
                     <td>
-                      <span><input type="checkbox"></span>
+                      <span><input [(ngModel)]="item.selectedInUI" type="checkbox" name="selectedInUI"></span>
                     </td>
                     <td>
-                      <span>{{item.invoiceNumber}}</span>
+                      <span>{{item.invoiceRefernceNumber}}</span>
                     </td>
                     <td>
-                      <span>{{item.invoiceDate}}</span>
+                      <span>{{item.invoiceDate | date : "short"}}</span>
                     </td>
                     <td>
-                      <span>{{item.grossAmount}}</span>
+                      <span>{{item.amount}}</span>
                     </td>
                     <td>
                       <span class="value-field">
-                          <input type="text" placeholder="Credit Date" [(ngModel)]="this.paymentProposal.proposalDate" name="proposalDate" 
+                          <input type="text" placeholder="Credit Date" [(ngModel)]="item.proposedPaymentDate" name="proposedPaymentDate" 
                             class="form-control date-picker-date date-input-small float-left"
                             bsDatepicker required/>
                       </span>

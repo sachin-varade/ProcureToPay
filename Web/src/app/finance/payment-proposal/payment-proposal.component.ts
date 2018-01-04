@@ -32,7 +32,7 @@ export class PaymentProposalComponent implements OnInit {
     this.commonData = this.user.getCommonData();
     this.getUniqueId();
     this.paymentProposal.proposalDate = new Date();
-    this.getAllFinanceInvoices();
+    //this.getAllFinanceInvoices();
 
   }
 
@@ -42,7 +42,7 @@ export class PaymentProposalComponent implements OnInit {
   getUniqueId() {
     this.financeService.getUniqueId('payment-proposal') //TODO : to be changed
       .then((results: any) => {
-        this.paymentProposal.paymentProposalNumber = results; 
+        this.paymentProposal.paymentProposalNumber = results;
       });
   }
 
@@ -54,6 +54,8 @@ export class PaymentProposalComponent implements OnInit {
         this.paymentProposal.vendorBankAccountNumber = this.selectedVendor.bankAccountNumber;
         this.paymentProposal.vendorBankAccountType = this.selectedVendor.bankAccountType;
         this.paymentProposal.vendorBankUniqueId = this.selectedVendor.bankUniqueId;
+        this.getAllFinanceInvoices();
+
       }
     });
   }
@@ -64,35 +66,52 @@ export class PaymentProposalComponent implements OnInit {
         if (results && results.financeInvoices) {
           //alert(JSON.stringify(results.financeInvoices));
           this.financeInvoiceList = results.financeInvoices;
+          let paymentProposalDetailsLocal: Array<FinanceModels.PaymentProposalDetail> = new Array<FinanceModels.PaymentProposalDetail>();
+          for (let entry of this.financeInvoiceList) {
+            if (entry.supplierCode === this.selectedVendor.supplierUniqueNo) {
+              let detail: FinanceModels.PaymentProposalDetail = new FinanceModels.PaymentProposalDetail();
+              detail.paymentProposalNumber = this.paymentProposal.paymentProposalNumber;
+              detail.proposedPaymentDate = new Date();
+              detail.tax = 10; //TODO
+              detail.invoiceDate = entry.invoiceDate;
+              detail.amount = entry.grossAmount;
+              detail.poReferenceNumber = entry.purchaseOrderRefNumber;
+              detail.invoiceRefernceNumber = entry.invoiceNumber;
+              detail.status = "Posted";
+              detail.bankProcessingDate = null;
+              detail.selectedInUI = true;
+              paymentProposalDetailsLocal.push(detail);
+            }
+          }
+          this.paymentProposal.paymentProposalDetails = paymentProposalDetailsLocal;
         }
       });
   }
 
   savePaymentProposal(myForm: NgForm) {
-    this.paymentProposal.createdBy = this.currentUser.name;
-    this.paymentProposal.createdDate = new Date();
-
-    let paymentProposalDetailsLocal : Array<FinanceModels.PaymentProposalDetail> = new Array<FinanceModels.PaymentProposalDetail>();
-    
-    for (let entry of this.financeInvoiceList) {
-      let detail: FinanceModels.PaymentProposalDetail = new FinanceModels.PaymentProposalDetail();
-      detail.paymentProposalNumber = this.paymentProposal.paymentProposalNumber;
-      detail.proposalDate = this.paymentProposal.proposalDate;
-      detail.tax = 10; //TODO
-      detail.amount = entry.grossAmount;
-      detail.poReferenceNumber = entry.purchaseOrderRefNumber;
-      detail.invoiceRefernceNumber = entry.invoiceNumber;
-      detail.status = "Posted";
-      detail.bankProcessingDate = this.paymentProposal.proposalDate; //TODO
-      paymentProposalDetailsLocal.push(detail);
+    let invoiceSelected: boolean = false;
+    for (let entry of this.paymentProposal.paymentProposalDetails) {
+      if (entry.selectedInUI) {
+        invoiceSelected = true;
+        break;
+      }
     }
 
-    this.paymentProposal.paymentProposalDetails = paymentProposalDetailsLocal;
+    if (invoiceSelected) {
+      this.paymentProposal.createdBy = this.currentUser.name;
+      this.paymentProposal.createdDate = new Date();
 
-    this.financeService.savePaymentProposal(this.paymentProposal)
-      .then((results: any) => {
-        this.alertService.success("Payment Proposal created." + this.paymentProposal.paymentProposalNumber);
-      });
+      this.financeService.savePaymentProposal(this.paymentProposal)
+        .then((results: any) => {
+          this.alertService.success("Payment Proposal created." + this.paymentProposal.paymentProposalNumber);
+          this.paymentProposal = new FinanceModels.PaymentProposal();
+          this.paymentProposal.proposalDate = new Date();
+          this.selectedVendor.name = '';
+          this.getUniqueId();
+        });
+    } else {
+      alert('Please select a invoice.')
+    }
 
   }
 
