@@ -85,12 +85,14 @@ func getAllPurchaseOrders(stub  shim.ChaincodeStubInterface, option string, valu
 			allDetails.PurchaseOrders = append(allDetails.PurchaseOrders, sb);
 		} else if strings.ToLower(option) == "po" && strings.ToLower(value) == strings.ToLower(sb.PurchaseOrderNumber) {
 			allDetails.PurchaseOrders = append(allDetails.PurchaseOrders, sb);	
+		} else if strings.ToLower(option) == "vendors-approved" && strings.ToLower(sb.Status) == "approved" && strings.ToLower(value) == strings.ToLower(sb.SupplierUniqueNo) {
+			allDetails.PurchaseOrders = append(allDetails.PurchaseOrders, sb);
 		}
 	}
 	if strings.ToLower(option) == "ids" {
 		rabAsBytes, _ := json.Marshal(allIds)		
 		return shim.Success(rabAsBytes)	
-	} else if strings.ToLower(option) == "details" || strings.ToLower(option) == "created" || strings.ToLower(option) == "approved" || strings.ToLower(option) == "po" {
+	} else if strings.ToLower(option) == "details" || strings.ToLower(option) == "created" || strings.ToLower(option) == "approved" || strings.ToLower(option) == "po" || strings.ToLower(option) == "vendors-approved" {
 		rabAsBytes, _ := json.Marshal(allDetails)
 		return shim.Success(rabAsBytes)	
 	}
@@ -416,12 +418,14 @@ func getAllVendorSalesOrders(stub  shim.ChaincodeStubInterface, option string, v
 			allDetails.VendorSalesOrders = append(allDetails.VendorSalesOrders, sb);	
 		} else if strings.ToLower(option) == "po" && strings.ToLower(value) == strings.ToLower(sb.PurchaseOrderRefNumber) {
 			allDetails.VendorSalesOrders = append(allDetails.VendorSalesOrders, sb);	
+		} else if strings.ToLower(option) == "vendors-so" && strings.ToLower(value) == strings.ToLower(sb.SupplierCode) {
+			allDetails.VendorSalesOrders = append(allDetails.VendorSalesOrders, sb);	
 		}
 	}
 	if strings.ToLower(option) == "ids" {
 		rabAsBytes, _ := json.Marshal(allIds)		
 		return shim.Success(rabAsBytes)	
-	} else if strings.ToLower(option) == "details" || strings.ToLower(option) == "receipt" || strings.ToLower(option) == "issued" || strings.ToLower(option) == "po" {
+	} else if strings.ToLower(option) == "details" || strings.ToLower(option) == "receipt" || strings.ToLower(option) == "issued" || strings.ToLower(option) == "po" || strings.ToLower(option) == "vendors-so" {
 		rabAsBytes, _ := json.Marshal(allDetails)
 		return shim.Success(rabAsBytes)	
 	}

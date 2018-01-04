@@ -42,6 +42,7 @@ import { InvoiceManagementComponent } from './finance/invoice-management/invoice
 import { GoodsIssueComponent } from './vendor/goods-issue/goods-issue.component';
 import { GenerateInvoiceComponent } from './vendor/generate-invoice/generate-invoice.component';
 import { PaymentProposalComponent } from './finance/payment-proposal/payment-proposal.component';
+import { ProcessPaymentComponent } from './bank/process-payment/process-payment.component';
 
 const appRoutes:Routes = [
   {
@@ -127,13 +128,18 @@ const appRoutes:Routes = [
     path: 'logistic/create-consignment',
     canActivate: [AuthguardGuard],
     component: CreateConsignmentComponent
+  },
+  {
+    path: 'bank/process-payment',
+    canActivate: [AuthguardGuard],
+    component: ProcessPaymentComponent
   }   
 ]
 
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, LoginComponent, FooterComponent, 
-    DashboardComponent, DialogComponent, BlockComponent, AlertComponent, PoCreationComponent, PoFulfilmentComponent, PoTrackerComponent, CreateConsignmentComponent, GoodsReceiptComponent, InvoiceManagementComponent, GoodsIssueComponent, GenerateInvoiceComponent, PaymentProposalComponent],
+    DashboardComponent, DialogComponent, BlockComponent, AlertComponent, PoCreationComponent, PoFulfilmentComponent, PoTrackerComponent, CreateConsignmentComponent, GoodsReceiptComponent, InvoiceManagementComponent, GoodsIssueComponent, GenerateInvoiceComponent, PaymentProposalComponent, ProcessPaymentComponent],
   imports: [  
   RouterModule.forRoot(appRoutes),
   FormsModule,

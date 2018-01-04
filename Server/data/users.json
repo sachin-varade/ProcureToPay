@@ -7,7 +7,8 @@
                 "displayName": "procurement 1",
                 "role": "procurement",
                 "password": "123456",
-                "uniqueId": "A001"                
+                "uniqueId": "A001",
+                "homepage": "procurement/create-po"                
             },
             {
                 "id": 2,
@@ -15,7 +16,8 @@
                 "displayName": "procurement 2",
                 "role": "procurement",
                 "password": "123456",
-                "uniqueId": "A001"                
+                "uniqueId": "A001",
+                "homepage": "procurement/create-po"                 
             }
         ],
         "finances": [
@@ -25,7 +27,8 @@
                 "displayName": "finance 1",
                 "role": "finance",
                 "password": "123456",
-                "uniqueId": "A001"                
+                "uniqueId": "A001",
+                "homepage": "finance/invoice-management"                
             },
             {
                 "id": 2,
@@ -33,7 +36,8 @@
                 "displayName": "finance 2",
                 "role": "finance",
                 "password": "123456",
-                "uniqueId": "A001"                
+                "uniqueId": "A001",
+                "homepage": "finance/invoice-management"                
             }
         ],
         "logistics": [
@@ -43,7 +47,8 @@
                 "displayName": "logistic 1",
                 "role": "logistic",
                 "password": "123456",
-                "uniqueId": "A001"                
+                "uniqueId": "A001",
+                "homepage": "logistic/create-consignment"              
             },
             {
                 "id": 2,
@@ -51,7 +56,8 @@
                 "displayName": "logistic 2",
                 "role": "logistic",
                 "password": "123456",
-                "uniqueId": "A001"                
+                "uniqueId": "A001",
+                "homepage": "logistic/create-consignment"                 
             }
         ],
         "vendors": [
@@ -69,7 +75,8 @@
                 "supplierContactPersonEmail": "jyotienterprisesgoa@yahoo.in",
                 "bankAccountNumber" :  "ACCT-VEND01",
                 "bankAccountType" : "Current Acount",
-                "bankUniqueId" : "B001"              
+                "bankUniqueId" : "B001",
+                "homepage": "vendor/po-fulfillment"               
             },
             {
                 "id": 2,
@@ -85,7 +92,8 @@
                 "supplierContactPersonEmail": "jkenterprises@gmail.com",
                 "bankAccountNumber" :  "ACCT-VEND02",
                 "bankAccountType" : "Current Acount",
-                "bankUniqueId" : "B002"                   
+                "bankUniqueId" : "B002",
+                "homepage": "vendor/po-fulfillment"                   
             }
         ],
         "banks": [
@@ -95,7 +103,8 @@
                 "displayName": "bank 1",
                 "role": "bank",
                 "password": "123456",
-                "uniqueId": "A001"                
+                "uniqueId": "A001",
+                "homepage": "process-payment"                  
             },
             {
                 "id": 2,
@@ -103,7 +112,8 @@
                 "displayName": "bank 2",
                 "role": "bank",
                 "password": "123456",
-                "uniqueId": "A001"                
+                "uniqueId": "A001",
+                "homepage": "process-payment"                
             }
         ]
     }

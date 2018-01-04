@@ -165,7 +165,7 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
         .then((user_from_store) => {
             helper.checkUserEnrolled(user_from_store);
             return queryChainCode.queryChainCode(channels.financeChannelFC, 
-                financeConfig.channels.financeChannelFC.chaincodeId, 
+                financeConfig.channels.financechannel.chaincodeId, 
                 "getUniqueId", 
                 [option, value]);
         }).then((results) => {

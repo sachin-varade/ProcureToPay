@@ -38,6 +38,16 @@ export class FinanceService {
     });
   }
 
+  getUniqueId(option: string, value: string = ""): Promise<any> {
+    this.url = this.BASE_URL +"/finance/getUniqueId";
+    return this.http.get(this.url+"/"+ option +"/"+ value).toPromise()
+    .then((results: any) => {
+      return results.uniqueId;
+    }).catch((err) => {
+      this.alertService.error("Error occured...");
+    });
+  }
+
   getAllFinanceInvoices(option: string, value: string = ""): Promise<any> {
     this.url = `${this.BASE_URL}/getAllFinanceInvoices`;
     return this.http.get(this.url+"/"+ option +"/"+ value).toPromise()

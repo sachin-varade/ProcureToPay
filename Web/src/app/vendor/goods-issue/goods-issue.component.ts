@@ -45,7 +45,7 @@ export class GoodsIssueComponent implements OnInit {
   }
 
   fetchAllVendorSOs(){
-    this.vendorService.getAllVendorSalesOrders('details')
+    this.vendorService.getAllVendorSalesOrders('vendors-so', this.currentUser.supplierUniqueNo)
     .then((results: any) => {
       this.salesOrderList = results.vendorSalesOrders;
     });

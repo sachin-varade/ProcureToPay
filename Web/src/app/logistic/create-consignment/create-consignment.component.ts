@@ -65,8 +65,8 @@ export class CreateConsignmentComponent implements OnInit {
           }
         });
 
-        this.logisticTransaction.supplierNumber = element.invoicePartyId;
-        this.logisticTransaction.shipToParty = element.deliverToPersonName;
+        this.logisticTransaction.supplierNumber = element.supplierCode;
+        this.logisticTransaction.shipToParty = element.invoicePartyId;
         this.logisticTransaction.pickedupDatetime =new Date();
         this.pickedupDatetime = {hour: this.logisticTransaction.pickedupDatetime.getHours(), minute: this.logisticTransaction.pickedupDatetime.getMinutes()};
         this.logisticTransaction.expectedDeliveryDatetime =new Date();

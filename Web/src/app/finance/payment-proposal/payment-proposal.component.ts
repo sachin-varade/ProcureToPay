@@ -40,7 +40,7 @@ export class PaymentProposalComponent implements OnInit {
   }
 
   getUniqueId() {
-    this.vendorService.getUniqueId('goods-issue') //TODO : to be changed
+    this.financeService.getUniqueId('payment-proposal') //TODO : to be changed
       .then((results: any) => {
         this.paymentProposal.paymentProposalNumber = results; 
       });

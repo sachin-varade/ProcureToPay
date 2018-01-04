@@ -63,9 +63,8 @@ export class LoginComponent implements OnInit {
 
   getDefaultRoute(){
     this.currentUser = this.user.getUserLoggedIn();
-    if(this.currentUser && this.currentUser.role)
-      //return this.currentUser.role +"/inward";
-      return "dashboard";
+    if(this.currentUser && this.currentUser.role && this.currentUser.homepage)
+      return this.currentUser.homepage;
     else 
       return "dashboard";
   }

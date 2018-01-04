@@ -22,7 +22,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"strings"	
+	"strings"
+	"strconv"	
 
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	pb "github.com/hyperledger/fabric/protos/peer"
@@ -156,3 +157,41 @@ func getAllPaymentProposals(stub  shim.ChaincodeStubInterface, option string, va
 	
 	return shim.Success(nil)
 }
+
+func getUniqueId(stub  shim.ChaincodeStubInterface, option string, value string) pb.Response {
+	prefix := ""	
+	if strings.ToLower(option) == "payment-proposal" {
+		prefix = "PPID-"
+		allBAsBytes, err := stub.GetState("allPaymentProposalNumbers")
+		if err != nil {
+			return shim.Error("Failed to get all AllPaymentProposalNumbers")
+		}
+		var res AllPaymentProposalNumbers
+		err = json.Unmarshal(allBAsBytes, &res)
+		if err != nil {
+			fmt.Println("Printing Unmarshal error:-");
+			fmt.Println(err);
+			return shim.Error("Failed to Unmarshal AllPaymentProposalNumbers")
+		}
+		uniqueId := ""
+		if len(res.PaymentProposalNumbers) != 0 {
+			uniqueId = res.PaymentProposalNumbers[len(res.PaymentProposalNumbers) - 1]
+			p := strings.Split(uniqueId, "-")
+			
+			input, e := strconv.Atoi(p[1])
+			if e != nil {
+				fmt.Println(e)
+			}
+			output := (input + 1)
+			uniqueId = prefix + strconv.Itoa(output)
+			
+		} else {
+			uniqueId = prefix +"1000"
+		}
+		rabAsBytes, _ := json.Marshal(uniqueId)
+		return shim.Success(rabAsBytes)	
+	} 
+
+	return shim.Success(nil)
+}
+
