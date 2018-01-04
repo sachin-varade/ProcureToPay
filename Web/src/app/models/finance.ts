@@ -69,4 +69,6 @@ export class PaymentProposalDetail {
 	invoiceRefernceNumber : string;
 	status: string;
 	bankProcessingDate : Date;
+	invoiceDate : Date;
+	selectedInUI : boolean;
 }
