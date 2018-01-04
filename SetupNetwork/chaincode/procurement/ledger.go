@@ -227,7 +227,7 @@ type AllGoodsReceiptIds struct{
 }
 
 type AllGoodsReceiptDetails struct{
-	GoodsReceiptNumbers []GoodsReceipt `json:"goodsReceiptNumbers"`
+	GoodsReceipts []GoodsReceipt `json:"goodsReceipts"`
 }
 
 type VendorInvoice struct {

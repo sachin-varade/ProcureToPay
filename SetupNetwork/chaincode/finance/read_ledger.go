@@ -76,13 +76,15 @@ func getAllFinanceInvoices(stub  shim.ChaincodeStubInterface, option string, val
 			allIds.InvoiceNumbers = append(allIds.InvoiceNumbers,sb.InvoiceNumber);	
 		} else if strings.ToLower(option) == "details" {
 			allDetails.FinanceInvoices = append(allDetails.FinanceInvoices,sb);	
+		} else if strings.ToLower(option) == "po" && strings.ToLower(value) == strings.ToLower(sb.PurchaseOrderRefNumber) {
+			allDetails.FinanceInvoices = append(allDetails.FinanceInvoices, sb);	
 		}
 	}
 	
 	if strings.ToLower(option) == "ids" {
 		rabAsBytes, _ := json.Marshal(allIds)		
 		return shim.Success(rabAsBytes)	
-	} else if strings.ToLower(option) == "details" {
+	} else if strings.ToLower(option) == "details" || strings.ToLower(option) == "po" {
 		rabAsBytes, _ := json.Marshal(allDetails)
 		return shim.Success(rabAsBytes)	
 	}
@@ -139,13 +141,15 @@ func getAllPaymentProposals(stub  shim.ChaincodeStubInterface, option string, va
 			allIds.PaymentProposalNumbers = append(allIds.PaymentProposalNumbers,sb.PaymentProposalNumber);	
 		} else if strings.ToLower(option) == "details" {
 			allDetails.PaymentProposals = append(allDetails.PaymentProposals,sb);	
+		} else if strings.ToLower(option) == "po" && strings.ToLower(value) == strings.ToLower(sb.ProposalDetails[0].PoReferenceNumber) {
+			allDetails.PaymentProposals = append(allDetails.PaymentProposals, sb);	
 		}
 	}
 	
 	if strings.ToLower(option) == "ids" {
 		rabAsBytes, _ := json.Marshal(allIds)
 		return shim.Success(rabAsBytes)	
-	} else if strings.ToLower(option) == "details" {
+	} else if strings.ToLower(option) == "details" || strings.ToLower(option) == "po" {
 		rabAsBytes, _ := json.Marshal(allDetails)
 		return shim.Success(rabAsBytes)	
 	}
