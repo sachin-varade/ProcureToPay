@@ -49,13 +49,13 @@ module.exports = function (procurementService, financeService, logisticService, 
                     if(result.goodsIssueList != undefined && result.goodsIssueList.length > 0) {
                         console.log("GoodsIssueNumber: ", result.goodsIssueList[0].GoodsIssueNumber);
                         poTrackerEntity.GoodsIssue = result.goodsIssueList[0];
-                        poTrackerEntity.GoodsIssueNumber = result.goodsIssueList[0].GoodsIssueNumber;
-                        poTrackerEntity.GoodsIssueDate = result.goodsIssueList[0].GoodsIssueDate;
+                        // poTrackerEntity.GoodsIssueNumber = result.goodsIssueList[0].GoodsIssueNumber;
+                        // poTrackerEntity.GoodsIssueDate = result.goodsIssueList[0].GoodsIssueDate;
                     }
                     else{
                         poTrackerEntity.GoodsIssue = {};
-                        poTrackerEntity.GoodsIssueNumber = "";
-                        poTrackerEntity.GoodsIssueDate = "";
+                        // poTrackerEntity.GoodsIssueNumber = "";
+                        // poTrackerEntity.GoodsIssueDate = "";
                     }
                    
 
@@ -96,7 +96,7 @@ module.exports = function (procurementService, financeService, logisticService, 
                                 return financeService.getAllFinanceInvoices(option, value)
                                 .then((result) => {
                                     if(result.financeInvoices != undefined && result.financeInvoices.length > 0) {
-                                        console.log("Finance Invoice Number : ", result.financeInvoices[0].InvoiceNumber);
+                                        console.log("Finance Invoice Number : ", result.financeInvoices[0].invoiceNumber);
                                         poTrackerEntity.FinanceInvoices = result.financeInvoices[0];
                                     }
                                     else{
@@ -106,12 +106,12 @@ module.exports = function (procurementService, financeService, logisticService, 
                                     //8. Syngenta Finance - Payment Proposal + Bank Status
                                     return financeService.getAllPaymentProposals(option, value)
                                     .then((result) => {
-                                        if(result.financeInvoices != undefined && result.financeInvoices.length > 0) {
-                                            console.log("Finance Invoice Number : ", result.financeInvoices[0].InvoiceNumber);
-                                            poTrackerEntity.FinanceInvoices = result.financeInvoices[0];
+                                        if(result.paymentProposals != undefined && result.paymentProposals.length > 0) {
+                                            console.log("Finance Payment Proposal Number : ", result.paymentProposals[0].paymentProposalNumber);
+                                            poTrackerEntity.PaymentDetails = result.paymentProposals[0];
                                         }
                                         else{
-                                            poTrackerEntity.FinanceInvoices = {};
+                                            poTrackerEntity.PaymentDetails = {};
                                         }                               
                             
                                     return poTrackerEntity;
