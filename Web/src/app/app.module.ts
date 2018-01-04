@@ -65,6 +65,10 @@ const appRoutes:Routes = [
     component: LoginComponent
   },
   {
+    path: 'bankLogin',
+    component: LoginComponent
+  },
+  {
     path: 'dashboard',
     canActivate: [AuthguardGuard],
     component: DashboardComponent

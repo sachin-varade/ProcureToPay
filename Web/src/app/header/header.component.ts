@@ -38,7 +38,7 @@ export class HeaderComponent implements OnInit {
     } else if (role == "logistic") {
       this.router.navigate(['/logisticLogin']);
     } else if (role == "bank") {
-      this.router.navigate(['/syngentaFinanceLogin']);
+      this.router.navigate(['/bankLogin']);
     }
     else{
       this.router.navigate(['']);
