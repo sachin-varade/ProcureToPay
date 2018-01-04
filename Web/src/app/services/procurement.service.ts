@@ -77,4 +77,15 @@ export class ProcurementService {
     });
   }
   
+
+  getPurchaseOrderTrackingDetails(option: string, value: string = ""): Promise<any> {
+    this.url = `${this.BASE_URL}/getPurchaseOrderTrackingDetails`;
+    return this.http.get(this.url+"/"+ option +"/"+ value).toPromise()
+    .then((results: any) => {
+      return results;
+    }).catch((err) => {
+      this.alertService.error("Error occured...");
+    });
+  }
+
 }

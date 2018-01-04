@@ -1,16 +1,12 @@
 <div class="page-container cgt-finance">
     <div class="container">
-        <h2 class="page-title">Oder Tracker</h2>
+        <h2 class="page-title">Purchase Order Tracker</h2>
         <div class="content-area align-center">
             <div class="tracker">
                 <div class="tracker-btn">
                     <form>
-                        <select class="input-style">
-                            <option value="0" selected>Select Purchase Order</option>
-                            <option>632476237427</option>
-                            <option>534723473234</option>
-                        </select>
-                        <button class="btn-normal">Track</button>
+                        <input class="input-style" type="text" [(ngModel)]="inputPurchaseOrderNumber" placeholder="Enter PO Number" name="PO Number">
+                        <button type="submit" [disabled]="inputPurchaseOrderNumber == ''" (click)="getPurchaseOrderTrackingDetails(inputPurchaseOrderNumber);" class="btn btn-normal">Track</button>
                     </form>
                 </div>
                 
@@ -18,11 +14,11 @@
                     <div class="po-details block-field">
                         <div class="v-list">
                             <span class="label-field">PO Number</span>
-                            <span class="value-field highlight">632476237427</span>
+                            <span class="value-field highlight">{{this.poTrackingDetails.PurchaseOrderNumber}}</span>
                         </div>
                         <div class="v-list">
                             <span class="label-field">PO Date</span>
-                            <span class="value-field">December 21, 2017</span>
+                            <span class="value-field">{{this.poTrackingDetails.PurchaseOrders.purchaseOrderDate}}</span>
                         </div>
                         <div class="v-list">
                             <span class="label-field">Product List</span>
@@ -32,83 +28,99 @@
                         </div>
                         <div class="v-list">
                             <span class="label-field">Vendor Name</span>
-                            <span class="value-field">Vendor Company Name</span>
+                            <span class="value-field">{{this.poTrackingDetails.PurchaseOrders.supplierName}}</span>
                         </div>
                         <div class="v-list">
                             <span class="label-field">Vendor Address</span>
-                            <span class="value-field">Address line 1, street name, Location Name, City, State</span>
+                            <span class="value-field">{{this.poTrackingDetails.PurchaseOrders.supplierContactPersonAddress}}</span>
                         </div>
                     </div>
                     <div class="po-tracker timeline-wrapper">
                         <ul>
-                            <li class="finished">
+                            <li class="{{this.poTrackingDetails.PurchaseOrders.purchaseOrderNumber.length >0 ? 'finished' : ''}}">
                                 <div class="left-block">
                                     <h6 class="event-title">Purchase order created</h6>
-                                    <span class="event-time">Created on 12-12-2017, 03:30 PM</span>
+                                    <span class="event-time">Purchase Order Number: {{this.poTrackingDetails.PurchaseOrders.purchaseOrderNumber}}</span>
+                                    <span class="event-time">Created on: {{this.poTrackingDetails.PurchaseOrders.purchaseOrderDate}}</span>
+                                    <span class="event-time">Order Amount: {{this.poTrackingDetails.PurchaseOrders.totalOrderAmount}}</span>
                                     <span class="event-party">Syngenta Procurement Team</span>
                                 </div>
                                 <div class="right-block">
                                 </div>
                                 <div class="marker"></div>
                             </li>
-                            <li class="finished">
+                            <li class="{{this.poTrackingDetails.VendorSalesOrder.salesOrderNumber.length >0 ? 'finished' : ''}}">
                                 <div class="left-block">
                                     
                                 </div>
                                 <div class="right-block">
-                                    <h6 class="event-title">Purchase order dispatched to vendor</h6>
-                                    <span class="event-time">Dispatched on 12-12-2017, 07:30 PM</span>
-                                    <span class="event-party">Syngenta Procurement Team</span>
-                                </div>
-                                <div class="marker"></div>
-                            </li>
-                            <li class="finished">
-                                <div class="left-block">
                                     <h6 class="event-title">Sales Order</h6>
-                                    <span class="event-time">Completed on 13-12-2017, 10:30 AM</span>
-                                    <span class="event-party">Vendor Company name</span>
+                                    <span class="event-time">Sales Order Number: {{this.poTrackingDetails.VendorSalesOrder.salesOrderNumber}}</span>
+                                    <span class="event-time">{{this.poTrackingDetails.VendorSalesOrder.statusUpdatedOn}}</span>
+                                    <span class="event-time">Supplier Code: {{this.poTrackingDetails.VendorSalesOrder.supplierCode}}</span>
+                                    <span class="event-party">Vendor Company</span>
+                                </div>
+                                <div class="marker"></div>
+                            </li>
+                            <li class="{{this.poTrackingDetails.GoodsIssue.goodsIssueNumber.length >0 ? 'finished' : ''}}">
+                                <div class="left-block">
+                                    <h6 class="event-title">Goods Issue</h6>
+                                    <span class="event-time">Goods Issue Number {{this.poTrackingDetails.GoodsIssue.goodsIssueNumber}}</span>
+                                    <span class="event-time">Goods Issue Date: {{this.poTrackingDetails.GoodsIssue.goodsIssueDate}}</span>
+                                    <span class="event-party">Vendor Company</span>
                                 </div>
                                 <div class="right-block">
                                 </div>
                                 <div class="marker"></div>
                             </li>
-                            <li>
+                            <li class="{{this.poTrackingDetails.LogisticTransaction.consignmentNumber.length >0 ? 'finished' : ''}}">
                                 <div class="left-block">
                                     
                                 </div>
                                 <div class="right-block">
-                                    <h6 class="event-title">Order shipped to Syngenta</h6>
-                                    <span class="event-time">Shipment pending</span>
+                                    <h6 class="event-title">Shipping Details</h6>
+                                    <span class="event-time">Consignment Number: {{this.poTrackingDetails.LogisticTransaction.consignmentNumber}}</span>
+                                    <span class="event-time">Pickup Date: {{this.poTrackingDetails.LogisticTransaction.pickedupDatetime}}</span>
+                                    <span class="event-time">Expected Delivery Date: {{this.poTrackingDetails.LogisticTransaction.expectedDeliveryDatetime}}</span>
+                                    <span class="event-time">Actual Delivery Date: {{this.poTrackingDetails.LogisticTransaction.actualDeliveryDatetime}}</span>
+                                    <span class="event-time">Hazardous Material: {{this.poTrackingDetails.LogisticTransaction.hazardousMaterial}}</span>
+                                    <span class="event-time">Status: {{this.poTrackingDetails.LogisticTransaction.status}}</span>
                                     <span class="event-party">Vendor Company name</span>
                                 </div>
                                 <div class="marker"></div>
                             </li>
-                            <li>
+                            <li class="{{this.poTrackingDetails.VendorInvoices.invoiceNumber.length >0 ? 'finished' : ''}}">
                                 <div class="left-block">
-                                    <h6 class="event-title">Order delivered to Syngenta</h6>
-                                    <span class="event-time">Delivery pending</span>
-                                    <span class="event-party">Logistic Company</span>
+                                    <h6 class="event-title">Vendor - Invoice</h6>
+                                    <span class="event-time">Invoice Number: {{this.poTrackingDetails.VendorInvoices.invoiceNumber}}</span>
+                                    <span class="event-time">Invoice Date: {{this.poTrackingDetails.VendorInvoices.invoiceDate}}</span>
+                                    <span class="event-time">Blockchain publish date: {{this.poTrackingDetails.VendorInvoices.invoicePublishDate}}</span>
+                                    <span class="event-time">Invoice Party: {{this.poTrackingDetails.VendorInvoices.invoicePartyId}}</span>
+                                    <span class="event-time">Invoice Party Address: {{this.poTrackingDetails.VendorInvoices.invoicePartyAddress}}</span>
+                                    <span class="event-party">Vendor Invoice issuer Department</span>
                                 </div>
                                 <div class="right-block">
                                 </div>
                                 <div class="marker"></div>
                             </li>
-                            <li>
+                            <li class="{{this.poTrackingDetails.GoodsReceipts.goodsReceiptNumber.length >0 ? 'finished' : ''}}">
                                 <div class="left-block">
                                     
                                 </div>
                                 <div class="right-block">
-                                    <h6 class="event-title">Delivery receipts created</h6>
-                                    <span class="event-time">Delivery receipt pending</span>
+                                    <h6 class="event-title">Syngenta Goods receipts</h6>
+                                    <span class="event-time">Goods receipt Number: {{this.poTrackingDetails.GoodsReceipts.goodsReceiptNumber}}</span>
+                                    <span class="event-time">Goods received on: {{this.poTrackingDetails.GoodsReceipts.goodsReceiptDate}}</span>
                                     <span class="event-party">Syngenta Procurement Team</span>
                                 </div>
                                 <div class="marker"></div>
                             </li>
-                            <li>
+                            <li class="{{this.poTrackingDetails.FinanceInvoices.invoiceNumber.length >0 ? 'finished' : ''}}">
                                 <div class="left-block">
-                                    <h6 class="event-title">Invoice created</h6>
-                                    <span class="event-time">Invoice pending</span>
-                                    <span class="event-party">Vendor Company Name</span>
+                                    <h6 class="event-title">Syngenta Invoice Processing</h6>
+                                    <span class="event-time">Invoice received Number: {{this.poTrackingDetails.FinanceInvoices.invoiceNumber}}</span>
+                                    <span class="event-time">Invoice Date: {{this.poTrackingDetails.FinanceInvoices.invoiceDate}}</span>
+                                    <span class="event-party">Syngenta Finance</span>
                                 </div>
                                 <div class="right-block">
                                 </div>
@@ -119,9 +131,11 @@
                                     
                                 </div>
                                 <div class="right-block">
-                                    <h6 class="event-title">Invoice verification</h6>
-                                    <span class="event-time">Verification pending</span>
-                                    <span class="event-party">Syngenta Finance Team</span>
+                                    <h6 class="event-title">Payment Details</h6>
+                                    <span class="event-time">Payment Proposal Number: </span>
+                                    <span class="event-time">Payment proposal Sent on: </span>
+                                    <span class="event-time">Payment Status: </span>
+                                    <span class="event-party">Syngenta Finance</span>
                                 </div>
                                 <div class="marker"></div>
                             </li>
