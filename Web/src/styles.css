@@ -1,1196 +1,1168 @@
 
 .ng-valid[required], .ng-valid.required  {
-border-left: 5px solid #42A948; /* green */
-}
-
-.ng-invalid:not(form)  {
-border-left: 5px solid #a94442; /* red */
-}
-
-.ng-untouched:not(form)  {
-border-left: 1px solid #ccc; /* red */
-}
-
-.alert-outer{   
-    right: 0px;
-    left:0px;
-    margin: 5px 5px 0 5px;
-    top: 110px;
-    z-index: 100;
-}
-
-.alert{
-    padding: 7px 20px 7px 40px;
-    margin-bottom: 5px;
-    background-repeat: no-repeat;
-    background-position: 10px 7px;
-}
-
-.alert-dismissable .close, .alert-dismissible .close{
-    top: 0px;
-    right: -15px;
-}
-
-.alert-success{
-    background-image: url('assets/images/alert-success.png');
-}
-
- .alert-danger{
-    background-image: url('assets/images/alert-danger.png');
-}
-
- .alert-info{
-    background-image: url('assets/images/alert-info.png');
-}
-
- .alert-warning{
-    background-image: url('assets/images/alert-warning.png');
-}
-    
-    /* You can add global styles to this file, and also import other style files */
-    
-    body{
-        background: #fff;
+    border-left: 5px solid #42A948; /* green */
     }
     
+    .ng-invalid:not(form)  {
+    border-left: 5px solid #a94442; /* red */
+    }
     
-    ul, li{
-        list-style: none;
+    .ng-untouched:not(form)  {
+    border-left: 1px solid #ccc; /* red */
+    }
+    
+    .alert-outer{
+        right: 0px;
+        left:0px;
         margin: 0;
-        padding: 0;
-    }
-    .title-main{
-        font-family: 'sans-serif', 'roboto','helvetica';
-        font-weight: 100;
-        font-size: 28px;
-        padding-bottom: 7px;
-        margin-bottom: 30px;
-        border-bottom: solid 1px #ccc;
-    }
-
-   
-    .form-control{
-        background: #fff;
-        border-radius: 0;
-        box-shadow: none;
+        top: 110px;
+        z-index: 100;
     }
     
-    .form-control:focus{
-        box-shadow: none;
+    .alert{
+        padding: 7px 20px 7px 40px;
+        margin: 0;
+        margin-top: 5px;
+        background-repeat: no-repeat;
+        background-position: 10px 7px;
     }
     
-    .form-control optgroup{
-        border: none !important;
-        outline: none !important;
+    .alert-dismissable .close, .alert-dismissible .close{
+        top: 0px;
+        right: -15px;
     }
     
-    option{
-        border: none;
-        outline: none;
-        padding: 10px !important;
-        line-height: 19px !important;
-    }
-    .align-center{
-        text-align: center;
+    .alert-success{
+        background-image: url('assets/images/alert-success.png');
     }
     
-    .checkbox-style{
-        display: inline-block;
-        padding: 9px 12px;
-        border-radius: 4px;
-        border: solid 1px #ccc;
-        background: #fff;
-        line-height: 16px;
-        font-size: 14px;
-        font-weight: normal;
-        margin-right: 5px;
-        position: relative;
-        min-width: 70px;
-        text-align: center;
-        cursor: pointer;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
+     .alert-danger{
+        background-image: url('assets/images/alert-danger.png');
     }
     
-    .checkbox-style.selected{
-        border-color: #6d7be0;
+     .alert-info{
+        background-image: url('assets/images/alert-info.png');
     }
     
-    .checkbox-style input[type=checkbox]{
-        width: 16px;
-        height: 16px;
-        margin-top: -3px;
-        opacity: 0;
+     .alert-warning{
+        background-image: url('assets/images/alert-warning.png');
     }
-    
-    .checkmark {
-        position: absolute;
-        top: 8px;
-        left: 7px;
-        height: 18px;
-        width: 18px;
-        background-color: #eee;
-        border: solid 1px #ccc;
-    }
-    
-    .checkbox-style:hover input ~ .checkmark {
-        background-color: #ccc;
-    }
-    
-    .checkbox-style input:checked ~ .checkmark {
-        background-color: #2196F3;
-        border-color: #2196F3;
         
-    }
-    
-    .checkmark:after {
-        content: "";
-        position: absolute;
-        display: none;
-    }
-    
-    .checkbox-style input:checked ~ .checkmark:after {
-        display: block;
-    }
-    
-    .checkbox-style .checkmark:after {
-        left: 6px;
-        top: 3px;
-        width: 5px;
-        height: 10px;
-        border: solid white;
-        border-width: 0 3px 3px 0;
-        -webkit-transform: rotate(45deg);
-        -ms-transform: rotate(45deg);
-        transform: rotate(45deg);
-    }
-    
-    
-    
-    
-    .btn{
-        margin: 0 5px;
-        padding: 7px 16px;
-    }
-    
-    .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control{
-        background-color: #dedede;
-    }
-    
-   
-    
-    .float-left{
-        float: left;
-    }
-    
-    .float-right{
-        float: right;
-    }
-    
-    
-    
-    .login-wrapper{
-        width: 100%;
-        height: 100%;
-        position: fixed;
-        background: #000;
-    }
-    
-    .login-wrapper.cgt-buyer{
-        background: url('assets/images/syngenta-buyer-login-bg.jpg') no-repeat center;
-        -webkit-background-size:cover;
-        -moz-background-size:cover;
-        background-size:cover;
-        padding: 5% 10%;
-    }
-
-    .login-box form{
-        height: 100%;
-    }
-
-    .cgt-finance .form-area form{
-        height: auto;
-    }
-
-    .login-wrapper.cgt-buyer .login-box{
-        height: 100%;
-        background: #fff;
-        box-shadow: 0px 0px 41px rgba(0, 0, 0, .5);
-    }
-
-    .login-wrapper.cgt-buyer .login-box .bg-area{
-        height: 100%;
-        width: 50%;
-        background: url('assets/images/buyer-login-box-bg.jpg') no-repeat center;
-        -webkit-background-size:cover;
-        -moz-background-size:cover;
-        background-size:cover;
-        float: left;
-    }
-
-    .login-wrapper.cgt-buyer .login-box .form-area{
-        height: 100%;
-        width: 50%;
-        padding: 30px 50px;
-        text-align: center;
-        float: left;
-    }
-
-    .login-wrapper.cgt-buyer .login-box .form-area .sgt-logo{
-        width: 160px;
-        margin-bottom: 50px;
-    }
-
-    .login-wrapper.cgt-buyer .login-box .form-area h3{
-        margin-bottom: 30px;
-        font-weight: bold;
-        color: #009933;
-        font-size: 21px;
-        text-transform: uppercase;
-    }
-
-    .input-style-large{
-        padding: 5px;
-        height: 45px;
-        border: solid 1px #ccc;
-        background: transparent;
-    }
-
-    .login-wrapper.cgt-buyer .login-box .form-area input{
-        border-radius: 21px;
-        width: 100%;
-        margin-bottom: 21px;
-        background-size: 18px;
-    }
-
-    .login-wrapper .login-box .form-area input{
-        padding-left: 50px;
-        background: no-repeat;
-        background-position: 14px center;
-        outline: none;
-        font-size: 16px;
-        color: #888;
-    }
-
-    .login-wrapper .login-box .form-area input.username{
-        background-image: url('assets/images/username-icon.png');
-    }
-
-    .login-wrapper .login-box .form-area input.password{
-        background-image: url('assets/images/password-icon.png');
-    }
-
-    .login-wrapper.cgt-buyer .login-box .form-area .btn-block{
-        height: 45px;
-        line-height: 45px;
-        text-align: center;
-        background: #009933;
-        color: #fff;
-        border-radius: 21px;
-        width: 100%;
-        cursor: pointer;
-        border: none;
-        outline: none;
-        font-size: 19px;
-        text-transform: uppercase;
-    }
-    
-
-    .login-wrapper.cgt-finance{
-        background: url('assets/images/syngenta-finance-bg.jpg') no-repeat center;
-        -webkit-background-size:cover;
-        -moz-background-size:cover;
-        background-size:cover;
-    }
-
-    .login-wrapper.cgt-finance .login-box{
-        height: 140px;
-        top: 50%;
-        width: 100%;
-        display: table;
-        background: transparent;
-        position: absolute;
-        margin-top: -70px;
-    }
-
-    .login-wrapper.cgt-finance .login-box .logo-area{
-        height: 100%;
-        width: 15%;
-        background: rgba(75, 113, 6, .86);
-        text-align: center;
-        display: table-cell;
-        vertical-align: middle;
-    }
-
-    .login-wrapper.cgt-finance .login-box .logo-area img{
-        width: 75%;
-    }
-
-    .login-wrapper.cgt-finance .login-box .form-area{
-        height: 100%;
-        width: 85%;
-        background: rgba(255, 255, 255, .9);
-        display: table-cell;
-        vertical-align: middle;
-        padding: 0 50px;
-    }
-
-    .login-wrapper.cgt-finance .login-box .form-area input{
-        width: 40%;
-        margin-right: 10px;
-        border-color: #bbb;
-    }
-
-    .login-wrapper.cgt-finance .login-box .form-area .btn-inline{
-        width: 14%;
-        height: 45px;
-        line-height: 45px;
-        text-align: center;
-        background: #009933;
-        color: #fff;
-        cursor: pointer;
-        border: none;
-        outline: none;
-        font-size: 19px;
-        text-transform: uppercase;
-    }
-
-    .login-wrapper.cgt-bank{
-        background: url('assets/images/bank-login-bg.jpg') no-repeat center;
-        -webkit-background-size:cover;
-        -moz-background-size:cover;
-        background-size:cover;
-    }
-
-    .login-wrapper.cgt-vendor .login-box{
-        height: 100%;
-        background: #fff;
-    }
-
-    .login-wrapper.cgt-vendor .login-box .bg-area{
-        height: 100%;
-        width: 50%;
-        background: url('assets/images/syngenta-vendor-bg.jpg') no-repeat center;
-        -webkit-background-size:cover;
-        -moz-background-size:cover;
-        background-size:cover;
-        float: left;
-        position: relative;
-    }
-
-    .login-wrapper.cgt-vendor .login-box .form-area{
-        height: 100%;
-        width: 50%;
-        padding: 30px 50px;
-        text-align: center;
-        float: left;
-        position: relative;
-    }
-
-    .login-wrapper.cgt-vendor .login-box .form-area .login-box-inner{
-        position: absolute;
-        top: 50%;
-        margin-top: -160px;
-        padding: 0 50px 0 100px;
-    }
-
-    .login-wrapper.cgt-vendor .login-box .form-area h3{
-        margin-bottom: 70px;
-        font-weight: bold;
-        color: #009933;
-        font-size: 21px;
-        text-transform: uppercase;
-    }
-
-    .login-wrapper.cgt-vendor .login-box .form-area input, .login-wrapper.cgt-logistic .login-box .form-area input, .login-wrapper.cgt-bank .login-box .form-area input{
-        margin-bottom: 25px;
-        border: none;
-        border-bottom: solid 1px #ccc;
-        width: 100%;
-        background-position: 5px center;
-        padding-left: 39px;
-    }
-
-    .login-wrapper.cgt-vendor .login-box .form-area .btn-inline, .login-wrapper.cgt-logistic .login-box .form-area .btn-inline, .login-wrapper.cgt-bank .login-box .form-area .btn-inline{
-        float: right;
-        padding: 0 50px;
-        height: 41px;
-        line-height: 41px;
-        text-align: center;
-        background: #38d36a;
-        color: #fff;
-        cursor: pointer;
-        border: none;
-        outline: none;
-        font-size: 18px;
-        border-radius: 21px;
-        text-transform: uppercase;
-        box-shadow: 0px 0px 12px rgba(0, 0, 0, .3);
-    }
-
-    .login-wrapper.cgt-logistic .login-box .form-area .btn-inline{
-        background: #0b96ab !important;
-        float: none !important;
-        text-align: center;
-    }
-
-    .login-wrapper.cgt-vendor .login-box .vendor-logo-holder{
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 180px;
-        height: 180px;
-        border-radius: 50%;
-        box-shadow: 0px 0px 12px rgba(0, 0, 0, .4);
-        margin-top: -90px;
-        margin-left: -90px;
-        display: table;
-        vertical-align: middle;
-        text-align: center;
-        background: #fff;
-        z-index: 1;
-    }
-
-    .login-wrapper.cgt-vendor .login-box .vendor-logo-holder span{
-        display: table-cell;
-        width: 100%;
-        height: 100%;
-        vertical-align: middle;
-    }
-
-    .login-wrapper.cgt-vendor .login-box .vendor-logo-holder img{
-        max-width: 70%;
-        max-height: 70%;
-    }
-
-    .login-wrapper.cgt-vendor .login-box .welcome-text{
-        position: absolute;
-        top: 3%;
-        left: 5%;
-        width: 95%;
-        color: #fff;
-        text-transform: uppercase;
-    }
-
-    .login-wrapper.cgt-vendor .login-box .welcome-text h1{
-        font-size: 72px;
-        font-family: "Helvetica Neue","Helvetica","Roboto",Arial,sans-serif;
-        font-weight: 700;
-        line-height: 1;
-        font-stretch: condensed;
-    }
-    .login-wrapper.cgt-vendor .login-box .welcome-text h2{
-        font-size: 45px;
-        font-family: "Helvetica Neue","Helvetica","Roboto",Arial,sans-serif;
-        font-weight: 700;
-        line-height: 1;
-        font-stretch: condensed;
-        width: 50%;
-        margin-top: 36px;
-    }
-
-    .login-wrapper.cgt-vendor .login-box .bg-area .footer-bar{
-        height: 70px;
-        line-height: 70px;
-        width: 100%;
-        position: absolute;
-        bottom: 0;
-        background: rgba(0, 0, 0, .5);
-    }
-    .login-wrapper.cgt-vendor .login-box .bg-area .footer-bar p{
-        padding-left: 20px;
-        color: #555;
-        font-size: 13px;
-    }
-
-    .login-wrapper.cgt-logistic{
-        background: url('assets/images/logistic-login-bg.png') repeat-x center bottom #fff;
-        background-size: auto 210px;
-    }
-
-    .login-wrapper.cgt-logistic .logo-area{
-        width: 90px;
-        margin: 50px auto;
-    }
-
-    .login-wrapper.cgt-bank .logo-area{
-        width: 175px;
-        margin: 50px auto;
-    }
-
-    .login-wrapper.cgt-logistic .logo-area img, .login-wrapper.cgt-bank .logo-area img{
-        width: 100%;
-    }
-
-    .login-wrapper.cgt-logistic .login-box, .login-wrapper.cgt-bank .login-box{
-        position: absolute;
-        top: 45%;
-        width: 36%;
-        left: 32%;
-        margin-top: -100px;
-        text-align: center;
-    }
-
-    .login-wrapper.cgt-logistic .dot-overlay{
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        background: url(assets/images/bg-dot.png);
-    }
-
-    .page-container{
-        padding-bottom: 50px;
-    }
-
-    .page-title{
-        font-size: 27px;
-        color: #eb8200;
-        margin: 25px 0;
-    }
-
-    .cgt-finance .page-title{
-        font-size: 24px;
-        color: #00A0BE;
-        margin: 25px 0;
-        border-bottom: solid 3px #00A0BE;
-        padding: 0 0 7px 0;
-       
-    }
-
-    .cgt-logistic .page-title{
-        font-size: 24px;
-        color: #00A0BE;
-        margin: 25px 0;
-        border-bottom: solid 2px #ccc;
-        padding: 0 0 7px 0;
-       
-    }
-
-
-
-    .content-area{
-
-    }
-
-    .panel-expand{
-        margin-bottom: 10px;
-    }
-
-    .panel-expand .panel-title{
-        padding: 10px 15px;
-        background: #00A0BE;
-        color: #fff;
-        position: relative;
-        border-radius: 21px;
-        cursor: pointer;
-    }
-
-    .panel-expand .panel-title h3{
-        padding: 0;
-        margin: 0;
-        font-size: 16px;
-        font-weight: bold;
-    }
-
-    .panel-expand .panel-title .arrow{
-        width: 35px;
-        height: 35px;
-        position: absolute;
-        display: inline-block;
-        right: 10px;
-        top: 2px;
-        background: url('assets/images/arrow-down.png') no-repeat center;
-    }
-    
-    .panel-expand .panel-content{
-        padding: 15px 0px 0px 0px;
-    }
-
-    .plain-block{
-        clear: both;
-    }
-
-    .cgt-finance .plain-block{
-        background: #f3f3f3;
-        padding: 10px 0;
-        border-radius: 12px;
-    }
-
-
-    .mrg-btm-20{
-        margin-bottom: 20px;
-    }
-
-    .mrg-btm-30{
-        margin-bottom: 30px;
-    }
-
-    .mrg-btm-40{
-        margin-bottom: 40px;
-    }
-
-    .value-block{
-        margin-bottom: 20px;
-    }
-    
-    .label-field{
-        color: #888;
-        font-size: 14px;
-        padding: 5px 5px 0px 0px;
-        font-weight: normal;
-        display: inline-block;
-        width: 30%;
-        margin: 0;
-        vertical-align: top;
-    }
-    .value-field{
-        color: #000;
-        font-size: 15px;
-        padding: 0px 5px 0px 5px;
-        display: inline-block;
-        width: 69%;
-    }
-
-    .block-field .label-field{
-        display: block;
-        width: 100%;
-        padding: 0;
-        color: #000;
-        font-weight: bold;
-    }
-
-    .block-field .value-field{
-        display: block;
-        width: 100%;
-        padding: 0;
-        color: #777;
-    }
-
-    .block-field .value-field.highlight{
-        display: block;
-        font-size: 23px;
-        padding-bottom: 5px;
-        border-bottom: solid 1px #ddd;
-    }
-
-
-    .value-text input, .value-text textarea, .value-text select{
-        font-size: 14px;
-    }
-
-    .sub-title-sm{
-        font-size: 15px;
-        font-weight: bold;
-        color: #000;
-        padding-bottom: 5px;
-    }
-
-    .cgt-finance .sub-title-sm, .cgt-logistic .sub-title-sm{
-        font-size: 19px;
-        font-weight: lighter;
-    }
-
-    .cgt-logistic .sub-title-sm{
-        padding-left: 0;
-    }
-
-    .two-col{
-        width: 49%;
-        display: inline-block;
-    }
-
-    .input-style{
-        padding: 5px;
-        border: solid 1px #ccc;
-        outline: none;
-        min-width: 280px;
-        min-height: 30px;
-    }
-
-    .input-style-small{
-        padding: 5px;
-        border: solid 1px #ccc;
-        outline: none;
-        max-width: 130px;
-        min-height: 30px;
-    }
-
-    .full-width{
-        width: 100%;
-        max-width: 100%;
-    }
-
-    .btn-area{
-        display: block;
-        padding: 10px;
-        text-align: center;
-    }
-
-    .btn-normal{
-        padding: 10px 20px;
-        text-align: center;
-        border: none;
-        background: #eb8200;
-        color: #fff;
-        font-size: 14px;
-        border-radius: 21px;
-        display: inline-block;
-        margin: 0 5px;
-        outline: none;
-        cursor: pointer;
-    }
-
-    .btn-border{
-        padding: 10px 20px;
-        text-align: center;
-        border: none;
-        border: solid 1px #eb8200;
-        background-color: #fff;
-        color: #eb8200;
-        font-size: 14px;
-        border-radius: 21px;
-        display: inline-block;
-        margin: 0 5px;
-        outline: none;
-    }
-
-    .cgt-finance .btn-normal{
-        background: #00A0BE;
-        border-radius:5px;
-    }
-
-    .cgt-finance .btn-normal:hover{
-        background: #048fa9;
-    }
-
-    .cgt-finance .btn-border{
-        border-radius: 5px;
-        border: solid 1px #00A0BE;
-        color: #00A0BE;
-    }
-
-    .cgt-finance .btn-border:hover{
-        border: solid 1px #00A0BE;
-        background: #00A0BE;
-        color: #fff;
-    }
-
-    
-
-    .border-box-wrapper{
-        max-width: 100%;
-        border-top: solid 5px #aadde7;
-    }
-
-
-    .cgt-finance .border-box-wrapper, .cgt-logistic .border-box-wrapper{
-        border-top: none;
-    }
-
-    .cgt-finance table{
-        background: #fff;
-    }
-
-    .border-box-wrapper .table-striped>tbody>tr:nth-of-type(odd){
-        background-color: #f6fafc;
-    }
-
-    .cgt-finance .border-box-wrapper .table-striped>tbody>tr:nth-of-type(odd){
-        background-color: #f8f8f8;
-    }
-
-    .border-box-table{
-        display: table;
-        width: 100%;
-    }
-
-    .cgt-finance .border-box-table{
-        border-spacing: 10px 5px;
-        border-collapse: separate;
-    }
-
-    .border-box-row{
-        display: table-row;
-        clear: both;
-    }
-
-    .border-box{
-        border: solid 1px #aadde7;
-        padding: 15px;
-        border-right: 0px;
-        border-top: none;
-        display: table-cell;
-        background: #f6fafc;
-    }
-
-    .cgt-logistic .border-box{
-        border: none;
-        background:#f8f8f8;
-         border-bottom: solid 1px #ddd;
-    }
-
-    .cgt-logistic .border-box.end-box{
-        border-right: none;
-    }
-
-    .cgt-logistic .border-box .input-style{
-        width: 80%;
-    }
-
-    .cgt-finance .border-box{
-        border: none;
-        padding: 0;
-        display: table-cell;
-        border-radius: 7px;
-        overflow: hidden;
-        background: #fff;
-        box-shadow: 0px 0px 9px rgba(0, 0, 0, .1);
-    }
-    
-
-    .border-box.end-box{
-        border-right: solid 1px #aadde7;
-    }
-    
-    .cgt-finance .border-box.end-box{
-        border-right: none;
-    }
-
-    .border-box .label-field{
-        color: #000;
-        font-size: 13px;
-        font-weight: bold;
-        display: block;
-        padding: 0;
-        padding-bottom: 3px;
-        width: auto;
-    }
-
-    .cgt-finance .border-box .label-field{
-        color: #000;
-        padding: 9px;
-        padding-bottom: 3px;
-    }
-    .border-box .value-field{
-        color: #777;
-        padding: 0;
-        font-size: 18px;
-        display: block;
-        width: auto;
-    }
-
-    .cgt-finance .border-box .value-field{
-        color: #666;
-        padding: 9px;
-        padding-top: 0;
-    }
-
-    .border-box .value-field .input-style{
-        font-size: 16px;
-        width: 100%;
-    }
-
-    .tracker{
-        margin: 0 auto;
-    }
-
-    .tracker-wrapper{
-        text-align: center;
-        display: table;
-    }
-
-    .tracker-wrapper .po-details{
-        display: table-cell;
-        vertical-align: top;
-        width: 25%;
-        padding: 20px;
-        background: #f8f8f8;
-        text-align: left;
-    }
-
-    .tracker-wrapper .po-tracker{
-        display: table-cell;
-        vertical-align: top;
-        width: 75%;
-    }
-
-    .tracker-wrapper ul{
-        margin: 0 auto;
-        padding: 0;
-    }
-
-    .tracker-wrapper ul li{
-        margin: 0;
-        list-style: none;
-        position: relative;
-    }
-
-    .tracker-wrapper .marker{
-        position: absolute;
-        display: inline-block;
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-        left: 20px;
-        top: 21px;
-        border: solid 2px #999;
-        background: no-repeat center;
-    }
-
-    .tracker-wrapper li.finished .marker{
-        border-color: #eb8200;
-        background-image: url('assets/images/checked.png');
-    }
-
-    .tracker-wrapper .event{
-        padding: 0 140px 0 70px;
-        text-align: left;
-    }
-
-    .tracker-wrapper .event .event-name{
-        margin: 0;
-        padding-bottom: 7px;
-        color: #000;
-        font-size: 14px;
-        font-weight: bold;
-    }
-
-    .tracker-wrapper .event .event-info{
-        margin: 0;
-        padding: 0;
-        color: #999;
-        font-size: 13px;
-    }
-
-    .tracker-wrapper .event .event-info .party{
-        display: inline-block;
-        color: #00A0BE;
-        padding-left: 7px;
-        margin-left: 7px;
-        border-left: solid 1px #999;
-    }
-
-     .tracker-wrapper .more-info{
-        position: absolute;
-        right: 20px;
-        top: 28px;
-        padding: 4px 10px;
-        border-radius: 21px;
-        background: #5dc0d2;
-        color: #fff;
-        font-size: 13px;
-        cursor: pointer;
-    }
-
-    .tracker-wrapper .pointer{
-        position: absolute;
-        display: inline-block;
-        left: 50%;
-        margin-left: -8px;
-        bottom: -11px;
-        width: 16px;
-        height: 16px;
-        background: no-repeat center url('assets/images/pointer-down.png');
-        z-index: 1;
-    }
-
-     .tracker-wrapper .more-info:hover{
+        /* You can add global styles to this file, and also import other style files */
         
-        background: #048fa9;
-        
-    }
-
-    .tracker-btn{
-        margin-bottom: 20px;
-    }
-
-    .tracker-btn form{
-        padding: 10px;
-        display: block;
-        background: #f8f8f8;
-    }
-
-    .tracker-btn .input-style{
-        height: 40px;
-        width: 50%;
-        font-size: 16px;
-    }
-
-    .tracker-btn .input-style option{
-        font-size: 16px;
-    }
-
-    .v-list{
-        padding: 10px 0;
-    }
-
-    .timeline-wrapper{
-        position: relative;
-    }
-
-    .timeline-wrapper ul li{
-        display: table;
-        position: relative;
-        width: 100%;
-        min-height: 100px;
-    }
-
-    .timeline-wrapper ul li .left-block, .timeline-wrapper ul li .right-block{
-        display: table-cell;
-        vertical-align: middle;
-        width: 50%;
-    }
-
-    .timeline-wrapper ul li .left-block{
-        padding-right: 35px;
-        text-align: right;
-    }
-
-    .timeline-wrapper ul li .right-block{
-        padding-left: 35px;
-        text-align: left;
-    }
-
-    .timeline-wrapper ul li::after{
-        content: '';
-        position: absolute;
-        top: 0;
-        right: 50%;
-        width: 2px;
-        height: 100%;
-        background: #bbb;
-        z-index: 1;
-    }
-
-    .timeline-wrapper ul li.finished::after{
-        background: #eb8200;
-    }
-
-    .timeline-wrapper ul li .marker{
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 40px;
-        height: 40px;
-        margin-left: -21px;
-        margin-top: -20px;
-        line-height: 40px;
-        border: solid 2px #bbb;
-        border-radius: 50%;
-        text-align: center;
-        background: url('assets/images/pending-icon.png') no-repeat center #fff;
-        z-index: 2;
-    }
-
-    .timeline-wrapper ul li.finished .marker{
-        border: solid 2px #eb8200;
-        border-radius: 50%;
-        text-align: center;
-        background: url('assets/images/checked.png') no-repeat center #fff;
-        z-index: 2;
-    }
-
-    .timeline-wrapper ul li .event-title{
-        margin: 0;
-        padding-bottom: 4px;
-        color: #000;
-        font-size: 14px;
-        font-weight: bold;
-        display: block;
-    }
-
-    .timeline-wrapper ul li .event-time{
-        margin: 0;
-        padding: 0;
-        padding-bottom: 2px;
-        color: #999;
-        font-size: 13px;
-        display: block;
-    }
-
-    .timeline-wrapper ul li .event-party{
-        color: #00A0BE;
-        display: block;
-        font-size: 13px;
-    }
-    
-
-    .col-2{
-        width: 50%;
-    }
-
-    .col-3{
-        width: 33.333%;
-    }
-
-    .col-4{
-        width: 25%;
-    }
-
-    .btn-link{
-        position: absolute;
-    }
-
-    .date-input-small{
-        width: 180px;
-        margin-right: 10px;
-    }
-
-    .chevron::before{
-        border-width: 0.1em 0.1em 0 0 !important;
-        height: 9px !important;
-        left: 23px !important;
-        top: -3px !important;
-        width: 9px !important;
-        color: #aaa;
-    }
-    
-    .chevron.bottom:before{
-        top: 2px !important;
-    }
-
-
-    input:-webkit-autofill,
-    input:-webkit-autofill:hover,
-    input:-webkit-autofill:focus,
-    input:-webkit-autofill:active {
-        transition: background-color 5000s ease-in-out 0s;
-        -webkit-text-fill-color: #555 !important;
-    }
-    
-   
-    
-    ul, li{
-        margin: 0;
-        padding: 0;
-    }
-
-    ::-webkit-input-placeholder { /* Chrome */
-    color: #c3c3c3;
-    }
-    :-ms-input-placeholder { /* IE 10+ */
-    color: #c3c3c3;
-    }
-    ::-moz-placeholder { /* Firefox 19+ */
-    color: #c3c3c3;
-    opacity: 1;
-    }
-    
-       
-    @media screen and (min-width: 1600px){
-        .container {
-            width: 1570px;
+        body{
+            background: #fff;
         }
-
+        
+        
+        ul, li{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .title-main{
+            font-family: 'sans-serif', 'roboto','helvetica';
+            font-weight: 100;
+            font-size: 28px;
+            padding-bottom: 7px;
+            margin-bottom: 30px;
+            border-bottom: solid 1px #ccc;
+        }
+    
+       
+        .form-control{
+            background: #fff;
+            border-radius: 0;
+            box-shadow: none;
+        }
+        
+        .form-control:focus{
+            box-shadow: none;
+        }
+        
+        .form-control optgroup{
+            border: none !important;
+            outline: none !important;
+        }
+        
+        option{
+            border: none;
+            outline: none;
+            padding: 10px !important;
+            line-height: 19px !important;
+        }
+        .align-center{
+            text-align: center;
+        }
+        
+        .checkbox-style{
+            display: inline-block;
+            position: relative;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        
+        .checkbox-style.selected{
+            border-color: #6d7be0;
+        }
+        
+        .checkbox-style input[type=checkbox]{
+            width: 16px;
+            height: 16px;
+            margin-top: -3px;
+            opacity: 0;
+        }
+        
+        .checkmark {
+            position: absolute;
+            top: 8px;
+            left: 7px;
+            height: 18px;
+            width: 18px;
+            background-color: #eee;
+            border: solid 1px #ccc;
+        }
+        
+        .checkbox-style:hover input ~ .checkmark {
+            background-color: #ccc;
+        }
+        
+        .checkbox-style input:checked ~ .checkmark {
+            background-color: #2196F3;
+            border-color: #2196F3;
+            
+        }
+        
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+        
+        .checkbox-style input:checked ~ .checkmark:after {
+            display: block;
+        }
+        
+        .checkbox-style .checkmark:after {
+            left: 6px;
+            top: 3px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+        
+        
+        
+        
+        .btn{
+            margin: 0 5px;
+            padding: 7px 16px;
+        }
+        
+        .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control{
+            background-color: #dedede;
+        }
+        
+       
+        
+        .float-left{
+            float: left;
+        }
+        
+        .float-right{
+            float: right;
+        }
+        
+        
+        
+        .login-wrapper{
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            background: #000;
+        }
+        
+        .login-wrapper.cgt-buyer{
+            background: url('assets/images/syngenta-buyer-login-bg.jpg') no-repeat center;
+            -webkit-background-size:cover;
+            -moz-background-size:cover;
+            background-size:cover;
+            padding: 5% 10%;
+        }
+    
+        .login-wrapper.cgt-buyer .login-box{
+            height: 100%;
+            background: #fff;
+            box-shadow: 0px 0px 41px rgba(0, 0, 0, .5);
+        }
+    
+        .login-wrapper.cgt-buyer .login-box .bg-area{
+            height: 100%;
+            width: 50%;
+            background: url('assets/images/buyer-login-box-bg.jpg') no-repeat center;
+            -webkit-background-size:cover;
+            -moz-background-size:cover;
+            background-size:cover;
+            float: left;
+        }
+    
+        .login-wrapper.cgt-buyer .login-box .form-area{
+            height: 100%;
+            width: 50%;
+            padding: 30px 50px;
+            text-align: center;
+            float: left;
+        }
+    
+        .login-wrapper.cgt-buyer .login-box .form-area .sgt-logo{
+            width: 160px;
+            margin-bottom: 50px;
+        }
+    
+        .login-wrapper.cgt-buyer .login-box .form-area h3{
+            margin-bottom: 30px;
+            font-weight: bold;
+            color: #009933;
+            font-size: 21px;
+            text-transform: uppercase;
+        }
+    
+        .input-style-large{
+            padding: 5px;
+            height: 45px;
+            border: solid 1px #ccc;
+            background: transparent;
+        }
+    
+        .login-wrapper.cgt-buyer .login-box .form-area input{
+            border-radius: 21px;
+            width: 100%;
+            margin-bottom: 21px;
+            background-size: 18px;
+        }
+    
+        .login-wrapper .login-box .form-area input{
+            padding-left: 50px;
+            background: no-repeat;
+            background-position: 14px center;
+            outline: none;
+            font-size: 16px;
+            color: #888;
+        }
+    
+        .login-wrapper .login-box .form-area input.username{
+            background-image: url('assets/images/username-icon.png');
+        }
+    
+        .login-wrapper .login-box .form-area input.password{
+            background-image: url('assets/images/password-icon.png');
+        }
+    
+        .login-wrapper.cgt-buyer .login-box .form-area .btn-block{
+            height: 45px;
+            line-height: 45px;
+            text-align: center;
+            background: #009933;
+            color: #fff;
+            border-radius: 21px;
+            width: 100%;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            font-size: 19px;
+            text-transform: uppercase;
+        }
+        
+    
+        .login-wrapper.cgt-finance{
+            background: url('assets/images/syngenta-finance-bg.jpg') no-repeat center;
+            -webkit-background-size:cover;
+            -moz-background-size:cover;
+            background-size:cover;
+        }
+    
+        .login-wrapper.cgt-finance .login-box{
+            height: 140px;
+            top: 50%;
+            width: 100%;
+            display: table;
+            background: transparent;
+            position: absolute;
+            margin-top: -70px;
+        }
+    
+        .login-wrapper.cgt-finance .login-box .logo-area{
+            height: 100%;
+            width: 15%;
+            background: rgba(75, 113, 6, .86);
+            text-align: center;
+            display: table-cell;
+            vertical-align: middle;
+        }
+    
+        .login-wrapper.cgt-finance .login-box .logo-area img{
+            width: 75%;
+        }
+    
+        .login-wrapper.cgt-finance .login-box .form-area{
+            height: 100%;
+            width: 85%;
+            background: rgba(255, 255, 255, .9);
+            display: table-cell;
+            vertical-align: middle;
+            padding: 0 50px;
+        }
+    
+        .login-wrapper.cgt-finance .login-box .form-area input{
+            width: 40%;
+            margin-right: 10px;
+            border-color: #bbb;
+        }
+    
+        .login-wrapper.cgt-finance .login-box .form-area .btn-inline{
+            width: 14%;
+            height: 45px;
+            line-height: 45px;
+            text-align: center;
+            background: #009933;
+            color: #fff;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            font-size: 19px;
+            text-transform: uppercase;
+        }
+    
+        .login-wrapper.cgt-bank{
+            background: url('assets/images/bank-login-bg.jpg') no-repeat center;
+            -webkit-background-size:cover;
+            -moz-background-size:cover;
+            background-size:cover;
+        }
+    
+        .login-wrapper.cgt-vendor .login-box{
+            height: 100%;
+            background: #fff;
+        }
+    
+        .login-wrapper.cgt-vendor .login-box .bg-area{
+            height: 100%;
+            width: 50%;
+            background: url('assets/images/syngenta-vendor-bg.jpg') no-repeat center;
+            -webkit-background-size:cover;
+            -moz-background-size:cover;
+            background-size:cover;
+            float: left;
+            position: relative;
+        }
+    
+        .login-wrapper.cgt-vendor .login-box .form-area{
+            height: 100%;
+            width: 50%;
+            padding: 30px 50px;
+            text-align: center;
+            float: left;
+            position: relative;
+        }
+    
+        .login-wrapper.cgt-vendor .login-box .form-area .login-box-inner{
+            position: absolute;
+            top: 50%;
+            margin-top: -160px;
+            padding: 0 50px 0 100px;
+        }
+    
+        .login-wrapper.cgt-vendor .login-box .form-area h3{
+            margin-bottom: 70px;
+            font-weight: bold;
+            color: #009933;
+            font-size: 21px;
+            text-transform: uppercase;
+        }
+    
+        .login-wrapper.cgt-vendor .login-box .form-area input, .login-wrapper.cgt-logistic .login-box .form-area input, .login-wrapper.cgt-bank .login-box .form-area input{
+            margin-bottom: 25px;
+            border: none;
+            border-bottom: solid 1px #ccc;
+            width: 100%;
+            background-position: 5px center;
+            padding-left: 39px;
+        }
+    
+        .login-wrapper.cgt-vendor .login-box .form-area .btn-inline, .login-wrapper.cgt-logistic .login-box .form-area .btn-inline{
+            float: right;
+            padding: 0 50px;
+            height: 41px;
+            line-height: 41px;
+            text-align: center;
+            background: #38d36a;
+            color: #fff;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            font-size: 18px;
+            border-radius: 21px;
+            text-transform: uppercase;
+            box-shadow: 0px 0px 12px rgba(0, 0, 0, .3);
+        }
+    
+        .login-wrapper.cgt-logistic .login-box .form-area .btn-inline{
+            background: #0b96ab !important;
+            float: none !important;
+            text-align: center;
+        }
+    
+        .login-wrapper.cgt-vendor .login-box .vendor-logo-holder{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            box-shadow: 0px 0px 12px rgba(0, 0, 0, .4);
+            margin-top: -90px;
+            margin-left: -90px;
+            display: table;
+            vertical-align: middle;
+            text-align: center;
+            background: #fff;
+            z-index: 1;
+        }
+    
+        .login-wrapper.cgt-vendor .login-box .vendor-logo-holder span{
+            display: table-cell;
+            width: 100%;
+            height: 100%;
+            vertical-align: middle;
+        }
+    
+        .login-wrapper.cgt-vendor .login-box .vendor-logo-holder img{
+            max-width: 70%;
+            max-height: 70%;
+        }
+    
+        .login-wrapper.cgt-vendor .login-box .welcome-text{
+            position: absolute;
+            top: 3%;
+            left: 5%;
+            width: 95%;
+            color: #fff;
+            text-transform: uppercase;
+        }
+    
+        .login-wrapper.cgt-vendor .login-box .welcome-text h1{
+            font-size: 72px;
+            font-family: "Helvetica Neue","Helvetica","Roboto",Arial,sans-serif;
+            font-weight: 700;
+            line-height: 1;
+            font-stretch: condensed;
+        }
+        .login-wrapper.cgt-vendor .login-box .welcome-text h2{
+            font-size: 45px;
+            font-family: "Helvetica Neue","Helvetica","Roboto",Arial,sans-serif;
+            font-weight: 700;
+            line-height: 1;
+            font-stretch: condensed;
+            width: 50%;
+            margin-top: 36px;
+        }
+    
+        .login-wrapper.cgt-vendor .login-box .bg-area .footer-bar{
+            height: 70px;
+            line-height: 70px;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            background: rgba(0, 0, 0, .5);
+        }
+        .login-wrapper.cgt-vendor .login-box .bg-area .footer-bar p{
+            padding-left: 20px;
+            color: #555;
+            font-size: 13px;
+        }
+    
         .login-wrapper.cgt-logistic{
-            background-size: auto 275px;
+            background: url('assets/images/logistic-login-bg.png') repeat-x center bottom #fff;
+            background-size: auto 210px;
         }
-
-        .login-wrapper.cgt-logistic .logo-area{
-            width: 100px;
-            margin: 120px auto;
-        }
-    }
     
+        .login-wrapper.cgt-bank .logo-area{
+            width: 175px;
+            margin: 50px auto;
+        }
+    
+        .login-wrapper.cgt-logistic .logo-area img, .login-wrapper.cgt-bank .logo-area img{
+            width: 100%;
+        }
+    
+        .login-wrapper.cgt-logistic .login-box, .login-wrapper.cgt-bank .login-box{
+            position: absolute;
+            top: 45%;
+            width: 36%;
+            left: 32%;
+            margin-top: -100px;
+            text-align: center;
+        }
+    
+        .login-wrapper.cgt-logistic .dot-overlay{
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: url(assets/images/bg-dot.png);
+        }
+    
+        .page-container{
+            padding-bottom: 40px;
+        }
+    
+        .page-title{
+            font-size: 27px;
+            color: #eb8200;
+            margin: 25px 0;
+        }
+    
+        .cgt-finance .page-title{
+            font-size: 24px;
+            color: #00A0BE;
+            margin: 25px 0;
+            border-bottom: solid 3px #00A0BE;
+            padding: 0 0 7px 0;
+           
+        }
+    
+        .cgt-logistic .page-title{
+            font-size: 24px;
+            color: #00A0BE;
+            margin: 25px 0;
+            border-bottom: solid 2px #ccc;
+            padding: 0 0 7px 0;
+           
+        }
+    
+    
+    
+        .content-area{
+    
+        }
+    
+        .panel-expand{
+            margin-bottom: 10px;
+        }
+    
+        .panel-expand .panel-title{
+            padding: 10px 15px;
+            background: #00A0BE;
+            color: #fff;
+            position: relative;
+            border-radius: 21px;
+            cursor: pointer;
+        }
+    
+        .panel-expand .panel-title h3{
+            padding: 0;
+            margin: 0;
+            font-size: 16px;
+            font-weight: bold;
+        }
+    
+        .panel-expand .panel-title .arrow{
+            width: 35px;
+            height: 35px;
+            position: absolute;
+            display: inline-block;
+            right: 10px;
+            top: 2px;
+            background: url('assets/images/arrow-down.png') no-repeat center;
+        }
+        
+        .panel-expand .panel-content{
+            padding: 15px 0px 0px 0px;
+        }
+    
+        .plain-block{
+            clear: both;
+        }
+    
+        .cgt-finance .plain-block{
+            background: #f3f3f3;
+            padding: 10px 0;
+            border-radius: 12px;
+        }
+    
+    
+        .mrg-btm-20{
+            margin-bottom: 20px;
+        }
+    
+        .mrg-btm-30{
+            margin-bottom: 30px;
+        }
+    
+        .mrg-btm-40{
+            margin-bottom: 40px;
+        }
+    
+        .value-block{
+            margin-bottom: 20px;
+        }
+        
+        .label-field{
+            color: #888;
+            font-size: 14px;
+            padding: 5px 5px 0px 0px;
+            font-weight: normal;
+            display: inline-block;
+            width: 30%;
+            margin: 0;
+            vertical-align: top;
+        }
+        .value-field{
+            color: #000;
+            font-size: 15px;
+            padding: 0px 5px 0px 5px;
+            display: inline-block;
+            width: 69%;
+        }
+    
+        .block-field .label-field{
+            display: block;
+            width: 100%;
+            padding: 0;
+            color: #000;
+            font-weight: bold;
+        }
+    
+        .block-field .value-field{
+            display: block;
+            width: 100%;
+            padding: 0;
+            color: #777;
+        }
+    
+        .block-field .value-field.highlight{
+            display: block;
+            font-size: 23px;
+            padding-bottom: 5px;
+            border-bottom: solid 1px #ddd;
+        }
+    
+    
+        .value-text input, .value-text textarea, .value-text select{
+            font-size: 14px;
+        }
+    
+        .sub-title-sm{
+            font-size: 15px;
+            font-weight: bold;
+            color: #000;
+            padding-bottom: 5px;
+        }
+    
+        .cgt-finance .sub-title-sm, .cgt-logistic .sub-title-sm{
+            font-size: 19px;
+            font-weight: lighter;
+            padding-left: 10px;
+        }
+    
+        .cgt-logistic .sub-title-sm{
+            padding-left: 0;
+        }
+    
+        .two-col{
+            width: 49%;
+            display: inline-block;
+        }
+    
+        .input-style{
+            padding: 5px;
+            border: solid 1px #ccc;
+            outline: none;
+            min-width: 280px;
+            min-height: 30px;
+        }
+    
+        .input-style-small{
+            padding: 5px;
+            border: solid 1px #ccc;
+            outline: none;
+            max-width: 130px;
+            min-height: 30px;
+        }
+    
+        .full-width{
+            width: 100%;
+            max-width: 100%;
+        }
+    
+        .btn-area{
+            display: block;
+            padding: 10px;
+            text-align: center;
+        }
+    
+        .btn-normal{
+            padding: 10px 20px;
+            text-align: center;
+            border: none;
+            background: #eb8200;
+            color: #fff;
+            font-size: 14px;
+            border-radius: 21px;
+            display: inline-block;
+            margin: 0 5px;
+            outline: none;
+        }
+    
+        .btn-border{
+            padding: 10px 20px;
+            text-align: center;
+            border: none;
+            border: solid 1px #eb8200;
+            background-color: #fff;
+            color: #eb8200;
+            font-size: 14px;
+            border-radius: 21px;
+            display: inline-block;
+            margin: 0 5px;
+            outline: none;
+        }
+    
+        .cgt-finance .btn-normal{
+            background: #00A0BE;
+            border-radius:5px;
+        }
+    
+        .cgt-finance .btn-normal:hover{
+            background: #048fa9;
+        }
+    
+        .cgt-finance .btn-border{
+            border-radius: 5px;
+            border: solid 1px #00A0BE;
+            color: #00A0BE;
+        }
+    
+        .cgt-finance .btn-border:hover{
+            border: solid 1px #00A0BE;
+            background: #00A0BE;
+            color: #fff;
+        }
+    
+        .cgt-logistic .btn-normal{
+            background: #00A0BE;
+        }
+    
+        .cgt-logistic .btn-normal:hover{
+            background: #048fa9;
+        }
+    
+        .cgt-logistic .btn-border{
+            border: solid 1px #00A0BE;
+            color: #00A0BE;
+        }
+    
+        .cgt-logistic .btn-border:hover{
+            border: solid 1px #00A0BE;
+            background: #00A0BE;
+            color: #fff;
+        }
+    
+        .border-box-wrapper{
+            max-width: 100%;
+            border-top: solid 5px #aadde7;
+        }
+    
+    
+        .cgt-finance .border-box-wrapper, .cgt-logistic .border-box-wrapper{
+            border-top: none;
+        }
+    
+        .cgt-finance table{
+            background: #fff;
+        }
+    
+        .border-box-wrapper .table-striped>tbody>tr:nth-of-type(odd){
+            background-color: #f6fafc;
+        }
+    
+        .cgt-finance .border-box-wrapper .table-striped>tbody>tr:nth-of-type(odd){
+            background-color: #f8f8f8;
+        }
+    
+        .border-box-table{
+            display: table;
+            width: 100%;
+        }
+    
+        .cgt-finance .border-box-table{
+            border-spacing: 10px 5px;
+            border-collapse: separate;
+        }
+    
+        .border-box-row{
+            display: table-row;
+            clear: both;
+        }
+    
+        .border-box{
+            border: solid 1px #aadde7;
+            padding: 15px;
+            border-right: 0px;
+            border-top: none;
+            display: table-cell;
+            background: #f6fafc;
+        }
+    
+        .cgt-logistic .border-box{
+            border: none;
+            background:#f8f8f8;
+             border-bottom: solid 1px #ddd;
+        }
+    
+        .cgt-logistic .border-box.end-box{
+            border-right: none;
+        }
+    
+        .cgt-logistic .border-box .input-style{
+            width: 80%;
+        }
+    
+        .cgt-finance .border-box{
+            border: none;
+            padding: 0;
+            display: table-cell;
+            border-radius: 7px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0px 0px 9px rgba(0, 0, 0, .1);
+        }
+        
+    
+        .border-box.end-box{
+            border-right: solid 1px #aadde7;
+        }
+        
+        .cgt-finance .border-box.end-box{
+            border-right: none;
+        }
+    
+        .border-box .label-field{
+            color: #000;
+            font-size: 13px;
+            font-weight: bold;
+            display: block;
+            padding: 0;
+            padding-bottom: 3px;
+            width: auto;
+        }
+    
+        .cgt-finance .border-box .label-field{
+            color: #000;
+            padding: 9px;
+            padding-bottom: 3px;
+        }
+        .border-box .value-field{
+            color: #777;
+            padding: 0;
+            font-size: 18px;
+            display: block;
+            width: auto;
+        }
+    
+        .cgt-finance .border-box .value-field{
+            color: #666;
+            padding: 9px;
+            padding-top: 0;
+        }
+    
+        .border-box .value-field .input-style{
+            font-size: 16px;
+            width: 100%;
+        }
+    
+        .tracker{
+            margin: 0 auto;
+        }
+    
+        .tracker-wrapper{
+            text-align: center;
+            display: table;
+        }
+    
+        .tracker-wrapper .po-details{
+            display: table-cell;
+            vertical-align: top;
+            width: 25%;
+            padding: 20px;
+            background: #f8f8f8;
+            text-align: left;
+        }
+    
+        .tracker-wrapper .po-tracker{
+            display: table-cell;
+            vertical-align: top;
+            width: 75%;
+        }
+    
+        .tracker-wrapper ul{
+            margin: 0 auto;
+            padding: 0;
+        }
+    
+        .tracker-wrapper ul li{
+            margin: 0;
+            list-style: none;
+            position: relative;
+        }
+    
+        .tracker-wrapper .marker{
+            position: absolute;
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            left: 20px;
+            top: 21px;
+            border: solid 2px #999;
+            background: no-repeat center;
+        }
+    
+        .tracker-wrapper li.finished .marker{
+            border-color: #eb8200;
+            background-image: url('assets/images/checked.png');
+        }
+    
+        .tracker-wrapper .event{
+            padding: 0 140px 0 70px;
+            text-align: left;
+        }
+    
+        .tracker-wrapper .event .event-name{
+            margin: 0;
+            padding-bottom: 7px;
+            color: #000;
+            font-size: 14px;
+            font-weight: bold;
+        }
+    
+        .tracker-wrapper .event .event-info{
+            margin: 0;
+            padding: 0;
+            color: #999;
+            font-size: 13px;
+        }
+    
+        .tracker-wrapper .event .event-info .party{
+            display: inline-block;
+            color: #00A0BE;
+            padding-left: 7px;
+            margin-left: 7px;
+            border-left: solid 1px #999;
+        }
+    
+         .tracker-wrapper .more-info{
+            position: absolute;
+            right: 20px;
+            top: 28px;
+            padding: 4px 10px;
+            border-radius: 21px;
+            background: #5dc0d2;
+            color: #fff;
+            font-size: 13px;
+            cursor: pointer;
+        }
+    
+        .tracker-wrapper .pointer{
+            position: absolute;
+            display: inline-block;
+            left: 50%;
+            margin-left: -8px;
+            bottom: -11px;
+            width: 16px;
+            height: 16px;
+            background: no-repeat center url('assets/images/pointer-down.png');
+            z-index: 1;
+        }
+    
+         .tracker-wrapper .more-info:hover{
+            
+            background: #048fa9;
+            
+        }
+    
+        .tracker-btn{
+            margin-bottom: 20px;
+        }
+    
+        .tracker-btn form{
+            padding: 10px;
+            display: block;
+            background: #f8f8f8;
+        }
+    
+        .tracker-btn .input-style{
+            height: 40px;
+            width: 50%;
+            font-size: 16px;
+        }
+    
+        .tracker-btn .input-style option{
+            font-size: 16px;
+        }
+    
+        .v-list{
+            padding: 10px 0;
+        }
+    
+        .timeline-wrapper{
+            position: relative;
+        }
+    
+        .timeline-wrapper ul li{
+            display: table;
+            position: relative;
+            width: 100%;
+            min-height: 100px;
+        }
+    
+        .timeline-wrapper ul li .left-block, .timeline-wrapper ul li .right-block{
+            display: table-cell;
+            vertical-align: middle;
+            width: 50%;
+        }
+    
+        .timeline-wrapper ul li .left-block{
+            padding-right: 35px;
+            text-align: right;
+        }
+    
+        .timeline-wrapper ul li .right-block{
+            padding-left: 35px;
+            text-align: left;
+        }
+    
+        .timeline-wrapper ul li::after{
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 50%;
+            width: 2px;
+            height: 100%;
+            background: #bbb;
+            z-index: 1;
+        }
+    
+        .timeline-wrapper ul li.finished::after{
+            background: #eb8200;
+        }
+    
+        .timeline-wrapper ul li .marker{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 40px;
+            height: 40px;
+            margin-left: -21px;
+            margin-top: -20px;
+            line-height: 40px;
+            border: solid 2px #bbb;
+            border-radius: 50%;
+            text-align: center;
+            background: url('assets/images/pending-icon.png') no-repeat center #fff;
+            z-index: 2;
+        }
+    
+        .timeline-wrapper ul li.finished .marker{
+            border: solid 2px #eb8200;
+            border-radius: 50%;
+            text-align: center;
+            background: url('assets/images/checked.png') no-repeat center #fff;
+            z-index: 2;
+        }
+    
+        .timeline-wrapper ul li .event-title{
+            margin: 0;
+            padding-bottom: 4px;
+            color: #000;
+            font-size: 14px;
+            font-weight: bold;
+            display: block;
+        }
+    
+        .timeline-wrapper ul li .event-time{
+            margin: 0;
+            padding: 0;
+            padding-bottom: 2px;
+            color: #999;
+            font-size: 13px;
+            display: block;
+        }
+    
+        .timeline-wrapper ul li .event-party{
+            color: #00A0BE;
+            display: block;
+            font-size: 13px;
+        }
+        
+    
+        .col-2{
+            width: 50%;
+        }
+    
+        .col-3{
+            width: 33.333%;
+        }
+    
+        .col-4{
+            width: 25%;
+        }
+    
+    
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        input:-webkit-autofill:active {
+            transition: background-color 5000s ease-in-out 0s;
+            -webkit-text-fill-color: #555 !important;
+        }
+        
+       
+        
+        ul, li{
+            margin: 0;
+            padding: 0;
+        }
+    
+        ::-webkit-input-placeholder { /* Chrome */
+        color: #c3c3c3;
+        }
+        :-ms-input-placeholder { /* IE 10+ */
+        color: #c3c3c3;
+        }
+        ::-moz-placeholder { /* Firefox 19+ */
+        color: #c3c3c3;
+        opacity: 1;
+        }
+        
+           
+        @media screen and (min-width: 1600px){
+            .container {
+                width: 1570px;
+            }
+    
+            .login-wrapper.cgt-logistic{
+                background-size: auto 275px;
+            }
+    
+            .login-wrapper.cgt-logistic .logo-area{
+                width: 100px;
+                margin: 120px auto;
+            }
+        }
+        
