@@ -1103,6 +1103,15 @@
             font-size: 13px;
             display: block;
         }
+
+        .timeline-wrapper ul li .event-error{
+            margin: 0;
+            padding: 0;
+            padding-bottom: 2px;
+            color: #F00;
+            font-size: 13px;
+            display: block;
+        }
     
         .timeline-wrapper ul li .event-party{
             color: #00A0BE;
