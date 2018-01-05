@@ -21,6 +21,7 @@ export class PaymentProposalComponent implements OnInit {
   paymentProposal: FinanceModels.PaymentProposal = new FinanceModels.PaymentProposal();
   financeInvoiceList: Array<FinanceModels.FinanceInvoice> = new Array<FinanceModels.FinanceInvoice>();
   selectedVendor: VendorModels.Vendor = new VendorModels.Vendor();
+  totalAmount : number = 0;
 
   constructor(
     private alertService: AlertService,
@@ -32,8 +33,6 @@ export class PaymentProposalComponent implements OnInit {
     this.commonData = this.user.getCommonData();
     this.getUniqueId();
     this.paymentProposal.proposalDate = new Date();
-    //this.getAllFinanceInvoices();
-
   }
 
   ngOnInit() {
@@ -86,8 +85,19 @@ export class PaymentProposalComponent implements OnInit {
             }
           }
           this.paymentProposal.paymentProposalDetails = paymentProposalDetailsLocal;
+          this.calculateTotalAmount();
         }
       });
+  }
+
+  calculateTotalAmount(){
+    this.totalAmount = 0;
+    for (let entry of this.paymentProposal.paymentProposalDetails) {
+      if (entry.selectedInUI) {
+        this.totalAmount = this.totalAmount + +entry.amount;
+      }
+    }
+
   }
 
   savePaymentProposal(myForm: NgForm) {

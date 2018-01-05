@@ -80,7 +80,7 @@
                     <td>
                       <span>
                           <label class="checkbox-style">
-                              <input [(ngModel)]="item.selectedInUI" type="checkbox" name="selectedInUI">
+                              <input (change)="calculateTotalAmount()" [(ngModel)]="item.selectedInUI" type="checkbox" name="selectedInUI">
                               <span class="checkmark"></span>
                             </label>
                         
@@ -102,6 +102,9 @@
                             bsDatepicker required/>
                       </span>
                     </td>
+                  </tr>
+                  <tr>
+                    <td colspan="5"><b>Total amount: </b>{{totalAmount}}</td>
                   </tr>
                 </table>
               </div>
