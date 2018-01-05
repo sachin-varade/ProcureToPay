@@ -239,9 +239,16 @@ router.get("/getRecentBlocks/:role/:blockNumber", function(req, res) {
 	});	
 });
 
-// ------------------------ PO Tracker routes --------------------
+// ------------------------ PO SO Tracker routes --------------------
 router.get("/getPurchaseOrderTrackingDetails/:option/:value?", function(req, res) {    
     var promise = poTrackerService.getPurchaseOrderTrackingDetails(req.params.option, req.params.value?req.params.value: "");
+	promise.then(function(resp,err){
+		res.send(resp);
+	});	
+});
+
+router.get("/getSalesOrderTrackingDetails/:option/:value?", function(req, res) {    
+    var promise = poTrackerService.getSalesOrderTrackingDetails(req.params.option, req.params.value?req.params.value: "");
 	promise.then(function(resp,err){
 		res.send(resp);
 	});	

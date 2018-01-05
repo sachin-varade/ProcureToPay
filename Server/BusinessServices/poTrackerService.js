@@ -126,6 +126,126 @@ module.exports = function (procurementService, financeService, logisticService, 
         }); //1 End
     }
 
+    poTrackerService.getSalesOrderTrackingDetails = function(option, value){
+        //this.userData = userService.getUserData();
+        var poTrackerEntity = {};
+
+        poTrackerEntity.PurchaseOrderNumber = value;
+
+        //1. Purchase Order Details
+        return procurementService.getAllPurchaseOrders(option, value)
+        .then((result) => {
+            if(result.purchaseOrders != undefined && result.purchaseOrders.length > 0) {
+                console.log("PurchaseOrderNumber: ", result.purchaseOrders[0].purchaseOrderNumber);
+                poTrackerEntity.PurchaseOrders = result.purchaseOrders[0];
+                // poTrackerEntity.PurchaseOrderNumber = result.purchaseOrders[0].purchaseOrderNumber;
+                // poTrackerEntity.PurchaseOrderDate = result.purchaseOrders[0].purchaseOrderDate;
+            }
+            else{
+                console.log("PurchaseOrder details not found");
+                poTrackerEntity.PurchaseOrders = {};
+                // poTrackerEntity.PurchaseOrderNumber = "";
+                //return poTrackerEntity;
+
+            }
+
+            //2. Sales Order Details
+            return vendorService.getAllVendorSalesOrders(option, value)
+            .then((result) => {
+                if(result.vendorSalesOrders != undefined && result.vendorSalesOrders.length > 0 ){
+                    poTrackerEntity.VendorSalesOrder = result.vendorSalesOrders[0];
+                    // poTrackerEntity.VendorSalesOrderStatus = result.vendorSalesOrders[0].Status;
+                    // poTrackerEntity.VendorSalesOrderStatusUpdatedOn =  result.vendorSalesOrders[0].StatusUpdatedOn;
+                }
+                else{
+                    poTrackerEntity.VendorSalesOrder = {};
+                    // poTrackerEntity.VendorSalesOrderStatus = "";
+                    // poTrackerEntity.VendorSalesOrderStatusUpdatedOn =  "";
+                }
+
+                //3. Goods Issue Details
+                return vendorService.getAllGoodsIssue(option, value)
+                .then((result) => {
+                    if(result.goodsIssueList != undefined && result.goodsIssueList.length > 0) {
+                        console.log("GoodsIssueNumber: ", result.goodsIssueList[0].GoodsIssueNumber);
+                        poTrackerEntity.GoodsIssue = result.goodsIssueList[0];
+                        // poTrackerEntity.GoodsIssueNumber = result.goodsIssueList[0].GoodsIssueNumber;
+                        // poTrackerEntity.GoodsIssueDate = result.goodsIssueList[0].GoodsIssueDate;
+                    }
+                    else{
+                        poTrackerEntity.GoodsIssue = {};
+                        // poTrackerEntity.GoodsIssueNumber = "";
+                        // poTrackerEntity.GoodsIssueDate = "";
+                    }
+                   
+
+                    //4. Vendor - Issue invoice 
+                    return vendorService.getAllVendorInvoices(option, value)
+                    .then((result) => {
+                        if(result.vendorInvoices != undefined && result.vendorInvoices.length > 0) {
+                            console.log("Vendor Invoice Number : ", result.vendorInvoices[0].InvoiceNumber);
+                            poTrackerEntity.VendorInvoices = result.vendorInvoices[0];
+                        }
+                        else{
+                            poTrackerEntity.VendorInvoices = {};
+                        }
+
+                        //5. Vendor - Issue invoice
+                        return logisticService.getAllLogisticTransactions(option, value)
+                        .then((result) => {
+                            if(result.logisticTransactions != undefined && result.logisticTransactions.length > 0) {
+                                console.log("Logistic Consignment Number : ", result.logisticTransactions[0].ConsignmentNumber);
+                                poTrackerEntity.LogisticTransaction = result.logisticTransactions[0];
+                            }
+                            else{
+                                poTrackerEntity.LogisticTransactions = {};
+                            }
+
+                            //6. Goods Receipt
+                            return procurementService.getAllGoodsReceiptDetails(option, value)
+                            .then((result) => {
+                                if(result.goodsReceipts != undefined && result.goodsReceipts.length > 0) {
+                                    console.log("Goods Receipt Number : ", result.goodsReceipts[0].GoodsReceiptNumber);
+                                    poTrackerEntity.GoodsReceipts = result.goodsReceipts[0];
+                                }
+                                else{
+                                    poTrackerEntity.GoodsReceipts = {};
+                                }
+
+                                //7. Syngenta Finance - Invoice Validate
+                                return financeService.getAllFinanceInvoices(option, value)
+                                .then((result) => {
+                                    if(result.financeInvoices != undefined && result.financeInvoices.length > 0) {
+                                        console.log("Finance Invoice Number : ", result.financeInvoices[0].invoiceNumber);
+                                        poTrackerEntity.FinanceInvoices = result.financeInvoices[0];
+                                    }
+                                    else{
+                                        poTrackerEntity.FinanceInvoices = {};
+                                    }  
+
+                                    //8. Syngenta Finance - Payment Proposal + Bank Status
+                                    return financeService.getAllPaymentProposals(option, value)
+                                    .then((result) => {
+                                        if(result.paymentProposals != undefined && result.paymentProposals.length > 0) {
+                                            console.log("Finance Payment Proposal Number : ", result.paymentProposals[0].paymentProposalNumber);
+                                            poTrackerEntity.PaymentDetails = result.paymentProposals[0];
+                                        }
+                                        else{
+                                            poTrackerEntity.PaymentDetails = {};
+                                        }                               
+                            
+                                    return poTrackerEntity;
+                                    });  // 8 End
+                                }); //7 End
+                            }); //6 End
+                        }); //5 End
+                    }); // 4 End
+                }); // 3 End
+
+            }); // 2 End
+        }); //1 End
+    }
+
     return poTrackerService;
 }        
                 
