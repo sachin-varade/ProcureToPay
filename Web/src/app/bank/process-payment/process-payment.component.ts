@@ -78,7 +78,7 @@ export class ProcessPaymentComponent implements OnInit {
       .then((results: any) => {
         this.alertService.success("Payment processed for " + this.paymentProposal.paymentProposalNumber);
         this.getAllPaymentProposals();
-        this.financeService.getAllFinanceInvoices("po", this.paymentProposal.paymentProposalDetails[0].poReferenceNumber)
+        this.financeService.getAllFinanceInvoices("po-posted", this.paymentProposal.paymentProposalDetails[0].poReferenceNumber)
         .then((results: any) => {
           if(results && results.financeInvoices && results.financeInvoices.length > 0){
             let invoicesToBePaid: Array<any> = new Array<any>();

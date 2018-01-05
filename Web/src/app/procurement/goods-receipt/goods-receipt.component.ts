@@ -122,7 +122,7 @@ export class GoodsReceiptComponent implements OnInit {
     this.procurementService.saveGoodsReceipt(this.goodsReceipt)
       .then((results: any) => {
         this.alertService.success("Goods Receipt Saved.");
-        this.financeService.getAllFinanceInvoices("po", this.goodsReceipt.purchaseOrderRefNumber)
+        this.financeService.getAllFinanceInvoices("po-parked", this.goodsReceipt.purchaseOrderRefNumber)
         .then((results: any) => {
           if(results && results.financeInvoices && results.financeInvoices.length > 0){
             results.financeInvoices.forEach(invElement => {
