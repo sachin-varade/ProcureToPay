@@ -87,26 +87,27 @@
                                 </div>
                                 <div class="marker"></div>
                             </li>
-                            <li class="{{this.poTrackingDetails.VendorInvoices.invoiceNumber.length >0 ? 'finished' : ''}}">
+                            <li class="{{this.poTrackingDetails.VendorInvoices && this.poTrackingDetails.VendorInvoices.invoiceNumber && this.poTrackingDetails.VendorInvoices.invoiceNumber.length >0 ? 'finished' : ''}}">
                                 <div class="left-block">
                                     <h6 class="event-title">Vendor - Invoice</h6>
                                     <span class="event-time">Invoice Number: {{this.poTrackingDetails.VendorInvoices.invoiceNumber}}</span>
                                     <span class="event-time">Invoice Date: {{this.poTrackingDetails.VendorInvoices.invoiceDate | date:"short" }}</span>
                                     <span class="event-time">Blockchain publish date: {{this.poTrackingDetails.VendorInvoices.invoicePublishDate | date:"short" }}</span>
-                                    <span class="event-time">Invoice Party: {{this.poTrackingDetails.VendorInvoices.invoicePartyId}}</span>
-                                    <span class="event-time">Invoice Party Address: {{this.poTrackingDetails.VendorInvoices.invoicePartyAddress}}</span>
+                                    <span class="event-time">Bill-to-Party: {{this.poTrackingDetails.VendorInvoices.invoicePartyId}}</span>
+                                    <!-- <span class="event-time">Invoice Party Address: {{this.poTrackingDetails.VendorInvoices.invoicePartyAddress}}</span> -->
                                     <span class="event-party">Vendor Invoice issuer Department</span>
                                 </div>
                                 <div class="right-block">
                                 </div>
                                 <div class="marker"></div>
                             </li>
-                            <li class="{{this.poTrackingDetails.GoodsReceipts.goodsReceiptNumber.length >0 ? 'finished' : ''}}">
+                            <li class="{{this.poTrackingDetails.GoodsReceipts && this.poTrackingDetails.GoodsReceipts.goodsReceiptNumber && this.poTrackingDetails.GoodsReceipts.goodsReceiptNumber.length >0 ? 'finished' : ''}}">
                                 <div class="left-block">
                                     
                                 </div>
                                 <div class="right-block">
-                                    <h6 class="event-title">Syngenta Goods receipts</h6>
+                                    <h6 class="event-title">Syngenta Goods receipts</h6>                                     
+                                    <span class="event-error" *ngIf="this.poTrackingDetails.LogisticTransaction.consignmentNumber.length > 0 && !this.poTrackingDetails.GoodsReceipts.goodsReceiptNumber">Goods Receipt pending - Delivered on {{this.poTrackingDetails.LogisticTransaction.actualDeliveryDatetime | date:"short" }}</span>
                                     <span class="event-time">Goods receipt Number: {{this.poTrackingDetails.GoodsReceipts.goodsReceiptNumber}}</span>
                                     <span class="event-time">Goods received on: {{this.poTrackingDetails.GoodsReceipts.goodsReceiptDate}}</span>
                                     <span class="event-party">Syngenta Procurement Team</span>

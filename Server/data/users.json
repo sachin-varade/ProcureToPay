@@ -3,8 +3,8 @@
         "procurements": [
             {
                 "id": 1,
-                "name": "procurement1",
-                "displayName": "procurement 1",
+                "name": "Syn_procurement1",
+                "displayName": "Syngenta Procurement 1",
                 "role": "procurement",
                 "password": "123456",
                 "uniqueId": "A001",
@@ -12,8 +12,8 @@
             },
             {
                 "id": 2,
-                "name": "procurement2",
-                "displayName": "procurement 2",
+                "name": "Syn_procurement2",
+                "displayName": "Syngenta Procurement 2",
                 "role": "procurement",
                 "password": "123456",
                 "uniqueId": "A001",
@@ -23,8 +23,8 @@
         "finances": [
             {
                 "id": 1,
-                "name": "finance1",
-                "displayName": "finance 1",
+                "name": "Syn_finance1",
+                "displayName": "Syngenta Finance 1",
                 "role": "finance",
                 "password": "123456",
                 "uniqueId": "A001",
@@ -32,8 +32,8 @@
             },
             {
                 "id": 2,
-                "name": "finance2",
-                "displayName": "finance 2",
+                "name": "Syn_finance2",
+                "displayName": "Syngenta Finance 2",
                 "role": "finance",
                 "password": "123456",
                 "uniqueId": "A001",
@@ -43,8 +43,8 @@
         "logistics": [
             {
                 "id": 1,
-                "name": "logistic1",
-                "displayName": "logistic 1",
+                "name": "Bring_FR",
+                "displayName": "Bring Services France",
                 "role": "logistic",
                 "password": "123456",
                 "uniqueId": "A001",
@@ -52,8 +52,8 @@
             },
             {
                 "id": 2,
-                "name": "logistic2",
-                "displayName": "logistic 2",
+                "name": "Bring_NO",
+                "displayName": "Bring Services Norway",
                 "role": "logistic",
                 "password": "123456",
                 "uniqueId": "A001",
@@ -63,11 +63,11 @@
         "vendors": [
             {
                 "id": 1,
-                "name": "vendor1",
-                "displayName": "JYOTI ENTERPRISES",
+                "name": "Regisseur",
+                "displayName": "REGISSEUR INRA EDITIONS",
                 "role": "vendor",
                 "password": "123456",
-                "supplierName": "JYOTI ENTERPRISES",
+                "supplierName": "REGISSEUR INRA EDITIONS",
                 "supplierUniqueNo": "U001",
                 "supplierContactPerson": "JYOTI",
                 "supplierContactPersonAddress": "403005 ILHAS-GOA India",
@@ -99,8 +99,8 @@
         "banks": [
             {
                 "id": 1,
-                "name": "bank1",
-                "displayName": "bank 1",
+                "name": "Abc_Bank",
+                "displayName": "ABC Bank",
                 "role": "bank",
                 "password": "123456",
                 "uniqueId": "A001",
@@ -108,8 +108,8 @@
             },
             {
                 "id": 2,
-                "name": "bank2",
-                "displayName": "bank 2",
+                "name": "Sbl_Bank",
+                "displayName": "SBL Bank",
                 "role": "bank",
                 "password": "123456",
                 "uniqueId": "A001",
