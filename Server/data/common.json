@@ -26,12 +26,12 @@
     {"id": 3, "name": "EUR"}
 ],
 "glAccount": [
-    {"id": 1, "name": "GL Account 1"},
-    {"id": 2, "name": "GL Account 2"}
+    {"id": 1, "name": "12345678"},
+    {"id": 2, "name": "12555777"}
 ],
 "costCenter": [
-    {"id": 1, "name": "Cost Center 1"},
-    {"id": 2, "name": "Cost Center 2"}
+    {"id": 1, "name": "FR000014578"},
+    {"id": 2, "name": "FR000015555"}
 ],
 "sellerProductCodeList" :[
     {"code":"P001", "description":"P001: Product 1"},
@@ -44,9 +44,8 @@
     {"code":"LP003", "description":"LP003: Logistic Provider 3"}
 ],
 "vehicleList":[
-    {"registrationNumber" : "MH02AA1111", "description" : "MH02AA1111 Trailer Truck"},
-    {"registrationNumber" : "MH02AA2222", "description" : "MH02AA2222 Van"},
-    {"registrationNumber" : "MH02AA3333", "description" : "MH02AA3333 Car"}
+    {"registrationNumber" : "BG-494-NA", "description" : "BG-494-NA Mini Truck"},
+    {"registrationNumber" : "AWD-815-XD", "description" : "AWD-815-XD Truck"}
 ],
 "routeList":[
     {"code" : "ROUTE1", "description" : "ROUTE1 ABC to XYZ"},
