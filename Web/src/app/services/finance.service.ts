@@ -28,9 +28,9 @@ export class FinanceService {
     });
   }
 
-  updateFinanceInvoice(salesOrder: FinanceModels.FinanceInvoice): Promise<any> {
-    this.url = `${this.BASE_URL}/updateFinanceInvoice`;
-    return this.http.post(this.url, salesOrder).toPromise()
+  updateFinanceInvoiceList(financeInvoice: Array<FinanceModels.FinanceInvoice>): Promise<any> {
+    this.url = `${this.BASE_URL}/updateFinanceInvoiceList`;
+    return this.http.post(this.url, financeInvoice).toPromise()
     .then((results: any) => {
       return results;
     }).catch((err) => {
@@ -65,6 +65,26 @@ export class FinanceService {
       return results;
     }).catch((err) => {
       this.alertService.error(err);
+    });
+  }
+
+  processPayment(paymentProposal: FinanceModels.PaymentProposal): Promise<any> {
+    this.url = `${this.BASE_URL}/processPayment`;
+    return this.http.post(this.url, paymentProposal).toPromise()
+    .then((results: any) => {
+      return results;
+    }).catch((err) => {
+      this.alertService.error(err);
+    });
+  }
+
+  getAllPaymentProposals(option: string, value: string = ""): Promise<any> {
+    this.url = `${this.BASE_URL}/getAllPaymentProposals`;
+    return this.http.get(this.url+"/"+ option +"/"+ value).toPromise()
+    .then((results: any) => {
+      return results;
+    }).catch((err) => {
+      this.alertService.error("Error occured...");
     });
   }
 }

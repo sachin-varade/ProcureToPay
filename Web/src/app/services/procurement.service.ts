@@ -37,6 +37,16 @@ export class ProcurementService {
     });
   }
 
+  updatePurchaseOrderStatus(purchaseOrder: ProcurementModels.PurchaseOrder): Promise<any> {
+    this.url = `${this.BASE_URL}/updatePurchaseOrderStatus`;
+    return this.http.post(this.url, purchaseOrder).toPromise()
+    .then((results: any) => {
+      return results;
+    }).catch((err) => {
+      this.alertService.error(err);
+    });
+  }
+
   getAllPurchaseOrders(option: string, value: string = ""): Promise<any> {
     this.url = `${this.BASE_URL}/getAllPurchaseOrders`;
     return this.http.get(this.url+"/"+ option +"/"+ value).toPromise()

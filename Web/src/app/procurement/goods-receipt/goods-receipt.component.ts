@@ -125,15 +125,17 @@ export class GoodsReceiptComponent implements OnInit {
         this.financeService.getAllFinanceInvoices("po", this.goodsReceipt.purchaseOrderRefNumber)
         .then((results: any) => {
           if(results && results.financeInvoices && results.financeInvoices.length > 0){
-            this.financeInvoice = results.financeInvoices[0];
-            this.financeInvoice.statusUpdates.push(      
-              {
-                status: "Posted",
-                updatedBy: this.currentUser.id,
-                updatedOn: new Date()
-              }
-            );
-            this.financeService.updateFinanceInvoice(this.financeInvoice)
+            results.financeInvoices.forEach(invElement => {
+              invElement.statusUpdates.push(      
+                {
+                  status: "Posted",
+                  updatedBy: this.currentUser.id,
+                  updatedOn: new Date()
+                }
+              );
+            });            
+            
+            this.financeService.updateFinanceInvoiceList(results.financeInvoices)
             .then((results: any) => {
               // this.alertService.success("Finance Invoice Posted for this Purchase Order.");
               console.log("Finance Invoice Posted for this Purchase Order.");

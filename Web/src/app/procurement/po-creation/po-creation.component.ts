@@ -23,6 +23,7 @@ export class PoCreationComponent implements OnInit {
     this.userData = this.user.getUserData();
     this.commonData = this.user.getCommonData();
     this.fetchPOs();
+    this.purchaseOrder.statusUpdates = new Array<ProcurementModels.StatusUpdates>();
   }
 
   ngOnInit() {
@@ -47,6 +48,7 @@ export class PoCreationComponent implements OnInit {
       this.purchaseOrderList.forEach(element => {
         if (element.purchaseOrderNumber === this.purchaseOrder.purchaseOrderNumber) {
           this.purchaseOrder = JSON.parse(JSON.stringify(element));
+          this.purchaseOrder.statusUpdates = new Array<ProcurementModels.StatusUpdates>();
           this.purchaseOrder.orderedMaterial.forEach(element => {
             element.expectedDeliveryDate = new Date();
             element.expectedDeliveryDate.setDate((new Date().getDate()) + 10);
@@ -84,6 +86,13 @@ export class PoCreationComponent implements OnInit {
 
   updatePO(){
     this.purchaseOrder.status = "Approved";
+    this.purchaseOrder.statusUpdates.push(      
+      {
+        status: "Approved",
+        updatedBy: this.currentUser.id,
+        updatedOn: new Date()
+      }
+    );
     this.procurementService.savePurchaseOrder(this.purchaseOrder)
     .then((results: any) => {
       this.alertService.success("Purchase Order approved.");

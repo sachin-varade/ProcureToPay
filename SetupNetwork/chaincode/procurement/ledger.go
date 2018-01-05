@@ -69,8 +69,7 @@ type PurchaseOrder struct {
 	ExternalNotes				string		`json:"externalNotes"`
 	OrderedMaterial				[]OrderMaterial	`json:"orderedMaterial"`
 	Status				string	`json:"status"`
-	StatusUpdatedOn				string	`json:"statusUpdatedOn"`
-	StatusUpdatedBy				string	`json:"statusUpdatedBy"`
+	StatusUpdates						[]StatusUpdates		`json:"statusUpdates"`
 	VatNo				string	`json:"vatNo"`
 	TermsOfDelivery				string	`json:"termsOfDelivery"`
 }
@@ -386,6 +385,8 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 		return getAllGoodsReceiptDetails(stub, args[0], args[1])
 	} else if function == "saveGoodsReceipt" {
 		return saveGoodsReceipt(stub, args)
+	} else if function == "updatePurchaseOrderStatus" {
+		return updatePurchaseOrderStatus(stub, args)
 	}
 	
 	// error out

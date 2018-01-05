@@ -79,13 +79,19 @@ func getAllFinanceInvoices(stub  shim.ChaincodeStubInterface, option string, val
 			allDetails.FinanceInvoices = append(allDetails.FinanceInvoices,sb);	
 		} else if strings.ToLower(option) == "po" && strings.ToLower(value) == strings.ToLower(sb.PurchaseOrderRefNumber) {
 			allDetails.FinanceInvoices = append(allDetails.FinanceInvoices, sb);	
+		} else if strings.ToLower(option) == "po-parked" && strings.ToLower(value) == strings.ToLower(sb.PurchaseOrderRefNumber) && strings.ToLower(sb.CurrentStatus) == "parked" {
+			allDetails.FinanceInvoices = append(allDetails.FinanceInvoices, sb);	
+		} else if strings.ToLower(option) == "po-posted" && strings.ToLower(value) == strings.ToLower(sb.PurchaseOrderRefNumber) && strings.ToLower(sb.CurrentStatus) == "posted" {
+			allDetails.FinanceInvoices = append(allDetails.FinanceInvoices, sb);	
+		} else if strings.ToLower(option) == "po-paid" && strings.ToLower(value) == strings.ToLower(sb.PurchaseOrderRefNumber) && strings.ToLower(sb.CurrentStatus) == "paid" {
+			allDetails.FinanceInvoices = append(allDetails.FinanceInvoices, sb);	
 		}
 	}
 	
 	if strings.ToLower(option) == "ids" {
 		rabAsBytes, _ := json.Marshal(allIds)		
 		return shim.Success(rabAsBytes)	
-	} else if strings.ToLower(option) == "details" || strings.ToLower(option) == "po" {
+	} else if strings.ToLower(option) == "details" || strings.ToLower(option) == "po" || strings.ToLower(option) == "po-parked" || strings.ToLower(option) == "po-posted" || strings.ToLower(option) == "po-paid"{
 		rabAsBytes, _ := json.Marshal(allDetails)
 		return shim.Success(rabAsBytes)	
 	}

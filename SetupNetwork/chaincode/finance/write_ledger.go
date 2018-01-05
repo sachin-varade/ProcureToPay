@@ -240,3 +240,55 @@ func savePaymentProposal(stub  shim.ChaincodeStubInterface, args []string) pb.Re
 
 	return shim.Success(nil)
 }
+
+
+//Create Payment Proposal block
+func processPayment(stub  shim.ChaincodeStubInterface, args []string) pb.Response {	
+	var err error
+	fmt.Println("Running processPayment..")
+
+	if len(args) != 2 {
+		fmt.Println("Incorrect number of arguments. Expecting 2")
+		return shim.Error("Incorrect number of arguments. Expecting 2")
+	}
+
+	fmt.Println("Arguments :"+args[0] +","+args[1]);
+	var bt PaymentProposal
+	sbAsBytes, err := stub.GetState(args[0])
+	if err != nil {
+		return shim.Error("Failed to get Payment Proposal Number ")
+	}
+
+	json.Unmarshal(sbAsBytes, &bt)
+
+	bt.PaymentProposalNumber = args[0]
+	var paymentProposalDetails PaymentProposalDetails
+	var nbt PaymentProposal
+	if args[1] != "" {
+		p := strings.Split(args[1], ",")
+		for i := range p {
+			c := strings.Split(p[i], "^")
+			paymentProposalDetails.PaymentProposalNumber 		= c[0]
+			paymentProposalDetails.ProposedPaymentDate			= c[1]
+			paymentProposalDetails.Tax							= c[2]
+			paymentProposalDetails.Amount 						= c[3]
+			paymentProposalDetails.PoReferenceNumber 			= c[4]
+			paymentProposalDetails.InvoiceReferenceNumber 		= c[5]
+			paymentProposalDetails.Status 						= c[6]
+			paymentProposalDetails.BankProcessingDate			= c[7]
+			nbt.ProposalDetails	= append(nbt.ProposalDetails, paymentProposalDetails)
+		}
+	}
+
+	bt.ProposalDetails = nbt.ProposalDetails
+
+	//Commit Inward entry to ledger
+	fmt.Println("savePaymentProposal - Commit Payment Proposal To Ledger");
+	btAsBytes, _ := json.Marshal(bt)
+	err = stub.PutState(bt.PaymentProposalNumber, btAsBytes)
+	if err != nil {		
+		return shim.Error(err.Error())
+	}
+
+	return shim.Success(nil)
+}

@@ -68,7 +68,7 @@ export class PaymentProposalComponent implements OnInit {
           this.financeInvoiceList = results.financeInvoices;
           let paymentProposalDetailsLocal: Array<FinanceModels.PaymentProposalDetail> = new Array<FinanceModels.PaymentProposalDetail>();
           for (let entry of this.financeInvoiceList) {
-            if (entry.supplierCode === this.selectedVendor.supplierUniqueNo) {
+            if (entry.supplierCode === this.selectedVendor.supplierUniqueNo && entry.statusUpdates[entry.statusUpdates.length-1].status.toLocaleLowerCase() === "posted") {
               let detail: FinanceModels.PaymentProposalDetail = new FinanceModels.PaymentProposalDetail();
               detail.paymentProposalNumber = this.paymentProposal.paymentProposalNumber;
               detail.proposedPaymentDate = new Date();

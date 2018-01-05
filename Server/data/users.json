@@ -104,7 +104,7 @@
                 "role": "bank",
                 "password": "123456",
                 "uniqueId": "A001",
-                "homepage": "process-payment"                  
+                "homepage": "bank/process-payment"                  
             },
             {
                 "id": 2,
@@ -113,7 +113,7 @@
                 "role": "bank",
                 "password": "123456",
                 "uniqueId": "A001",
-                "homepage": "process-payment"                
+                "homepage": "bank/process-payment"                
             }
         ]
     }

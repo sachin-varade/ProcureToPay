@@ -55,6 +55,13 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
             +"^"+ element.expectedDeliveryDate +"^"+ element.netAmount.toString();
             });
         }
+
+        var status, updatedBy, updatedOn = "";
+        if(purchaseOrder.statusUpdates && purchaseOrder.statusUpdates.length > 0){
+            status = purchaseOrder.statusUpdates[purchaseOrder.statusUpdates.length-1].status;
+            updatedBy = purchaseOrder.statusUpdates[purchaseOrder.statusUpdates.length-1].updatedBy.toString();
+            updatedOn = purchaseOrder.statusUpdates[purchaseOrder.statusUpdates.length-1].updatedOn;
+        }
         return fabric_client.getUserContext(users.procurementUser.enrollmentID, true)
         .then((user_from_store) => {
             helper.checkUserEnrolled(user_from_store);            
@@ -93,7 +100,10 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
                     purchaseOrder.externalNotes,
                     purchaseOrder.vatNo,
                     purchaseOrder.termsOfDelivery,
-                    orderedMaterial                    
+                    orderedMaterial,
+                    status,
+                    updatedBy,
+                    updatedOn                  
                 ]                
             );                
         }).then((results) => {
@@ -138,6 +148,37 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
                     purchaseOrder.status,
                     orderedMaterial,
                     purchaseOrder.totalOrderAmount.toString(),
+                ]                
+            );                
+        }).then((results) => {
+            return results;
+        }).catch((err) => {
+            throw err;
+        });
+    }
+
+    procurementService.updatePurchaseOrderStatus = function(purchaseOrder){
+        console.log("updatePurchaseOrderStatus"); 
+        var status, updatedBy, updatedOn = "";
+        if(purchaseOrder.statusUpdates && purchaseOrder.statusUpdates.length > 0){
+            status = purchaseOrder.statusUpdates[purchaseOrder.statusUpdates.length-1].status;
+            updatedBy = purchaseOrder.statusUpdates[purchaseOrder.statusUpdates.length-1].updatedBy.toString();
+            updatedOn = purchaseOrder.statusUpdates[purchaseOrder.statusUpdates.length-1].updatedOn;
+        }      
+        return fabric_client.getUserContext(users.procurementUser.enrollmentID, true)
+        .then((user_from_store) => {
+            helper.checkUserEnrolled(user_from_store);            
+            return invokeChainCode.invokeChainCode(fabric_client, 
+                channels.procurementChannelPC, 
+                eventHubPeers.procurementEventHubPeer._url, 
+                //"grpc://localhost:7053",
+                procurementConfig.channels.procurementchannel.chaincodeId, 
+                "updatePurchaseOrderStatus",  
+                [
+                    purchaseOrder.purchaseOrderNumber,
+                    status,
+                    updatedBy,
+                    updatedOn
                 ]                
             );                
         }).then((results) => {

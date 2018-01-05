@@ -66,6 +66,13 @@ router.post("/updatePurchaseOrder", function(req, res) {
 	});	
 });
 
+router.post("/updatePurchaseOrderStatus", function(req, res) {    
+	var promise = procurementService.updatePurchaseOrderStatus(req.body);
+	promise.then(function(resp,err){
+		res.send(resp);
+	});	
+});
+
 router.get("/getAllPurchaseOrders/:option/:value?", function(req, res) {    
     var promise = procurementService.getAllPurchaseOrders(req.params.option, req.params.value?req.params.value: "");
 	promise.then(function(resp,err){
@@ -153,8 +160,8 @@ router.post("/saveFinanceInvoice", function(req, res) {
 	});	
 });
 
-router.post("/updateFinanceInvoice", function(req, res) {    
-	var promise = financeService.updateFinanceInvoice(req.body);
+router.post("/updateFinanceInvoiceList", function(req, res) {    
+	var promise = financeService.updateFinanceInvoiceList(req.body, 0);
 	promise.then(function(resp,err){
 		res.send(resp);
 	});	
@@ -174,6 +181,19 @@ router.post("/savePaymentProposal", function(req, res) {
 	});	
 });
 
+router.post("/processPayment", function(req, res) {    
+	var promise = financeService.processPayment(req.body);
+	promise.then(function(resp,err){
+		res.send(resp);
+	});	
+});
+
+router.get("/getAllPaymentProposals/:option/:value?", function(req, res) {    
+    var promise = financeService.getAllPaymentProposals(req.params.option, req.params.value?req.params.value: "");
+	promise.then(function(resp,err){
+		res.send(resp);
+	});	
+});
 
 // ------------------------ UNIQUE IDs routes --------------------
 router.get("/procurement/getUniqueId/:option/:value?", function(req, res) {    

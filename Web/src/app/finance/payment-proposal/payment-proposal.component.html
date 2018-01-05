@@ -8,13 +8,25 @@
 
             <div class="border-box-table">
               <div class="border-box-row">
-                <div class="border-box col-3">
+                <div class="border-box col-2">
                   <label class="label-field">Payment Proposal No</label>
                   <span class="value-field">
                     <input disabled required [(ngModel)]="this.paymentProposal.paymentProposalNumber" name="paymentProposalNumber" type="text" class="input-style">
                   </span>
                 </div>
-                <div class="border-box col-3">
+               
+                <div class="border-box col-2">
+                  <label class="label-field">Proposal Date</label>
+                  <span class="value-field">
+                      <input type="text" placeholder="Proposal Date" [(ngModel)]="this.paymentProposal.proposalDate" name="proposalDate" 
+                        class="form-control date-picker-date date-input-small float-left"
+                        bsDatepicker required/>
+                  </span>
+                </div>
+              </div>
+              <div class="border-box-row">
+                
+                <div class="border-box col-1">
                   <label class="label-field">Vendor/Seller</label>
                   <span class="value-field">
                     <select [(ngModel)]="this.selectedVendor.name" class="input-style" (change)="changeVendor()" name="vendorName" id="vendorName" required>
@@ -23,14 +35,7 @@
                     </select>
                   </span>
                 </div>
-                <div class="border-box col-3">
-                  <label class="label-field">Proposal Date</label>
-                  <span class="value-field">
-                      <input type="text" placeholder="Proposal Date" [(ngModel)]="this.paymentProposal.proposalDate" name="proposalDate" 
-                        class="form-control date-picker-date date-input-small float-left"
-                        bsDatepicker required/>
-                  </span>
-                </div>
+                
               </div>
             </div>
 
@@ -56,14 +61,14 @@
         </div>
 
         <div class="plain-block mrg-btm-30">
-              <h5 class="sub-title-sm">Invoices Not Paid</h5>
+              <h5 class="sub-title-sm">Invoices</h5>
               <div class="border-box-wrapper">
                 <table class="table table-striped full-width">
                   <tr>
                     <th></th>
                     <th>Invoice Number</th>
                     <th>Invoice Date</th>
-                    <th>Gross Amount</th>
+                    <th>Amount</th>
                     <th>Credit Date</th>
                   </tr>
                   <tr *ngFor="let item of this.paymentProposal.paymentProposalDetails; let i = index" [attr.data-index]="i">

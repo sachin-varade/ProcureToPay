@@ -33,9 +33,9 @@ func savePurchaseOrder(stub  shim.ChaincodeStubInterface, args []string) pb.Resp
 	var err error
 	fmt.Println("Running savePurchaseOrder..")
 
-	if len(args) != 29 {
-		fmt.Println("Incorrect number of arguments. Expecting 29 - ..")
-		return shim.Error("Incorrect number of arguments. Expecting 29")
+	if len(args) != 32 {
+		fmt.Println("Incorrect number of arguments. Expecting 32 - ..")
+		return shim.Error("Incorrect number of arguments. Expecting 32")
 	}
 
 	fmt.Println("Arguments :"+args[0]+","+args[1]+","+args[2]+","+args[3]+","+args[4]+","+args[5]+","+args[6]+","+args[7]+","+args[8]+","+args[9]+","+args[10]+","+args[11]+","+args[12]);
@@ -83,7 +83,14 @@ func savePurchaseOrder(stub  shim.ChaincodeStubInterface, args []string) pb.Resp
 	bt.ExternalNotes					= args[25]
 	bt.VatNo					= args[26]
 	bt.TermsOfDelivery					= args[27]
-	bt.Status = "Approved"
+	bt.Status = args[29]
+
+	var st StatusUpdates
+	st.Status = args[29]
+	st.UpdatedBy = args[30]
+	st.UpdatedOn = args[31]
+	bt.StatusUpdates = append(bt.StatusUpdates, st)	
+
 	var material OrderMaterial
 	
 	if args[28] != "" {
@@ -173,6 +180,43 @@ func updatePurchaseOrder(stub  shim.ChaincodeStubInterface, args []string) pb.Re
 		}
 	}
 	bt.OrderedMaterial = nbt.OrderedMaterial
+
+	//Commit Inward entry to ledger
+	fmt.Println("updatePurchaseOrder - Commit Purchase Order To Ledger");
+	btAsBytes, _ := json.Marshal(bt)
+	err = stub.PutState(bt.PurchaseOrderNumber, btAsBytes)
+	if err != nil {
+		return shim.Error(err.Error())
+	}
+
+	return shim.Success(nil)
+}
+
+func updatePurchaseOrderStatus(stub  shim.ChaincodeStubInterface, args []string) pb.Response {	
+	var err error
+	fmt.Println("Running updatePurchaseOrder..")
+
+	if len(args) != 4 {
+		fmt.Println("Incorrect number of arguments. Expecting 4 - ..")
+		return shim.Error("Incorrect number of arguments. Expecting 4")
+	}
+
+	fmt.Println("Arguments :"+args[0]+","+args[1]+","+args[2]+","+args[3]);
+	
+	var bt PurchaseOrder
+	sbAsBytes, err := stub.GetState(args[0])
+	if err != nil {
+		return shim.Error("Failed to get Purchase Order record.")
+	}
+	json.Unmarshal(sbAsBytes, &bt)
+	bt.PurchaseOrderNumber = args[0]
+	bt.Status = args[1]
+	
+	var st StatusUpdates
+	st.Status = args[1]
+	st.UpdatedBy = args[2]
+	st.UpdatedOn = args[3]
+	bt.StatusUpdates = append(bt.StatusUpdates, st)	
 
 	//Commit Inward entry to ledger
 	fmt.Println("updatePurchaseOrder - Commit Purchase Order To Ledger");
@@ -552,6 +596,9 @@ func saveVendorInvoice(stub  shim.ChaincodeStubInterface, args []string) pb.Resp
 	} else if bt.GrossAmount == "" {
 		return shim.Error("SMART_CONTRACT Error: Gross Amount is mandatory field")
 	} else if bt.InvoicePartyId == "" {
+		return shim.Error("SMART_CONTRACT Error: Bill to Party Id is mandatory field")
+	} else if bt.InvoiceDate != "" {
+		
 		return shim.Error("SMART_CONTRACT Error: Bill to Party Id is mandatory field")
 	}
 

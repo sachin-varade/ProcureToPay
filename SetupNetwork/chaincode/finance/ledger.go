@@ -195,9 +195,11 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 		return savePaymentProposal(stub, args)
 	} else if function == "updateFinanceInvoice" {
 		return updateFinanceInvoice(stub, args)
-		} else if function == "getUniqueId" {
-			return getUniqueId(stub, args[0], args[1])
-		}
+	} else if function == "getUniqueId" {
+		return getUniqueId(stub, args[0], args[1])
+	} else if function == "processPayment" {
+		return processPayment(stub, args)
+	}
 	
 	// error out
 	fmt.Println("Received unknown invoke function name - " + function)

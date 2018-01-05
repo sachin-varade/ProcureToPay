@@ -29,11 +29,18 @@ export class PurchaseOrder {
     externalNotes: string;
     orderedMaterial: Array<OrderMaterial>;
     status: string;
+    statusUpdates: Array<StatusUpdates> = new Array<StatusUpdates>();
     invoicePartyId : string;
     vatNo : string;
     termsOfDelivery: string;
 }
  
+export class  StatusUpdates {
+	status: string;
+	updatedBy: number;
+	updatedOn: Date;
+}
+
 export class OrderMaterial {
     pos: number;    
     productName: string;

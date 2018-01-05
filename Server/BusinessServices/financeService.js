@@ -105,8 +105,24 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
         });
     }
 
-    financeService.updateFinanceInvoice = function(invoice){
-        console.log("updateFinanceInvoice");        
+    financeService.updateFinanceInvoiceList = function(invoiceList, id){
+        return financeService.updateFinanceInvoice(invoiceList, id)
+        .then((results) => {
+            return results;
+        }).catch((err) => {
+            if(err.message.indexOf("SMART_CONTRACT") > -1){
+                return {
+                    type: "ERROR",
+                    message: err.message
+                }
+            }            
+            throw err;
+        });
+    }
+
+    financeService.updateFinanceInvoice = function(invoiceList, id){
+        console.log("updateFinanceInvoice");      
+        var invoice = invoiceList[id];
         var status, updatedBy, updatedOn = "";
         if(invoice.statusUpdates && invoice.statusUpdates.length > 0){
             status = invoice.statusUpdates[invoice.statusUpdates.length-1].status;
@@ -131,7 +147,12 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
                 ]                
             );                
         }).then((results) => {
-            return results;
+            if(id < invoiceList.length - 1){
+                financeService.updateFinanceInvoiceList(invoiceList, id+1)
+            }
+            else{
+                return results;
+            }
         }).catch((err) => {
             if(err.message.indexOf("SMART_CONTRACT") > -1){
                 return {
@@ -225,6 +246,69 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
                     message: err.message
                 }
             }            
+            throw err;
+        });
+    }
+
+    financeService.processPayment = function(paymentProposal){
+        console.log("processPayment");        
+
+        var details = "";        
+        if(paymentProposal.paymentProposalDetails){
+            paymentProposal.paymentProposalDetails.forEach(element => {
+                if(details != "") {
+                    details += ",";
+                }
+                details += element.paymentProposalNumber 
+                + "^"+ element.proposedPaymentDate 
+                + "^"+ element.tax.toString()
+                + "^"+ element.amount.toString() 
+                + "^"+ element.poReferenceNumber 
+                + "^"+ element.InvoiceReferenceNumber 
+                + "^"+ element.status 
+                + "^"+ element.bankProcessingDate;
+            });
+        }
+
+        return fabric_client.getUserContext(users.financeUser.enrollmentID, true)
+        .then((user_from_store) => {
+            helper.checkUserEnrolled(user_from_store);            
+            return invokeChainCode.invokeChainCode(fabric_client, 
+                channels.financeChannelFC, 
+                eventHubPeers.financeEventHubPeer._url, 
+                //"grpc://localhost:7053",
+                financeConfig.channels.financechannel.chaincodeId, 
+                "processPayment",  
+                [ 
+                    paymentProposal.paymentProposalNumber,
+                    details
+                ]                
+            );                
+        }).then((results) => {
+            return results;
+        }).catch((err) => {
+            if(err.message.indexOf("SMART_CONTRACT") > -1){
+                return {
+                    type: "ERROR",
+                    message: err.message
+                }
+            }            
+            throw err;
+        });
+    }
+
+    financeService.getAllPaymentProposals = function(option, value){
+        console.log("getAllPaymentProposals");
+        return fabric_client.getUserContext(users.financeUser.enrollmentID, true)
+        .then((user_from_store) => {
+            helper.checkUserEnrolled(user_from_store);
+            return queryChainCode.queryChainCode(channels.financeChannelFC, 
+                financeConfig.channels.financechannel.chaincodeId, 
+                "getAllPaymentProposals", 
+                [option, value]);
+        }).then((results) => {
+            return results;
+        }).catch((err) => {
             throw err;
         });
     }
