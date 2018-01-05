@@ -25,7 +25,12 @@
                 </div>
               </div>
               <div class="border-box-row">
-                
+                <div class="border-box col-3">
+                  <label class="label-field">Payment Proposal No</label>
+                  <span class="value-field">
+                    <input disabled required [(ngModel)]="this.paymentProposal.paymentProposalNumber" name="paymentProposalNumber" type="text" class="input-style">
+                  </span>
+                </div>
                 <div class="border-box col-1">
                   <label class="label-field">Vendor/Seller</label>
                   <span class="value-field">
@@ -73,7 +78,13 @@
                   </tr>
                   <tr *ngFor="let item of this.paymentProposal.paymentProposalDetails; let i = index" [attr.data-index]="i">
                     <td>
-                      <span><input [(ngModel)]="item.selectedInUI" type="checkbox" name="selectedInUI"></span>
+                      <span>
+                          <label class="checkbox-style">
+                              <input [(ngModel)]="item.selectedInUI" type="checkbox" name="selectedInUI">
+                              <span class="checkmark"></span>
+                            </label>
+                        
+                      </span>
                     </td>
                     <td>
                       <span>{{item.invoiceRefernceNumber}}</span>

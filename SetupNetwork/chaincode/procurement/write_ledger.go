@@ -23,6 +23,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 	pb "github.com/hyperledger/fabric/protos/peer"
@@ -597,6 +598,24 @@ func saveVendorInvoice(stub  shim.ChaincodeStubInterface, args []string) pb.Resp
 		return shim.Error("SMART_CONTRACT Error: Gross Amount is mandatory field")
 	} else if bt.InvoicePartyId == "" {
 		return shim.Error("SMART_CONTRACT Error: Bill to Party Id is mandatory field")
+	} else if bt.InvoiceDate == "" {
+		return shim.Error("SMART_CONTRACT Error: Invoice Date is mandatory field")
+	} else if bt.InvoiceDate != "" {
+		start := time.Now().AddDate(0, 0, -2)
+		end := time.Now().AddDate(0, 0, 0)
+		in := bt.InvoiceDate
+		t, err := time.Parse(time.RFC3339, in)
+		if err != nil {
+			fmt.Println(err)
+		}
+		// fmt.Println(start)
+		// fmt.Println(end)
+		// fmt.Println(t)
+		if inTimeSpan(start, end, t) {
+			fmt.Println(in, " - Invoice Date is between", start, "and", end, ".")
+		} else {
+			return shim.Error("SMART_CONTRACT INVOICE_DATE Error: Invoice rejected as invoice date is beyond acceptable delay (2 days)")
+		}
 	} 
 
 	//Get PO details for referenced PO number for cross validations

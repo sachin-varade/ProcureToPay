@@ -24,6 +24,7 @@ import (
 	"strconv"
 	"fmt"
 	"crypto/rand"	
+	"time"
 )
 
 // ========================================================
@@ -59,4 +60,8 @@ func checkDuplicateId(obj []string, value string) int{
 		} 
 	}
 	return 1
+}
+
+func inTimeSpan(start, end, check time.Time) bool {
+    return check.After(start) && check.Before(end)
 }
