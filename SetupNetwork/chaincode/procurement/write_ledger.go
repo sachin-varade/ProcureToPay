@@ -597,10 +597,7 @@ func saveVendorInvoice(stub  shim.ChaincodeStubInterface, args []string) pb.Resp
 		return shim.Error("SMART_CONTRACT Error: Gross Amount is mandatory field")
 	} else if bt.InvoicePartyId == "" {
 		return shim.Error("SMART_CONTRACT Error: Bill to Party Id is mandatory field")
-	} else if bt.InvoiceDate != "" {
-		
-		return shim.Error("SMART_CONTRACT Error: Bill to Party Id is mandatory field")
-	}
+	} 
 
 	//Get PO details for referenced PO number for cross validations
 	var responsePO = getAllPurchaseOrders(stub, "id", bt.PurchaseOrderRefNumber)
