@@ -135,7 +135,8 @@ export class GoodsReceiptComponent implements OnInit {
             );
             this.financeService.updateFinanceInvoice(this.financeInvoice)
             .then((results: any) => {
-              this.alertService.success("Finance Invoice Posted for this Purchase Order.");
+              // this.alertService.success("Finance Invoice Posted for this Purchase Order.");
+              console.log("Finance Invoice Posted for this Purchase Order.");
             });
           }
         });

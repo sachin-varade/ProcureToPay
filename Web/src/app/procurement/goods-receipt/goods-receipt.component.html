@@ -32,14 +32,14 @@
                               <span class="value-field"><input (change)="getGoodsReceipt(myForm);" type="text" [(ngModel)]="goodsReceipt.purchaseOrderRefNumber" name="purchaseOrderRefNumber" class="input-style"></span>
                           </div>
 
-                          <div class="value-block">
+                          <!-- <div class="value-block" style="visibility:none;">
                               <label class="label-field">Goods Issue Number</label>
                               <span class="value-field">
                                   <select class="input-style" [(ngModel)]="goodsReceipt.goodIssueNumber" name="goodIssueNumber" required>
                                         <option *ngFor="let item of goodsIssueList" [value]="item.goodsIssueNumber">{{item.goodsIssueNumber}}</option>
                                   </select>
                               </span>
-                          </div>
+                          </div> -->
 
                           <div class="value-block">
                                 <label class="label-field">Consignment Number</label>

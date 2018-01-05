@@ -271,8 +271,9 @@ instantiateChaincode 2 "financeCC" "1.0" '{"Args":["init","a","100","b","200"]}'
 # echo "Querying chaincode"
 CHANNEL_NAME="procurementchannel"
 chaincodeQuery 0 100 "procurementCC" '{"Args":["getAllGoodsIssue","ids",""]}'
-# chaincodeQuery 1 100 "abattoirCC" '{"Args":["getAllParts","a"]}'
-# CHANNEL_NAME="processorchannel"
+CHANNEL_NAME="procurementchannel"
+chaincodeQuery 0 100 "procurementCC" '{"Args":["getAllPurchaseOrders","ids",""]}'
+
 # chaincodeQuery 1 100 "processorCC" '{"Args":["getAllVehicles","a"]}'
 # chaincodeQuery 2 100 "processorCC" '{"Args":["getAllVehicles","a"]}'
 # CHANNEL_NAME="ikeachannel"
