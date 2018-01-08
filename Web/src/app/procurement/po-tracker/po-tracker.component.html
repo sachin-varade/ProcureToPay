@@ -107,7 +107,7 @@
                                 </div>
                                 <div class="right-block">
                                     <h6 class="event-title">Syngenta Goods receipts</h6>                                     
-                                    <span class="event-error" *ngIf="this.poTrackingDetails.LogisticTransaction.consignmentNumber.length > 0 && !this.poTrackingDetails.GoodsReceipts.goodsReceiptNumber">Goods Receipt pending - Delivered on {{this.poTrackingDetails.LogisticTransaction.actualDeliveryDatetime | date:"short" }}</span>
+                                    <span class="event-error" *ngIf="this.poTrackingDetails.LogisticTransaction && this.poTrackingDetails.LogisticTransaction.consignmentNumber.length > 0 && !this.poTrackingDetails.GoodsReceipts.goodsReceiptNumber">Goods Receipt pending - Delivered on {{this.poTrackingDetails.LogisticTransaction.actualDeliveryDatetime | date:"short" }}</span>
                                     <span class="event-time">Goods receipt Number: {{this.poTrackingDetails.GoodsReceipts.goodsReceiptNumber}}</span>
                                     <span class="event-time">Goods received on: {{this.poTrackingDetails.GoodsReceipts.goodsReceiptDate}}</span>
                                     <span class="event-party">Syngenta Procurement Team</span>
@@ -119,7 +119,7 @@
                                     <h6 class="event-title">Syngenta Invoice Processing</h6>
                                     <span class="event-time">Invoice received Number: {{this.poTrackingDetails.FinanceInvoices.invoiceNumber}}</span>
                                     <span class="event-time">Invoice Date: {{this.poTrackingDetails.FinanceInvoices.invoiceDate | date:"short" }}</span>
-                                    <span class="event-time">Status: {{this.poTrackingDetails.FinanceInvoices.status }}</span>
+                                    <span class="event-time">Status: {{this.poTrackingDetails.FinanceInvoices.currentStatus }}</span>
                                     <span class="event-party">Syngenta Finance</span>
                                 </div>
                                 <div class="right-block">
@@ -142,7 +142,7 @@
                             <li class="{{this.poTrackingDetails.PaymentDetails.proposalDetails[0].status == 'Paid' ? 'finished' : ''}}">
                                 <div class="left-block">
                                     <h6 class="event-title">Bank Processing</h6>
-                                    <span class="event-time">Bank processing Date: {{this.poTrackingDetails.PaymentDetails.proposalDetails[0].bankProcessingDate == "null" ? "Not Available" : this.poTrackingDetails.PaymentDetails.proposalDetails[0].bankProcessingDate}}</span>
+                                    <span class="event-time">Bank processing Date: {{this.poTrackingDetails.PaymentDetails.proposalDetails[0].bankProcessingDate == "null" ? "Not Available" : this.poTrackingDetails.PaymentDetails.proposalDetails[0].bankProcessingDate | date:"short"}}</span>
                                     <span class="event-party">Bank</span>
                                 </div>
                                 <div class="right-block">
