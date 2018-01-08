@@ -15,7 +15,6 @@ export class SoTrackerComponent implements OnInit {
   constructor(private vendorService: VendorService,
     private alertService: AlertService) {
     this.poTrackingDetails = {};
-    this.poTrackingDetails.PurchaseOrders = {};
     this.poTrackingDetails.VendorSalesOrder = {};
     this.poTrackingDetails.GoodsIssue = {};
     this.poTrackingDetails.LogisticTransaction = {};
@@ -29,9 +28,10 @@ export class SoTrackerComponent implements OnInit {
 
   getSalesOrderTrackingDetails() {
     if (this.inputSalesOrderNumber !== '') {
-      this.vendorService.getSalesOrderTrackingDetails('po', this.inputSalesOrderNumber)
+      this.vendorService.getSalesOrderTrackingDetails('id', this.inputSalesOrderNumber)
         .then((results: any) => {
           if (results) {
+            //alert(JSON.stringify(results));
             this.poTrackingDetails = results;
           }
           else {

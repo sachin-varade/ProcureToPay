@@ -83,7 +83,7 @@
                                     <span class="event-time">Actual Delivery Date: <span>{{this.poTrackingDetails.LogisticTransaction.actualDeliveryDatetime | date:"short" }}</span></span>
                                     <span class="event-time">Hazardous Material: <span>{{this.poTrackingDetails.LogisticTransaction.hazardousMaterial}}</span></span>
                                     <span class="event-time">Status: <span>{{this.poTrackingDetails.LogisticTransaction.status}}</span></span>
-                                    <span class="event-party">Vendor Company</span>
+                                    <span class="event-party">Logistic Company</span>
                                 </div>
                                 <div class="marker"></div>
                             </li>
@@ -109,7 +109,7 @@
                                     <h6 class="event-title">Syngenta Goods receipts</h6>                                     
                                     <span class="event-error" *ngIf="this.poTrackingDetails.LogisticTransaction && this.poTrackingDetails.LogisticTransaction.consignmentNumber.length > 0 && !this.poTrackingDetails.GoodsReceipts.goodsReceiptNumber">Goods Receipt pending - Delivered on {{this.poTrackingDetails.LogisticTransaction.actualDeliveryDatetime | date:"short" }}</span>
                                     <span class="event-time">Goods receipt Number: {{this.poTrackingDetails.GoodsReceipts.goodsReceiptNumber}}</span>
-                                    <span class="event-time">Goods received on: {{this.poTrackingDetails.GoodsReceipts.goodsReceiptDate}}</span>
+                                    <span class="event-time">Goods received on: {{this.poTrackingDetails.GoodsReceipts.goodsReceiptDate | date:"short"}}</span>
                                     <span class="event-party">Syngenta Procurement Team</span>
                                 </div>
                                 <div class="marker"></div>
