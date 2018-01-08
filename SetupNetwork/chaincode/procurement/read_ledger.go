@@ -88,8 +88,6 @@ func getAllPurchaseOrders(stub  shim.ChaincodeStubInterface, option string, valu
 		} else if strings.ToLower(option) == "vendors-approved" && strings.ToLower(sb.Status) == "approved" && strings.ToLower(value) == strings.ToLower(sb.SupplierUniqueNo) {
 			allDetails.PurchaseOrders = append(allDetails.PurchaseOrders, sb);
 		}
-		sb = PurchaseOrder{}
-		sbAsBytes = nil
 	}
 	if strings.ToLower(option) == "ids" {
 		rabAsBytes, _ := json.Marshal(allIds)		
@@ -351,15 +349,17 @@ func getAllLogisticTransactions(stub  shim.ChaincodeStubInterface, option string
 			allDetails.LogisticTransactions = append(allDetails.LogisticTransactions, sb);	
 		} else if strings.ToLower(option) == "po" && strings.ToLower(value) == strings.ToLower(sb.PurchaseOrderRefNumber) {
 			allDetails.LogisticTransactions = append(allDetails.LogisticTransactions, sb);	
+		} else if strings.ToLower(option) == "so" {
+			allDetails.LogisticTransactions = append(allDetails.LogisticTransactions, sb);	
+		} else if strings.ToLower(option) == "gin" && strings.ToLower(value) == strings.ToLower(sb.GoodsIssueRefNumber)  {
+			allDetails.LogisticTransactions = append(allDetails.LogisticTransactions, sb);	
 		}	
-		sb = LogisticTransaction{}
-		sbAsBytes = nil
 	}
 
 	if strings.ToLower(option) == "ids" {
 		rabAsBytes, _ := json.Marshal(allIds)		
 		return shim.Success(rabAsBytes)	
-	} else if strings.ToLower(option) == "details" || strings.ToLower(option) == "po" {
+	} else if strings.ToLower(option) == "details" || strings.ToLower(option) == "po" || strings.ToLower(option) == "so" || strings.ToLower(option) == "gin" {
 		rabAsBytes, _ := json.Marshal(allDetails)
 		return shim.Success(rabAsBytes)	
 	}
@@ -424,14 +424,14 @@ func getAllVendorSalesOrders(stub  shim.ChaincodeStubInterface, option string, v
 			allDetails.VendorSalesOrders = append(allDetails.VendorSalesOrders, sb);	
 		} else if strings.ToLower(option) == "vendors-so" && strings.ToLower(value) == strings.ToLower(sb.SupplierCode) {
 			allDetails.VendorSalesOrders = append(allDetails.VendorSalesOrders, sb);	
+		} else if strings.ToLower(option) == "so" && strings.ToLower(value) == strings.ToLower(sb.SalesOrderNumber) {
+			allDetails.VendorSalesOrders = append(allDetails.VendorSalesOrders, sb);	
 		}
-		sb = VendorSalesOrder{}
-		sbAsBytes = nil
 	}
 	if strings.ToLower(option) == "ids" {
 		rabAsBytes, _ := json.Marshal(allIds)		
 		return shim.Success(rabAsBytes)	
-	} else if strings.ToLower(option) == "details" || strings.ToLower(option) == "receipt" || strings.ToLower(option) == "issued" || strings.ToLower(option) == "po" || strings.ToLower(option) == "vendors-so" {
+	} else if strings.ToLower(option) == "details" || strings.ToLower(option) == "receipt" || strings.ToLower(option) == "vendors-so" || strings.ToLower(option) == "issued" || strings.ToLower(option) == "po" || strings.ToLower(option) == "so"  {
 		rabAsBytes, _ := json.Marshal(allDetails)
 		return shim.Success(rabAsBytes)	
 	}
@@ -490,14 +490,14 @@ func getAllGoodsReceiptDetails(stub  shim.ChaincodeStubInterface, option string,
 			allDetails.GoodsReceipts = append(allDetails.GoodsReceipts, sb);	
 		} else if strings.ToLower(option) == "po" && strings.ToLower(value) == strings.ToLower(sb.PurchaseOrderRefNumber) {
 			allDetails.GoodsReceipts = append(allDetails.GoodsReceipts, sb);	
+		} else if strings.ToLower(option) == "so" {
+			allDetails.GoodsReceipts = append(allDetails.GoodsReceipts, sb);	
 		}
-		sb = GoodsReceipt{}
-		sbAsBytes = nil
 	}
 	if strings.ToLower(option) == "ids" {
 		rabAsBytes, _ := json.Marshal(allIds)		
 		return shim.Success(rabAsBytes)	
-	} else if strings.ToLower(option) == "details" || strings.ToLower(option) == "po" {
+	} else if strings.ToLower(option) == "details" || strings.ToLower(option) == "po" || strings.ToLower(option) == "so"{
 		rabAsBytes, _ := json.Marshal(allDetails)
 		return shim.Success(rabAsBytes)	
 	}
@@ -564,14 +564,14 @@ func getAllGoodsIssue(stub  shim.ChaincodeStubInterface, option string, value st
 			if strings.ToLower(value) == strings.ToLower(vso.PurchaseOrderRefNumber) {
 				allDetails.GoodsIssueList = append(allDetails.GoodsIssueList, sb);	
 			}
+		} else if strings.ToLower(option) == "so" && strings.ToLower(value) ==  strings.ToLower(sb.SalesOrderNumber) {
+			allDetails.GoodsIssueList = append(allDetails.GoodsIssueList, sb)	
 		}
-		sb = GoodsIssue{}
-		sbAsBytes = nil
 	}
 	if strings.ToLower(option) == "ids" {
 		rabAsBytes, _ := json.Marshal(allIds)		
 		return shim.Success(rabAsBytes)	
-	} else if strings.ToLower(option) == "details" || strings.ToLower(option) == "po" {
+	} else if strings.ToLower(option) == "details" || strings.ToLower(option) == "po" || strings.ToLower(option) == "so"{
 		rabAsBytes, _ := json.Marshal(allDetails)
 		return shim.Success(rabAsBytes)	
 	}
@@ -640,15 +640,15 @@ func getAllVendorInvoices(stub  shim.ChaincodeStubInterface, option string, valu
 			allDetails.VendorInvoices = append(allDetails.VendorInvoices, sb);	
 		} else if strings.ToLower(option) == "po" && strings.ToLower(value) == strings.ToLower(sb.PurchaseOrderRefNumber) {
 			allDetails.VendorInvoices = append(allDetails.VendorInvoices, sb);
+		} else if strings.ToLower(option) == "so" && strings.ToLower(value) == strings.ToLower(sb.SalesOrderNumber) {
+			allDetails.VendorInvoices = append(allDetails.VendorInvoices, sb);
 		}
-		sb = VendorInvoice{}
-		sbAsBytes = nil
 	}
 
 	if strings.ToLower(option) == "ids" {
 		rabAsBytes, _ := json.Marshal(allIds)		
 		return shim.Success(rabAsBytes)	
-	} else if strings.ToLower(option) == "details" || strings.ToLower(option) == "validated" || strings.ToLower(option) == "approved" || strings.ToLower(option) == "po" {
+	} else if strings.ToLower(option) == "details" || strings.ToLower(option) == "validated" || strings.ToLower(option) == "approved" || strings.ToLower(option) == "po" || strings.ToLower(option) == "so" {
 		rabAsBytes, _ := json.Marshal(allDetails)
 		return shim.Success(rabAsBytes)	
 	}

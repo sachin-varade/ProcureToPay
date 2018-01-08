@@ -131,24 +131,6 @@ module.exports = function (procurementService, financeService, logisticService, 
         var poTrackerEntity = {};
 
         poTrackerEntity.PurchaseOrderNumber = value;
-
-        //1. Purchase Order Details
-        return procurementService.getAllPurchaseOrders(option, value)
-        .then((result) => {
-            if(result.purchaseOrders != undefined && result.purchaseOrders.length > 0) {
-                console.log("PurchaseOrderNumber: ", result.purchaseOrders[0].purchaseOrderNumber);
-                poTrackerEntity.PurchaseOrders = result.purchaseOrders[0];
-                // poTrackerEntity.PurchaseOrderNumber = result.purchaseOrders[0].purchaseOrderNumber;
-                // poTrackerEntity.PurchaseOrderDate = result.purchaseOrders[0].purchaseOrderDate;
-            }
-            else{
-                console.log("PurchaseOrder details not found");
-                poTrackerEntity.PurchaseOrders = {};
-                // poTrackerEntity.PurchaseOrderNumber = "";
-                //return poTrackerEntity;
-
-            }
-
             //2. Sales Order Details
             return vendorService.getAllVendorSalesOrders(option, value)
             .then((result) => {
@@ -164,7 +146,7 @@ module.exports = function (procurementService, financeService, logisticService, 
                 }
 
                 //3. Goods Issue Details
-                return vendorService.getAllGoodsIssue(option, value)
+                return vendorService.getAllGoodsIssue("so", poTrackerEntity.VendorSalesOrder.salesOrderNumber)
                 .then((result) => {
                     if(result.goodsIssueList != undefined && result.goodsIssueList.length > 0) {
                         console.log("GoodsIssueNumber: ", result.goodsIssueList[0].GoodsIssueNumber);
@@ -180,7 +162,7 @@ module.exports = function (procurementService, financeService, logisticService, 
                    
 
                     //4. Vendor - Issue invoice 
-                    return vendorService.getAllVendorInvoices(option, value)
+                    return vendorService.getAllVendorInvoices("so", poTrackerEntity.GoodsIssue.salesOrderNumber)
                     .then((result) => {
                         if(result.vendorInvoices != undefined && result.vendorInvoices.length > 0) {
                             console.log("Vendor Invoice Number : ", result.vendorInvoices[0].InvoiceNumber);
@@ -191,7 +173,7 @@ module.exports = function (procurementService, financeService, logisticService, 
                         }
 
                         //5. Vendor - Issue invoice
-                        return logisticService.getAllLogisticTransactions(option, value)
+                        return logisticService.getAllLogisticTransactions("gin", poTrackerEntity.VendorInvoices.goodsIssueNumber)
                         .then((result) => {
                             if(result.logisticTransactions != undefined && result.logisticTransactions.length > 0) {
                                 console.log("Logistic Consignment Number : ", result.logisticTransactions[0].ConsignmentNumber);
@@ -202,7 +184,7 @@ module.exports = function (procurementService, financeService, logisticService, 
                             }
 
                             //6. Goods Receipt
-                            return procurementService.getAllGoodsReceiptDetails(option, value)
+                            return procurementService.getAllGoodsReceiptDetails("po", poTrackerEntity.LogisticTransaction.purchaseOrderRefNumber)
                             .then((result) => {
                                 if(result.goodsReceipts != undefined && result.goodsReceipts.length > 0) {
                                     console.log("Goods Receipt Number : ", result.goodsReceipts[0].GoodsReceiptNumber);
@@ -213,7 +195,7 @@ module.exports = function (procurementService, financeService, logisticService, 
                                 }
 
                                 //7. Syngenta Finance - Invoice Validate
-                                return financeService.getAllFinanceInvoices(option, value)
+                                return financeService.getAllFinanceInvoices("po", poTrackerEntity.GoodsReceipts.purchaseOrderRefNumber)
                                 .then((result) => {
                                     if(result.financeInvoices != undefined && result.financeInvoices.length > 0) {
                                         console.log("Finance Invoice Number : ", result.financeInvoices[0].invoiceNumber);
@@ -224,7 +206,7 @@ module.exports = function (procurementService, financeService, logisticService, 
                                     }  
 
                                     //8. Syngenta Finance - Payment Proposal + Bank Status
-                                    return financeService.getAllPaymentProposals(option, value)
+                                    return financeService.getAllPaymentProposals("po", poTrackerEntity.FinanceInvoices.purchaseOrderRefNumber)
                                     .then((result) => {
                                         if(result.paymentProposals != undefined && result.paymentProposals.length > 0) {
                                             console.log("Finance Payment Proposal Number : ", result.paymentProposals[0].paymentProposalNumber);
@@ -243,7 +225,6 @@ module.exports = function (procurementService, financeService, logisticService, 
                 }); // 3 End
 
             }); // 2 End
-        }); //1 End
     }
 
     return poTrackerService;
