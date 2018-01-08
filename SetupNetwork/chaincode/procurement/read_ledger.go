@@ -88,6 +88,8 @@ func getAllPurchaseOrders(stub  shim.ChaincodeStubInterface, option string, valu
 		} else if strings.ToLower(option) == "vendors-approved" && strings.ToLower(sb.Status) == "approved" && strings.ToLower(value) == strings.ToLower(sb.SupplierUniqueNo) {
 			allDetails.PurchaseOrders = append(allDetails.PurchaseOrders, sb);
 		}
+		sb = PurchaseOrder{}
+		sbAsBytes = nil
 	}
 	if strings.ToLower(option) == "ids" {
 		rabAsBytes, _ := json.Marshal(allIds)		
@@ -350,6 +352,8 @@ func getAllLogisticTransactions(stub  shim.ChaincodeStubInterface, option string
 		} else if strings.ToLower(option) == "po" && strings.ToLower(value) == strings.ToLower(sb.PurchaseOrderRefNumber) {
 			allDetails.LogisticTransactions = append(allDetails.LogisticTransactions, sb);	
 		}	
+		sb = LogisticTransaction{}
+		sbAsBytes = nil
 	}
 
 	if strings.ToLower(option) == "ids" {
@@ -421,6 +425,8 @@ func getAllVendorSalesOrders(stub  shim.ChaincodeStubInterface, option string, v
 		} else if strings.ToLower(option) == "vendors-so" && strings.ToLower(value) == strings.ToLower(sb.SupplierCode) {
 			allDetails.VendorSalesOrders = append(allDetails.VendorSalesOrders, sb);	
 		}
+		sb = VendorSalesOrder{}
+		sbAsBytes = nil
 	}
 	if strings.ToLower(option) == "ids" {
 		rabAsBytes, _ := json.Marshal(allIds)		
@@ -485,6 +491,8 @@ func getAllGoodsReceiptDetails(stub  shim.ChaincodeStubInterface, option string,
 		} else if strings.ToLower(option) == "po" && strings.ToLower(value) == strings.ToLower(sb.PurchaseOrderRefNumber) {
 			allDetails.GoodsReceipts = append(allDetails.GoodsReceipts, sb);	
 		}
+		sb = GoodsReceipt{}
+		sbAsBytes = nil
 	}
 	if strings.ToLower(option) == "ids" {
 		rabAsBytes, _ := json.Marshal(allIds)		
@@ -557,6 +565,8 @@ func getAllGoodsIssue(stub  shim.ChaincodeStubInterface, option string, value st
 				allDetails.GoodsIssueList = append(allDetails.GoodsIssueList, sb);	
 			}
 		}
+		sb = GoodsIssue{}
+		sbAsBytes = nil
 	}
 	if strings.ToLower(option) == "ids" {
 		rabAsBytes, _ := json.Marshal(allIds)		
@@ -631,6 +641,8 @@ func getAllVendorInvoices(stub  shim.ChaincodeStubInterface, option string, valu
 		} else if strings.ToLower(option) == "po" && strings.ToLower(value) == strings.ToLower(sb.PurchaseOrderRefNumber) {
 			allDetails.VendorInvoices = append(allDetails.VendorInvoices, sb);
 		}
+		sb = VendorInvoice{}
+		sbAsBytes = nil
 	}
 
 	if strings.ToLower(option) == "ids" {

@@ -86,6 +86,8 @@ func getAllFinanceInvoices(stub  shim.ChaincodeStubInterface, option string, val
 		} else if strings.ToLower(option) == "po-paid" && strings.ToLower(value) == strings.ToLower(sb.PurchaseOrderRefNumber) && strings.ToLower(sb.CurrentStatus) == "paid" {
 			allDetails.FinanceInvoices = append(allDetails.FinanceInvoices, sb);	
 		}
+		sb = FinanceInvoice{}
+		sbAsBytes = nil
 	}
 	
 	if strings.ToLower(option) == "ids" {
@@ -151,6 +153,8 @@ func getAllPaymentProposals(stub  shim.ChaincodeStubInterface, option string, va
 		} else if strings.ToLower(option) == "po" && strings.ToLower(value) == strings.ToLower(sb.ProposalDetails[0].PoReferenceNumber) {
 			allDetails.PaymentProposals = append(allDetails.PaymentProposals, sb);	
 		}
+		sb = PaymentProposal{}
+		sbAsBytes = nil
 	}
 	
 	if strings.ToLower(option) == "ids" {

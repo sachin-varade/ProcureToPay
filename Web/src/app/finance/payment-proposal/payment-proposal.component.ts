@@ -54,7 +54,6 @@ export class PaymentProposalComponent implements OnInit {
         this.paymentProposal.vendorBankAccountType = this.selectedVendor.bankAccountType;
         this.paymentProposal.vendorBankUniqueId = this.selectedVendor.bankUniqueId;
         this.getAllFinanceInvoices();
-
       }
     });
   }
@@ -65,31 +64,59 @@ export class PaymentProposalComponent implements OnInit {
         if (results && results.financeInvoices) {
           //alert(JSON.stringify(results.financeInvoices));
           this.financeInvoiceList = results.financeInvoices;
-          let paymentProposalDetailsLocal: Array<FinanceModels.PaymentProposalDetail> = new Array<FinanceModels.PaymentProposalDetail>();
-          for (let entry of this.financeInvoiceList) {
-            if (entry.supplierCode === this.selectedVendor.supplierUniqueNo && entry.statusUpdates[entry.statusUpdates.length-1].status.toLocaleLowerCase() === "posted") {
+          let existingInvoices: Array<any> = new Array<any>();
+          this.financeService.getAllPaymentProposals("details")
+          .then((results: any) => {
+            if(results && results.paymentProposals && results.paymentProposals.length > 0){
               
-              
-              let detail: FinanceModels.PaymentProposalDetail = new FinanceModels.PaymentProposalDetail();
-              detail.paymentProposalNumber = this.paymentProposal.paymentProposalNumber;
-              detail.proposedPaymentDate = new Date();
-              detail.tax = 10; //TODO
-              detail.invoiceDate = entry.invoiceDate;
-              detail.amount = entry.grossAmount;
-              detail.poReferenceNumber = entry.purchaseOrderRefNumber;
-              detail.invoiceRefernceNumber = entry.invoiceNumber;
-              detail.status = "Posted";
-              detail.bankProcessingDate = null;
-              detail.selectedInUI = true;
-              paymentProposalDetailsLocal.push(detail);
+              results.paymentProposals.forEach(paymentProposals => {
+                //this.financeInvoiceList = this.financeInvoiceList.filter(function(o){return o.invoiceNumber !== element.InvoiceReferenceNumber; });
+                this.financeInvoiceList.forEach(element => {
+                  var invFound = paymentProposals.proposalDetails.filter(function(o){return o.InvoiceReferenceNumber === element.invoiceNumber; });
+                  if(invFound && invFound.length > 0){
+                    invFound.forEach(inv => {
+                      existingInvoices.push(inv);
+                    });
+                  }
+                });
+
+              });
+
+              existingInvoices.forEach(extInv => {
+                this.financeInvoiceList = this.financeInvoiceList.filter(function(o){return o.invoiceNumber !== extInv.InvoiceReferenceNumber; });
+              });  
+
+              this.displayInvoice();
             }
-          }
-          this.paymentProposal.paymentProposalDetails = paymentProposalDetailsLocal;
-          this.calculateTotalAmount();
+            else{
+              this.displayInvoice();
+            }
+          });
         }
       });
   }
 
+  displayInvoice(){
+    let paymentProposalDetailsLocal: Array<FinanceModels.PaymentProposalDetail> = new Array<FinanceModels.PaymentProposalDetail>();
+    for (let entry of this.financeInvoiceList) {
+      if (entry.supplierCode === this.selectedVendor.supplierUniqueNo && entry.statusUpdates[entry.statusUpdates.length-1].status.toLocaleLowerCase() === "posted") {
+        let detail: FinanceModels.PaymentProposalDetail = new FinanceModels.PaymentProposalDetail();
+        detail.paymentProposalNumber = this.paymentProposal.paymentProposalNumber;
+        detail.proposedPaymentDate = new Date();
+        detail.tax = 10; //TODO
+        detail.invoiceDate = entry.invoiceDate;
+        detail.amount = entry.grossAmount;
+        detail.poReferenceNumber = entry.purchaseOrderRefNumber;
+        detail.invoiceRefernceNumber = entry.invoiceNumber;
+        detail.status = "Posted";
+        detail.bankProcessingDate = null;
+        detail.selectedInUI = true;
+        paymentProposalDetailsLocal.push(detail);
+      }
+    }
+    this.paymentProposal.paymentProposalDetails = paymentProposalDetailsLocal;
+    this.calculateTotalAmount();
+  }
   calculateTotalAmount(){
     this.totalAmount = 0;
     for (let entry of this.paymentProposal.paymentProposalDetails) {

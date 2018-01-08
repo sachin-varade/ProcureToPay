@@ -45,7 +45,13 @@
                         </tr>
                         <tr *ngFor="let item of paymentProposal.paymentProposalDetails; let i = index" [attr.data-index]="i">
                           <td>
-                              <span *ngIf="item.status == 'Paid'"><input disabled checked type="checkbox" name="selectedInUI"></span>
+                              <span *ngIf="item.status == 'Paid'">
+                                  <label class="checkbox-style">
+                                      <input disabled checked type="checkbox" name="selectedInUI">
+                                      <span class="checkmark"></span>
+                                  </label>
+                                
+                              </span>
                               <span *ngIf="item.status != 'Paid'">
                                   <label class="checkbox-style">
                                       <input [(ngModel)]="item.selectedInUI" type="checkbox" name="selectedInUI" (change)="calculateTotalAmount()">

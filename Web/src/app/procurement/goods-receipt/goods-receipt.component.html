@@ -161,9 +161,13 @@
                             </td>
                             <td><input [disabled]="item.fdf" [(ngModel)]="item.receivedQuantity" type="text" [name]="'receivedQuantity' + item.pos" [id]="'receivedQuantity' + item.pos" class="input-style-small"></td>
                             <td>
-                                <input [disabled]="item.fdfDisabled" [(ngModel)]="item.fdf" type="checkbox" 
-                                [name]="'fdf' + item.pos" [id]="'fdf' + item.pos" 
-                                class="input-style-small">
+                               
+                                <label class="checkbox-style">
+                                        <input [disabled]="item.fdfDisabled" [(ngModel)]="item.fdf" type="checkbox" 
+                                        [name]="'fdf' + item.pos" [id]="'fdf' + item.pos" 
+                                        class="input-style-small">
+                                        <span class="checkmark"></span>
+                                </label>
                             </td>
                         </tr>
                   </table>

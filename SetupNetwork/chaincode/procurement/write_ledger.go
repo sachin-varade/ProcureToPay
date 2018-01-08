@@ -620,12 +620,13 @@ func saveVendorInvoice(stub  shim.ChaincodeStubInterface, args []string) pb.Resp
 
 	//Get PO details for referenced PO number for cross validations
 	var responsePO = getAllPurchaseOrders(stub, "id", bt.PurchaseOrderRefNumber)
-	if responsePO.Status != shim.OK {       
-		return shim.Error("SMART_CONTRACT Error: Referenced Purchase Order details not found")      
-	}
 	var allPODetails AllPurchaseOrderDetails
 	json.Unmarshal([]byte(string(responsePO.Payload)), &allPODetails)
 
+	if len(allPODetails.PurchaseOrders) == 0 {       
+		return shim.Error("SMART_CONTRACT Error: Referenced Purchase Order details not found")      
+	}
+	
 	for i := range allPODetails.PurchaseOrders{
 		// PO supplier code = INV supplier code
 		if allPODetails.PurchaseOrders[i].SupplierUniqueNo != bt.SupplierCode {

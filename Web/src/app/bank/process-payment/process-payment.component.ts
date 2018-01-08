@@ -116,7 +116,7 @@ export class ProcessPaymentComponent implements OnInit {
             //this.financeInvoice = results.financeInvoices[0];
             this.financeService.updateFinanceInvoiceList(invoicesToBePaid)
             .then((results: any) => {
-              this.alertService.success("Finance Invoice Updated to Paid.");
+              //this.alertService.success("Finance Invoice Updated to Paid.");
 
               // update PO status
               this.procurementService.getAllPurchaseOrders('id', this.paymentProposal.paymentProposalDetails[0].poReferenceNumber)
@@ -132,7 +132,7 @@ export class ProcessPaymentComponent implements OnInit {
                   );
                   this.procurementService.updatePurchaseOrderStatus(this.purchaseOrder)
                   .then((results: any) => {
-                    this.alertService.success("Purchase Order updated to Paid.");            
+                    //this.alertService.success("Purchase Order updated to Paid.");            
                     this.purchaseOrder = new ProcurementModels.PurchaseOrder();
                     this.paymentProposal = new FinanceModels.PaymentProposal();
                   });
