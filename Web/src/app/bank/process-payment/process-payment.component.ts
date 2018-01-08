@@ -21,6 +21,8 @@ export class ProcessPaymentComponent implements OnInit {
   financeInvoice: FinanceModels.FinanceInvoice = new FinanceModels.FinanceInvoice();
   paymentProposalList: Array<FinanceModels.PaymentProposal> = new Array<FinanceModels.PaymentProposal>();
   paymentProposal: FinanceModels.PaymentProposal = new FinanceModels.PaymentProposal();
+  totalAmount : number = 0;
+
   constructor(
     private alertService: AlertService,
     private user: UserService,
@@ -51,6 +53,16 @@ export class ProcessPaymentComponent implements OnInit {
         });
       }
     });
+    this.calculateTotalAmount();
+  }
+
+  calculateTotalAmount() {
+    this.totalAmount = 0;
+    for (let entry of this.paymentProposal.paymentProposalDetails) {
+      if (entry.selectedInUI && entry.status != "Paid") {
+        this.totalAmount = this.totalAmount + +entry.amount;
+      }
+    }
   }
 
   getAllPaymentProposals(){

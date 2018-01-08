@@ -43,6 +43,7 @@ import { GoodsIssueComponent } from './vendor/goods-issue/goods-issue.component'
 import { GenerateInvoiceComponent } from './vendor/generate-invoice/generate-invoice.component';
 import { PaymentProposalComponent } from './finance/payment-proposal/payment-proposal.component';
 import { ProcessPaymentComponent } from './bank/process-payment/process-payment.component';
+import { SoTrackerComponent } from './vendor/so-tracker/so-tracker.component';
 
 const appRoutes:Routes = [
   {
@@ -125,6 +126,11 @@ const appRoutes:Routes = [
     component: GenerateInvoiceComponent
   },
   {
+    path: 'vendor/track-so',
+    canActivate: [AuthguardGuard],
+    component: SoTrackerComponent
+  },
+  {
     path: 'logistic/create-consignment',
     canActivate: [AuthguardGuard],
     component: CreateConsignmentComponent
@@ -139,7 +145,7 @@ const appRoutes:Routes = [
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, LoginComponent, FooterComponent, 
-    DashboardComponent, DialogComponent, BlockComponent, AlertComponent, PoCreationComponent, PoFulfilmentComponent, PoTrackerComponent, CreateConsignmentComponent, GoodsReceiptComponent, InvoiceManagementComponent, GoodsIssueComponent, GenerateInvoiceComponent, PaymentProposalComponent, ProcessPaymentComponent],
+    DashboardComponent, DialogComponent, BlockComponent, AlertComponent, PoCreationComponent, PoFulfilmentComponent, PoTrackerComponent, CreateConsignmentComponent, GoodsReceiptComponent, InvoiceManagementComponent, GoodsIssueComponent, GenerateInvoiceComponent, PaymentProposalComponent, ProcessPaymentComponent, SoTrackerComponent],
   imports: [  
   RouterModule.forRoot(appRoutes),
   FormsModule,

@@ -1,64 +1,103 @@
-<form #myForm="ngForm">
-<select [(ngModel)]="paymentProposal.paymentProposalNumber" class="input-style" 
-  (change)="changeProposal()" name="paymentProposalNumber" id="paymentProposalNumber" required>
-  <option value=""></option>
-  <option *ngFor="let item of paymentProposalList" [value]="item.paymentProposalNumber">
-    {{item.paymentProposalNumber}}
-  </option>
-</select>
+<div class="page-container cgt-finance">
+    <div class="container">
+      <h2 class="page-title">Payment Proposal</h2>
+      <form #myForm="ngForm">
+        <div class="content-area">
+          <div class="plain-block mrg-btm-30">
+            <div class="border-box-wrapper">
+  
+              <div class="border-box-table">
+                <div class="border-box-row">
+                  <div class="border-box col-1">
+                    <label class="label-field">Payment Proposal No</label>
+                    <span class="value-field">
+                        <select [(ngModel)]="paymentProposal.paymentProposalNumber" class="input-style" 
+                        (change)="changeProposal()" name="paymentProposalNumber" id="paymentProposalNumber" required>
+                        <option value=""></option>
+                        <option *ngFor="let item of paymentProposalList" [value]="item.paymentProposalNumber">
+                          {{item.paymentProposalNumber}}
+                        </option>
+                        </select>
 
+                    </span>
+                  </div>
+                 
+                </div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="plain-block mrg-btm-30">
+                <h5 class="sub-title-sm">Invoices</h5>
+                <div class="border-box-wrapper">
+                    <table class="table table-striped full-width">
+                        <tr>
+                          <th></th>
+                          <th>Proposal No</th>
+                          <th>Proposal Date</th>
+                          <th>Vendor Account Name</th>
+                          <th>Vendor Account Type</th>
+                          <!-- <th>Tax</th> -->
+                          <th>Amount</th>
+                          <th>Invoice Ref. No</th>
+                          <!-- <th>PO Ref. No</th> -->
+                          <th>Credit Date</th>
+                        </tr>
+                        <tr *ngFor="let item of paymentProposal.paymentProposalDetails; let i = index" [attr.data-index]="i">
+                          <td>
+                              <span *ngIf="item.status == 'Paid'"><input disabled checked type="checkbox" name="selectedInUI"></span>
+                              <span *ngIf="item.status != 'Paid'">
+                                  <label class="checkbox-style">
+                                      <input [(ngModel)]="item.selectedInUI" type="checkbox" name="selectedInUI" (change)="calculateTotalAmount()">
+                                      <span class="checkmark"></span>
+                                  </label>
+                                
+                              </span>
+                            </td>
+                          <td>
+                            <span>{{item.paymentProposalNumber}}</span>
+                          </td>
+                          <td>
+                            <span>{{item.proposedPaymentDate | date : "short"}}</span>
+                          </td>
+                          <td>
+                            <span>{{paymentProposal.vendorBankAccountNumber}}</span>
+                          </td>
+                          <td>
+                            <span>{{paymentProposal.vendorBankAccountType}}</span>
+                          </td>
+                          <!-- <td>
+                            <span>{{item.tax}}</span>
+                          </td> -->
+                          <td>
+                            <span>{{item.amount}}</span>
+                          </td>
+                          <td>
+                            <span>{{item.InvoiceReferenceNumber}}</span>
+                          </td>
+                          <!-- <td>
+                            <span>{{item.poReferenceNumber}}</span>
+                          </td> -->
+                          <td>
+                            <span *ngIf="item.bankProcessingDate && item.bankProcessingDate!='' && item.bankProcessingDate!='null'">{{item.bankProcessingDate | date : "short"}}</span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="5"><b>Total amount: </b>{{totalAmount}}</td>
+                        </tr>
+                      </table>
+                </div>
+              </div>
+  
+                      
+              <div class="btn-area">
+                  <button type="submit" (click)="clearForm(myForm)" class="btn-border">Clear</button>
+                  <button type="submit" [disabled]="!myForm.form.valid" (click)="processPayment(myForm);" class="btn-normal">Process Payment</button>
 
-<table class="table table-striped full-width">
-  <tr>
-    <th></th>
-    <th>Proposal No</th>
-    <th>Proposal Date</th>
-    <th>Vendor Account Name</th>
-    <th>Vendor Account Type</th>
-    <!-- <th>Tax</th> -->
-    <th>Amount</th>
-    <th>Invoice Ref. No</th>
-    <!-- <th>PO Ref. No</th> -->
-    <th>Credit Date</th>
-  </tr>
-  <tr *ngFor="let item of paymentProposal.paymentProposalDetails; let i = index" [attr.data-index]="i">
-    <td>
-        <span *ngIf="item.status == 'Paid'"><input disabled checked type="checkbox" name="selectedInUI"></span>
-        <span *ngIf="item.status != 'Paid'"><input [(ngModel)]="item.selectedInUI" type="checkbox" name="selectedInUI"></span>
-      </td>
-    <td>
-      <span>{{item.paymentProposalNumber}}</span>
-    </td>
-    <td>
-      <span>{{item.proposedPaymentDate | date : "short"}}</span>
-    </td>
-    <td>
-      <span>{{paymentProposal.vendorBankAccountNumber}}</span>
-    </td>
-    <td>
-      <span>{{paymentProposal.vendorBankAccountType}}</span>
-    </td>
-    <!-- <td>
-      <span>{{item.tax}}</span>
-    </td> -->
-    <td>
-      <span>{{item.amount}}</span>
-    </td>
-    <td>
-      <span>{{item.InvoiceReferenceNumber}}</span>
-    </td>
-    <!-- <td>
-      <span>{{item.poReferenceNumber}}</span>
-    </td> -->
-    <td>
-      <span *ngIf="item.bankProcessingDate && item.bankProcessingDate!='' && item.bankProcessingDate!='null'">{{item.bankProcessingDate | date : "short"}}</span>
-    </td>
-  </tr>
-</table>
-
-<div class="btn-area">
-    <button type="submit" (click)="clearForm(myForm)" class="btn-border">Clear</button>
-    <button type="submit" [disabled]="!myForm.form.valid" (click)="processPayment(myForm);" class="btn-normal">Process Payment</button>
-
+                </div>
+  
+        </div>
+      </form>
+    </div>
   </div>
-  </form>
+

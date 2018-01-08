@@ -196,6 +196,14 @@
             padding: 5% 10%;
         }
     
+        .login-box form{
+            height: 100%;
+        }
+
+        .cgt-finance .form-area form{
+            height: auto;
+        }
+
         .login-wrapper.cgt-buyer .login-box{
             height: 100%;
             background: #fff;
@@ -492,6 +500,11 @@
             background-size: auto 210px;
         }
     
+        .login-wrapper.cgt-logistic .logo-area{
+            width: 90px;
+            margin: 50px auto;
+        }
+
         .login-wrapper.cgt-bank .logo-area{
             width: 175px;
             margin: 50px auto;
@@ -518,7 +531,7 @@
         }
     
         .page-container{
-            padding-bottom: 40px;
+            padding-bottom: 50px;
         }
     
         .page-title{
@@ -717,6 +730,7 @@
             display: inline-block;
             margin: 0 5px;
             outline: none;
+        	cursor: pointer;
         }
     
         .btn-border{
@@ -816,7 +830,7 @@
             border-right: 0px;
             border-top: none;
             display: table-cell;
-            background: #f6fafc;
+            background: #e7f2f8;
         }
     
         .cgt-logistic .border-box{
@@ -913,6 +927,8 @@
         .tracker-wrapper ul{
             margin: 0 auto;
             padding: 0;
+            display: block;
+            width: 100%;
         }
     
         .tracker-wrapper ul li{
@@ -1113,6 +1129,12 @@
             display: block;
         }
     
+        .timeline-wrapper ul li .event-time span{
+            
+            color: #666;
+            
+        }
+    
         .timeline-wrapper ul li .event-party{
             color: #00A0BE;
             display: block;
@@ -1131,8 +1153,30 @@
         .col-4{
             width: 25%;
         }
-    
-    
+
+        .btn-link{
+            position: absolute;
+        }
+
+        .date-input-small{
+            width: 180px;
+            margin-right: 10px;
+        }
+
+        .chevron::before{
+            border-width: 0.1em 0.1em 0 0 !important;
+            height: 9px !important;
+            left: 23px !important;
+            top: -3px !important;
+            width: 9px !important;
+            color: #aaa;
+        }
+        
+        .chevron.bottom:before{
+            top: 2px !important;
+        }
+
+        
         input:-webkit-autofill,
         input:-webkit-autofill:hover,
         input:-webkit-autofill:focus,
