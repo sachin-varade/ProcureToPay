@@ -155,7 +155,7 @@ module.exports = function (procurementService, financeService, logisticService, 
                         // poTrackerEntity.GoodsIssueDate = result.goodsIssueList[0].GoodsIssueDate;
                     }
                     else{
-                        poTrackerEntity.GoodsIssue = {};
+                        poTrackerEntity.GoodsIssue = {"salesOrderNumber": ""};
                         // poTrackerEntity.GoodsIssueNumber = "";
                         // poTrackerEntity.GoodsIssueDate = "";
                     }
@@ -169,7 +169,7 @@ module.exports = function (procurementService, financeService, logisticService, 
                             poTrackerEntity.VendorInvoices = result.vendorInvoices[0];
                         }
                         else{
-                            poTrackerEntity.VendorInvoices = {};
+                            poTrackerEntity.VendorInvoices = {"goodsIssueNumber": ""};
                         }
 
                         //5. Vendor - Issue invoice
@@ -180,7 +180,7 @@ module.exports = function (procurementService, financeService, logisticService, 
                                 poTrackerEntity.LogisticTransaction = result.logisticTransactions[0];
                             }
                             else{
-                                poTrackerEntity.LogisticTransactions = {};
+                                poTrackerEntity.LogisticTransaction = {"purchaseOrderRefNumber": ""};
                             }
 
                             //6. Goods Receipt
@@ -191,7 +191,7 @@ module.exports = function (procurementService, financeService, logisticService, 
                                     poTrackerEntity.GoodsReceipts = result.goodsReceipts[0];
                                 }
                                 else{
-                                    poTrackerEntity.GoodsReceipts = {};
+                                    poTrackerEntity.GoodsReceipts = {"purchaseOrderRefNumber": ""};
                                 }
 
                                 //7. Syngenta Finance - Invoice Validate
@@ -202,7 +202,7 @@ module.exports = function (procurementService, financeService, logisticService, 
                                         poTrackerEntity.FinanceInvoices = result.financeInvoices[0];
                                     }
                                     else{
-                                        poTrackerEntity.FinanceInvoices = {};
+                                        poTrackerEntity.FinanceInvoices = {"purchaseOrderRefNumber": ""};
                                     }  
 
                                     //8. Syngenta Finance - Payment Proposal + Bank Status

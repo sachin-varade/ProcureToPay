@@ -118,7 +118,7 @@
                 </div>
                 <div class="right-block">
                   <h6 class="event-title">Syngenta Goods receipts</h6>
-                  <span class="event-error" *ngIf="this.poTrackingDetails.LogisticTransaction.consignmentNumber.length > 0 && !this.poTrackingDetails.GoodsReceipts.goodsReceiptNumber">Goods Receipt pending - Delivered on {{this.poTrackingDetails.LogisticTransaction.actualDeliveryDatetime
+                  <span class="event-error" *ngIf="this.poTrackingDetails.LogisticTransaction.consignmentNumber && this.poTrackingDetails.LogisticTransaction.consignmentNumber.length > 0 && !this.poTrackingDetails.GoodsReceipts.goodsReceiptNumber">Goods Receipt pending - Delivered on {{this.poTrackingDetails.LogisticTransaction.actualDeliveryDatetime
                     | date:"short" }}</span>
                   <span class="event-time">Goods receipt Number:
                     <span>{{this.poTrackingDetails.GoodsReceipts.goodsReceiptNumber}}</span>
