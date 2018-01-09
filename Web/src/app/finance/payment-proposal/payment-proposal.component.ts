@@ -32,10 +32,16 @@ export class PaymentProposalComponent implements OnInit {
     this.userData = this.user.getUserData();
     this.commonData = this.user.getCommonData();
     this.getUniqueId();
-    this.paymentProposal.proposalDate = new Date();
+    this.paymentProposal.paymentProposalDate = new Date();
+    this.setBuyerBankAccountDetails();
   }
 
   ngOnInit() {
+  }
+
+  setBuyerBankAccountDetails(){
+    this.paymentProposal.buyerBankAccountNumber = this.currentUser.bankAccountNumber;
+    this.paymentProposal.buyerBankAccountType = this.currentUser.bankAccountType;
   }
 
   getUniqueId() {
@@ -147,9 +153,10 @@ export class PaymentProposalComponent implements OnInit {
         .then((results: any) => {
           this.alertService.success("Payment Proposal created." + this.paymentProposal.paymentProposalNumber);
           this.paymentProposal = new FinanceModels.PaymentProposal();
-          this.paymentProposal.proposalDate = new Date();
+          this.paymentProposal.paymentProposalDate = new Date();
           this.selectedVendor.name = '';
           this.getUniqueId();
+          this.setBuyerBankAccountDetails();
         });
     } else {
       alert('Please select a invoice.')

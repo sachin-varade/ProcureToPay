@@ -50,11 +50,13 @@ export class  Material {
 
 export class PaymentProposal {
 	paymentProposalNumber : string;
-	proposalDate : Date;
+	paymentProposalDate : Date;
 	vendorUniqueId : string;
 	vendorBankAccountNumber : string;
 	vendorBankAccountType : string;
 	vendorBankUniqueId : string;
+	buyerBankAccountNumber : string;
+	buyerBankAccountType : string;
 	createdBy : string;
 	createdDate : Date;
 	paymentProposalDetails : Array<PaymentProposalDetail> = new Array<PaymentProposalDetail>();

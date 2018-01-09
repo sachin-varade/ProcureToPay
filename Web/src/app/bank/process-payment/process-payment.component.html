@@ -1,6 +1,6 @@
 <div class="page-container cgt-finance">
     <div class="container">
-      <h2 class="page-title">Payment Proposal</h2>
+      <h2 class="page-title">Process Payment</h2>
       <form #myForm="ngForm">
         <div class="content-area">
           <div class="plain-block mrg-btm-30">
@@ -35,12 +35,12 @@
                           <th></th>
                           <th>Proposal No</th>
                           <th>Proposal Date</th>
+                          <th>Buyer Account Name</th>
+                          <th>Buyer Account Type</th>
                           <th>Vendor Account Name</th>
                           <th>Vendor Account Type</th>
-                          <!-- <th>Tax</th> -->
                           <th>Amount</th>
                           <th>Invoice Ref. No</th>
-                          <!-- <th>PO Ref. No</th> -->
                           <th>Credit Date</th>
                         </tr>
                         <tr *ngFor="let item of paymentProposal.paymentProposalDetails; let i = index" [attr.data-index]="i">
@@ -64,7 +64,13 @@
                             <span>{{item.paymentProposalNumber}}</span>
                           </td>
                           <td>
-                            <span>{{item.proposedPaymentDate | date : "short"}}</span>
+                            <span>{{paymentProposal.paymentProposalDate | date : "shortDate"}}</span>
+                          </td>
+                          <td>
+                            <span>{{paymentProposal.buyerBankAccountNumber}}</span>
+                          </td>
+                          <td>
+                            <span>{{paymentProposal.buyerBankAccountType}}</span>
                           </td>
                           <td>
                             <span>{{paymentProposal.vendorBankAccountNumber}}</span>
@@ -72,24 +78,18 @@
                           <td>
                             <span>{{paymentProposal.vendorBankAccountType}}</span>
                           </td>
-                          <!-- <td>
-                            <span>{{item.tax}}</span>
-                          </td> -->
                           <td>
                             <span>{{item.amount}}</span>
                           </td>
                           <td>
                             <span>{{item.InvoiceReferenceNumber}}</span>
                           </td>
-                          <!-- <td>
-                            <span>{{item.poReferenceNumber}}</span>
-                          </td> -->
                           <td>
-                            <span *ngIf="item.bankProcessingDate && item.bankProcessingDate!='' && item.bankProcessingDate!='null'">{{item.bankProcessingDate | date : "short"}}</span>
+                            <span>{{item.proposedPaymentDate | date : "shortDate"}}</span>
                           </td>
                         </tr>
                         <tr>
-                          <td colspan="5"><b>Total amount: </b>{{totalAmount}}</td>
+                          <td colspan="10"><b>Total amount: </b>{{totalAmount}}</td>
                         </tr>
                       </table>
                 </div>
