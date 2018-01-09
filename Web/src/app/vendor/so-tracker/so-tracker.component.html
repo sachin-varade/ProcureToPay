@@ -19,7 +19,7 @@
             </div>
             <div class="v-list">
               <span class="label-field">SO Date</span>
-              <span class="value-field">{{this.poTrackingDetails.VendorSalesOrder.statusUpdatedOn | date:"short" }}</span>
+              <span class="value-field">{{this.poTrackingDetails.VendorSalesOrder.statusUpdatedOn | date:"shortDate" }}</span>
             </div>
             <div class="v-list">
               <span class="label-field">Reference PO Number</span>
@@ -38,7 +38,7 @@
                     <span>{{this.poTrackingDetails.VendorSalesOrder.salesOrderNumber}}</span>
                   </span>
                   <span class="event-time">Sales Order Date:
-                    <span>{{this.poTrackingDetails.VendorSalesOrder.statusUpdatedOn | date:"short" }}</span>
+                    <span>{{this.poTrackingDetails.VendorSalesOrder.statusUpdatedOn | date:"shortDate" }}</span>
                   </span>
                   <span class="event-time">Supplier Code:
                     <span>{{this.poTrackingDetails.VendorSalesOrder.supplierCode}}</span>
@@ -118,7 +118,7 @@
                 </div>
                 <div class="right-block">
                   <h6 class="event-title">Syngenta Goods receipts</h6>
-                  <span class="event-error" *ngIf="this.poTrackingDetails.LogisticTransaction.consignmentNumber && this.poTrackingDetails.LogisticTransaction.consignmentNumber.length > 0 && !this.poTrackingDetails.GoodsReceipts.goodsReceiptNumber">Goods Receipt pending - Delivered on {{this.poTrackingDetails.LogisticTransaction.actualDeliveryDatetime
+                  <span class="event-error" *ngIf="this.poTrackingDetails.LogisticTransaction && this.poTrackingDetails.LogisticTransaction.consignmentNumber && this.poTrackingDetails.LogisticTransaction.consignmentNumber.length > 0 && !this.poTrackingDetails.GoodsReceipts.goodsReceiptNumber">Goods Receipt pending - Delivered on {{this.poTrackingDetails.LogisticTransaction.actualDeliveryDatetime
                     | date:"short" }}</span>
                   <span class="event-time">Goods receipt Number:
                     <span>{{this.poTrackingDetails.GoodsReceipts.goodsReceiptNumber}}</span>

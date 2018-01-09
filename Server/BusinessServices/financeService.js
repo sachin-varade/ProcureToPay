@@ -243,13 +243,15 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
                 "savePaymentProposal",  
                 [ 
                     paymentProposal.paymentProposalNumber,
-                    paymentProposal.proposalDate,
+                    paymentProposal.paymentProposalDate,
                     paymentProposal.vendorUniqueId,
                     paymentProposal.vendorBankAccountNumber,
                     paymentProposal.vendorBankAccountType,
                     paymentProposal.vendorBankUniqueId,
                     paymentProposal.createdBy,
                     paymentProposal.createdDate,
+                    paymentProposal.buyerBankAccountNumber,
+                    paymentProposal.buyerBankAccountType,
                     details
                 ]                
             );                

@@ -28,7 +28,9 @@
                 "role": "finance",
                 "password": "123456",
                 "uniqueId": "A001",
-                "homepage": "finance/invoice-management"                
+                "homepage": "finance/invoice-management",                
+                "bankAccountNumber" :  "ACCT-SYNGEN01",
+                "bankAccountType" : "Current Acount"
             },
             {
                 "id": 2,
@@ -37,7 +39,9 @@
                 "role": "finance",
                 "password": "123456",
                 "uniqueId": "A001",
-                "homepage": "finance/invoice-management"                
+                "homepage": "finance/invoice-management",
+                "bankAccountNumber" :  "ACCT-SYNGEN02",
+                "bankAccountType" : "Current Acount"                
             }
         ],
         "logistics": [

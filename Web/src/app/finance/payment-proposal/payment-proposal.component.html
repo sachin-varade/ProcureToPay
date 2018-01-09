@@ -8,30 +8,31 @@
 
             <div class="border-box-table">
               <div class="border-box-row">
-                <div class="border-box col-2">
-                  <label class="label-field">Payment Proposal No</label>
-                  <span class="value-field">
-                    <input disabled required [(ngModel)]="this.paymentProposal.paymentProposalNumber" name="paymentProposalNumber" type="text" class="input-style">
-                  </span>
-                </div>
-               
-                <div class="border-box col-2">
-                  <label class="label-field">Proposal Date</label>
-                  <span class="value-field">
-                      <input type="text" placeholder="Proposal Date" [(ngModel)]="this.paymentProposal.proposalDate" name="proposalDate" 
-                        class="form-control date-picker-date date-input-small float-left"
-                        bsDatepicker required/>
-                  </span>
-                </div>
-              </div>
-              <div class="border-box-row">
                 <div class="border-box col-3">
                   <label class="label-field">Payment Proposal No</label>
                   <span class="value-field">
                     <input disabled required [(ngModel)]="this.paymentProposal.paymentProposalNumber" name="paymentProposalNumber" type="text" class="input-style">
                   </span>
                 </div>
-                <div class="border-box col-1">
+                <div class="border-box col-3">
+                  <label class="label-field">Bank Account Number</label>
+                  <span class="value-field">{{this.paymentProposal.buyerBankAccountNumber}}</span>
+                </div>
+                <div class="border-box col-3">
+                  <label class="label-field">Bank Account Type</label>
+                  <span class="value-field">{{this.paymentProposal.buyerBankAccountType}}</span>
+                </div>
+              </div>
+              <div class="border-box-row">
+                <div class="border-box col-3">
+                  <label class="label-field">Proposal Date</label>
+                  <span class="value-field">
+                      <input type="text" placeholder="Proposal Date" [(ngModel)]="this.paymentProposal.paymentProposalDate" name="paymentProposalDate" 
+                        class="form-control date-picker-date date-input-small float-left"
+                        bsDatepicker required/>
+                  </span>
+                </div>
+                <div class="border-box col-3">
                   <label class="label-field">Vendor/Seller</label>
                   <span class="value-field">
                     <select [(ngModel)]="this.selectedVendor.name" class="input-style" (change)="changeVendor()" name="vendorName" id="vendorName" required>
@@ -40,8 +41,8 @@
                     </select>
                   </span>
                 </div>
-                
               </div>
+              <div class="col-3"></div>
             </div>
 
             <div class="border-box-table">
@@ -53,11 +54,11 @@
                   </span>
                 </div>
                 <div class="border-box col-3">
-                  <label class="label-field">Bank Account Number</label>
+                  <label class="label-field">Vendor Bank Account Number</label>
                   <span class="value-field">{{this.paymentProposal.vendorBankAccountNumber}}</span>
                 </div>
                 <div class="border-box col-3">
-                  <label class="label-field">Bank AccountType</label>
+                  <label class="label-field">Vendor Bank Account Type</label>
                   <span class="value-field">{{this.paymentProposal.vendorBankAccountType}}</span>
                 </div>
               </div>

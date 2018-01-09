@@ -103,6 +103,8 @@ type PaymentProposal struct {
 	BankUniqueid							string	`json:"bankUniqueid"`
 	CreatedBy								string	`json:"createdBy"`
 	CreationDate							string	`json:"creationDate"`
+	BuyerBankAccountNumber					string	`json:"buyerBankAccountNumber"`
+	BuyerBankAccountType					string	`json:"buyerBankAccountType"`
 	ProposalDetails							[]PaymentProposalDetails	`json:"proposalDetails"`	
 }
 
