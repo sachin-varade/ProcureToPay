@@ -25,6 +25,12 @@
               <span class="label-field">Reference PO Number</span>
               <span class="value-field">{{this.poTrackingDetails.VendorSalesOrder.purchaseOrderRefNumber }}</span>
             </div>
+            <div class="v-list">
+              <span class="label-field">Material Details</span>
+              <span class="value-field" *ngFor="let item of this.poTrackingDetails.VendorSalesOrder.materialList; let i = index" [attr.data-index]="i">
+                {{item.productName}}
+              </span>
+            </div>
           </div>
           <div class="po-tracker timeline-wrapper">
             <ul>
@@ -62,7 +68,7 @@
                 </div>
                 <div class="marker"></div>
               </li>
-              <li class="{{this.poTrackingDetails.LogisticTransaction.consignmentNumber.length >0 ? 'finished' : ''}}">
+              <li class="{{this.poTrackingDetails.LogisticTransaction && this.poTrackingDetails.LogisticTransaction.consignmentNumber && this.poTrackingDetails.LogisticTransaction.consignmentNumber.length >0 ? 'finished' : ''}}">
                 <div class="left-block">
 
                 </div>
