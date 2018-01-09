@@ -127,6 +127,48 @@ func saveFinanceInvoice(stub  shim.ChaincodeStubInterface, args []string) pb.Res
 	return shim.Success(nil)
 }
 
+//------------------------------------------------------------------------------------
+//	Update finance invoice
+//------------------------------------------------------------------------------------
+func updateFinanceInvoiceStatus(stub  shim.ChaincodeStubInterface, args []string) pb.Response {	
+	fmt.Println("Running updateFinanceInvoice..")
+
+	if len(args) != 4 {
+		fmt.Println("Incorrect number of arguments. Expecting 4 - ..")
+		return shim.Error("Incorrect number of arguments. Expecting 4")
+	}
+
+	fmt.Println("Arguments :"+args[0]+","+args[1]+","+args[2]+","+args[3]);
+
+	var response = getAllFinanceInvoices(stub, "po", args[0])
+	var allDetailsObj AllFinanceInvoiceDetails
+	json.Unmarshal([]byte(string(response.Payload)), &allDetailsObj)
+	if len(allDetailsObj.FinanceInvoices) != 0 {    
+		for j := range allDetailsObj.FinanceInvoices{   					
+			var bt FinanceInvoice
+			sbAsBytes, err := stub.GetState(allDetailsObj.FinanceInvoices[j].InvoiceNumber)
+			if err != nil {
+				return shim.Error("Failed to get invoice.")
+			}
+			json.Unmarshal(sbAsBytes, &bt)
+			bt.CurrentStatus 						= args[1]
+			var st StatusUpdates
+			st.Status = args[1]
+			st.UpdatedBy = args[2]
+			st.UpdatedOn = args[3]
+			bt.StatusUpdates = append(bt.StatusUpdates, st)	
+			
+			//Commit Sales Order entry to ledger
+			fmt.Println("updateFinanceInvoice - Commit Finance Invoice To Ledger");
+			btAsBytes, _ := json.Marshal(bt)
+			err = stub.PutState(bt.InvoiceNumber, btAsBytes)
+			if err != nil {
+				return shim.Error(err.Error())
+			}
+		}
+	}
+	return shim.Success(nil)
+}
 
 //------------------------------------------------------------------------------------
 //	Update finance invoice

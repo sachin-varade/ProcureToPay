@@ -40,14 +40,14 @@ export class InterceptorService implements HttpInterceptor  {
       }
       if(ev.type == 0){
         if(!this.showLoader){
-          console.log('show');
+          //console.log('show');
           this.showLoader = true;
           this.spinnerService.show();  
         }        
       }
       else if(ev.type == 4){
         if(this.showLoader){
-          console.log('hide');
+          //console.log('hide');
           this.showLoader = false;
           this.spinnerService.hide();
         }

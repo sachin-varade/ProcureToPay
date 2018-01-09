@@ -17,19 +17,19 @@
               <div class="dashboard-block half-block">
                 <div class="inner-block">
                   <div class="label-block">Total Purchase Orders</div>
-                  <div class="value-block">64</div>
+                  <div *ngIf="dashboardData" class="value-block">{{dashboardData.purchaseOrdersCount}}</div>
                 </div>
               </div>
               <div class="dashboard-block quarter-block">
                 <div class="inner-block">
-                  <div class="label-block">Approved & Sent to Vendor</div>
-                  <div class="value-block">46</div>
+                  <div class="label-block">Total Sales Order Created</div>
+                  <div *ngIf="dashboardData" class="value-block">{{dashboardData.vendorSalesOrdersCount}}</div>
                 </div>
               </div>
               <div class="dashboard-block quarter-block">
                 <div class="inner-block">
-                  <div class="label-block">Pending Approval</div>
-                  <div class="value-block">18</div>
+                  <div class="label-block">Pending Purchase Order Approval</div>
+                  <div *ngIf="dashboardData" class="value-block">{{dashboardData.purchaseOrdersCount - dashboardData.vendorSalesOrdersCount}}</div>
                 </div>
               </div>
             </div>
@@ -38,19 +38,19 @@
               <div class="dashboard-block half-block">
                 <div class="inner-block">
                   <div class="label-block">Total Orders Delivered</div>
-                  <div class="value-block">37</div>
+                  <div *ngIf="dashboardData" class="value-block">{{this.dashboardData.purchaseOrdersPaidCount}}</div>
                 </div>
               </div>
               <div class="dashboard-block quarter-block">
                 <div class="inner-block">
                   <div class="label-block">Receipt Generated</div>
-                  <div class="value-block">30</div>
+                  <div *ngIf="dashboardData" class="value-block">{{dashboardData.goodsReceiptsCount}}</div>
                 </div>
               </div>
               <div class="dashboard-block quarter-block">
                 <div class="inner-block">
                   <div class="label-block">Receipt Pending</div>
-                  <div class="value-block">07</div>
+                  <div *ngIf="dashboardData" class="value-block">{{dashboardData.purchaseOrdersCount - dashboardData.goodsReceiptsCount}}</div>
                 </div>
               </div>
             </div>

@@ -167,6 +167,14 @@ router.post("/updateFinanceInvoiceList", function(req, res) {
 	});	
 });
 
+
+router.post("/updateFinanceInvoiceStatus", function(req, res) {    
+	var promise = financeService.updateFinanceInvoiceStatus(req.body);
+	promise.then(function(resp,err){
+		res.send(resp);
+	});	
+});
+
 router.get("/getAllFinanceInvoices/:option/:value?", function(req, res) {    
     var promise = financeService.getAllFinanceInvoices(req.params.option, req.params.value?req.params.value: "");
 	promise.then(function(resp,err){

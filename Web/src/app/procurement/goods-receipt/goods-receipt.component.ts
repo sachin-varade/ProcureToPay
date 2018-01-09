@@ -122,25 +122,36 @@ export class GoodsReceiptComponent implements OnInit {
     this.procurementService.saveGoodsReceipt(this.goodsReceipt)
       .then((results: any) => {
         this.alertService.success("Goods Receipt Saved.");
-        this.financeService.getAllFinanceInvoices("po-parked", this.goodsReceipt.purchaseOrderRefNumber)
-        .then((results: any) => {
-          if(results && results.financeInvoices && results.financeInvoices.length > 0){
-            results.financeInvoices.forEach(invElement => {
-              invElement.statusUpdates.push(      
-                {
-                  status: "Posted",
-                  updatedBy: this.currentUser.id,
-                  updatedOn: new Date()
-                }
-              );
-            });            
+        // this.financeService.getAllFinanceInvoices("po-parked", this.goodsReceipt.purchaseOrderRefNumber)
+        // .then((results: any) => {
+        //   if(results && results.financeInvoices && results.financeInvoices.length > 0){
+        //     results.financeInvoices.forEach(invElement => {
+        //       invElement.statusUpdates.push(      
+        //         {
+        //           status: "Posted",
+        //           updatedBy: this.currentUser.id,
+        //           updatedOn: new Date()
+        //         }
+        //       );
+        //     });            
             
-            this.financeService.updateFinanceInvoiceList(results.financeInvoices)
-            .then((results: any) => {
-              // this.alertService.success("Finance Invoice Posted for this Purchase Order.");
-              console.log("Finance Invoice Posted for this Purchase Order.");
-            });
-          }
+        //     this.financeService.updateFinanceInvoiceList(results.financeInvoices)
+        //     .then((results: any) => {
+        //       // this.alertService.success("Finance Invoice Posted for this Purchase Order.");
+        //       console.log("Finance Invoice Posted for this Purchase Order.");
+        //     });
+        //   }
+        // });
+
+        ////////////////////////////// New Method /////////////////////////////
+        this.financeService.updateFinanceInvoiceStatus({purchaseOrderNumber: this.goodsReceipt.purchaseOrderRefNumber,
+          status: "Posted",
+          updatedBy: this.currentUser.id,
+          updatedOn: new Date()
+        })
+        .then((results: any) => {
+          // this.alertService.success("Finance Invoice Posted for this Purchase Order.");
+          console.log("Finance Invoice Posted for this Purchase Order.");
         });
         this.getGoodsReceipt();
       });

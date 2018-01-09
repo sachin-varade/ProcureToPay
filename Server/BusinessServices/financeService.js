@@ -164,6 +164,37 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
         });
     }
     
+    financeService.updateFinanceInvoiceStatus = function(obj){
+        console.log("updateFinanceInvoiceStatus");        
+        return fabric_client.getUserContext(users.financeUser.enrollmentID, true)
+        .then((user_from_store) => {
+            helper.checkUserEnrolled(user_from_store);            
+            return invokeChainCode.invokeChainCode(fabric_client, 
+                channels.financeChannelFC, 
+                eventHubPeers.financeEventHubPeer._url, 
+                //"grpc://localhost:7053",
+                financeConfig.channels.financechannel.chaincodeId, 
+                "updateFinanceInvoiceStatus",  
+                [ 
+                    obj.purchaseOrderNumber,
+                    obj.status,
+                    obj.updatedBy.toString(),
+                    obj.updatedOn
+                ]                
+            );                
+        }).then((results) => {
+            return results;
+        }).catch((err) => {
+            if(err.message.indexOf("SMART_CONTRACT") > -1){
+                return {
+                    type: "ERROR",
+                    message: err.message
+                }
+            }            
+            throw err;
+        });
+    }
+
     financeService.getAllFinanceInvoices = function(option, value){
         console.log("getAllFinanceInvoices");
         return fabric_client.getUserContext(users.financeUser.enrollmentID, true)

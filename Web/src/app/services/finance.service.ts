@@ -38,6 +38,16 @@ export class FinanceService {
     });
   }
 
+  updateFinanceInvoiceStatus(obj: any): Promise<any> {
+    this.url = `${this.BASE_URL}/updateFinanceInvoiceStatus`;
+    return this.http.post(this.url, obj).toPromise()
+    .then((results: any) => {
+      return results;
+    }).catch((err) => {
+      this.alertService.error(err);
+    });
+  }
+
   getUniqueId(option: string, value: string = ""): Promise<any> {
     this.url = this.BASE_URL +"/finance/getUniqueId";
     return this.http.get(this.url+"/"+ option +"/"+ value).toPromise()

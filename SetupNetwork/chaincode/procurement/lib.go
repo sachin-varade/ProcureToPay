@@ -69,6 +69,9 @@ func inTimeSpan(start, end, check time.Time) bool {
 
 // filters the date passed with current date and prev date(1 mo back, 2 mo back, 1 year back)
 func filterDate(value string, dateStr string) bool {
+	if value == ""{
+		return true
+	}
     filter := strings.Split(value, "^")
 	var y, m, d int
 	//filter[0] should be in format of 1-y, 2-m, 3-d...

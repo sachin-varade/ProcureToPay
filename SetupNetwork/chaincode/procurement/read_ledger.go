@@ -52,6 +52,10 @@ func getAllDashboardData(stub  shim.ChaincodeStubInterface, option string, value
 	var allDetailsGR AllGoodsReceiptDetails
 	var poNumbers string
 	fmt.Println("loop all");
+	var dmyOption string
+	if strings.ToLower(option) != "all" {
+		dmyOption = value
+	}
 	for i := range res.PurchaseOrderNumbers{
 		sbAsBytes, err := stub.GetState(res.PurchaseOrderNumbers[i])
 		if err != nil {
@@ -60,7 +64,7 @@ func getAllDashboardData(stub  shim.ChaincodeStubInterface, option string, value
 		var sb PurchaseOrder
 		json.Unmarshal(sbAsBytes, &sb)
 
-		if filterDate(value, sb.PurchaseOrderDate) {
+		if filterDate(dmyOption, sb.PurchaseOrderDate) {
 			if strings.ToLower(option) == "date-po-numbers" {
 				if poNumbers != ""{
 					poNumbers = poNumbers + ","
