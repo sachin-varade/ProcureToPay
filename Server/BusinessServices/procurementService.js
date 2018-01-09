@@ -40,6 +40,22 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
             throw err;
         });
     }
+
+    procurementService.getAllDashboardData = function(option, value){
+        console.log("getAllDashboardData");
+        return fabric_client.getUserContext(users.procurementUser.enrollmentID, true)
+        .then((user_from_store) => {
+            helper.checkUserEnrolled(user_from_store);
+            return queryChainCode.queryChainCode(channels.procurementChannelPC, 
+                procurementConfig.channels.procurementchannel.chaincodeId, 
+                "getAllDashboardData", 
+                [option, value]);
+        }).then((results) => {
+            return results;
+        }).catch((err) => {
+            throw err;
+        });
+    }
     
     procurementService.savePurchaseOrder = function(purchaseOrder){
         console.log("savePurchaseOrder");

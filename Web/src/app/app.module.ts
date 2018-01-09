@@ -44,6 +44,7 @@ import { GenerateInvoiceComponent } from './vendor/generate-invoice/generate-inv
 import { PaymentProposalComponent } from './finance/payment-proposal/payment-proposal.component';
 import { ProcessPaymentComponent } from './bank/process-payment/process-payment.component';
 import { SoTrackerComponent } from './vendor/so-tracker/so-tracker.component';
+import { PoDashboardComponent } from './procurement/po-dashboard/po-dashboard.component';
 
 const appRoutes:Routes = [
   {
@@ -96,6 +97,11 @@ const appRoutes:Routes = [
     component: PoTrackerComponent
   },
   {
+    path: 'procurement/dashboard',
+    canActivate: [AuthguardGuard],
+    component: PoDashboardComponent
+  },
+  {
     path: 'procurement/goods-receipt',
     canActivate: [AuthguardGuard],
     component: GoodsReceiptComponent
@@ -145,7 +151,7 @@ const appRoutes:Routes = [
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, LoginComponent, FooterComponent, 
-    DashboardComponent, DialogComponent, BlockComponent, AlertComponent, PoCreationComponent, PoFulfilmentComponent, PoTrackerComponent, CreateConsignmentComponent, GoodsReceiptComponent, InvoiceManagementComponent, GoodsIssueComponent, GenerateInvoiceComponent, PaymentProposalComponent, ProcessPaymentComponent, SoTrackerComponent],
+    DashboardComponent, DialogComponent, BlockComponent, AlertComponent, PoCreationComponent, PoFulfilmentComponent, PoTrackerComponent, CreateConsignmentComponent, GoodsReceiptComponent, InvoiceManagementComponent, GoodsIssueComponent, GenerateInvoiceComponent, PaymentProposalComponent, ProcessPaymentComponent, SoTrackerComponent, PoDashboardComponent],
   imports: [  
   RouterModule.forRoot(appRoutes),
   FormsModule,

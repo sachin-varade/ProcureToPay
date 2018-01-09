@@ -25,6 +25,7 @@ import (
 	"fmt"
 	"crypto/rand"	
 	"time"
+	"strings"
 )
 
 // ========================================================
@@ -65,3 +66,37 @@ func checkDuplicateId(obj []string, value string) int{
 func inTimeSpan(start, end, check time.Time) bool {
     return check.After(start) && check.Before(end)
 }
+
+// filters the date passed with current date and prev date(1 mo back, 2 mo back, 1 year back)
+func filterDate(value string, dateStr string) bool {
+    filter := strings.Split(value, "^")
+	var y, m, d int
+	//filter[0] should be in format of 1-y, 2-m, 3-d...
+	if strings.ToLower(filter[0]) != "" {
+		dmy := strings.Split(filter[0], "-")
+		input, e := strconv.Atoi(dmy[0])
+		if e != nil {
+			fmt.Println(e)
+		}
+
+		if dmy[1] == "y" {
+			y = -input
+		} else if dmy[1] == "m" {
+			m = -input
+		} else if dmy[1] == "d" {
+			d = -input
+		}
+	} 
+	start := time.Now().AddDate(y, m, d)
+	end := time.Now().AddDate(0, 0, 0)
+	in := dateStr
+	t, err := time.Parse(time.RFC3339, in)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(start)
+	fmt.Println(end)
+	fmt.Println(t)
+	return inTimeSpan(start, end, t)
+}
+

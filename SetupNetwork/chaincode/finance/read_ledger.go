@@ -29,6 +29,46 @@ import (
 	pb "github.com/hyperledger/fabric/protos/peer"
 )
 
+func getAllDashboardData(stub  shim.ChaincodeStubInterface, option string, value string) pb.Response {
+	var allDetailsFI AllFinanceInvoiceDetails
+	var allDetailsPP AllPaymentProposalDetails
+	
+	if value != "" {
+		p := strings.Split(value, ",")
+		for i := range p {
+			if strings.ToLower(option) == "date-finance-invoice-created" {
+				var response = getAllFinanceInvoices(stub, "po", p[i])
+				var allDetailsObj AllFinanceInvoiceDetails
+				json.Unmarshal([]byte(string(response.Payload)), &allDetailsObj)
+				if len(allDetailsObj.FinanceInvoices) != 0 {    
+					for j := range allDetailsObj.FinanceInvoices{   					
+						allDetailsFI.FinanceInvoices = append(allDetailsFI.FinanceInvoices, allDetailsObj.FinanceInvoices[j]);
+					}
+				}
+			} else if strings.ToLower(option) == "date-payment-proposal-created" {
+				var response = getAllPaymentProposals(stub, "po", p[i])
+				var allDetailsObj AllPaymentProposalDetails
+				json.Unmarshal([]byte(string(response.Payload)), &allDetailsObj)
+				if len(allDetailsObj.PaymentProposals) != 0 {    
+					for j := range allDetailsObj.PaymentProposals{   					
+						allDetailsPP.PaymentProposals = append(allDetailsPP.PaymentProposals, allDetailsObj.PaymentProposals[j]);
+					}
+				}
+			}
+		}
+	}
+
+	if strings.ToLower(option) == "date-finance-invoice-created" {
+		rabAsBytes, _ := json.Marshal(allDetailsFI)		
+		return shim.Success(rabAsBytes)	
+	} else if strings.ToLower(option) == "date-payment-proposal-created" {
+		rabAsBytes, _ := json.Marshal(allDetailsPP)
+		return shim.Success(rabAsBytes)	
+	}
+	
+	return shim.Success(nil)
+}
+
 // ============================================================================================================================
 // Get All Ikea Received
 // ============================================================================================================================

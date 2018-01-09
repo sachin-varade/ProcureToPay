@@ -254,4 +254,26 @@ router.get("/getSalesOrderTrackingDetails/:option/:value?", function(req, res) {
 	});	
 });
 
+// ------------------------ Dashboard routes --------------------
+router.get("/getAllDashboardData/:option/:value?", function(req, res) {    
+    var promise = poTrackerService.getAllDashboardData(req.params.option, req.params.value?req.params.value: "");
+	promise.then(function(resp,err){
+		res.send(resp);
+	});	
+});
+
+router.get("/procurement/getAllDashboardData/:option/:value?", function(req, res) {    
+    var promise = procurementService.getAllDashboardData(req.params.option, req.params.value?req.params.value: "");
+	promise.then(function(resp,err){
+		res.send(resp);
+	});	
+});
+
+router.get("/finance/getAllDashboardData/:option/:value?", function(req, res) {    
+    var promise = financeService.getAllDashboardData(req.params.option, req.params.value?req.params.value: "");
+	promise.then(function(resp,err){
+		res.send(resp);
+	});	
+});
+
 module.exports = router;

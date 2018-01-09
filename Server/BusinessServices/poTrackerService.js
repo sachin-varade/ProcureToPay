@@ -227,6 +227,90 @@ module.exports = function (procurementService, financeService, logisticService, 
             }); // 2 End
     }
 
+    poTrackerService.getAllDashboardData = function(option, value){
+        var poEntity = {};
+
+            return procurementService.getAllDashboardData("date-po-created", value)
+            .then((result) => {
+                if(result.purchaseOrders != undefined && result.purchaseOrders.length > 0 ){
+                    poEntity.purchaseOrders = result.purchaseOrders;
+                    return procurementService.getAllDashboardData("date-so-created", value)
+                    .then((result) => {
+                        if(result.vendorSalesOrders != undefined && result.vendorSalesOrders.length > 0 ){
+                            poEntity.vendorSalesOrders = result.vendorSalesOrders;
+                            return procurementService.getAllDashboardData("date-goods-issued", value)
+                            .then((result) => {
+                                if(result.goodsIssueList != undefined && result.goodsIssueList.length > 0 ){
+                                    poEntity.goodsIssueList = result.goodsIssueList;
+                                    return procurementService.getAllDashboardData("date-logistic-delivered", value)
+                                    .then((result) => {
+                                        if(result.logisticTransactions != undefined && result.logisticTransactions.length > 0 ){
+                                            poEntity.logisticTransactions = result.logisticTransactions;
+                                            return procurementService.getAllDashboardData("date-vendor-invoice-created", value)
+                                            .then((result) => {
+                                                if(result.vendorInvoices != undefined && result.vendorInvoices.length > 0 ){
+                                                    poEntity.vendorInvoices = result.vendorInvoices;
+                                                    return procurementService.getAllDashboardData("date-goods-received", value)
+                                                    .then((result) => {
+                                                        if(result.goodsReceipts != undefined && result.goodsReceipts.length > 0 ){
+                                                            poEntity.goodsReceipts = result.goodsReceipts;
+                                                            return procurementService.getAllDashboardData("date-po-numbers", value)
+                                                            .then((result) => {
+                                                                if(result){
+                                                                    poEntity.poNumbers = result;
+                                                                    return financeService.getAllDashboardData("date-finance-invoice-created", poEntity.poNumbers)
+                                                                    .then((result) => {
+                                                                        if(result.financeInvoices != undefined && result.financeInvoices.length > 0 ){
+                                                                            poEntity.financeInvoices = result.financeInvoices;
+                                                                            return financeService.getAllDashboardData("date-payment-proposal-created", poEntity.poNumbers)
+                                                                            .then((result) => {
+                                                                                if(result.paymentProposals != undefined && result.paymentProposals.length > 0 ){
+                                                                                    poEntity.paymentProposals = result.paymentProposals;
+                                                                                }
+                                                                                return poEntity;
+                                                                            });
+                                                                        }
+                                                                        else{
+                                                                            return poEntity;
+                                                                        }
+                                                                    });
+                                                                }
+                                                                else{
+                                                                    return poEntity;
+                                                                }
+                                                            });
+                                                        }
+                                                        else{
+                                                            return poEntity;
+                                                        }
+                                                    });
+                                                }
+                                                else{
+                                                    return poEntity;
+                                                }
+                                            });
+                                        }
+                                        else{
+                                            return poEntity;
+                                        }
+                                    });
+                                }
+                                else{
+                                    return poEntity;
+                                }
+                            });
+                        }
+                        else{
+                            return poEntity;
+                        }
+                    });
+                }
+                else{
+                    return poEntity;
+                }
+            }); 
+    }
+
     return poTrackerService;
 }        
                 

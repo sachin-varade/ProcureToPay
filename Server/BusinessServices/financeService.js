@@ -180,6 +180,22 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
         });
     }
 
+    financeService.getAllDashboardData = function(option, value){
+        console.log("getAllDashboardData");
+        return fabric_client.getUserContext(users.financeUser.enrollmentID, true)
+        .then((user_from_store) => {
+            helper.checkUserEnrolled(user_from_store);
+            return queryChainCode.queryChainCode(channels.financeChannelFC, 
+                financeConfig.channels.financechannel.chaincodeId, 
+                "getAllDashboardData", 
+                [option, value]);
+        }).then((results) => {
+            return results;
+        }).catch((err) => {
+            throw err;
+        });
+    }
+
     financeService.getUniqueId = function(option, value){
         console.log("getUniqueId");
         return fabric_client.getUserContext(users.financeUser.enrollmentID, true)

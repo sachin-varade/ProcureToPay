@@ -199,6 +199,8 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 		return getUniqueId(stub, args[0], args[1])
 	} else if function == "processPayment" {
 		return processPayment(stub, args)
+	} else if function == "getAllDashboardData" {
+		return getAllDashboardData(stub, args[0], args[1])
 	}
 	
 	// error out

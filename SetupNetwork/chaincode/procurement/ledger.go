@@ -387,6 +387,8 @@ func (t *SimpleChaincode) Invoke(stub shim.ChaincodeStubInterface) pb.Response {
 		return saveGoodsReceipt(stub, args)
 	} else if function == "updatePurchaseOrderStatus" {
 		return updatePurchaseOrderStatus(stub, args)
+	} else if function == "getAllDashboardData" {
+		return getAllDashboardData(stub, args[0], args[1])
 	}
 	
 	// error out

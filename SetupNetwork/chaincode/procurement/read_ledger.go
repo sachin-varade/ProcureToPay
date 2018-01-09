@@ -29,6 +29,119 @@ import (
 	pb "github.com/hyperledger/fabric/protos/peer"
 )
 
+func getAllDashboardData(stub  shim.ChaincodeStubInterface, option string, value string) pb.Response {
+	fmt.Println("getAllDashboardData: Looking for All Purchase Orders");
+
+	allBAsBytes, err := stub.GetState("allPurchaseOrderNumbers")
+	if err != nil {
+		return shim.Error("Failed to get all Purchase order numbers")
+	}
+
+	var res AllPurchaseOrderNumbers
+	err = json.Unmarshal(allBAsBytes, &res)
+	if err != nil {
+		fmt.Println("Printing Unmarshal error:-");
+		fmt.Println(err);
+		return shim.Error("Failed to Unmarshal all Purchase order records")
+	}
+	var allDetailsPO AllPurchaseOrderDetails
+	var allDetailsSO AllVendorSalesOrderDetails
+	var allDetailsGI AllGoodsIssueDetails
+	var allDetailsLT AllLogisticTransactionDetails
+	var allDetailsVI AllVendorInvoiceDetails
+	var allDetailsGR AllGoodsReceiptDetails
+	var poNumbers string
+	fmt.Println("loop all");
+	for i := range res.PurchaseOrderNumbers{
+		sbAsBytes, err := stub.GetState(res.PurchaseOrderNumbers[i])
+		if err != nil {
+			return shim.Error("Failed to get Purchase Order record.")
+		}
+		var sb PurchaseOrder
+		json.Unmarshal(sbAsBytes, &sb)
+
+		if filterDate(value, sb.PurchaseOrderDate) {
+			if strings.ToLower(option) == "date-po-numbers" {
+				if poNumbers != ""{
+					poNumbers = poNumbers + ","
+				}
+				poNumbers = poNumbers + sb.PurchaseOrderNumber
+			} else if strings.ToLower(option) == "date-po-created" {
+				allDetailsPO.PurchaseOrders = append(allDetailsPO.PurchaseOrders, sb);
+			} else if strings.ToLower(option) == "date-so-created" && filterDate(value, sb.PurchaseOrderDate) {
+				var response = getAllVendorSalesOrders(stub, "po", sb.PurchaseOrderNumber)
+				var allDetailsObj AllVendorSalesOrderDetails
+				json.Unmarshal([]byte(string(response.Payload)), &allDetailsObj)
+				if len(allDetailsObj.VendorSalesOrders) != 0 {    
+					for j := range allDetailsObj.VendorSalesOrders{   					
+						allDetailsSO.VendorSalesOrders = append(allDetailsSO.VendorSalesOrders, allDetailsObj.VendorSalesOrders[j]);
+					}
+				}
+			} else if strings.ToLower(option) == "date-goods-issued" {
+				var response = getAllGoodsIssue(stub, "po", sb.PurchaseOrderNumber)
+				var allDetailsObj AllGoodsIssueDetails
+				json.Unmarshal([]byte(string(response.Payload)), &allDetailsObj)
+				if len(allDetailsObj.GoodsIssueList) != 0 {   
+					for j := range allDetailsObj.GoodsIssueList{   					    
+						allDetailsGI.GoodsIssueList = append(allDetailsGI.GoodsIssueList, allDetailsObj.GoodsIssueList[j]);
+					}
+				}
+			} else if strings.ToLower(option) == "date-logistic-delivered" {
+				var response = getAllLogisticTransactions(stub, "po", sb.PurchaseOrderNumber)
+				var allDetailsObj AllLogisticTransactionDetails
+				json.Unmarshal([]byte(string(response.Payload)), &allDetailsObj)
+				if len(allDetailsObj.LogisticTransactions) != 0 {  
+					for j := range allDetailsObj.LogisticTransactions{   					         
+						allDetailsLT.LogisticTransactions = append(allDetailsLT.LogisticTransactions, allDetailsObj.LogisticTransactions[j]);
+					}
+				}
+			} else if strings.ToLower(option) == "date-vendor-invoice-created" {
+				var response = getAllVendorInvoices(stub, "po", sb.PurchaseOrderNumber)
+				var allDetailsObj AllVendorInvoiceDetails
+				json.Unmarshal([]byte(string(response.Payload)), &allDetailsObj)
+				if len(allDetailsObj.VendorInvoices) != 0 {     
+					for j := range allDetailsObj.VendorInvoices{   					           
+						allDetailsVI.VendorInvoices = append(allDetailsVI.VendorInvoices, allDetailsObj.VendorInvoices[j]);
+					}
+				}
+			} else if strings.ToLower(option) == "date-goods-received" {
+				var response = getAllGoodsReceiptDetails(stub, "po", sb.PurchaseOrderNumber)
+				var allDetailsObj AllGoodsReceiptDetails
+				json.Unmarshal([]byte(string(response.Payload)), &allDetailsObj)
+				if len(allDetailsObj.GoodsReceipts) != 0 {       
+					for j := range allDetailsObj.GoodsReceipts{   					           
+						allDetailsGR.GoodsReceipts = append(allDetailsGR.GoodsReceipts, allDetailsObj.GoodsReceipts[j]);
+					}
+				}
+			} 
+		}
+	}
+	if strings.ToLower(option) == "date-po-numbers" {
+		rabAsBytes, _ := json.Marshal(poNumbers)		
+		return shim.Success(rabAsBytes)	 
+	} else if strings.ToLower(option) == "date-po-created" {
+		rabAsBytes, _ := json.Marshal(allDetailsPO)		
+		return shim.Success(rabAsBytes)	 
+	} else if strings.ToLower(option) == "date-so-created" {
+		rabAsBytes, _ := json.Marshal(allDetailsSO)		
+		return shim.Success(rabAsBytes)	 
+	} else if strings.ToLower(option) == "date-goods-issued" {
+		rabAsBytes, _ := json.Marshal(allDetailsGI)		
+		return shim.Success(rabAsBytes)	 
+	} else if strings.ToLower(option) == "date-logistic-delivered" {
+		rabAsBytes, _ := json.Marshal(allDetailsLT)		
+		return shim.Success(rabAsBytes)	 
+	} else if strings.ToLower(option) == "date-vendor-invoice-created" {
+		rabAsBytes, _ := json.Marshal(allDetailsVI)		
+		return shim.Success(rabAsBytes)	 
+	} else if strings.ToLower(option) == "date-goods-received" {
+		rabAsBytes, _ := json.Marshal(allDetailsGR)		
+		return shim.Success(rabAsBytes)	 
+	}
+	
+	return shim.Success(nil)
+}
+
 
 // ============================================================================================================================
 // Get All Purchase Orders
@@ -91,7 +204,7 @@ func getAllPurchaseOrders(stub  shim.ChaincodeStubInterface, option string, valu
 	}
 	if strings.ToLower(option) == "ids" {
 		rabAsBytes, _ := json.Marshal(allIds)		
-		return shim.Success(rabAsBytes)	
+		return shim.Success(rabAsBytes)	 
 	} else if strings.ToLower(option) == "details" || strings.ToLower(option) == "created" || strings.ToLower(option) == "approved" || strings.ToLower(option) == "po" || strings.ToLower(option) == "vendors-approved" {
 		rabAsBytes, _ := json.Marshal(allDetails)
 		return shim.Success(rabAsBytes)	
@@ -354,6 +467,8 @@ func getAllLogisticTransactions(stub  shim.ChaincodeStubInterface, option string
 		} else if strings.ToLower(option) == "gin" && strings.ToLower(value) == strings.ToLower(sb.GoodsIssueRefNumber)  {
 			allDetails.LogisticTransactions = append(allDetails.LogisticTransactions, sb);	
 		}	
+		sb = LogisticTransaction{}		
+		sbAsBytes = nil
 	}
 
 	if strings.ToLower(option) == "ids" {
@@ -427,6 +542,8 @@ func getAllVendorSalesOrders(stub  shim.ChaincodeStubInterface, option string, v
 		} else if strings.ToLower(option) == "so" && strings.ToLower(value) == strings.ToLower(sb.SalesOrderNumber) {
 			allDetails.VendorSalesOrders = append(allDetails.VendorSalesOrders, sb);	
 		}
+		sb = VendorSalesOrder{}		
+		sbAsBytes = nil
 	}
 	if strings.ToLower(option) == "ids" {
 		rabAsBytes, _ := json.Marshal(allIds)		
@@ -493,6 +610,8 @@ func getAllGoodsReceiptDetails(stub  shim.ChaincodeStubInterface, option string,
 		} else if strings.ToLower(option) == "so" {
 			allDetails.GoodsReceipts = append(allDetails.GoodsReceipts, sb);	
 		}
+		sb = GoodsReceipt{}		
+		sbAsBytes = nil
 	}
 	if strings.ToLower(option) == "ids" {
 		rabAsBytes, _ := json.Marshal(allIds)		
@@ -567,6 +686,8 @@ func getAllGoodsIssue(stub  shim.ChaincodeStubInterface, option string, value st
 		} else if strings.ToLower(option) == "so" && strings.ToLower(value) ==  strings.ToLower(sb.SalesOrderNumber) {
 			allDetails.GoodsIssueList = append(allDetails.GoodsIssueList, sb)	
 		}
+		sb = GoodsIssue{}		
+		sbAsBytes = nil
 	}
 	if strings.ToLower(option) == "ids" {
 		rabAsBytes, _ := json.Marshal(allIds)		
@@ -643,6 +764,8 @@ func getAllVendorInvoices(stub  shim.ChaincodeStubInterface, option string, valu
 		} else if strings.ToLower(option) == "so" && strings.ToLower(value) == strings.ToLower(sb.SalesOrderNumber) {
 			allDetails.VendorInvoices = append(allDetails.VendorInvoices, sb);
 		}
+		sb = VendorInvoice{}		
+		sbAsBytes = nil
 	}
 
 	if strings.ToLower(option) == "ids" {

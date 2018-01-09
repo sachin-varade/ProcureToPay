@@ -447,8 +447,9 @@ func saveGoodsReceipt(stub  shim.ChaincodeStubInterface, args []string) pb.Respo
 		return shim.Error(err.Error())
 	}
 
-	//Update All Abattoirs Array	
-	allb.GoodsReceiptNumbers = append(allb.GoodsReceiptNumbers, bt.GoodsReceiptNumber)
+	if checkDuplicateId(allb.GoodsReceiptNumbers, args[0]) != 0{
+		allb.GoodsReceiptNumbers = append(allb.GoodsReceiptNumbers, bt.GoodsReceiptNumber)
+	}
 
 	allBuAsBytes, _ := json.Marshal(allb)
 	err = stub.PutState("allGoodsReceiptIds", allBuAsBytes)
