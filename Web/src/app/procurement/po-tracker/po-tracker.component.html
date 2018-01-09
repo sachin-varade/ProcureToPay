@@ -32,6 +32,12 @@
                             <span class="label-field">Vendor Address</span>
                             <span class="value-field">{{this.poTrackingDetails.PurchaseOrders.supplierContactPersonAddress}}</span>
                         </div>
+                        <div class="v-list">
+                            <span class="label-field">Material Details</span>
+                            <span class="value-field" *ngFor="let item of this.poTrackingDetails.VendorSalesOrder.materialList; let i = index" [attr.data-index]="i">
+                                {{item.productName}}
+                            </span>
+                        </div>
                     </div>
                     <div class="po-tracker timeline-wrapper">
                         <ul>
@@ -71,18 +77,30 @@
                                 </div>
                                 <div class="marker"></div>
                             </li>
-                            <li class="{{this.poTrackingDetails.LogisticTransaction.consignmentNumber.length >0 ? 'finished' : ''}}">
+                            <li class="{{this.poTrackingDetails.LogisticTransaction && this.poTrackingDetails.LogisticTransaction.consignmentNumber && this.poTrackingDetails.LogisticTransaction.consignmentNumber.length >0 ? 'finished' : ''}}">
                                 <div class="left-block">
-                                    
+                            
                                 </div>
                                 <div class="right-block">
                                     <h6 class="event-title">Shipping Details</h6>
-                                    <span class="event-time">Consignment Number: <span>{{this.poTrackingDetails.LogisticTransaction.consignmentNumber}}</span></span>
-                                    <span class="event-time">Pickup Date: <span>{{this.poTrackingDetails.LogisticTransaction.pickedupDatetime | date:"short" }}</span></span>
-                                    <span class="event-time">Expected Delivery Date: <span>{{this.poTrackingDetails.LogisticTransaction.expectedDeliveryDatetime | date:"short" }}</span></span>
-                                    <span class="event-time">Actual Delivery Date: <span>{{this.poTrackingDetails.LogisticTransaction.actualDeliveryDatetime | date:"short" }}</span></span>
-                                    <span class="event-time">Hazardous Material: <span>{{this.poTrackingDetails.LogisticTransaction.hazardousMaterial}}</span></span>
-                                    <span class="event-time">Status: <span>{{this.poTrackingDetails.LogisticTransaction.status}}</span></span>
+                                    <span class="event-time">Consignment Number:
+                                        <span>{{this.poTrackingDetails.LogisticTransaction.consignmentNumber}}</span>
+                                    </span>
+                                    <span class="event-time">Pickup Date:
+                                        <span>{{this.poTrackingDetails.LogisticTransaction.pickedupDatetime | date:"short" }}</span>
+                                    </span>
+                                    <span class="event-time">Expected Delivery Date:
+                                        <span>{{this.poTrackingDetails.LogisticTransaction.expectedDeliveryDatetime | date:"short" }}</span>
+                                    </span>
+                                    <span class="event-time">Actual Delivery Date:
+                                        <span>{{this.poTrackingDetails.LogisticTransaction.actualDeliveryDatetime | date:"short" }}</span>
+                                    </span>
+                                    <span class="event-time">Hazardous Material:
+                                        <span>{{this.poTrackingDetails.LogisticTransaction.hazardousMaterial}}</span>
+                                    </span>
+                                    <span class="event-time">Status:
+                                        <span>{{this.poTrackingDetails.LogisticTransaction.status}}</span>
+                                    </span>
                                     <span class="event-party">Logistic Company</span>
                                 </div>
                                 <div class="marker"></div>
