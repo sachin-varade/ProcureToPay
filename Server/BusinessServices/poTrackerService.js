@@ -78,7 +78,7 @@ module.exports = function (procurementService, financeService, logisticService, 
                                 poTrackerEntity.LogisticTransaction = result.logisticTransactions[0];
                             }
                             else{
-                                poTrackerEntity.LogisticTransactions = {};
+                                poTrackerEntity.LogisticTransaction = {};
                             }
 
                             //6. Goods Receipt
