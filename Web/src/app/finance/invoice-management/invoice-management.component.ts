@@ -107,7 +107,8 @@ export class InvoiceManagementComponent implements OnInit {
   clearForm(myForm: NgForm){
     myForm.resetForm();    
     this.financeInvoice = new VendorModels.VendorInvoice();
-    this.financeInvoice.invoiceDate= new Date();
+    this.vendorInvoiceStatus = '';
+    //this.financeInvoice.invoiceDate= new Date();
   }
 
 }

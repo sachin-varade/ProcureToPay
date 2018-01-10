@@ -76,76 +76,103 @@ export class ProcessPaymentComponent implements OnInit {
 
   processPayment(myForm: NgForm){
     let proposals: Array<any> = new Array<any>();
+    let purchaseOrderNumbers: string = "";
     this.paymentProposal.paymentProposalDetails.forEach(element => {
       element.oldStatus = element.status == "Posted" ? "Posted" : "Paid";
       if(element.selectedInUI && element.status.toLocaleLowerCase() != "paid"){
         element.status = "Paid";
         element.bankProcessingDate = new Date();
         proposals.push(element);
+        purchaseOrderNumbers += (purchaseOrderNumbers !== "" ? "," : "");
+        purchaseOrderNumbers += element.poReferenceNumber;
       } 
     });
-
+    console.log(purchaseOrderNumbers);
+    
     if(proposals.length > 0){          
       this.financeService.processPayment(this.paymentProposal)
       .then((results: any) => {
         this.alertService.success("Payment processed for " + this.paymentProposal.paymentProposalNumber);
-        this.getAllPaymentProposals();
-        this.financeService.getAllFinanceInvoices("po-posted", this.paymentProposal.paymentProposalDetails[0].poReferenceNumber)
+        
+        ////////////////////////////// New Method /////////////////////////////
+        this.financeService.updateFinanceInvoiceStatus({purchaseOrderNumbers: purchaseOrderNumbers,
+          status: "Paid",
+          updatedBy: this.currentUser.id,
+          updatedOn: new Date()
+        })
         .then((results: any) => {
-          if(results && results.financeInvoices && results.financeInvoices.length > 0){
-            let invoicesToBePaid: Array<any> = new Array<any>();
-            results.financeInvoices.forEach(invElement => {
-              var invSelected = "0"
-              this.paymentProposal.paymentProposalDetails.forEach(element => {
-                if(element.InvoiceReferenceNumber == invElement.invoiceNumber && element.selectedInUI && element.oldStatus.toLocaleLowerCase() != "paid"){
-                  invSelected = "1";
-                }
-              });
-              if(invSelected == "1"){
-                invElement.statusUpdates.push(      
-                  {
-                    status: "Paid",
-                    updatedBy: this.currentUser.id,
-                    updatedOn: new Date()
-                  }
-                );
-                invoicesToBePaid.push(invElement);
-              }
-            });
+          // this.alertService.success("Finance Invoice Posted for this Purchase Order.");
+          console.log("Finance Invoice Posted for this Purchase Order.");
+          // update PO status
+          this.procurementService.updatePurchaseOrderStatus({purchaseOrderNumbers: purchaseOrderNumbers,
+            status: "Paid",
+            updatedBy: this.currentUser.id,
+            updatedOn: new Date()
+          })
+          .then((results: any) => {
+            //this.alertService.success("Purchase Order updated to Paid."); 
+            console.log("Purchase Order updated to Paid.");
+            this.getAllPaymentProposals();           
+            this.purchaseOrder = new ProcurementModels.PurchaseOrder();
+            this.paymentProposal = new FinanceModels.PaymentProposal();
+          });
 
-            //this.financeInvoice = results.financeInvoices[0];
-            this.financeService.updateFinanceInvoiceList(invoicesToBePaid)
-            .then((results: any) => {
-              //this.alertService.success("Finance Invoice Updated to Paid.");
-
-              // update PO status
-              this.procurementService.getAllPurchaseOrders('id', this.paymentProposal.paymentProposalDetails[0].poReferenceNumber)
-              .then((results: any) => {
-                if(results && results.purchaseOrders && results.purchaseOrders.length > 0){
-                  this.purchaseOrder = results.purchaseOrders[0];
-                  this.purchaseOrder.statusUpdates.push(      
-                    {
-                      status: "Paid",
-                      updatedBy: this.currentUser.id,
-                      updatedOn: new Date()
-                    }
-                  );
-                  this.procurementService.updatePurchaseOrderStatus(this.purchaseOrder)
-                  .then((results: any) => {
-                    //this.alertService.success("Purchase Order updated to Paid.");            
-                    this.purchaseOrder = new ProcurementModels.PurchaseOrder();
-                    this.paymentProposal = new FinanceModels.PaymentProposal();
-                  });
-                }
-              });
-            });
-          }
+          // this.procurementService.getAllPurchaseOrders('id', this.paymentProposal.paymentProposalDetails[0].poReferenceNumber)
+          // .then((results: any) => {
+          //   if(results && results.purchaseOrders && results.purchaseOrders.length > 0){
+          //     this.purchaseOrder = results.purchaseOrders[0];
+          //     this.purchaseOrder.statusUpdates.push(      
+          //       {
+          //         status: "Paid",
+          //         updatedBy: this.currentUser.id,
+          //         updatedOn: new Date()
+          //       }
+          //     );
+             
+          //   }
+          // });
         });
+
+        
+        
+        // this.financeService.getAllFinanceInvoices("po-posted", this.paymentProposal.paymentProposalDetails[0].poReferenceNumber)
+        // .then((results: any) => {
+        //   if(results && results.financeInvoices && results.financeInvoices.length > 0){
+        //     let invoicesToBePaid: Array<any> = new Array<any>();
+        //     results.financeInvoices.forEach(invElement => {
+        //       var invSelected = "0"
+        //       this.paymentProposal.paymentProposalDetails.forEach(element => {
+        //         if(element.InvoiceReferenceNumber == invElement.invoiceNumber && element.selectedInUI && element.oldStatus.toLocaleLowerCase() != "paid"){
+        //           invSelected = "1";
+        //         }
+        //       });
+        //       if(invSelected == "1"){
+        //         invElement.statusUpdates.push(      
+        //           {
+        //             status: "Paid",
+        //             updatedBy: this.currentUser.id,
+        //             updatedOn: new Date()
+        //           }
+        //         );
+        //         invoicesToBePaid.push(invElement);
+        //       }
+        //     });
+
+        //     //this.financeInvoice = results.financeInvoices[0];
+        //     this.financeService.updateFinanceInvoiceList(invoicesToBePaid)
+        //     .then((results: any) => {
+        //       //this.alertService.success("Finance Invoice Updated to Paid.");
+
+              
+        //     });
+        //   }
+        // });
       });
     }
     else{
       this.alertService.error("Please select atleast one payment proposal number.");            
       return false;
     }
+    
   }
 }

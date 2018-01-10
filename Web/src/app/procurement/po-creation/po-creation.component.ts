@@ -32,7 +32,7 @@ export class PoCreationComponent implements OnInit {
     this.procurementService.getPoData()
     .then((results: any) => {
       this.purchaseOrderList = results;
-      this.procurementService.getAllPurchaseOrders('approved')
+      this.procurementService.getAllPurchaseOrders('approved-paid')
       .then((results: any) => {
         if(results.purchaseOrders){
           results.purchaseOrders.forEach(element => {

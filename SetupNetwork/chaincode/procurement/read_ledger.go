@@ -52,10 +52,7 @@ func getAllDashboardData(stub  shim.ChaincodeStubInterface, option string, value
 	var allDetailsGR AllGoodsReceiptDetails
 	var poNumbers string
 	fmt.Println("loop all");
-	var dmyOption string
-	if strings.ToLower(option) != "all" {
-		dmyOption = value
-	}
+	
 	for i := range res.PurchaseOrderNumbers{
 		sbAsBytes, err := stub.GetState(res.PurchaseOrderNumbers[i])
 		if err != nil {
@@ -64,7 +61,7 @@ func getAllDashboardData(stub  shim.ChaincodeStubInterface, option string, value
 		var sb PurchaseOrder
 		json.Unmarshal(sbAsBytes, &sb)
 
-		if filterDate(dmyOption, sb.PurchaseOrderDate) {
+		if filterDate(value, sb.PurchaseOrderDate) {
 			if strings.ToLower(option) == "date-po-numbers" {
 				if poNumbers != ""{
 					poNumbers = poNumbers + ","
@@ -200,6 +197,10 @@ func getAllPurchaseOrders(stub  shim.ChaincodeStubInterface, option string, valu
 			allDetails.PurchaseOrders = append(allDetails.PurchaseOrders, sb);	
 		} else if strings.ToLower(option) == "approved" && strings.ToLower(sb.Status) == "approved" {
 			allDetails.PurchaseOrders = append(allDetails.PurchaseOrders, sb);
+		} else if strings.ToLower(option) == "approved-paid" {
+			if strings.ToLower(sb.Status) == "approved" || strings.ToLower(sb.Status) == "paid" {
+				allDetails.PurchaseOrders = append(allDetails.PurchaseOrders, sb);
+			}
 		} else if strings.ToLower(option) == "po" && strings.ToLower(value) == strings.ToLower(sb.PurchaseOrderNumber) {
 			allDetails.PurchaseOrders = append(allDetails.PurchaseOrders, sb);	
 		} else if strings.ToLower(option) == "vendors-approved" && strings.ToLower(sb.Status) == "approved" && strings.ToLower(value) == strings.ToLower(sb.SupplierUniqueNo) {
@@ -209,7 +210,7 @@ func getAllPurchaseOrders(stub  shim.ChaincodeStubInterface, option string, valu
 	if strings.ToLower(option) == "ids" {
 		rabAsBytes, _ := json.Marshal(allIds)		
 		return shim.Success(rabAsBytes)	 
-	} else if strings.ToLower(option) == "details" || strings.ToLower(option) == "created" || strings.ToLower(option) == "approved" || strings.ToLower(option) == "po" || strings.ToLower(option) == "vendors-approved" {
+	} else if strings.ToLower(option) == "details" || strings.ToLower(option) == "created" || strings.ToLower(option) == "approved" || strings.ToLower(option) == "po" || strings.ToLower(option) == "vendors-approved" || strings.ToLower(option) == "approved-paid" {
 		rabAsBytes, _ := json.Marshal(allDetails)
 		return shim.Success(rabAsBytes)	
 	}

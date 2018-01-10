@@ -194,7 +194,6 @@ func updatePurchaseOrder(stub  shim.ChaincodeStubInterface, args []string) pb.Re
 }
 
 func updatePurchaseOrderStatus(stub  shim.ChaincodeStubInterface, args []string) pb.Response {	
-	var err error
 	fmt.Println("Running updatePurchaseOrder..")
 
 	if len(args) != 4 {
@@ -204,27 +203,32 @@ func updatePurchaseOrderStatus(stub  shim.ChaincodeStubInterface, args []string)
 
 	fmt.Println("Arguments :"+args[0]+","+args[1]+","+args[2]+","+args[3]);
 	
-	var bt PurchaseOrder
-	sbAsBytes, err := stub.GetState(args[0])
-	if err != nil {
-		return shim.Error("Failed to get Purchase Order record.")
-	}
-	json.Unmarshal(sbAsBytes, &bt)
-	bt.PurchaseOrderNumber = args[0]
-	bt.Status = args[1]
-	
-	var st StatusUpdates
-	st.Status = args[1]
-	st.UpdatedBy = args[2]
-	st.UpdatedOn = args[3]
-	bt.StatusUpdates = append(bt.StatusUpdates, st)	
+	if args[0] != "" {
+		p := strings.Split(args[0], ",")
+		for i := range p {
+			var bt PurchaseOrder
+			sbAsBytes, err := stub.GetState(p[i])
+			if err != nil {
+				return shim.Error("Failed to get Purchase Order record.")
+			}
+			json.Unmarshal(sbAsBytes, &bt)
+			bt.PurchaseOrderNumber = p[i]
+			bt.Status = args[1]
+			
+			var st StatusUpdates
+			st.Status = args[1]
+			st.UpdatedBy = args[2]
+			st.UpdatedOn = args[3]
+			bt.StatusUpdates = append(bt.StatusUpdates, st)	
 
-	//Commit Inward entry to ledger
-	fmt.Println("updatePurchaseOrder - Commit Purchase Order To Ledger");
-	btAsBytes, _ := json.Marshal(bt)
-	err = stub.PutState(bt.PurchaseOrderNumber, btAsBytes)
-	if err != nil {
-		return shim.Error(err.Error())
+			//Commit Inward entry to ledger
+			fmt.Println("updatePurchaseOrder - Commit Purchase Order To Ledger");
+			btAsBytes, _ := json.Marshal(bt)
+			err = stub.PutState(bt.PurchaseOrderNumber, btAsBytes)
+			if err != nil {
+				return shim.Error(err.Error())
+			}
+		}
 	}
 
 	return shim.Success(nil)

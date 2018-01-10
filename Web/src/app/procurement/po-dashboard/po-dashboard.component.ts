@@ -14,6 +14,7 @@ export class PoDashboardComponent implements OnInit {
   commonData: any;
   userData: any;
   dashboardData: any;
+  selectedTab: string = "100-y"
   constructor(private user: UserService,
     private procurementService: ProcurementService,
     private alertService: AlertService
@@ -21,11 +22,16 @@ export class PoDashboardComponent implements OnInit {
     this.currentUser = this.user.getUserLoggedIn();
     this.userData = this.user.getUserData();
     this.commonData = this.user.getCommonData();
-    this.getAllDashboardData("1-y");
+    this.getAllDashboardData();
   }
 
-  getAllDashboardData(value){
-    this.procurementService.getAllDashboardData('All', value)
+  changeTab(option){
+    this.selectedTab = option;
+    this.getAllDashboardData();
+  }
+
+  getAllDashboardData(){
+    this.procurementService.getAllDashboardData('pos', this.selectedTab)
     .then((results: any) => {        
       if(results){
         this.dashboardData = results;

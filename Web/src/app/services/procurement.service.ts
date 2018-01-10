@@ -37,9 +37,9 @@ export class ProcurementService {
     });
   }
 
-  updatePurchaseOrderStatus(purchaseOrder: ProcurementModels.PurchaseOrder): Promise<any> {
+  updatePurchaseOrderStatus(obj: any): Promise<any> {
     this.url = `${this.BASE_URL}/updatePurchaseOrderStatus`;
-    return this.http.post(this.url, purchaseOrder).toPromise()
+    return this.http.post(this.url, obj).toPromise()
     .then((results: any) => {
       return results;
     }).catch((err) => {

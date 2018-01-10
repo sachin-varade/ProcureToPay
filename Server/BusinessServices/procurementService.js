@@ -173,14 +173,8 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
         });
     }
 
-    procurementService.updatePurchaseOrderStatus = function(purchaseOrder){
+    procurementService.updatePurchaseOrderStatus = function(obj){
         console.log("updatePurchaseOrderStatus"); 
-        var status, updatedBy, updatedOn = "";
-        if(purchaseOrder.statusUpdates && purchaseOrder.statusUpdates.length > 0){
-            status = purchaseOrder.statusUpdates[purchaseOrder.statusUpdates.length-1].status;
-            updatedBy = purchaseOrder.statusUpdates[purchaseOrder.statusUpdates.length-1].updatedBy.toString();
-            updatedOn = purchaseOrder.statusUpdates[purchaseOrder.statusUpdates.length-1].updatedOn;
-        }      
         return fabric_client.getUserContext(users.procurementUser.enrollmentID, true)
         .then((user_from_store) => {
             helper.checkUserEnrolled(user_from_store);            
@@ -191,10 +185,10 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
                 procurementConfig.channels.procurementchannel.chaincodeId, 
                 "updatePurchaseOrderStatus",  
                 [
-                    purchaseOrder.purchaseOrderNumber,
-                    status,
-                    updatedBy,
-                    updatedOn
+                    obj.purchaseOrderNumbers,
+                    obj.status,
+                    obj.updatedBy.toString(),
+                    obj.updatedOn
                 ]                
             );                
         }).then((results) => {

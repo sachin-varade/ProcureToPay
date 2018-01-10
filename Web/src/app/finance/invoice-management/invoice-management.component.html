@@ -160,9 +160,9 @@
               </div>
           </div>          
           <div class="btn-area">
-              <button type="submit" (click)="clearForm(myForm)" class="btn-border">Cancel</button>            
+              <button type="submit" *ngIf="financeInvoice.invoiceNumber && financeInvoice.currentStatus == 'Created'" (click)="clearForm(myForm)" class="btn-border">Cancel</button>            
               <button type="submit" [disabled]="!myForm.form.valid" *ngIf="financeInvoice.invoiceNumber && financeInvoice.currentStatus == 'Created'" (click)="saveInvoice(myForm);"  class="btn-normal">Park Invoice</button>
-              <button type="submit" [disabled]="!myForm.form.valid" *ngIf="financeInvoice.invoiceNumber && financeInvoice.currentStatus == 'Parked'" (click)="saveInvoice(myForm);"  class="btn-normal">Post Invoice</button>
+              <!-- <button type="submit" [disabled]="!myForm.form.valid" *ngIf="financeInvoice.invoiceNumber && financeInvoice.currentStatus == 'Parked'" (click)="saveInvoice(myForm);"  class="btn-normal">Post Invoice</button> -->
               <!-- <button type="submit" [disabled]="!myForm.form.valid" *ngIf="financeInvoice.currentStatus == 'Posted'" (click)="saveInvoice(myForm);"  class="btn-normal">Submit</button> -->
           </div>
 

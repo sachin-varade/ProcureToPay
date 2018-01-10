@@ -144,7 +144,7 @@ export class GoodsReceiptComponent implements OnInit {
         // });
 
         ////////////////////////////// New Method /////////////////////////////
-        this.financeService.updateFinanceInvoiceStatus({purchaseOrderNumber: this.goodsReceipt.purchaseOrderRefNumber,
+        this.financeService.updateFinanceInvoiceStatus({purchaseOrderNumbers: this.goodsReceipt.purchaseOrderRefNumber,
           status: "Posted",
           updatedBy: this.currentUser.id,
           updatedOn: new Date()
@@ -152,8 +152,8 @@ export class GoodsReceiptComponent implements OnInit {
         .then((results: any) => {
           // this.alertService.success("Finance Invoice Posted for this Purchase Order.");
           console.log("Finance Invoice Posted for this Purchase Order.");
+          this.getGoodsReceipt();
         });
-        this.getGoodsReceipt();
       });
   }
 

@@ -176,7 +176,7 @@ module.exports = function (fabric_client, channels, peers, eventHubPeers, ordere
                 financeConfig.channels.financechannel.chaincodeId, 
                 "updateFinanceInvoiceStatus",  
                 [ 
-                    obj.purchaseOrderNumber,
+                    obj.purchaseOrderNumbers,
                     obj.status,
                     obj.updatedBy.toString(),
                     obj.updatedOn
