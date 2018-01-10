@@ -1196,8 +1196,8 @@
         }
 
         .dashboard-tab ul li{
-            height: 80px;
-            line-height: 80px;
+            height: 75px;
+            line-height: 75px;
             text-align: center;
             color: #606060;
             font-size: 14px;
@@ -1214,8 +1214,8 @@
         }
 
         .dashboard-block{
-            height: 210px;
-            padding: 20px;
+            height: 160px;
+            padding: 0px;
             box-shadow: 0px 0px 12px rgba(0, 0, 0, .2);
             margin: 2%;
             float: left;
@@ -1258,17 +1258,17 @@
         }
 
         .dashboard-block.quarter-block{
-            width: 21%;
+            width: 16%;
         }
 
         .dashboard-block.quarter-block .label-block{
             text-align: center;
             color: #7a7a7a;
-            font-size: 19px;
+            font-size: 15px;
             margin: 0;
             width: 100%;
             position: absolute;
-            top: 140px;
+            top: 90px;
             left: 0;
             padding: 0 20px;
         }

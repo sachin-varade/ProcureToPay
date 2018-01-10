@@ -27,44 +27,69 @@
           </div>
           <div class="dashboard-inner">
             <div class="dashboard-row clearfix">
-              <div class="dashboard-block half-block">
+              <div class="dashboard-block quarter-block">
                 <div class="inner-block">
                   <div class="label-block">Total Purchase Orders</div>
-                  <div *ngIf="dashboardData && dashboardData.purchaseOrdersCount" class="value-block">{{dashboardData.purchaseOrdersCount}}</div>
+                  <div *ngIf="dashboardData && dashboardData.purchaseOrdersCount>=0" class="value-block">{{dashboardData.purchaseOrdersCount}}</div>
                 </div>
               </div>
               <div class="dashboard-block quarter-block">
                 <div class="inner-block">
                   <div class="label-block">Total Sales Order Created</div>
-                  <div *ngIf="dashboardData && dashboardData.vendorSalesOrdersCount" class="value-block">{{dashboardData.vendorSalesOrdersCount}}</div>
+                  <div *ngIf="dashboardData && dashboardData.vendorSalesOrdersCount>=0" class="value-block">{{dashboardData.vendorSalesOrdersCount}}</div>
                 </div>
               </div>
               <div class="dashboard-block quarter-block">
                 <div class="inner-block">
                   <div class="label-block">Pending Purchase Order Approval</div>
-                  <div *ngIf="dashboardData && dashboardData.vendorSalesOrdersCount" class="value-block">{{dashboardData.purchaseOrdersCount - dashboardData.vendorSalesOrdersCount}}</div>
+                  <div *ngIf="dashboardData && dashboardData.vendorSalesOrdersCount>=0" class="value-block">{{dashboardData.purchaseOrdersCount - dashboardData.vendorSalesOrdersCount}}</div>
                 </div>
+              </div>
+              <div class="dashboard-block quarter-block">
+                  <div class="inner-block">
+                    <div class="label-block">Total Goods Issued</div>
+                    <div *ngIf="dashboardData && dashboardData.goodsIssueListCount>=0" class="value-block">{{dashboardData.goodsIssueListCount}}</div>
+                  </div>
+              </div>
+              <div class="dashboard-block quarter-block">
+                  <div class="inner-block">
+                    <div class="label-block">Total Vendor Invoice</div>
+                    <div *ngIf="dashboardData && dashboardData.vendorInvoicesCount>=0" class="value-block">{{dashboardData.vendorInvoicesCount}}</div>
+                  </div>
               </div>
             </div>
 
             <div class="dashboard-row clearfix">
-              <div class="dashboard-block half-block">
+              <div class="dashboard-block quarter-block">
                 <div class="inner-block">
                   <div class="label-block">Total Orders Delivered</div>
-                  <div *ngIf="dashboardData && this.dashboardData.purchaseOrdersPaidCount" class="value-block">{{this.dashboardData.purchaseOrdersPaidCount}}</div>
+                  <div *ngIf="dashboardData && this.dashboardData.purchaseOrdersPaidCount>=0" class="value-block">{{this.dashboardData.purchaseOrdersPaidCount}}</div>
                 </div>
               </div>
               <div class="dashboard-block quarter-block">
                 <div class="inner-block">
                   <div class="label-block">Receipt Generated</div>
-                  <div *ngIf="dashboardData && dashboardData.goodsReceiptsCount" class="value-block">{{dashboardData.goodsReceiptsCount}}</div>
+                  <div *ngIf="dashboardData && dashboardData.goodsReceiptsCount>=0" class="value-block">{{dashboardData.goodsReceiptsCount}}</div>
                 </div>
               </div>
               <div class="dashboard-block quarter-block">
                 <div class="inner-block">
                   <div class="label-block">Receipt Pending</div>
-                  <div *ngIf="dashboardData && dashboardData.goodsReceiptsCount" class="value-block">{{dashboardData.purchaseOrdersCount - dashboardData.goodsReceiptsCount}}</div>
+                  <div *ngIf="dashboardData && dashboardData.goodsReceiptsCount>=0" class="value-block">{{dashboardData.purchaseOrdersCount - dashboardData.goodsReceiptsCount}}</div>
                 </div>
+              </div>
+
+              <div class="dashboard-block quarter-block">
+                  <div class="inner-block">
+                    <div class="label-block">Total Finance Invoice</div>
+                    <div *ngIf="dashboardData && dashboardData.financeInvoicesCount>=0" class="value-block">{{dashboardData.financeInvoicesCount}}</div>
+                  </div>
+              </div>
+              <div class="dashboard-block quarter-block">
+                  <div class="inner-block">
+                    <div class="label-block">Total Payment Proposal</div>
+                    <div *ngIf="dashboardData && dashboardData.paymentProposalsCount>=0" class="value-block">{{dashboardData.paymentProposalsCount}}</div>
+                  </div>
               </div>
             </div>
           </div>

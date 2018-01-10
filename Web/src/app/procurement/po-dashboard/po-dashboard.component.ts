@@ -42,24 +42,38 @@ export class PoDashboardComponent implements OnInit {
         }
         if(this.dashboardData.vendorSalesOrders){
           this.dashboardData.vendorSalesOrdersCount = this.dashboardData.vendorSalesOrders.length;
+        } else{
+          this.dashboardData.vendorSalesOrdersCount = 0;
         }
         if(this.dashboardData.goodsIssueList){
           this.dashboardData.goodsIssueListCount = this.dashboardData.goodsIssueList.length;
+        } else{
+          this.dashboardData.goodsIssueListCount = 0;
         }
         if(this.dashboardData.logisticTransactions){
           this.dashboardData.logisticTransactionsCount = this.dashboardData.logisticTransactions.length;
+        } else{
+          this.dashboardData.logisticTransactionsCount = 0;
         }
         if(this.dashboardData.vendorInvoices){
           this.dashboardData.vendorInvoicesCount = this.dashboardData.vendorInvoices.length;
+        } else{
+          this.dashboardData.vendorInvoicesCount=0;
         }
         if(this.dashboardData.goodsReceipts){
           this.dashboardData.goodsReceiptsCount = this.dashboardData.goodsReceipts.length;
+        } else {
+          this.dashboardData.goodsReceiptsCount = 0;
         }
         if(this.dashboardData.financeInvoices){
           this.dashboardData.financeInvoicesCount = this.dashboardData.financeInvoices.length;
+        } else{
+          this.dashboardData.financeInvoicesCount = 0;
         }
         if(this.dashboardData.paymentProposals){
           this.dashboardData.paymentProposalsCount = this.dashboardData.paymentProposals.length;
+        } else {
+          this.dashboardData.paymentProposalsCount = 0;
         }
       }  
     });
