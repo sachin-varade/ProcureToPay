@@ -246,7 +246,7 @@ module.exports = function (procurementService, financeService, logisticService, 
                                     poEntity.goodsIssueList = result.goodsIssueList;
                                     return procurementService.getAllDashboardData("date-logistic-delivered", value)
                                     .then((result) => {
-                                        if(result.logisticTransactions != undefined && result.logisticTransactions.length > 0 ){
+                                        if(result){
                                             poEntity.logisticTransactions = result.logisticTransactions;
                                             return procurementService.getAllDashboardData("date-vendor-invoice-created", value)
                                             .then((result) => {
@@ -254,7 +254,7 @@ module.exports = function (procurementService, financeService, logisticService, 
                                                     poEntity.vendorInvoices = result.vendorInvoices;
                                                     return procurementService.getAllDashboardData("date-goods-received", value)
                                                     .then((result) => {
-                                                        if(result.goodsReceipts != undefined && result.goodsReceipts.length > 0 ){
+                                                        if(result){
                                                             poEntity.goodsReceipts = result.goodsReceipts;
                                                             return procurementService.getAllDashboardData("date-po-numbers", value)
                                                             .then((result) => {
