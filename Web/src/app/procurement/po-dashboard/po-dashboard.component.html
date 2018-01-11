@@ -41,7 +41,7 @@
               </div>
               <div class="dashboard-block quarter-block">
                 <div class="inner-block">
-                  <div class="label-block">Pending Purchase Order Approval</div>
+                  <div class="label-block">Pending Sales Order Creation</div>
                   <div *ngIf="dashboardData && dashboardData.vendorSalesOrdersCount>=0" class="value-block">{{dashboardData.purchaseOrdersCount - dashboardData.vendorSalesOrdersCount}}</div>
                 </div>
               </div>
@@ -63,7 +63,7 @@
               <div class="dashboard-block quarter-block">
                 <div class="inner-block">
                   <div class="label-block">Total Orders Delivered</div>
-                  <div *ngIf="dashboardData && this.dashboardData.purchaseOrdersPaidCount>=0" class="value-block">{{this.dashboardData.purchaseOrdersPaidCount}}</div>
+                  <div *ngIf="dashboardData && this.dashboardData.logisticTransactionsCount>=0" class="value-block">{{this.dashboardData.logisticTransactionsCount}}</div>
                 </div>
               </div>
               <div class="dashboard-block quarter-block">
